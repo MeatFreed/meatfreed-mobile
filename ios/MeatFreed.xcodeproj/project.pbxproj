@@ -10,6 +10,7 @@
 		01295E3929DC27A40090FB2E /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01295E3829DC27A40090FB2E /* GoogleService-Info.plist */; };
 		0148A1D829DB4EA000EE7828 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0148A1D729DB4EA000EE7828 /* Config.xcconfig */; };
 		0148A1DA29DB53E800EE7828 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0148A1D929DB53E800EE7828 /* BootSplash.storyboard */; };
+		01A0777E29DD767E00B7C633 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01A0777D29DD767E00B7C633 /* AppCenter-Config.plist */; };
 		0C80B921A6F3F58F76C31292 /* libPods-MeatFreed.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DCACB8F33CDC322A6C60F78 /* libPods-MeatFreed.a */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -27,6 +28,7 @@
 		01295E3829DC27A40090FB2E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0148A1D729DB4EA000EE7828 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		0148A1D929DB53E800EE7828 /* BootSplash.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = BootSplash.storyboard; path = MeatFreed/BootSplash.storyboard; sourceTree = "<group>"; };
+		01A0777D29DD767E00B7C633 /* AppCenter-Config.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "AppCenter-Config.plist"; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* MeatFreed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeatFreed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MeatFreed/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = MeatFreed/AppDelegate.mm; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 		13B07FAE1A68108700A75B9A /* MeatFreed */ = {
 			isa = PBXGroup;
 			children = (
+				01A0777D29DD767E00B7C633 /* AppCenter-Config.plist */,
 				01295E3829DC27A40090FB2E /* GoogleService-Info.plist */,
 				0148A1D929DB53E800EE7828 /* BootSplash.storyboard */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
@@ -207,6 +210,7 @@
 				1745BF6755B04160AA657292 /* LibreFranklin-Bold.ttf in Resources */,
 				30F9CF1E6BD047E9944BC3F4 /* LibreFranklin-ExtraBold.ttf in Resources */,
 				81F7B2FBB7EC437A8CDE1D8B /* LibreFranklin-Light.ttf in Resources */,
+				01A0777E29DD767E00B7C633 /* AppCenter-Config.plist in Resources */,
 				2ECE8E58DCE541F69C6AF0A7 /* LibreFranklin-Medium.ttf in Resources */,
 				0148A1D829DB4EA000EE7828 /* Config.xcconfig in Resources */,
 				85B4444CCA8C4D0995A64B7F /* LibreFranklin-Regular.ttf in Resources */,

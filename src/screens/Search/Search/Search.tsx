@@ -1,4 +1,3 @@
-import { usePosition } from 'hooks';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { StyleSheet } from 'react-native';
@@ -25,8 +24,6 @@ const StyledBar = styled.View`
 
 export const Search: React.FC = () => {
   const { t } = useTranslation();
-
-  usePosition();
 
   const currentLocation = useTypedSelector(placeSelectors.currentLocation);
   const hasLocation = useTypedSelector(placeSelectors.hasLocation);

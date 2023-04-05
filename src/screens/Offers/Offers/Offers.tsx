@@ -8,8 +8,8 @@ export const Offers: React.FC = () => {
 
   return (
     <Box f={1} bgc={Colors.basic_100}>
-      <Box bgc={Colors.basic_150} shadowed>
-        <Text ta="center" p={[10, 0]} fs={14} color={Colors.watermelon}>{t('offers.description')}</Text>
+      <Box h="150px" jc="space-between" bgc={Colors.basic_150} shadowed>
+        <Text ta="center" p={[10, 0]} fs={14} color={Colors.watermelon}>{t('learn.description')}</Text>
 
         <Box m={[0, 25, 16]}>
           <SearchBar label={t('labels.restaurant')} placeholder={t('placeholders.search-restaurant')} />

@@ -4,11 +4,16 @@ import { usePostHog } from 'posthog-react-native';
 import { RouteService } from 'services';
 import debounce from 'lodash.debounce';
 import isEqual from 'lodash.isequal';
+import { isDev } from 'helpers';
 
 export const useAnalytics = () => {
   const postHog = usePostHog();
 
   const onScreenView = debounce(async (state?: NavigationState) => {
+    if (isDev) {
+      return;
+    }
+
     const previousRoute = RouteService.navigationRef?.current;
     const currentRoute = state?.routes[state?.index];
 
@@ -28,6 +33,10 @@ export const useAnalytics = () => {
   }, 1000);
 
   const onLogEvent = (event: string, params?: object) => {
+    if (isDev) {
+      return;
+    }
+
     analytics().logEvent(event, params);
     postHog?.capture(event, params);
   };

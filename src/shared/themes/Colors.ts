@@ -17,6 +17,8 @@ export const Colors = {
   darkers: '#003049',
   secondary: '#F6F5F3',
 
+  primary_light: '#70a5c4',
+
   /** GRADIENT */
   gradient_100: '#7153D6',
   gradient_200: '#5AABDE',

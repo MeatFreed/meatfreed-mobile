@@ -6,3 +6,4 @@ export * from './ActivityIndicator/ActivityIndicator';
 export * from './Icon/Icon';
 export * from './SearchBar/SearchBar';
 export * from './MapSearchBar/MapSearchBar';
+export * from './SwipeablePanel/SwipeablePanel';

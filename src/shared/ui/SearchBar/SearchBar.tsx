@@ -106,6 +106,10 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
   useEffect(() => {
     animationWidth.value = isActive ? 1 : 0;
+
+    if (!isActive && rest?.onChangeText) {
+      rest?.onChangeText('');
+    }
   }, [isActive]);
 
   return (
