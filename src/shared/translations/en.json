@@ -1,0 +1,28 @@
+{
+  "screens": {
+    "offers": "My Offers",
+    "referrals": "My Referrals",
+    "membership": "My Membership",
+    "learn": "Learn"
+  },
+  "tabs": {
+    "search": "Search",
+    "offers": "Offers",
+    "learn": "Learn"
+  },
+  "labels": {
+    "restaurant": "Find your Restaurant"
+  },
+  "placeholders": {
+    "search-restaurant": "Start typing restaurant name"
+  },
+  "search": {
+    "description": "View your membership card by \ntapping on a restaurant 👆"
+  },
+  "offers": {
+    "description": "View your personalised offers from us \nand our partner restaurants 🙌"
+  },
+  "learn": {
+    "description": "Learn more about plant-based in your neighborhood \nand around the world 🤓"
+  }
+}

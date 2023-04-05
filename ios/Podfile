@@ -1,0 +1,51 @@
+require_relative '../node_modules/react-native/scripts/react_native_pods'
+require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+
+platform :ios, '13.0'
+install! 'cocoapods', :deterministic_uuids => false, :warn_for_unused_master_specs_repo => false
+
+production = ENV["PRODUCTION"] == "1"
+
+target 'MeatFreed' do
+  config = use_native_modules!
+
+  flags = get_default_flags()
+
+  use_react_native!(
+    :path => config[:reactNativePath],
+    :production => production,
+    :hermes_enabled => false,
+    :fabric_enabled => false,
+    :flipper_configuration => false,
+    :app_path => "#{Pod::Config.instance.installation_root}/.."
+  )
+
+  # React Native Maps dependencies
+  rn_maps_path = '../node_modules/react-native-maps'
+  pod 'react-native-google-maps', :path => rn_maps_path
+
+  # React Native Permissions
+  permissions_path = '../node_modules/react-native-permissions/ios'
+  pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways"
+  
+
+  post_install do |installer|
+    react_native_post_install(installer)
+    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+    installer.pods_project.targets.each do |target|
+      target.build_configurations.each do |config|
+        config.build_settings["ONLY_ACTIVE_ARCH"] = 'NO'
+        config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+      end
+    end
+  
+    installer.pods_project.build_configurations.each do |config|
+      config.build_settings["ONLY_ACTIVE_ARCH"] = 'NO'
+      config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+    end
+
+    installer.pods_project.build_configurations.each do |config|
+      config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+    end
+  end
+end

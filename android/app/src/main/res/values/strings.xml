@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">MeatFreed</string>
+    <string name="map_api_key">@string/MAP_API_KEY</string>
+    <string name="url_schema">@string/URL_SCHEMA</string>
+</resources>
