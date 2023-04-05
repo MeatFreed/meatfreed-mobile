@@ -7,6 +7,8 @@ import { hasNotch as hasTopOffset } from 'react-native-device-info';
 
 export type AnyType = any;
 
+export const isDev = __DEV__;
+
 export const hasNotch = hasTopOffset();
 
 export const noop = () => {};

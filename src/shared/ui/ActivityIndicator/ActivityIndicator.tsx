@@ -16,7 +16,7 @@ export const ActivityIndicator: React.FC<ActivityIndicatorProps> = ({ isVisible 
     animationOut="fadeOut"
   >
     <Box f={1} jc="center" ai="center">
-      <Indicator size="large" color={Colors.white} />
+      <Indicator size="large" color={Colors.purple} />
     </Box>
   </Modal>
 );

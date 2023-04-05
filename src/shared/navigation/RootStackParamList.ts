@@ -1,3 +1,4 @@
+import { RouteProp } from '@react-navigation/native';
 import { Routes } from './Routes';
 
 export type RootStackParamList = {
@@ -11,8 +12,12 @@ export type RootStackParamList = {
   [Routes.SIGN_IN]: undefined;
   [Routes.SIGN_UP]: undefined;
   [Routes.LEARN]: undefined;
-  [Routes.LEARN_DETAILS]: undefined;
+  [Routes.LEARN_DETAILS]: {
+    uid: string;
+  };
   [Routes.SEARCH]: undefined;
   [Routes.OFFER]: undefined;
   [Routes.REFERRAL]: undefined;
 };
+
+export type LearnDetailsProp = RouteProp<RootStackParamList, Routes.LEARN_DETAILS>;

@@ -93,6 +93,10 @@ export const MapSearchBar: React.FC<MapSearchBarProps> = ({
 
   useEffect(() => {
     animationWidth.value = isActive ? 1 : 0;
+
+    if (!isActive && rest?.onChangeText) {
+      rest?.onChangeText('');
+    }
   }, [isActive]);
 
   return (
