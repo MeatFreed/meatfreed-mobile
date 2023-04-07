@@ -16,10 +16,7 @@ export const FontSizes = {
 };
 
 export const FontFamily = {
-  Light: 'LibreFranklin-Light',
-  Regular: 'LibreFranklin-Regular',
-  SemiBold: 'LibreFranklin-SemiBold',
-  Medium: 'LibreFranklin-Medium',
-  Bold: 'LibreFranklin-Bold',
-  ExtraBold: 'LibreFranklin-ExtraBold',
+  Regular: 'DMSans-Regular',
+  Medium: 'DMSans-Medium',
+  Bold: 'Raleway-Bold',
 };

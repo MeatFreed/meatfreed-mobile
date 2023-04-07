@@ -3,12 +3,13 @@ import { StackNavigationOptions, createStackNavigator } from '@react-navigation/
 import LinearGradient from 'react-native-linear-gradient';
 import { AnyType, hasNotch, touchableConfig } from 'helpers';
 import {
-  Box, Colors, FontFamily, FontSizes, Images, Spaces,
+  Box, Colors, FontFamily, Spaces,
 } from 'themes';
 import styled from 'styled-components/native';
 import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { HeaderBackButtonProps } from '@react-navigation/elements';
 import { RouteService } from 'services';
+import { Icon } from 'ui';
 import { RootStackParamList } from './RootStackParamList';
 
 export const Stack = createStackNavigator<RootStackParamList>();
@@ -25,11 +26,6 @@ const IconButton = styled.TouchableOpacity`
   border-radius: 0px;
   align-items: center;
   justify-content: center;
-`;
-
-const Arrow = styled.Image`
-  width: 20px;
-  height: 20px;
 `;
 
 export const tabBarOptions: BottomTabNavigationOptions = {
@@ -80,7 +76,7 @@ export const headerOptions: StackNavigationOptions = {
   headerBackTitleVisible: false,
   headerTintColor: Colors.white,
   headerTitleStyle: {
-    fontSize: FontSizes.xl,
+    fontSize: 20,
     fontFamily: FontFamily.Bold,
     color: Colors.basic_100,
   },
@@ -97,7 +93,36 @@ export const headerOptions: StackNavigationOptions = {
       return (
         <Box ml={Spaces.xs}>
           <IconButton {...touchableConfig} onPress={RouteService.goBack}>
-            <Arrow source={Images.Arrow} style={{ tintColor: Colors.basic_100 }} resizeMode="contain" />
+            <Icon name="arrow-back" size={24} color={Colors.basic_100} />
+          </IconButton>
+        </Box>
+      );
+    }
+
+    return null;
+  },
+};
+
+export const authOptions: StackNavigationOptions = {
+  headerTitleAlign: 'center',
+  headerBackTitleVisible: false,
+  headerTintColor: Colors.white,
+  headerTitleStyle: {
+    fontSize: 20,
+    fontFamily: FontFamily.Bold,
+    color: Colors.basic_800,
+  },
+  headerStyle: {
+    backgroundColor: Colors.white,
+    borderBottomWidth: 1,
+    borderBottomColor: Colors.basic_300,
+  },
+  headerLeft: (props: HeaderBackButtonProps) => {
+    if (props.canGoBack) {
+      return (
+        <Box ml={Spaces.xs}>
+          <IconButton {...touchableConfig} onPress={RouteService.goBack}>
+            <Icon name="arrow-back" size={24} color={Colors.basic_800} />
           </IconButton>
         </Box>
       );

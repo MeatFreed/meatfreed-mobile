@@ -9,3 +9,5 @@ export * from './restaurants/models';
 
 export * from './google/googleApi';
 export * from './google/models';
+
+export * from './user/models';

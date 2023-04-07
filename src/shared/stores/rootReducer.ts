@@ -13,6 +13,8 @@ const userPersistConfig = {
     'firstName',
     'lastName',
     'email',
+    'name',
+    'picture',
     'referrer',
     'referralsCount',
     'provider',

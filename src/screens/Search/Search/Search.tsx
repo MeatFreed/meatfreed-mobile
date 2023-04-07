@@ -11,6 +11,7 @@ import {
   Button,
   Loader,
   MapSearchBar,
+  StatusBar,
 } from 'ui';
 import { useIsFocused } from '@react-navigation/native';
 import { Map, RestaurantPanel } from './ui';
@@ -44,6 +45,8 @@ export const Search: React.FC = () => {
 
   return (
     <Box f={1} bgc={Colors.basic_100}>
+      <StatusBar />
+
       <ActivityIndicator isVisible={isLoading} />
 
       <Box bgc={Colors.basic_150}>

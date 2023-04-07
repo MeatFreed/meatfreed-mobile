@@ -8,7 +8,7 @@ import {
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import { Routes } from './Routes';
-import { Stack, headerOptions } from './NavigationOptions';
+import { Stack, authOptions, headerOptions } from './NavigationOptions';
 import { BottomTabBarNavigator } from './BottomTabBarNavigator';
 
 export const MainNavigator: React.FC = () => {
@@ -31,13 +31,19 @@ export const MainNavigator: React.FC = () => {
       <Stack.Screen
         name={Routes.SIGN_IN}
         component={SignIn}
-        options={{ headerShown: false }}
+        options={{
+          ...authOptions,
+          headerTitle: t('screens.sign-in'),
+        }}
       />
 
       <Stack.Screen
         name={Routes.SIGN_UP}
         component={SignUp}
-        options={{ headerShown: false }}
+        options={{
+          ...authOptions,
+          headerTitle: t('screens.register'),
+        }}
       />
 
       <Stack.Screen

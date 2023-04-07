@@ -6,7 +6,7 @@ import { PortalProvider } from '@gorhom/portal';
 import { RouteService } from 'services';
 import { PostHogProvider } from 'posthog-react-native';
 import Config from 'react-native-config';
-import { useAnalytics } from 'hooks';
+import { useAnalytics, useGoogle } from 'hooks';
 import { Stack } from './NavigationOptions';
 import { Routes } from './Routes';
 import { MainNavigator } from './MainNavigator';
@@ -15,7 +15,11 @@ import { linking } from './Linking';
 export const RootNavigator: React.FC = () => {
   const { onScreenView } = useAnalytics();
 
+  const { configure } = useGoogle();
+
   useEffect(() => {
+    configure();
+
     RNBootSplash.hide({ fade: true });
   }, []);
 

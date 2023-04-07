@@ -7,4 +7,7 @@ export const Images = {
   VideoPoster: require('assets/images/video-poster.png'),
   Logo: require('assets/images/logo.png'),
   Direction: require('assets/images/map.png'),
+  Facebook: require('assets/images/facebook.svg').default,
+  Google: require('assets/images/google.svg').default,
+  Apple: require('assets/images/apple-logo.svg').default,
 };
