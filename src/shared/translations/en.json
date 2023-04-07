@@ -11,16 +11,26 @@
     "offers": "Offers",
     "learn": "Learn"
   },
+  "errors": {
+    "server-unable": "An error occurred. Please try again later"
+  },
   "labels": {
-    "restaurant": "Find your Restaurant"
+    "restaurant": "Find your Restaurant",
+    "name": "Name",
+    "email": "Email"
   },
   "placeholders": {
     "search-restaurant": "Start typing restaurant name"
   },
   "search": {
+    "directions": "Directions",
     "description": "View your membership card by \ntapping on a restaurant 👆"
   },
   "offers": {
+    "refer": "Refer new members and a chance to\n win £",
+    "member": "MeatFreed Member",
+    "status": "Status: {{tier}}",
+    "valid": "Valid until: {{expires}}",
     "description": "View your personalised offers from us \nand our partner restaurants 🙌"
   },
   "learn": {

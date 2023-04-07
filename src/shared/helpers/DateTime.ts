@@ -1,4 +1,10 @@
+import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import dayjs, { Dayjs } from 'dayjs';
+import timezone from 'dayjs/plugin/timezone';
+import utc from 'dayjs/plugin/utc';
+
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 export const DATE_FORMAT = 'YYYY/MM/DD';
 export const ALTERNATIVE_DATE_FORMAT = 'YYYY-MM-DD';
@@ -18,3 +24,5 @@ export const getBasicFormat = (data?: DateTime) => dayjs(data).format(BASIC_FORM
 export const getShortTimeFormat = (data?: DateTime) => dayjs(data).format(SHORT_TIME_FORMAT);
 
 export const parseToLocalTime = (date?: DateTime) => dayjs(date);
+
+export const getLocalTime = (date:FirebaseFirestoreTypes.Timestamp) => dayjs(date?.toDate()).tz('Europe/London').format('D MMMM');

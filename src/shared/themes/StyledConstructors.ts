@@ -94,6 +94,9 @@ export interface StyledProps {
   /** color */
   color?: string;
 
+  /** text-decoration-style */
+  ttds?: string;
+
   /** z-index */
   z?: number;
 

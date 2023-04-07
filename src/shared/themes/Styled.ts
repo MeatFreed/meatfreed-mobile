@@ -18,6 +18,7 @@ export const Text = styled.Text<StyledProps>`
   text-align: ${({ ta }) => ta || 'left'};
   text-transform: ${({ ttf }) => ttf || 'none'};
   text-decoration: ${({ ttd }) => ttd || 'none'};
+  text-decoration-style: ${({ ttds }) => ttds || 'dotted'};
   text-decoration-color: ${({ ttdc }) => ttdc || 'transparent'};
 
   ${(props) => constructSizing(props, 'margin')};
@@ -50,4 +51,11 @@ export const Box = styled.View<StyledProps>`
   ${({ shadowed }) => shadowed && shadow}
 
   z-index: ${({ z }) => z || 1};
+`;
+
+export const HorizontalDivider = styled.View<{ withoutSpace?: boolean, color?: string }>`
+  width: 100%;
+  height: 1px;
+  background-color: ${({ color }) => color || Colors.basic_300};
+  margin-vertical: ${({ withoutSpace }) => (withoutSpace ? '0px' : '12px')};
 `;

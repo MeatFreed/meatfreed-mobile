@@ -9,6 +9,7 @@ import {
 } from 'themes';
 import { Dimensions } from 'react-native';
 import Config from 'react-native-config';
+import FastImage from 'react-native-fast-image';
 import { Icon } from 'ui';
 import { Routes } from 'navigation';
 import { RouteService } from 'services';
@@ -36,7 +37,7 @@ const StyledVideo = styled(Video as AnyType)`
   border-top-right-radius: 24px;
 `;
 
-const StyledImage = styled.Image`
+const StyledImage = styled(FastImage as AnyType)`
   width: 100%;
   height: ${VIDEO_HEIGHT}px;
   border-top-left-radius: 24px;

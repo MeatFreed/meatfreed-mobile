@@ -1,19 +1,19 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { usePosition, useRestaurantActions } from 'hooks';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { StyleSheet } from 'react-native';
-import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { useTypedSelector } from 'stores';
 import { placeSelectors } from 'stores/place';
 import styled from 'styled-components/native';
 import { Box, Colors, Text } from 'themes';
-import { Loader, MapSearchBar } from 'ui';
-
-const defaultLocation = {
-  latitude: 50.1632921,
-  longitude: -5.128192,
-  latitudeDelta: 0.01,
-  longitudeDelta: 0.01,
-};
+import {
+  ActivityIndicator,
+  Button,
+  Loader,
+  MapSearchBar,
+} from 'ui';
+import { useIsFocused } from '@react-navigation/native';
+import { Map, RestaurantPanel } from './ui';
 
 const StyledBar = styled.View`
   position: absolute;
@@ -22,14 +22,30 @@ const StyledBar = styled.View`
   z-index: 9999;
 `;
 
+const StyledLayout = styled.View`
+  position: absolute;
+  bottom: 30px;
+  right: 25px;
+  z-index: 9999;
+`;
+
 export const Search: React.FC = () => {
   const { t } = useTranslation();
 
-  const currentLocation = useTypedSelector(placeSelectors.currentLocation);
+  const isFocused = useIsFocused();
+
+  const { getCurrentLocation } = usePosition();
+
+  const {
+    onRestaurant, debouncedPlaceId, details, isLoading,
+  } = useRestaurantActions();
+
   const hasLocation = useTypedSelector(placeSelectors.hasLocation);
 
   return (
     <Box f={1} bgc={Colors.basic_100}>
+      <ActivityIndicator isVisible={isLoading} />
+
       <Box bgc={Colors.basic_150}>
         <Text ta="center" p={[10, 0]} fs={14} color={Colors.watermelon}>{t('search.description')}</Text>
       </Box>
@@ -46,19 +62,17 @@ export const Search: React.FC = () => {
         </StyledBar>
 
         {hasLocation && (
-          <MapView
-            userInterfaceStyle="light"
-            showsUserLocation
-            showsMyLocationButton={false}
-            region={{
-              ...defaultLocation,
-              latitude: currentLocation?.coords.latitude || defaultLocation.latitude,
-              longitude: currentLocation?.coords.longitude || defaultLocation.longitude,
-            }}
-            style={StyleSheet.absoluteFillObject}
-            showsCompass={false}
-            provider={PROVIDER_GOOGLE}
-          />
+          <StyledLayout>
+            <Button type="action" iconName="my-location" onPress={getCurrentLocation} />
+          </StyledLayout>
+        )}
+
+        {hasLocation && (
+          <Map onRestaurant={(placeId: string) => onRestaurant(placeId)} />
+        )}
+
+        {isFocused && debouncedPlaceId && details && (
+          <RestaurantPanel details={details} placeId={debouncedPlaceId} />
         )}
       </Box>
     </Box>

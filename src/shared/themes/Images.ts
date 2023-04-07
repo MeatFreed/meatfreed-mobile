@@ -5,4 +5,6 @@ export const Images = {
   Learn: require('assets/images/learn.png'),
   Find: require('assets/images/find.png'),
   VideoPoster: require('assets/images/video-poster.png'),
+  Logo: require('assets/images/logo.png'),
+  Direction: require('assets/images/map.png'),
 };

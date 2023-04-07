@@ -6,6 +6,8 @@ export interface UserReducer {
   referrer: string,
   referralsCount: 0,
   provider?: string,
+  picture?: string;
+  name?: string;
 }
 
 export interface UserState {

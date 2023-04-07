@@ -1,4 +1,4 @@
-import BottomSheet, { BottomSheetProps, BottomSheetBackdrop, BottomSheetHandle } from '@gorhom/bottom-sheet';
+import BottomSheet, { BottomSheetProps, BottomSheetBackdrop } from '@gorhom/bottom-sheet';
 import { Portal } from '@gorhom/portal';
 import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
@@ -18,17 +18,12 @@ const styles = StyleSheet.create({
 });
 
 export const SwipeablePanel = React.forwardRef<BottomSheetMethods, SwipeablePanelProps>(
-  ({ children, isShowHandleIndicator = false, ...rest }, ref) => {
+  ({ children, ...rest }, ref) => {
     const { top: topSafeArea } = useSafeAreaInsets();
 
     const renderBackdrop = useCallback(
       (props: AnyType) => <BottomSheetBackdrop {...props} pressBehavior="collapse" />,
       [],
-    );
-
-    const handleComponent = useCallback(
-      (props: AnyType) => (isShowHandleIndicator ? <BottomSheetHandle {...props} /> : null),
-      [isShowHandleIndicator],
     );
 
     return (
@@ -39,9 +34,7 @@ export const SwipeablePanel = React.forwardRef<BottomSheetMethods, SwipeablePane
           backgroundStyle={styles.backgroundStyle}
           topInset={topSafeArea}
           backdropComponent={renderBackdrop}
-          handleHeight={isShowHandleIndicator ? 2 : 0}
           handleIndicatorStyle={undefined}
-          handleComponent={handleComponent}
           animateOnMount
         >
           <Box f={1} p={[0, 10, 30]}>{children}</Box>

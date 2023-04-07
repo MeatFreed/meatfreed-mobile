@@ -7,3 +7,5 @@ export * from './Icon/Icon';
 export * from './SearchBar/SearchBar';
 export * from './MapSearchBar/MapSearchBar';
 export * from './SwipeablePanel/SwipeablePanel';
+export * from './GoogleSearchBar/GoogleSearchBar';
+export * from './Button/Button';
