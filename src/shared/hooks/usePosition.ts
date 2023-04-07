@@ -4,8 +4,11 @@ import { isIOS, withDelay } from 'helpers';
 import { PermissionsService } from 'services';
 import { useTypedDispatch } from 'stores';
 import { setCurrentLocation } from 'stores/place';
+import { useIsFocused } from '@react-navigation/native';
 
 export const usePosition = () => {
+  const isFocused = useIsFocused();
+
   const [isPermissionDenied, setPermissionDenied] = useState(false);
   const [isPermissionGranted, setPermissionGranted] = useState(false);
 
@@ -17,9 +20,24 @@ export const usePosition = () => {
 
   const watchLocation = () => {
     ref.current = watchPosition(
-      (position) => dispatch(setCurrentLocation(position)),
+      (position) => {
+        dispatch(setCurrentLocation(position));
+      },
       undefined,
-      { distanceFilter: 200 },
+      { distanceFilter: 5000, interval: 600000, fastestInterval: 600000 },
+    );
+  };
+
+  const getCurrentLocation = () => {
+    Geolocation.getCurrentPosition(
+      (position) => {
+        dispatch(setCurrentLocation(position));
+      },
+      undefined,
+      {
+        enableHighAccuracy: true,
+        distanceFilter: 10,
+      },
     );
   };
 
@@ -39,6 +57,12 @@ export const usePosition = () => {
   };
 
   useEffect(() => {
+    if (isFocused) {
+      getCurrentLocation();
+    }
+  }, [isFocused]);
+
+  useEffect(() => {
     getPermission();
 
     return () => {
@@ -50,5 +74,6 @@ export const usePosition = () => {
     isPermissionGranted,
     isPermissionDenied,
     getPermission,
+    getCurrentLocation,
   };
 };

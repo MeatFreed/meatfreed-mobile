@@ -23,7 +23,10 @@ const changeLanguage = (newLanguage: string) => {
   i18n.changeLanguage(newLanguage);
 };
 
+const getLanguage = () => i18n.language;
+
 export const LocalizationService = {
   initLocalization,
   changeLanguage,
+  getLanguage,
 };

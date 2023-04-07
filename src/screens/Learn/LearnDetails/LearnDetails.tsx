@@ -12,6 +12,7 @@ import { useRoute } from '@react-navigation/native';
 import { LearnDetailsProp } from 'navigation';
 import { ActivityIndicator } from 'ui';
 import { useGetMomentByUID } from 'hooks';
+import FastImage from 'react-native-fast-image';
 
 const { width } = Dimensions.get('window');
 
@@ -24,7 +25,7 @@ const StyledVideo = styled(Video as AnyType)`
   height: ${VIDEO_HEIGHT}px;
 `;
 
-const StyledImage = styled.Image`
+const StyledImage = styled(FastImage as AnyType)`
   width: 100%;
   height: ${VIDEO_HEIGHT}px;
 `;

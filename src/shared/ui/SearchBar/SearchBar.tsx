@@ -12,6 +12,7 @@ import Animated, {
 } from 'react-native-reanimated';
 import { useWindowDimensions } from '@lumitech/mobile-hooks';
 import { Box, Colors, Images } from 'themes';
+import FastImage from 'react-native-fast-image';
 
 interface SearchBarProps extends TextInputProps {
   fullWidth?: boolean;
@@ -37,7 +38,7 @@ const StyledButton = styled.TouchableOpacity`
   justify-content: center;
 `;
 
-const StyledIcon = styled.Image`
+const StyledIcon = styled(FastImage as AnyType)`
   height: 14px;
   width: 14px;
 `;

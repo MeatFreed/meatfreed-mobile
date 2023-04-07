@@ -3,6 +3,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import i18n from 'i18next';
 import styled from 'styled-components/native';
 import { Images } from 'themes';
+import FastImage from 'react-native-fast-image';
+import { AnyType } from 'helpers';
 import { Routes } from './Routes';
 import { SearchNavigator } from './SearchNavigator';
 import { OfferNavigator } from './OfferNavigator';
@@ -23,7 +25,7 @@ const tabs: { [key: string]: string } = {
   [Routes.LEARN_NAVIGATOR]: i18n.t('tabs.learn'),
 };
 
-const BarIcon = styled.Image`
+const BarIcon = styled(FastImage as AnyType)`
   width: 20px;
   height: 20px;
 `;

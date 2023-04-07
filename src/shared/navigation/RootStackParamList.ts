@@ -15,9 +15,13 @@ export type RootStackParamList = {
   [Routes.LEARN_DETAILS]: {
     uid: string;
   };
-  [Routes.SEARCH]: undefined;
+  [Routes.SEARCH]: {
+    placeId: string;
+  };
   [Routes.OFFER]: undefined;
   [Routes.REFERRAL]: undefined;
 };
 
 export type LearnDetailsProp = RouteProp<RootStackParamList, Routes.LEARN_DETAILS>;
+
+export type SearchProp = RouteProp<RootStackParamList, Routes.SEARCH>;

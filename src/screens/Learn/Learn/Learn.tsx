@@ -15,7 +15,7 @@ export const Learn: React.FC = () => {
 
   return (
     <Box f={1} bgc={Colors.basic_100}>
-      <Box h="150px" jc="space-between" bgc={Colors.basic_150} shadowed>
+      <Box jc="space-between" bgc={Colors.basic_150} shadowed>
         <Text ta="center" p={[10, 0]} fs={14} color={Colors.watermelon}>{t('learn.description')}</Text>
 
         <Box m={[0, 25, 16]}>
@@ -33,9 +33,10 @@ export const Learn: React.FC = () => {
         showsVerticalScrollIndicator={false}
         keyExtractor={({ uid }) => uid}
         onRefresh={onRefresh}
-        contentContainerStyle={{ paddingBottom: 30 }}
+        contentContainerStyle={{ paddingTop: 10, paddingBottom: 30 }}
         refreshing={!!posts.length && isLoading}
         renderItem={({ item: post }) => <PostCard post={post} />}
+        estimatedItemSize={300}
         ListEmptyComponent={isLoading && !!posts.length ? (
           <Loader color={Colors.purple} size="large" />
         ) : null}

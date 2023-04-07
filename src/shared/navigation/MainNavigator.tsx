@@ -1,11 +1,11 @@
 import React from 'react';
 import {
   LearnDetails,
+  Referral,
   SignIn,
   SignUp,
   Welcome,
 } from 'screens';
-import { usePosition } from 'hooks';
 import { useTranslation } from 'react-i18next';
 import { Routes } from './Routes';
 import { Stack, headerOptions } from './NavigationOptions';
@@ -13,8 +13,6 @@ import { BottomTabBarNavigator } from './BottomTabBarNavigator';
 
 export const MainNavigator: React.FC = () => {
   const { t } = useTranslation();
-
-  usePosition();
 
   return (
     <Stack.Navigator>
@@ -40,6 +38,11 @@ export const MainNavigator: React.FC = () => {
         name={Routes.SIGN_UP}
         component={SignUp}
         options={{ headerShown: false }}
+      />
+
+      <Stack.Screen
+        name={Routes.REFERRAL}
+        component={Referral}
       />
 
       <Stack.Screen

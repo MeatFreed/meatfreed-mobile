@@ -28,8 +28,8 @@ const IconButton = styled.TouchableOpacity`
 `;
 
 const Arrow = styled.Image`
-  width: 30px;
-  height: 30px;
+  width: 20px;
+  height: 20px;
 `;
 
 export const tabBarOptions: BottomTabNavigationOptions = {
@@ -80,7 +80,7 @@ export const headerOptions: StackNavigationOptions = {
   headerBackTitleVisible: false,
   headerTintColor: Colors.white,
   headerTitleStyle: {
-    fontSize: FontSizes['2xl'],
+    fontSize: FontSizes.xl,
     fontFamily: FontFamily.Bold,
     color: Colors.basic_100,
   },

@@ -4,8 +4,8 @@ const all = (state: PlaceState) => state.place;
 
 const currentLocation = (state: PlaceState) => all(state).currentLocation;
 
-const hasLocation = (state: PlaceState) => !!all(state).currentLocation?.coords?.latitude
-                                      && !!all(state).currentLocation?.coords?.longitude;
+const hasLocation = (state: PlaceState) => !!all(state).currentLocation?.latitude
+                                      && !!all(state).currentLocation?.longitude;
 
 export const placeSelectors = {
   currentLocation,

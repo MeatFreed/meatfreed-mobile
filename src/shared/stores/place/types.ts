@@ -1,7 +1,10 @@
-import { GeoPosition } from 'react-native-geolocation-service';
+interface Location {
+  latitude: number;
+  longitude: number;
+}
 
 export interface PlaceReducer {
-  currentLocation: GeoPosition | null;
+  currentLocation: Location;
 }
 
 export interface PlaceState {

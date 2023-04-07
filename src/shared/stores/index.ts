@@ -2,12 +2,14 @@ import thunk, { ThunkAction, ThunkDispatch } from 'redux-thunk';
 import { AnyAction, configureStore } from '@reduxjs/toolkit';
 import { persistStore } from 'redux-persist';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
+import { googleApi } from 'api';
 import { rootReducer } from './rootReducer';
 
 const createStore = () => configureStore({
   reducer: rootReducer,
   middleware: [
     thunk,
+    googleApi.middleware,
   ],
 });
 

@@ -38,13 +38,13 @@ export const useGetMomentByUID = (uid: string) => {
       await postCollection.doc(uid).collection('clicks').add({
         time: parseToLocalTime().valueOf(),
         type: 'post',
-        user: user?.uid || 'Anonymous',
+        user: user?.uid || 'anonymous',
         ...(currentLocation && {
-          latitude: currentLocation.coords.latitude,
-          longitude: currentLocation.coords.longitude,
+          latitude: currentLocation.latitude,
+          longitude: currentLocation.longitude,
           geohash: geohashForLocation([
-            currentLocation.coords.latitude,
-            currentLocation.coords.longitude,
+            currentLocation.latitude,
+            currentLocation.longitude,
           ]),
         }),
       });
@@ -62,13 +62,13 @@ export const useGetMomentByUID = (uid: string) => {
       await postCollection.doc(uid).collection('clicks').add({
         time: parseToLocalTime().valueOf(),
         type: 'videoPlay',
-        user: user?.uid || 'Anonymous',
+        user: user?.uid || 'anonymous',
         ...(currentLocation && {
-          latitude: currentLocation.coords.latitude,
-          longitude: currentLocation.coords.longitude,
+          latitude: currentLocation.latitude,
+          longitude: currentLocation.longitude,
           geohash: geohashForLocation([
-            currentLocation.coords.latitude,
-            currentLocation.coords.longitude,
+            currentLocation.latitude,
+            currentLocation.longitude,
           ]),
         }),
       });
