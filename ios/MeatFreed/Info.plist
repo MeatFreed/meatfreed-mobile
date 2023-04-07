@@ -25,6 +25,22 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>fb$(FACEBOOK_APP_ID)</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>$(GOOGLE_IOS_REVERSED_CLIENT_ID)</string>
+			</array>
+		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLName</key>
 			<string>$(URL_SCHEMA)</string>
 			<key>CFBundleURLSchemes</key>
@@ -61,17 +77,18 @@
 		<string>instagram-stories</string>
 		<string>fb</string>
 		<string>facebook-stories</string>
-    <string>message</string>
-    <string>readdle-spark</string>
-    <string>airmail</string>
-    <string>ms-outlook</string>
-    <string>googlegmail</string>
-    <string>inbox-gmail</string>
-    <string>ymail</string>
-    <string>superhuman</string>
-    <string>fastmail</string>
-    <string>protonmail</string>
-    <string>szn-email</string>
+		<string>tel</string>
+		<string>message</string>
+		<string>readdle-spark</string>
+		<string>airmail</string>
+		<string>ms-outlook</string>
+		<string>googlegmail</string>
+		<string>inbox-gmail</string>
+		<string>ymail</string>
+		<string>superhuman</string>
+		<string>fastmail</string>
+		<string>protonmail</string>
+		<string>szn-email</string>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
@@ -93,7 +110,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>$(PRODUCT_NAME) access your location to show nearby partner restaurants and their offers</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME) wants to access your microphone</string>
 	<key>UIAppFonts</key>
@@ -114,13 +131,10 @@
 		<string>Octicons.ttf</string>
 		<string>Zocial.ttf</string>
 		<string>Fontisto.ttf</string>
-		<string>LibreFranklin-Bold.ttf</string>
-		<string>LibreFranklin-ExtraBold.ttf</string>
-		<string>LibreFranklin-Light.ttf</string>
-		<string>LibreFranklin-Medium.ttf</string>
-		<string>LibreFranklin-Regular.ttf</string>
-		<string>LibreFranklin-SemiBold.ttf</string>
 		<string>icomoon.ttf</string>
+		<string>DMSans-Medium.ttf</string>
+		<string>DMSans-Regular.ttf</string>
+		<string>Raleway-Bold.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>BootSplash.storyboard</string>

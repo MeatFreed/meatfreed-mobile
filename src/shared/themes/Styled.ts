@@ -10,6 +10,13 @@ export const shadow = `
   elevation: 5;
 `;
 
+export const socialShadow = `
+  shadow-color: ${Colors.basic_700};
+  shadow-offset: 2px 2px;
+  shadow-opacity: 0.4;
+  elevation: 5;
+`;
+
 export const Text = styled.Text<StyledProps>`
   font-family: ${({ ff }) => ff || FontFamily.Regular};
   font-size: ${({ fs }) => `${fs || 16}px`};

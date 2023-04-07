@@ -2,7 +2,7 @@ import { useGetPosts } from 'hooks';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, Colors, Text } from 'themes';
-import { Loader, SearchBar } from 'ui';
+import { Loader, SearchBar, StatusBar } from 'ui';
 import { FlashList } from '@shopify/flash-list';
 import { PostCard } from './ui';
 
@@ -15,6 +15,7 @@ export const Learn: React.FC = () => {
 
   return (
     <Box f={1} bgc={Colors.basic_100}>
+      <StatusBar />
       <Box jc="space-between" bgc={Colors.basic_150} shadowed>
         <Text ta="center" p={[10, 0]} fs={14} color={Colors.watermelon}>{t('learn.description')}</Text>
 

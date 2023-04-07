@@ -10,7 +10,7 @@ import { Dimensions, ScrollView } from 'react-native';
 import Config from 'react-native-config';
 import { useRoute } from '@react-navigation/native';
 import { LearnDetailsProp } from 'navigation';
-import { ActivityIndicator } from 'ui';
+import { ActivityIndicator, StatusBar } from 'ui';
 import { useGetMomentByUID } from 'hooks';
 import FastImage from 'react-native-fast-image';
 
@@ -41,6 +41,7 @@ export const LearnDetails: React.FC = () => {
 
   return (
     <Box f={1} bgc={Colors.basic_100}>
+      <StatusBar />
       <ScrollView
         showsVerticalScrollIndicator={false}
         contentContainerStyle={{ paddingBottom: 60 }}

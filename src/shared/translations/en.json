@@ -4,7 +4,9 @@
     "referrals": "My Referrals",
     "membership": "My Membership",
     "learn": "Learn",
-    "post-details": "Post Details"
+    "post-details": "Post Details",
+    "sign-in": "Authorization",
+    "register": "Register"
   },
   "tabs": {
     "search": "Search",
@@ -17,10 +19,36 @@
   "labels": {
     "restaurant": "Find your Restaurant",
     "name": "Name",
-    "email": "Email"
+    "email": "Email",
+    "password": "Password",
+    "confirm-password": "Confirm Password"
   },
   "placeholders": {
-    "search-restaurant": "Start typing restaurant name"
+    "search-restaurant": "Start typing restaurant name",
+    "name": "Name",
+    "email": "Email",
+    "password": "Fill your password",
+    "confirm-password": "Fill your confirm password"
+  },
+  "validations": {
+    "email-invalid": "Email is invalid",
+    "name-required": "Name is Required",
+    "email-required": "Email is Required",
+    "password-required": "Password is Required",
+    "confirm-password-required": "Confirm Password is Required",
+    "password-should-match": "Passwords should match"
+  },
+  "authorization": {
+    "or-login-with-socials": "Or login with socials",
+    "agree": "By signing up, you agree to MeatFreed's <0>{{terms}}</0> and <1>{{policy}}</1>",
+    "policy": "Privacy Policy",
+    "terms": "Terms of Service"
+  },
+  "buttons": {
+    "sign-in": "Log in",
+    "register": "Register",
+    "sign-up": "Sign Up",
+    "login": "Login"
   },
   "search": {
     "directions": "Directions",

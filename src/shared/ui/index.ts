@@ -9,3 +9,5 @@ export * from './MapSearchBar/MapSearchBar';
 export * from './SwipeablePanel/SwipeablePanel';
 export * from './GoogleSearchBar/GoogleSearchBar';
 export * from './Button/Button';
+export * from './Input/Input';
+export * from './StatusBar/StatusBar';

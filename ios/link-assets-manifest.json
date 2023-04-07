@@ -2,28 +2,16 @@
   "migIndex": 1,
   "data": [
     {
-      "path": "src/assets/fonts/LibreFranklin-Bold.ttf",
-      "sha1": "214c83cbdbaaa5d9e57fea3253a12ec207030c10"
+      "path": "src/assets/fonts/DMSans-Medium.ttf",
+      "sha1": "afe77e497ca69c2e83ade71a6acb5036393db1f1"
     },
     {
-      "path": "src/assets/fonts/LibreFranklin-ExtraBold.ttf",
-      "sha1": "b433078cb53efec72b1cd29a602b6a3b88e2fa5e"
+      "path": "src/assets/fonts/DMSans-Regular.ttf",
+      "sha1": "f1cf9ed15e1ec1db951c401233655dbbd304c732"
     },
     {
-      "path": "src/assets/fonts/LibreFranklin-Light.ttf",
-      "sha1": "765a101c9ea063910a23739bd0b7a2536dd49440"
-    },
-    {
-      "path": "src/assets/fonts/LibreFranklin-Medium.ttf",
-      "sha1": "d54ec6219cc1bcba979bfad9091ac161d8019eb4"
-    },
-    {
-      "path": "src/assets/fonts/LibreFranklin-Regular.ttf",
-      "sha1": "1a27d969f2e9387bf380fcc7a77e2e560e27a79c"
-    },
-    {
-      "path": "src/assets/fonts/LibreFranklin-SemiBold.ttf",
-      "sha1": "f4c6e02c5102a0804aa64563ce8a28caac9857ca"
+      "path": "src/assets/fonts/Raleway-Bold.ttf",
+      "sha1": "fd799b6fb4aff1a9402e071ab02d1ddea731b868"
     },
     {
       "path": "src/assets/fonts/icomoon.ttf",

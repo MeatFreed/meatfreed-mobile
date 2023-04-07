@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next';
 import {
   Box, Colors, HorizontalDivider, Text,
 } from 'themes';
-import { GoogleSearchBar, Loader } from 'ui';
+import { GoogleSearchBar, Loader, StatusBar } from 'ui';
 import { GlobalOfferCard, RegularOfferCard } from './ui';
 
 export const Offers: React.FC = () => {
@@ -20,6 +20,7 @@ export const Offers: React.FC = () => {
 
   return (
     <Box f={1} bgc={Colors.basic_100}>
+      <StatusBar />
       <Box z={1} jc="space-between" bgc={Colors.basic_150} shadowed>
         <Text ta="center" p={[10, 0]} fs={14} color={Colors.watermelon}>{t('offers.description')}</Text>
 
