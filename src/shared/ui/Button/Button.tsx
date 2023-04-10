@@ -42,10 +42,11 @@ const constructBackgroundColor = (
 
 const StyledButton = styled.TouchableOpacity<{isLoading?: boolean, disabled?: boolean, reversed?: boolean}>`
   background-color: ${({ isLoading, disabled, reversed }) => constructBackgroundColor(isLoading, disabled, reversed)};
-  height: 52px;
+  height: 48px;
   border-radius: 12px;
   justify-content: center;
   align-items: center;
+  flex-direction: row;
 `;
 
 const StyledButtonText = styled.Text<{isLoading?: boolean, disabled?: boolean, reversed?: boolean}>`
@@ -73,7 +74,7 @@ const BorderButtonText = styled.Text<{ reversed?: boolean }>`
 `;
 
 const BorderStyledButton = styled(StyledButton)<{ reversed?: boolean }>`
-  height: 52px;
+  height: 48px;
   padding: 0px 10px;
   justify-content: center;
   align-items: center;
@@ -133,12 +134,12 @@ export const Button: React.FC<ButtonProps> = ({
           </StyledButtonText>
 
           {iconName && (
-          <IconComponent
-            name={iconName}
-            size={24}
-            color={iconColor || Colors.basic_100}
-            style={styles.icon}
-          />
+            <IconComponent
+              name={iconName}
+              size={24}
+              color={iconColor || Colors.basic_100}
+              style={styles.icon}
+            />
           )}
         </>
       )}

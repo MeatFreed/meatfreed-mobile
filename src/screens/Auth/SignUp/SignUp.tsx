@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Box, Colors, FontFamily, FontSizes, Spaces, Text,
@@ -12,6 +12,8 @@ import {
 import { Dimensions } from 'react-native';
 import { Policy, Socials } from 'features';
 import { useSignUp } from 'hooks';
+import { useRoute } from '@react-navigation/native';
+import { SignUpProp } from 'navigation';
 
 const { width } = Dimensions.get('window');
 
@@ -19,15 +21,20 @@ const RegisterSchema = Yup.object().shape({
   name: Yup.string().required('validations.name-required'),
   email: Yup.string().email('validations.email-invalid').required('validations.email-required'),
   password: Yup.string()
-    .required('validations.password-required')
-    .oneOf([Yup.ref('confirm-password'), null], 'validations.password-should-match'),
+    .required('validations.password-required'),
   confirmPassword: Yup.string()
     .required('validations.confirm-password-required')
     .oneOf([Yup.ref('password'), null], 'validations.password-should-match'),
+  referralCode: Yup
+    .string()
+    .min(5, 'validations.referral-code')
+    .max(5, 'validations.referral-code'),
 });
 
 export const SignUp: React.FC = () => {
   const { t } = useTranslation();
+
+  const { params } = useRoute<SignUpProp>();
 
   const [isShowPassword, setIsShowPassword] = useState(false);
   const [isShowConfirmPassword, setIsShowConfirmPassword] = useState(false);
@@ -35,18 +42,25 @@ export const SignUp: React.FC = () => {
   const { isLoading, onSignUp } = useSignUp();
 
   const {
-    errors, values, touched, handleChange, handleBlur, handleSubmit,
+    errors, values, touched, handleChange, handleBlur, handleSubmit, setFieldValue,
   } = useFormik({
     initialValues: {
       name: '',
       email: '',
       password: '',
       confirmPassword: '',
+      referralCode: '',
     },
     validationSchema: RegisterSchema,
     enableReinitialize: true,
     onSubmit: onSignUp,
   });
+
+  useEffect(() => {
+    if (params?.code) {
+      setFieldValue('referralCode', params?.code);
+    }
+  }, [params?.code]);
 
   return (
     <KeyboardAwareView showsVerticalScrollIndicator={false} bounces={false} isScrollable>
@@ -59,7 +73,7 @@ export const SignUp: React.FC = () => {
 
         <Box w={`${width - Spaces['3xl']}px`}>
           <Input
-            value={values.email}
+            value={values.name}
             label={t('labels.name')}
             placeholder={t('placeholders.name')}
             onBlur={handleBlur('email')}
@@ -102,7 +116,7 @@ export const SignUp: React.FC = () => {
 
         <Box w={`${width - Spaces['3xl']}px`}>
           <Input
-            value={values.password}
+            value={values.confirmPassword}
             label={t('labels.confirm-password')}
             placeholder={t('placeholders.confirm-password')}
             onBlur={handleBlur('confirmPassword')}
@@ -117,7 +131,20 @@ export const SignUp: React.FC = () => {
         </Box>
 
         <Box w={`${width - Spaces['3xl']}px`}>
-          <Button title={t('buttons.login').toUpperCase()} isLoading={isLoading} onPress={() => handleSubmit()} />
+          <Input
+            value={values.referralCode}
+            label={t('labels.referral-code')}
+            placeholder={t('placeholders.referral-code')}
+            onBlur={handleBlur('confirmPassword')}
+            onChangeText={handleChange('referralCode')}
+            isError={!!errors.referralCode && !!touched.referralCode}
+            error={errors.referralCode ? t(errors.referralCode) : ''}
+            withBottomOffset
+          />
+        </Box>
+
+        <Box w={`${width - Spaces['3xl']}px`}>
+          <Button title={t('buttons.sign-up').toUpperCase()} isLoading={isLoading} onPress={() => handleSubmit()} />
 
           <Box mt={20}>
             <Text mt={Spaces.md} fs={FontSizes.sm} ta="center" ff={FontFamily.Medium}>{t('authorization.or-login-with-socials')}</Text>

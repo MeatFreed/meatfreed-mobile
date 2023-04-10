@@ -33,6 +33,13 @@
           <category android:name="android.intent.category.BROWSABLE" />
           <data android:scheme="@string/url_schema" />
         </intent-filter>
+
+        <intent-filter android:autoVerify="true">
+          <action android:name="android.intent.action.VIEW" />
+          <category android:name="android.intent.category.DEFAULT" />
+          <category android:name="android.intent.category.BROWSABLE" />
+          <data android:host="@string/host_url" android:scheme="https"/>
+        </intent-filter>
       </activity>
 
       <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>

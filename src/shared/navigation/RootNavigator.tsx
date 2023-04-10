@@ -6,13 +6,16 @@ import { PortalProvider } from '@gorhom/portal';
 import { RouteService } from 'services';
 import { PostHogProvider } from 'posthog-react-native';
 import Config from 'react-native-config';
-import { useAnalytics, useGoogle } from 'hooks';
+import { useAnalytics, useDynamicLinkListener, useGoogle } from 'hooks';
+import { isDev } from 'helpers';
 import { Stack } from './NavigationOptions';
 import { Routes } from './Routes';
 import { MainNavigator } from './MainNavigator';
 import { linking } from './Linking';
 
 export const RootNavigator: React.FC = () => {
+  useDynamicLinkListener();
+
   const { onScreenView } = useAnalytics();
 
   const { configure } = useGoogle();
@@ -31,10 +34,7 @@ export const RootNavigator: React.FC = () => {
           linking={linking}
           onStateChange={onScreenView}
         >
-          <PostHogProvider
-            apiKey={Config.POST_HOG_API_KEY}
-            options={{ host: Config.POST_HOG_API_HOST }}
-          >
+          {isDev ? (
             <Stack.Navigator>
               <Stack.Screen
                 name={Routes.MAIN_NAVIGATOR}
@@ -42,7 +42,20 @@ export const RootNavigator: React.FC = () => {
                 options={{ headerShown: false }}
               />
             </Stack.Navigator>
-          </PostHogProvider>
+          ) : (
+            <PostHogProvider
+              apiKey={Config.POST_HOG_API_KEY}
+              options={{ host: Config.POST_HOG_API_HOST }}
+            >
+              <Stack.Navigator>
+                <Stack.Screen
+                  name={Routes.MAIN_NAVIGATOR}
+                  component={MainNavigator}
+                  options={{ headerShown: false }}
+                />
+              </Stack.Navigator>
+            </PostHogProvider>
+          )}
         </NavigationContainer>
       </PortalProvider>
 

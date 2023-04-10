@@ -25,6 +25,8 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Facebook Sign In</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>fb$(FACEBOOK_APP_ID)</string>
@@ -33,6 +35,8 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Google Sign In</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>$(GOOGLE_IOS_REVERSED_CLIENT_ID)</string>
@@ -42,13 +46,25 @@
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>$(URL_SCHEMA)</string>
+			<string>Url schema</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>$(URL_SCHEMA)</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLName</key>
+			<string>Bundle ID</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>$(BUNDLE_ID)</string>
+			</array>
+		</dict>
 	</array>
+	<key>CFBundleVersion</key>
+	<string>1</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>twitter</string>
@@ -90,8 +106,6 @@
 		<string>protonmail</string>
 		<string>szn-email</string>
 	</array>
-	<key>CFBundleVersion</key>
-	<string>1</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
 	<key>NSAppTransportSecurity</key>
@@ -110,7 +124,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>$(PRODUCT_NAME) access your location to show nearby partner restaurants and their offers</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME) wants to access your microphone</string>
 	<key>UIAppFonts</key>
