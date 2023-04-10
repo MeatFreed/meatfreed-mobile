@@ -12,3 +12,5 @@ export * from './useSignUp';
 export * from './useApple';
 export * from './useFacebook';
 export * from './useGoogle';
+export * from './useDynamicLinkListener';
+export * from './useGetUserByUserId';

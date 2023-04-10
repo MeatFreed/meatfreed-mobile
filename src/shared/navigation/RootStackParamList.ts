@@ -10,7 +10,9 @@ export type RootStackParamList = {
   [Routes.LEARN_NAVIGATOR]: undefined;
   [Routes.WELCOME]: undefined;
   [Routes.SIGN_IN]: undefined;
-  [Routes.SIGN_UP]: undefined;
+  [Routes.SIGN_UP]: {
+    code?: string;
+  };
   [Routes.LEARN]: undefined;
   [Routes.LEARN_DETAILS]: {
     uid: string;
@@ -25,3 +27,5 @@ export type RootStackParamList = {
 export type LearnDetailsProp = RouteProp<RootStackParamList, Routes.LEARN_DETAILS>;
 
 export type SearchProp = RouteProp<RootStackParamList, Routes.SEARCH>;
+
+export type SignUpProp = RouteProp<RootStackParamList, Routes.SIGN_UP>;

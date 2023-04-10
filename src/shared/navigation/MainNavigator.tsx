@@ -49,6 +49,7 @@ export const MainNavigator: React.FC = () => {
       <Stack.Screen
         name={Routes.REFERRAL}
         component={Referral}
+        options={{ ...headerOptions, headerTitle: t('screens.my-referral') }}
       />
 
       <Stack.Screen

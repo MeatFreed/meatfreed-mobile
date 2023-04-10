@@ -6,7 +6,8 @@
     "learn": "Learn",
     "post-details": "Post Details",
     "sign-in": "Authorization",
-    "register": "Register"
+    "register": "Register",
+    "my-referral": "My Referrals"
   },
   "tabs": {
     "search": "Search",
@@ -14,13 +15,16 @@
     "learn": "Learn"
   },
   "errors": {
-    "server-unable": "An error occurred. Please try again later"
+    "server-unable": "An error occurred. Please try again later",
+    "generate-share-link": "Failed to generate share link",
+    "invalid-code": "Code is not valid, try again"
   },
   "labels": {
     "restaurant": "Find your Restaurant",
     "name": "Name",
     "email": "Email",
     "password": "Password",
+    "referral-code": "Referral Code",
     "confirm-password": "Confirm Password"
   },
   "placeholders": {
@@ -28,6 +32,7 @@
     "name": "Name",
     "email": "Email",
     "password": "Fill your password",
+    "referral-code": "Referral Code",
     "confirm-password": "Fill your confirm password"
   },
   "validations": {
@@ -35,6 +40,7 @@
     "name-required": "Name is Required",
     "email-required": "Email is Required",
     "password-required": "Password is Required",
+    "referral-code": "Referral Code must be equal to 5 characters",
     "confirm-password-required": "Confirm Password is Required",
     "password-should-match": "Passwords should match"
   },
@@ -48,7 +54,9 @@
     "sign-in": "Log in",
     "register": "Register",
     "sign-up": "Sign Up",
-    "login": "Login"
+    "login": "Login",
+    "refer": "Refer friends now",
+    "copy": "Copy to clipboard"
   },
   "search": {
     "directions": "Directions",
@@ -63,5 +71,15 @@
   },
   "learn": {
     "description": "Learn more about plant-based in your neighborhood \nand around the world 🤓"
+  },
+  "my-referral": {
+    "scan": "Save the QR code and share it with your friends to make profit",
+    "code": "Referral Code",
+    "link": "Invitation Link",
+    "clipboard": "Your invitation code copied to clipboard",
+    "share": "Join MeatFreed for free using my code {{code}} or link {{link}}",
+    "status": "Status",
+    "members": "{{count}} new members",
+    "registered": "have registered from you"
   }
 }

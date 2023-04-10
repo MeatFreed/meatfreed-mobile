@@ -2,8 +2,11 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable no-bitwise */
 /* eslint-disable no-multi-assign */
-import { Platform } from 'react-native';
+import { Linking, Platform } from 'react-native';
+import i18n from 'i18next';
 import { hasNotch as hasTopOffset } from 'react-native-device-info';
+import dynamicLinks, { FirebaseDynamicLinksTypes } from '@react-native-firebase/dynamic-links';
+import Config from 'react-native-config';
 
 export type AnyType = any;
 
@@ -45,4 +48,58 @@ export const uuid = () => {
   }
 
   return uuids.join('');
+};
+
+export const generateShareLink = async (
+  field: string,
+  value: string,
+) => {
+  try {
+    const generatedLink = await dynamicLinks().buildShortLink({
+      link: `${Config.FIREBASE_DYNAMIC_URL || ''}?${field}=${value}`,
+      domainUriPrefix: Config.FIREBASE_DYNAMIC_URL_PREFIX || '',
+      android: {
+        packageName: Config.BUNDLE_ID || '',
+      },
+      ios: {
+        bundleId: Config.BUNDLE_ID || '',
+        appStoreId: Config.APP_STORE_ID || '',
+      },
+    });
+
+    return generatedLink || '';
+  } catch {
+    return Promise.reject(i18n.t('errors.generate-share-link'));
+  }
+};
+
+export const getFirebaseDeepLinkParam = (
+  firebaseUrl: FirebaseDynamicLinksTypes.DynamicLink | null,
+  isDynamicLink?: boolean,
+) => {
+  if (!firebaseUrl) {
+    return '';
+  }
+
+  const urlParts = firebaseUrl.url.split('?');
+
+  const param = urlParts[1];
+  const parts = param.split('=');
+
+  return {
+    [parts[0]]: parts[1],
+    ...(isDynamicLink ? { isDynamicLink: 'true' } : {}),
+  };
+};
+
+export const openLink = (link: string) => {
+  if (!link) {
+    return;
+  }
+
+  Linking.canOpenURL(link).then((value) => {
+    if (value) {
+      Linking.openURL(link);
+    }
+  });
 };
