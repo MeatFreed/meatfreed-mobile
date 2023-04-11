@@ -12,6 +12,8 @@ import {
 import { ActivityIndicator, StatusBar } from 'ui';
 import { ScrollView } from 'react-native';
 import { ToastService } from 'services';
+import { EventTypes } from 'helpers';
+import dayjs from 'dayjs';
 import { Action } from './ui';
 
 export const Referral: React.FC = () => {
@@ -35,6 +37,13 @@ export const Referral: React.FC = () => {
     Clipboard.setString(user?.referrer);
 
     ToastService.onSuccess({ title: t('my-referral.clipboard'), position: 'bottom' });
+
+    onLogEvent(EventTypes.REFERRAL_CODE_SHARED, {
+      userId,
+      referrerCode: user.referrer,
+      event: EventTypes.REFERRAL_CODE_SHARED,
+      createdAt: dayjs().valueOf(),
+    });
   };
 
   const onShare = async () => {
@@ -49,7 +58,13 @@ export const Referral: React.FC = () => {
     });
 
     if (response.success) {
-      onLogEvent('referral_code_shared', { user: userId });
+      onLogEvent(EventTypes.REFERRAL_LINK_SHARED, {
+        userId,
+        link,
+        referrerCode: user.referrer,
+        event: EventTypes.REFERRAL_LINK_SHARED,
+        createdAt: dayjs().valueOf(),
+      });
     }
   };
 

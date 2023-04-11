@@ -2,7 +2,7 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { AnyType } from 'helpers';
+import { AnyType, EventTypes } from 'helpers';
 import { appleAuth } from '@invertase/react-native-apple-authentication';
 import { useTranslation } from 'react-i18next';
 import { RouteService, ToastService } from 'services';
@@ -11,12 +11,16 @@ import jwtDecode from 'jwt-decode';
 import { FirebaseUser } from 'api';
 import { Routes } from 'navigation';
 import { setUser } from 'stores/user';
+import dayjs from 'dayjs';
 import { useReferralCode } from './useReferralCode';
+import { useAnalytics } from './useAnalytics';
 
 export const useApple = () => {
   const { t } = useTranslation();
 
   const dispatch = useTypedDispatch();
+
+  const { onLogEvent } = useAnalytics();
 
   const { getReferralCode } = useReferralCode();
 
@@ -45,6 +49,13 @@ export const useApple = () => {
           ...response.data(),
           uid: user.uid,
         } as FirebaseUser));
+
+        onLogEvent(EventTypes.SIGN_IN, {
+          userId: user.uid,
+          event: EventTypes.SIGN_IN,
+          provider: 'apple',
+          createdAt: dayjs().valueOf(),
+        });
       } else {
         const code = await getReferralCode();
 
@@ -62,6 +73,13 @@ export const useApple = () => {
         };
 
         await firestore().collection('users').doc(user.uid).set(values);
+
+        onLogEvent(EventTypes.SIGN_UP_WITHOUT_REFERRAL_CODE, {
+          userId: user.uid,
+          event: EventTypes.SIGN_UP_WITHOUT_REFERRAL_CODE,
+          provider: 'apple',
+          createdAt: dayjs().valueOf(),
+        });
 
         dispatch(setUser(values as FirebaseUser));
       }

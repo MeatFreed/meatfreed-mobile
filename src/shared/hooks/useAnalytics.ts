@@ -1,10 +1,11 @@
 import { NavigationState } from '@react-navigation/native';
 import analytics from '@react-native-firebase/analytics';
+import firestore from '@react-native-firebase/firestore';
 import { usePostHog } from 'posthog-react-native';
 import { RouteService } from 'services';
 import debounce from 'lodash.debounce';
 import isEqual from 'lodash.isequal';
-import { isDev } from 'helpers';
+import { AnyType, isDev } from 'helpers';
 
 export const useAnalytics = () => {
   const postHog = usePostHog();
@@ -32,13 +33,15 @@ export const useAnalytics = () => {
     }
   }, 1000);
 
-  const onLogEvent = (event: string, params?: object) => {
+  const onLogEvent = (event: string, params: AnyType = {}) => {
     if (isDev) {
       return;
     }
 
     analytics().logEvent(event, params);
     postHog?.capture(event, params);
+
+    firestore().collection('events').add(params);
   };
 
   return {

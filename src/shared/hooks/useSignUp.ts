@@ -8,13 +8,17 @@ import { FirebaseUser } from 'api';
 import { useTypedDispatch } from 'stores';
 import { Routes } from 'navigation';
 import { setUser } from 'stores/user';
-import { AnyType } from 'helpers';
+import { AnyType, EventTypes } from 'helpers';
+import dayjs from 'dayjs';
 import { useReferralCode } from './useReferralCode';
+import { useAnalytics } from './useAnalytics';
 
 export const useSignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const { t } = useTranslation();
+
+  const { onLogEvent } = useAnalytics();
 
   const dispatch = useTypedDispatch();
 
@@ -47,6 +51,14 @@ export const useSignUp = () => {
           lastName: rest.name,
           referrer: code,
           referralsCount: 0,
+        });
+
+        onLogEvent(EventTypes.SIGN_UP_WITH_REFERRAL_CODE, {
+          userId: user.uid,
+          referralCode,
+          provider: 'form',
+          event: EventTypes.SIGN_UP_WITH_REFERRAL_CODE,
+          createdAt: dayjs().valueOf(),
         });
 
         const referral = response.docs.map((doc) => ({
@@ -85,6 +97,13 @@ export const useSignUp = () => {
         lastName: rest.name,
         referrer: code,
         referralsCount: 0,
+      });
+
+      onLogEvent(EventTypes.SIGN_UP_WITHOUT_REFERRAL_CODE, {
+        userId: user.uid,
+        provider: 'form',
+        event: EventTypes.SIGN_UP_WITHOUT_REFERRAL_CODE,
+        createdAt: dayjs().valueOf(),
       });
 
       RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);

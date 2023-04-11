@@ -2,20 +2,24 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { AnyType, isIOS } from 'helpers';
+import { AnyType, EventTypes, isIOS } from 'helpers';
 import { useTranslation } from 'react-i18next';
 import Config from 'react-native-config';
 import { RouteService, ToastService } from 'services';
 import { useTypedDispatch } from 'stores';
 import { FirebaseUser } from 'api';
 import { Routes } from 'navigation';
+import dayjs from 'dayjs';
 import { setUser } from 'stores/user';
+import { useAnalytics } from './useAnalytics';
 import { useReferralCode } from './useReferralCode';
 
 export const useGoogle = () => {
   const { t } = useTranslation();
 
   const dispatch = useTypedDispatch();
+
+  const { onLogEvent } = useAnalytics();
 
   const { getReferralCode } = useReferralCode();
 
@@ -54,6 +58,13 @@ export const useGoogle = () => {
           ...response.data(),
           uid: user.uid,
         } as FirebaseUser));
+
+        onLogEvent(EventTypes.SIGN_IN, {
+          userId: user.uid,
+          event: EventTypes.SIGN_IN,
+          provider: 'google',
+          createdAt: dayjs().valueOf(),
+        });
       } else {
         const code = await getReferralCode();
 
@@ -67,6 +78,13 @@ export const useGoogle = () => {
         };
 
         await firestore().collection('users').doc(user.uid).set(values);
+
+        onLogEvent(EventTypes.SIGN_UP_WITHOUT_REFERRAL_CODE, {
+          userId: user.uid,
+          event: EventTypes.SIGN_UP_WITHOUT_REFERRAL_CODE,
+          provider: 'google',
+          createdAt: dayjs().valueOf(),
+        });
 
         dispatch(setUser(values as FirebaseUser));
       }
