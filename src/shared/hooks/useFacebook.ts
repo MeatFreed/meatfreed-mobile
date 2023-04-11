@@ -13,7 +13,10 @@ import { RouteService, ToastService } from 'services';
 import { FirebaseUser } from 'api';
 import { Routes } from 'navigation';
 import { setUser } from 'stores/user';
+import { EventTypes } from 'helpers';
+import dayjs from 'dayjs';
 import { useReferralCode } from './useReferralCode';
+import { useAnalytics } from './useAnalytics';
 
 export const useFacebook = () => {
   const { t } = useTranslation();
@@ -21,6 +24,8 @@ export const useFacebook = () => {
   const dispatch = useTypedDispatch();
 
   const { getReferralCode } = useReferralCode();
+
+  const { onLogEvent } = useAnalytics();
 
   const onFacebookSignIn = async () => {
     try {
@@ -49,6 +54,13 @@ export const useFacebook = () => {
           ...response.data(),
           uid: user.uid,
         } as FirebaseUser));
+
+        onLogEvent(EventTypes.SIGN_IN, {
+          userId: user.uid,
+          event: EventTypes.SIGN_IN,
+          provider: 'facebook',
+          createdAt: dayjs().valueOf(),
+        });
       } else {
         const code = await getReferralCode();
 
@@ -62,6 +74,13 @@ export const useFacebook = () => {
         };
 
         await firestore().collection('users').doc(user.uid).set(values);
+
+        onLogEvent(EventTypes.SIGN_UP_WITHOUT_REFERRAL_CODE, {
+          userId: user.uid,
+          event: EventTypes.SIGN_UP_WITHOUT_REFERRAL_CODE,
+          provider: 'facebook',
+          createdAt: dayjs().valueOf(),
+        });
 
         dispatch(setUser(values as FirebaseUser));
       }
