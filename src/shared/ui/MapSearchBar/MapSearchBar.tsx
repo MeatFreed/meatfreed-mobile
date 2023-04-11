@@ -159,7 +159,7 @@ export const MapSearchBar: React.FC<MapSearchBarProps> = ({
               placeholderTextColor: Colors.basic_600,
             }}
             onPress={(data: AnyType, details: AnyType) => {
-              onLogEvent('location_serched', { name: data.description });
+              onLogEvent('location_searched', { name: data.description });
 
               dispatch(setCurrentLocation({
                 coords: {
