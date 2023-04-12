@@ -1,3 +1,4 @@
+/* eslint-disable no-empty */
 /* eslint-disable no-undef */
 /* eslint-disable no-plusplus */
 /* eslint-disable no-bitwise */
@@ -6,6 +7,7 @@ import { Linking, Platform } from 'react-native';
 import i18n from 'i18next';
 import { hasNotch as hasTopOffset } from 'react-native-device-info';
 import dynamicLinks, { FirebaseDynamicLinksTypes } from '@react-native-firebase/dynamic-links';
+import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import Config from 'react-native-config';
 
 export type AnyType = any;
@@ -92,14 +94,12 @@ export const getFirebaseDeepLinkParam = (
   };
 };
 
-export const openLink = (link: string) => {
-  if (!link) {
-    return;
-  }
-
-  Linking.canOpenURL(link).then((value) => {
-    if (value) {
-      Linking.openURL(link);
+export const openLink = async (link: string) => {
+  try {
+    if (await InAppBrowser.isAvailable()) {
+      await InAppBrowser.open(link);
+    } else {
+      await Linking.openURL(link);
     }
-  });
+  } catch {}
 };
