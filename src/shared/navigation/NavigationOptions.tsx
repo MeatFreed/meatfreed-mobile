@@ -1,7 +1,9 @@
 import React from 'react';
 import { StackNavigationOptions, createStackNavigator } from '@react-navigation/stack';
 import LinearGradient from 'react-native-linear-gradient';
-import { AnyType, hasNotch, touchableConfig } from 'helpers';
+import {
+  AnyType, hasNotch, openLink, touchableConfig,
+} from 'helpers';
 import {
   Box, Colors, FontFamily, Spaces,
 } from 'themes';
@@ -10,7 +12,10 @@ import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { HeaderBackButtonProps } from '@react-navigation/elements';
 import { RouteService } from 'services';
 import { Icon } from 'ui';
+import Config from 'react-native-config';
 import { RootStackParamList } from './RootStackParamList';
+
+const { LIVE_CHAT_URL, LIVE_CHAT_LICENSE } = Config as AnyType;
 
 export const Stack = createStackNavigator<RootStackParamList>();
 
@@ -101,6 +106,13 @@ export const headerOptions: StackNavigationOptions = {
 
     return null;
   },
+  headerRight: () => (
+    <Box mr={Spaces.xs}>
+      <IconButton {...touchableConfig} onPress={() => openLink(`${LIVE_CHAT_URL}=${LIVE_CHAT_LICENSE}`)}>
+        <Icon name="message-circle-outline" size={24} color={Colors.basic_100} />
+      </IconButton>
+    </Box>
+  ),
 };
 
 export const authOptions: StackNavigationOptions = {
