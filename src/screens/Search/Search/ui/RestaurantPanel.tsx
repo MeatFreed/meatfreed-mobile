@@ -128,7 +128,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ placeId, detai
             />
 
             <Box ml={16} f={1}>
-              <Text fnw="bold" ff={FontFamily.Bold} color={Colors.basic_800}>{details.name}</Text>
+              <Text fnw="bold" ff={FontFamily.DMSansBold} color={Colors.basic_800}>{details.name}</Text>
 
               <Box ai="center" f={1} jc="space-between" fd="row">
                 <Box ai="center" fd="row">
@@ -187,10 +187,10 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ placeId, detai
           </Box>
 
           <Box>
-            {user?.picture && (
+            {user?.photoURL && (
               <Picture>
                 <FastImage
-                  source={{ uri: user?.picture }}
+                  source={{ uri: user?.photoURL }}
                   style={{
                     width: 80, height: 80, borderRadius: 40, backgroundColor: Colors.basic_200,
                   }}
@@ -203,7 +203,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ placeId, detai
             )}
 
             <StyledGradient
-              mt={user?.picture ? '56px' : '10px'}
+              mt={user?.photoURL ? '56px' : '10px'}
               locations={[0.46, 1]}
               start={{ x: 0, y: 0 }}
               end={{ x: 1, y: 0 }}

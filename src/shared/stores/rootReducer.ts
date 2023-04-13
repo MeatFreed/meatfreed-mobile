@@ -14,7 +14,7 @@ const userPersistConfig = {
     'lastName',
     'email',
     'name',
-    'picture',
+    'photoURL',
     'referrer',
     'referralsCount',
     'provider',

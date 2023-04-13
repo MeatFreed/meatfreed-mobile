@@ -2,6 +2,7 @@ import React from 'react';
 import {
   LearnDetails,
   Referral,
+  Settings,
   SignIn,
   SignUp,
   Welcome,
@@ -56,6 +57,15 @@ export const MainNavigator: React.FC = () => {
         name={Routes.LEARN_DETAILS}
         component={LearnDetails}
         options={{ ...headerOptions, headerTitle: t('screens.post-details') }}
+      />
+
+      <Stack.Screen
+        name={Routes.SETTINGS}
+        component={Settings}
+        options={{
+          ...headerOptions,
+          headerTitle: t('screens.settings'),
+        }}
       />
     </Stack.Navigator>
   );

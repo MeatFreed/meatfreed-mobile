@@ -21,7 +21,7 @@ export const Offers: React.FC = () => {
   return (
     <Box f={1} bgc={Colors.basic_100}>
       <StatusBar />
-      <Box z={1} jc="space-between" bgc={Colors.basic_150} shadowed>
+      <Box z={1} jc="space-between" bgc={Colors.basic_200} shadowed>
         <Text ta="center" p={[10, 0]} fs={14} color={Colors.watermelon}>{t('offers.description')}</Text>
 
         <Box m={[0, 25, 16]}>

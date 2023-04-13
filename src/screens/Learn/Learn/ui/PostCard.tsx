@@ -95,7 +95,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post }) => (
               <StyledBlur>
                 <Box p={[0, 12]} f={1} fd="row" ai="center">
                   <Box f={1}>
-                    <Text mr={8} numberOfLines={2} fnw="700" ff={FontFamily.Bold} color={Colors.basic_100}>{post.title}</Text>
+                    <Text mr={8} numberOfLines={2} fnw="700" ff={FontFamily.DMSansBold} color={Colors.basic_100}>{post.title}</Text>
                   </Box>
 
                   <Icon name="arrow-forward" size={24} color={Colors.white} />

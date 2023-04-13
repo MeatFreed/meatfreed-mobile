@@ -11,3 +11,4 @@ export * from './GoogleSearchBar/GoogleSearchBar';
 export * from './Button/Button';
 export * from './Input/Input';
 export * from './StatusBar/StatusBar';
+export * from './Avatar/Avatar';

@@ -16,7 +16,8 @@ export const FontSizes = {
 };
 
 export const FontFamily = {
-  Regular: 'DMSans-Regular',
-  Medium: 'DMSans-Medium',
-  Bold: 'Raleway-Bold',
+  DMSansRegular: 'DMSans-Regular',
+  DMSansMedium: 'DMSans-Medium',
+  DMSansBold: 'DMSans-Bold',
+  RalewayBold: 'Raleway-Bold',
 };

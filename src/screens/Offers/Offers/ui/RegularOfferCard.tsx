@@ -50,7 +50,7 @@ export const RegularOfferCard: React.FC<RegularOfferCardProps> = ({ offer, onPre
         {!offer?.place_id && !offer?.image}
 
         <Box jc="center" ml={16} f={1}>
-          <Text fs={18} fnw="600" ff={FontFamily.Medium} color={Colors.basic_800}>{offer.description}</Text>
+          <Text fs={18} fnw="600" ff={FontFamily.DMSansMedium} color={Colors.basic_800}>{offer.description}</Text>
 
           {offer.expires && (
             <Text mt={8} color={Colors.purple} fs={12} fnw="500">{t('offers.valid', { expires: offer.expires })}</Text>

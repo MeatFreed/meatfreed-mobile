@@ -51,6 +51,7 @@ export const useSignUp = () => {
           lastName: rest.name,
           referrer: code,
           referralsCount: 0,
+          photoURL: '',
         });
 
         onLogEvent(EventTypes.SIGN_UP_WITH_REFERRAL_CODE, {
@@ -78,6 +79,7 @@ export const useSignUp = () => {
           lastName: rest.name,
           referrer: code,
           referralsCount: 0,
+          photoURL: '',
         } as unknown as FirebaseUser));
 
         RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
@@ -97,7 +99,19 @@ export const useSignUp = () => {
         lastName: rest.name,
         referrer: code,
         referralsCount: 0,
+        photoURL: '',
       });
+
+      dispatch(setUser({
+        ...rest,
+        uid: user.uid,
+        email,
+        firstName: rest.name,
+        lastName: rest.name,
+        referrer: code,
+        referralsCount: 0,
+        photoURL: '',
+      } as unknown as FirebaseUser));
 
       onLogEvent(EventTypes.SIGN_UP_WITHOUT_REFERRAL_CODE, {
         userId: user.uid,

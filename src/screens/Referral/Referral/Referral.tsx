@@ -83,7 +83,7 @@ export const Referral: React.FC = () => {
 
         {link && (
           <Box ai="center">
-            <Text fnw="500" ff={FontFamily.Medium} ta="center" color={Colors.basic_700} mb={20}>{t('my-referral.scan')}</Text>
+            <Text fnw="500" ff={FontFamily.DMSansMedium} ta="center" color={Colors.basic_700} mb={20}>{t('my-referral.scan')}</Text>
 
             <QRCode size={120} value={link} />
           </Box>

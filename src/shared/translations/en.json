@@ -7,17 +7,21 @@
     "post-details": "Post Details",
     "sign-in": "Authorization",
     "register": "Register",
-    "my-referral": "My Referrals"
+    "my-referral": "My Referrals",
+    "profile": "Profile",
+    "settings": "Settings"
   },
   "tabs": {
     "search": "Search",
     "offers": "Offers",
-    "learn": "Learn"
+    "learn": "Learn",
+    "profile": "Profile"
   },
   "errors": {
     "server-unable": "An error occurred. Please try again later",
     "generate-share-link": "Failed to generate share link",
-    "invalid-code": "Code is not valid, try again"
+    "invalid-code": "Code is not valid, try again",
+    "reauthenticate": "Please re-authenticate to delete your account",
   },
   "labels": {
     "restaurant": "Find your Restaurant",
@@ -25,7 +29,9 @@
     "email": "Email",
     "password": "Password",
     "referral-code": "Referral Code",
-    "confirm-password": "Confirm Password"
+    "confirm-password": "Confirm Password",
+    "first-name": "First Name",
+    "last-name": "Last Name"
   },
   "placeholders": {
     "search-restaurant": "Start typing restaurant name",
@@ -33,13 +39,20 @@
     "email": "Email",
     "password": "Fill your password",
     "referral-code": "Referral Code",
-    "confirm-password": "Fill your confirm password"
+    "confirm-password": "Fill your confirm password",
+    "first-name": "First Name",
+    "last-name": "Last Name"
   },
   "validations": {
     "email-invalid": "Email is invalid",
-    "name-required": "Name is Required",
-    "email-required": "Email is Required",
+    "email-required": "Email is required",
     "password-required": "Password is Required",
+    "name-short": "First name is too short",
+    "name-long": "First name is too long",
+    "name-required": "First name is required",
+    "last-name-short": "Last name is too short",
+    "last-name-long": "Last name is too long",
+    "last-name-required": "Last name is required",
     "referral-code": "Referral Code must be equal to 5 characters",
     "confirm-password-required": "Confirm Password is Required",
     "password-should-match": "Passwords should match"
@@ -56,7 +69,11 @@
     "sign-up": "Sign Up",
     "login": "Login",
     "refer": "Refer friends now",
-    "copy": "Copy to clipboard"
+    "copy": "Copy to clipboard",
+    "logout": "Logout",
+    "delete-account": "Delete Account",
+    "save": "Save",
+    "delete-my-account": "Delete my account"
   },
   "search": {
     "directions": "Directions",
@@ -81,5 +98,25 @@
     "status": "Status",
     "members": "{{count}} new members",
     "registered": "have registered from you"
+  },
+  "count": {
+    "shared": "Referral code\nshared",
+    "members": "New\nmembers"
+  },
+  "menu": {
+    "logout": "Logout",
+    "delete-account": "Delete Account",
+    "settings": "Settings"
+  },
+  "profile": {
+    "add-photo": "Add Photo"
+  },
+  "delete-profile": {
+    "title": "Are you sure?",
+    "description": "All of your Backed data will be permanently deleted."
+  },
+  "settings": {
+    "general": "General",
+    "main-contacts": "Main Contacts"
   }
 }

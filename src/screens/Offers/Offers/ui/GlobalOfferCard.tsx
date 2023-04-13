@@ -29,7 +29,7 @@ export const GlobalOfferCard: React.FC<GlobalOfferCardProps> = ({ offer, onPress
         <StyledImage source={Images.Logo} resizeMode={FastImage.resizeMode.contain} />
 
         <Box jc="center" ml={16} f={1}>
-          <Text fs={18} fnw="600" ff={FontFamily.Medium} color={Colors.basic_800}>{offer.description}</Text>
+          <Text fs={18} fnw="600" ff={FontFamily.DMSansMedium} color={Colors.basic_800}>{offer.description}</Text>
 
           {offer.expires && (
             <Text>{t('offers.valid', { expires: offer.expires })}</Text>

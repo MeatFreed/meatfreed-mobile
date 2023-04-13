@@ -68,7 +68,7 @@ export const LearnDetails: React.FC = () => {
 
         <Box p={[16, 16, 0]}>
           {post.title && (
-            <Text fs={FontSizes.xl} fnw="700" ff={FontFamily.Bold} color={Colors.basic_800}>{post.title}</Text>
+            <Text fs={FontSizes.xl} fnw="700" ff={FontFamily.DMSansBold} color={Colors.basic_800}>{post.title}</Text>
           )}
 
           {post.subtitle && (

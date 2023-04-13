@@ -20,8 +20,20 @@ export const Colors = {
   primary_secondary: '#444F6F',
   tertiary: '#6E7791',
 
-  primary_light: '#70a5c4',
+  primary_light: '#A997E6',
   marker: '#0C0429',
+
+  /** PRIMARY  */
+
+  primary_100: '#e2dcf6',
+  primary_200: '#b8a9ea',
+  primary_300: '#9b86e2',
+  primary_400: '#7f64da',
+  primary_500: '#7153d6',
+  primary_600: '#654ac0',
+  primary_700: '#4f3a95',
+  primary_800: '#433180',
+  primary_900: '#38296b',
 
   /** GRADIENT */
   gradient_100: '#7153D6',
@@ -30,13 +42,11 @@ export const Colors = {
   /** BASIC */
 
   basic_100: '#FFFFFF',
-  basic_150: '#F7F9FC',
-  basic_200: '#F4F4F4',
-  basic_300: '#CCD4DE',
-  basic_400: '#8E99B0',
-  basic_500: '#627191',
-  basic_600: '#41506D',
-  basic_650: '#6D7D9D',
+  basic_200: '#F7F9FC',
+  basic_300: '#EDF1F7',
+  basic_400: '#E4E9F2',
+  basic_500: '#C5CEE0',
+  basic_600: '#6D7D9D',
   basic_700: '#2E3A59',
   basic_800: '#222B45',
   basic_900: '#192038',
