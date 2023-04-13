@@ -13,11 +13,13 @@ export const adaptOffers = (
 
       if (date.getTime() >= new Date().getTime()) {
         offer.expires = getLocalTime(offer?.expires) as AnyType;
+      } else {
+        return null;
       }
     }
 
     return offer;
-  });
+  }).filter(Boolean);
 
-  return offers;
+  return offers as Offer[];
 };
