@@ -70,7 +70,9 @@ export const useGoogle = () => {
 
         const values = {
           uid: user.uid,
-          name: displayName?.[0] || '',
+          firstName: displayName?.[0] || '',
+          lastName: displayName?.[1] || '',
+          photoURL: user?.photoURL || '',
           email: user?.email || '',
           referralsCount: 0,
           referrer: code,

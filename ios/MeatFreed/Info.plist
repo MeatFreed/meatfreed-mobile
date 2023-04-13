@@ -139,6 +139,12 @@
 	<string>$(PRODUCT_NAME) access your location to show nearby partner restaurants and their offers</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME) wants to access your microphone</string>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like access to your camera to change your profile picture.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like access to your photo gallery to change your profile picture.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like access to your photo gallery to change your profile picture.</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -161,6 +167,7 @@
 		<string>DMSans-Medium.ttf</string>
 		<string>DMSans-Regular.ttf</string>
 		<string>Raleway-Bold.ttf</string>
+		<string>DMSans-Bold.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>BootSplash.storyboard</string>

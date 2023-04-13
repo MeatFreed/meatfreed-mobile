@@ -6,7 +6,9 @@ import { PortalProvider } from '@gorhom/portal';
 import { RouteService } from 'services';
 import { PostHogProvider } from 'posthog-react-native';
 import Config from 'react-native-config';
-import { useAnalytics, useDynamicLinkListener, useGoogle } from 'hooks';
+import {
+  useAnalytics, useAuthStateChanged, useDynamicLinkListener, useGoogle,
+} from 'hooks';
 import { isDev } from 'helpers';
 import { Stack } from './NavigationOptions';
 import { Routes } from './Routes';
@@ -15,6 +17,8 @@ import { linking } from './Linking';
 
 export const RootNavigator: React.FC = () => {
   useDynamicLinkListener();
+
+  useAuthStateChanged();
 
   const { onScreenView } = useAnalytics();
 

@@ -8,6 +8,7 @@ export type RootStackParamList = {
   [Routes.SEARCH_NAVIGATOR]: undefined;
   [Routes.OFFER_NAVIGATOR]: undefined;
   [Routes.LEARN_NAVIGATOR]: undefined;
+  [Routes.PROFILE_NAVIGATOR]: undefined;
   [Routes.WELCOME]: undefined;
   [Routes.SIGN_IN]: undefined;
   [Routes.SIGN_UP]: {
@@ -22,6 +23,8 @@ export type RootStackParamList = {
   };
   [Routes.OFFER]: undefined;
   [Routes.REFERRAL]: undefined;
+  [Routes.PROFILE]: undefined;
+  [Routes.SETTINGS]: undefined;
 };
 
 export type LearnDetailsProp = RouteProp<RootStackParamList, Routes.LEARN_DETAILS>;

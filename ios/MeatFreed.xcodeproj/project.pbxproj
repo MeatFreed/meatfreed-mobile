@@ -20,6 +20,7 @@
 		2582E221C0EA43C7A1F4AFA1 /* DMSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E74542BAA074DB1BDAA7DD3 /* DMSans-Regular.ttf */; };
 		3FF53BB6C3F86815E44A3309 /* libPods-MeatFreed.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D95838338D2580444EAD92A /* libPods-MeatFreed.a */; };
 		E1331B530AA247BE9EF85F13 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6D8B2C8F17147A7A4E811A9 /* Raleway-Bold.ttf */; };
+		7D1E03C9715A46D888BECED0 /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21E7E2282AA445FF95266BD5 /* DMSans-Bold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		BF119CA75A374C35A44FB47D /* DMSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Medium.ttf"; path = "../src/assets/fonts/DMSans-Medium.ttf"; sourceTree = "<group>"; };
 		D21FED989707746DFF1FEBB1 /* Pods-MeatFreed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatFreed.debug.xcconfig"; path = "Target Support Files/Pods-MeatFreed/Pods-MeatFreed.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		21E7E2282AA445FF95266BD5 /* DMSans-Bold.ttf */ = {isa = PBXFileReference; name = "DMSans-Bold.ttf"; path = "../src/assets/fonts/DMSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -123,6 +125,7 @@
 				BF119CA75A374C35A44FB47D /* DMSans-Medium.ttf */,
 				2E74542BAA074DB1BDAA7DD3 /* DMSans-Regular.ttf */,
 				A6D8B2C8F17147A7A4E811A9 /* Raleway-Bold.ttf */,
+				21E7E2282AA445FF95266BD5 /* DMSans-Bold.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -207,6 +210,7 @@
 				02BAE53286C44DE48CBD29F0 /* DMSans-Medium.ttf in Resources */,
 				2582E221C0EA43C7A1F4AFA1 /* DMSans-Regular.ttf in Resources */,
 				E1331B530AA247BE9EF85F13 /* Raleway-Bold.ttf in Resources */,
+				7D1E03C9715A46D888BECED0 /* DMSans-Bold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

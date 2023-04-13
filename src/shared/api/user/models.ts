@@ -10,6 +10,7 @@ export interface FirebaseUser {
   referralsCount: 0,
   provider?: string,
   picture?: string;
+  photoURL?: string;
   name?: string;
   referrals?: string[]
 }

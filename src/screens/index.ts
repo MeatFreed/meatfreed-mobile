@@ -3,3 +3,4 @@ export * from './Search';
 export * from './Offers';
 export * from './Learn';
 export * from './Referral';
+export * from './Profile';

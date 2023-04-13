@@ -109,7 +109,7 @@ const StyledInput = styled.TextInput<StyledInputProps>`
     isFocused, isError, accent,
   }) => constructBorderColor(isFocused, isError, accent)
 };
-  font-family: ${FontFamily.Regular}
+  font-family: ${FontFamily.DMSansRegular}
   border-top-left-radius: 8px;
   border-top-right-radius: ${({ isRemoveRightRounded }) => (isRemoveRightRounded ? '0px' : '8px')};
   border-bottom-left-radius: 8px;
@@ -151,15 +151,13 @@ export const Input = React.forwardRef<TextInput | undefined, InputProps>(({
   isSmall,
   withBottomOffset,
   isWhite,
-  isImportant,
-  description,
   ...rest
 }, ref) => {
   const [isFocused, setFocused] = useState(false);
 
   return (
     <Box w={fullWidth ? '100%' : 'auto'} mb={withBottomOffset ? Spaces.md : 0}>
-      <Label label={label} description={description} isImportant={isImportant} isError={isError} />
+      <Label label={label} isError={isError} />
 
       {!!LeftIcon && (
         <LeftIconBox withLabel={!!label} isSmall={isSmall} isSearch={isSearch}>

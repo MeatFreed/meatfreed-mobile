@@ -49,7 +49,7 @@ export const Search: React.FC = () => {
 
       <ActivityIndicator isVisible={isLoading} />
 
-      <Box bgc={Colors.basic_150}>
+      <Box bgc={Colors.basic_200}>
         <Text ta="center" p={[10, 0]} fs={14} color={Colors.watermelon}>{t('search.description')}</Text>
       </Box>
 

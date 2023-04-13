@@ -45,7 +45,7 @@ export const SignIn: React.FC = () => {
 
       <Box f={1} ai="center" bgc={Colors.basic_100}>
         <Box m={[30, 0]}>
-          <Text fs={56} fnw="bold" ff={FontFamily.Bold} color={Colors.purple}>meatfreed</Text>
+          <Text fs={56} fnw="bold" ff={FontFamily.DMSansBold} color={Colors.purple}>meatfreed</Text>
         </Box>
 
         <Box w={`${width - Spaces['3xl']}px`}>
@@ -83,7 +83,7 @@ export const SignIn: React.FC = () => {
           <Button isLoading={isLoading} title={t('buttons.login').toUpperCase()} onPress={() => handleSubmit()} />
 
           <Box mt={20}>
-            <Text mt={Spaces.md} fs={FontSizes.sm} ta="center" ff={FontFamily.Medium}>{t('authorization.or-login-with-socials')}</Text>
+            <Text mt={Spaces.md} fs={FontSizes.sm} ta="center" ff={FontFamily.DMSansMedium}>{t('authorization.or-login-with-socials')}</Text>
 
             <Socials />
           </Box>

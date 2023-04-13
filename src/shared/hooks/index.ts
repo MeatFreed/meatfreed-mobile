@@ -14,3 +14,6 @@ export * from './useFacebook';
 export * from './useGoogle';
 export * from './useDynamicLinkListener';
 export * from './useGetUserByUserId';
+export * from './useLogout';
+export * from './useAuthStateChanged';
+export * from './useUploadPhoto';
