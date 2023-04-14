@@ -9,7 +9,7 @@ export const Policy: React.FC = () => {
   const { t } = useTranslation();
 
   return (
-    <Box mt={32}>
+    <Box m={[32, 0]}>
       <Trans
         i18nKey="authorization.agree"
         parent={Text}

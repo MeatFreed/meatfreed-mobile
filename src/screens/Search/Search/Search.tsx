@@ -38,7 +38,7 @@ export const Search: React.FC = () => {
   const { getCurrentLocation } = usePosition();
 
   const {
-    onRestaurant, debouncedPlaceId, details, isLoading,
+    onRestaurant, placeId, details, isLoading,
   } = useRestaurantActions();
 
   const hasLocation = useTypedSelector(placeSelectors.hasLocation);
@@ -74,8 +74,8 @@ export const Search: React.FC = () => {
           <Map onRestaurant={(placeId: string) => onRestaurant(placeId)} />
         )}
 
-        {isFocused && debouncedPlaceId && details && (
-          <RestaurantPanel details={details} placeId={debouncedPlaceId} />
+        {isFocused && placeId && details && (
+          <RestaurantPanel details={details} placeId={placeId} />
         )}
       </Box>
     </Box>

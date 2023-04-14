@@ -1,6 +1,7 @@
 import { Restaurant } from 'api';
+import { touchableConfig } from 'helpers';
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
 import { LatLng, Marker } from 'react-native-maps';
 import { Box, Colors, Text } from 'themes';
 
@@ -38,13 +39,15 @@ export const RestaurantMarker: React.FC<RestaurantMarkerProps> = ({
 
   return (
     <Marker coordinate={coordinate} onPress={onPress} zIndex={zIndex}>
-      <Box ai="center">
-        <Box bgc={Colors.marker} br="4px" p={[8, 4]}>
-          <Text color={Colors.basic_100} fs={12} w="145px" ta="center" fnw="700">{restaurant.name}</Text>
-        </Box>
+      <TouchableOpacity {...touchableConfig} onPress={onPress}>
+        <Box ai="center">
+          <Box bgc={Colors.marker} br="4px" p={[8, 4]}>
+            <Text color={Colors.basic_100} fs={12} w="145px" ta="center" fnw="700">{restaurant.name}</Text>
+          </Box>
 
-        <View style={styles.triangle} />
-      </Box>
+          <View style={styles.triangle} />
+        </Box>
+      </TouchableOpacity>
     </Marker>
   );
 };

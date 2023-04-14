@@ -8,7 +8,6 @@ import { AnyType, parseToLocalTime, withDelay } from 'helpers';
 import { geohashForLocation } from 'geofire-common';
 import { RouteService, SwipeablePanelService, ToastService } from 'services';
 import { Routes, SearchProp } from 'navigation';
-import { useDebounce } from '@lumitech/mobile-hooks';
 import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 
@@ -21,8 +20,6 @@ export const useRestaurantActions = () => {
 
   const user = useTypedSelector(userSelectors.user);
   const currentLocation = useTypedSelector(placeSelectors.currentLocation);
-
-  const debouncedPlaceId = useDebounce(placeId, 500);
 
   const { params } = useRoute<SearchProp>();
 
@@ -129,16 +126,15 @@ export const useRestaurantActions = () => {
   }, [isFocused, params?.placeId]);
 
   useEffect(() => {
-    if (debouncedPlaceId) {
-      getRestaurant(debouncedPlaceId);
+    if (placeId) {
+      getRestaurant(placeId);
     }
-  }, [debouncedPlaceId]);
+  }, [placeId]);
 
   return {
     isLoading,
     onWebsite,
     placeId,
-    debouncedPlaceId,
     setPlaceId,
     onRestaurant,
     details,
