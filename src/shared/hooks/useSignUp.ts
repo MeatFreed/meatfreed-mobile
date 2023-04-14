@@ -121,8 +121,8 @@ export const useSignUp = () => {
       });
 
       RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
-    } catch (error) {
-      ToastService.onDanger({ title: t('errors.server-unable') });
+    } catch (error: AnyType) {
+      ToastService.onDanger({ title: error?.message || t('errors.server-unable') });
     } finally {
       setIsLoading(false);
     }

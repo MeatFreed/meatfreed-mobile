@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { Routes } from 'navigation';
 import firestore from '@react-native-firebase/firestore';
 import { useState } from 'react';
@@ -8,7 +9,7 @@ import { useTypedDispatch } from 'stores';
 import { setUser } from 'stores/user';
 import { FirebaseUser } from 'api';
 import dayjs from 'dayjs';
-import { EventTypes } from 'helpers';
+import { AnyType, EventTypes } from 'helpers';
 import { useAnalytics } from './useAnalytics';
 
 export const useSignIn = () => {
@@ -41,8 +42,8 @@ export const useSignIn = () => {
       });
 
       RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
-    } catch {
-      ToastService.onDanger({ title: t('errors.server-unable') });
+    } catch (error: AnyType) {
+      ToastService.onDanger({ title: error?.message || t('errors.server-unable') });
     } finally {
       setIsLoading(false);
     }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable no-throw-literal */
 import {
   LoginManager,
@@ -13,7 +14,7 @@ import { RouteService, ToastService } from 'services';
 import { FirebaseUser } from 'api';
 import { Routes } from 'navigation';
 import { setUser } from 'stores/user';
-import { EventTypes } from 'helpers';
+import { AnyType, EventTypes } from 'helpers';
 import dayjs from 'dayjs';
 import { useReferralCode } from './useReferralCode';
 import { useAnalytics } from './useAnalytics';
@@ -88,9 +89,9 @@ export const useFacebook = () => {
       }
 
       RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
-    } catch (error) {
+    } catch (error: AnyType) {
       if (error !== 'User cancelled the login process') {
-        ToastService.onDanger({ title: t('errors.server-unable') });
+        ToastService.onDanger({ title: error?.message || t('errors.server-unable') });
       }
     }
   };
