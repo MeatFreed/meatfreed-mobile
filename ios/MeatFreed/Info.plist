@@ -132,11 +132,11 @@
 		</dict>
 	</dict>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME) access your location to show nearby partner restaurants and their offers</string>
+	<string>$(PRODUCT_NAME) would like access to your location to show our nearby partners and their offers.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>$(PRODUCT_NAME) access your location to show nearby partner restaurants and their offers</string>
+	<string>$(PRODUCT_NAME) would like access to your location to show our nearby partners and their offers.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>$(PRODUCT_NAME) access your location to show nearby partner restaurants and their offers</string>
+	<string>$(PRODUCT_NAME) would like access to your location to show our nearby partners and their offers.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME) wants to access your microphone</string>
 	<key>NSCameraUsageDescription</key>
