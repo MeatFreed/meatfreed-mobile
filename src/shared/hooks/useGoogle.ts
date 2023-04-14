@@ -94,7 +94,9 @@ export const useGoogle = () => {
       RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
     } catch (error: AnyType) {
       if (error.code !== '-5') {
-        ToastService.onDanger({ title: t('errors.server-unable') });
+        const message = error?.message?.replace(`[${error?.code}] `, '');
+
+        ToastService.onDanger({ title: message || t('errors.server-unable') });
       }
     }
   };

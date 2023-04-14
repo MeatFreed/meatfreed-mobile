@@ -8,7 +8,9 @@ import {
 } from 'themes';
 import { Icon, SwipeablePanel } from 'ui';
 import { SwipeablePanelService } from 'services';
-import { AnyType, isIOS, touchableConfig } from 'helpers';
+import {
+  AnyType, isIOS, touchableConfig,
+} from 'helpers';
 import { Rating } from 'react-native-ratings';
 import { RestaurantInformation } from 'api';
 import styled from 'styled-components/native';
@@ -20,6 +22,7 @@ import { userSelectors } from 'stores/user';
 import MarqueView from 'react-native-marquee';
 import Config from 'react-native-config';
 import { useRestaurantActions } from 'hooks';
+import dayjs from 'dayjs';
 import { ActionButton } from './ActionButton';
 
 interface RestaurantPanelProps {
@@ -86,6 +89,8 @@ const MarqueCard = styled(FastImage as AnyType)`
   margin-right: 10px;
 `;
 
+const today = dayjs().day() - 1;
+
 export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ placeId, details }) => {
   const snapPoints = useMemo(() => [0.1, '80%'], []);
 
@@ -94,8 +99,6 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ placeId, detai
   const user = useTypedSelector(userSelectors.user);
 
   const { t } = useTranslation();
-
-  const today = new Date().getDay();
 
   const { onWebsite } = useRestaurantActions();
 
@@ -162,26 +165,28 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ placeId, detai
 
               <Box mt={10} />
 
-              <TouchableOpacity
-                {...touchableConfig}
-                onPress={() => setIsShoSchedule(!isShowSchedule)}
-              >
-                <Box fd="row">
-                  <Box>
-                    {!isShowSchedule && (
+              {details?.opening_hours?.weekday_text?.length && (
+                <TouchableOpacity
+                  {...touchableConfig}
+                  onPress={() => setIsShoSchedule(!isShowSchedule)}
+                >
+                  <Box fd="row">
+                    <Box>
+                      {!isShowSchedule && (
                       <Text mb={8} fs={12} color={Colors.basic_800}>
-                        {details?.opening_hours.weekday_text[today]}
+                        {details?.opening_hours?.weekday_text[today]}
                       </Text>
-                    )}
+                      )}
 
-                    {isShowSchedule && details.opening_hours.weekday_text.map((day) => (
-                      <Text mb={8} fs={12} color={Colors.basic_800} key={day}>{day}</Text>
-                    ))}
+                      {isShowSchedule && details?.opening_hours?.weekday_text.map((day) => (
+                        <Text mb={8} fs={12} color={Colors.basic_800} key={day}>{day}</Text>
+                      ))}
+                    </Box>
+
+                    <Icon name={isShowSchedule ? 'chevron-up' : 'chevron-down'} style={{ marginTop: -5 }} size={24} color={Colors.basic_800} />
                   </Box>
-
-                  <Icon name={isShowSchedule ? 'chevron-up' : 'chevron-down'} style={{ marginTop: -5 }} size={24} color={Colors.basic_800} />
-                </Box>
-              </TouchableOpacity>
+                </TouchableOpacity>
+              )}
             </Box>
 
           </Box>
@@ -216,16 +221,16 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ placeId, detai
                 </Box>
 
                 {user?.name && (
-                  <Box fd="row" jc="center">
-                    <Text fs={12} color={Colors.basic_100}>{`${t('labels.name')}: `}</Text>
-                    <Text fs={14} fnw="bold" color={Colors.basic_100}>{user?.name}</Text>
+                  <Box fd="row" ai="center" jc="flex-start">
+                    <Text fs={12} mb={-1} color={Colors.basic_100}>{`${t('labels.name')}: `}</Text>
+                    <Text fs={13} fnw="600" ff={FontFamily.DMSansMedium} color={Colors.basic_100}>{user?.name}</Text>
                   </Box>
                 )}
 
                 {user?.email && (
-                  <Box mt={4} fd="row" jc="center">
-                    <Text fs={12} color={Colors.basic_100}>{`${t('labels.email')}: `}</Text>
-                    <Text fs={14} fnw="bold" color={Colors.basic_100}>{user?.email}</Text>
+                  <Box mt={4} fd="row" ai="center" jc="flex-start">
+                    <Text fs={12} mb={-1} color={Colors.basic_100}>{`${t('labels.email')}: `}</Text>
+                    <Text fs={13} fnw="600" ff={FontFamily.DMSansMedium} color={Colors.basic_100}>{user?.email}</Text>
                   </Box>
                 )}
               </Box>
