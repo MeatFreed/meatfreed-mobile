@@ -113,7 +113,7 @@
   },
   "delete-profile": {
     "title": "Are you sure?",
-    "description": "All of your Backed data will be permanently deleted."
+    "description": "All of your MeatFreed data will be permanently deleted."
   },
   "settings": {
     "general": "General",
