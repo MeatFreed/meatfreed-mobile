@@ -157,6 +157,7 @@ export const MapSearchBar: React.FC<MapSearchBarProps> = ({
             listViewDisplayed
             textInputProps={{
               placeholderTextColor: Colors.basic_600,
+              color: Colors.basic_800,
             }}
             onPress={(data: AnyType, details: AnyType) => {
               onLogEvent('location_searched', { name: data.description });
@@ -182,9 +183,14 @@ export const MapSearchBar: React.FC<MapSearchBarProps> = ({
                 height: 40,
                 paddingRight: 40,
                 overflow: 'hidden',
+                color: Colors.basic_800,
               },
               listView: {
                 width: WRAPPER_WIDTH,
+                marginBottom: 5,
+              },
+              description: {
+                color: Colors.basic_800,
               },
             }}
             fetchDetails
