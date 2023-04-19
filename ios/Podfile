@@ -36,16 +36,19 @@ target 'MeatFreed' do
       target.build_configurations.each do |config|
         config.build_settings["ONLY_ACTIVE_ARCH"] = 'NO'
         config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
+        config.build_settings['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'] = '$(inherited)'
       end
     end
   
     installer.pods_project.build_configurations.each do |config|
       config.build_settings["ONLY_ACTIVE_ARCH"] = 'NO'
       config.build_settings['IPHONEOS_DEPLOYMENT_TARGET'] = '13.0'
-    end
-
-    installer.pods_project.build_configurations.each do |config|
       config.build_settings['CODE_SIGNING_ALLOWED'] = 'NO'
+      config.build_settings['ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES'] = '$(inherited)'
     end
   end
+end
+
+target 'CourierService' do
+  pod 'Courier-iOS'
 end

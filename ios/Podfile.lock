@@ -629,6 +629,10 @@ PODS:
   - BoringSSL-GRPC/Interface (0.0.24)
   - BVLinearGradient (2.6.2):
     - React-Core
+  - Courier-iOS (1.1.2)
+  - courier-react-native (1.0.9):
+    - Courier-iOS (= 1.1.2)
+    - React-Core
   - DoubleConversion (1.1.6)
   - FBAEMKit (14.1.0):
     - FBSDKCoreKit_Basics (= 14.1.0)
@@ -1308,6 +1312,8 @@ DEPENDENCIES:
   - appcenter-crashes (from `../node_modules/appcenter-crashes`)
   - boost (from `../node_modules/react-native/third-party-podspecs/boost.podspec`)
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
+  - Courier-iOS
+  - "courier-react-native (from `../node_modules/@trycourier/courier-react-native`)"
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
@@ -1382,6 +1388,7 @@ SPEC REPOS:
     - AppCenter
     - AppCenterReactNativeShared
     - BoringSSL-GRPC
+    - Courier-iOS
     - FBAEMKit
     - FBSDKCoreKit
     - FBSDKCoreKit_Basics
@@ -1429,6 +1436,8 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/boost.podspec"
   BVLinearGradient:
     :path: "../node_modules/react-native-linear-gradient"
+  courier-react-native:
+    :path: "../node_modules/@trycourier/courier-react-native"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -1571,6 +1580,8 @@ SPEC CHECKSUMS:
   boost: a7c83b31436843459a1961bfd74b96033dc77234
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   BVLinearGradient: 34a999fda29036898a09c6a6b728b0b4189e1a44
+  Courier-iOS: 1a375faaf398beb5fb0947643f1907980776aa4b
+  courier-react-native: a43857f5de15dde9ee4556b8e134c79aa8bfb288
   DoubleConversion: 5189b271737e1565bdce30deb4a08d647e3f5f54
   FBAEMKit: a899515e45476027f73aef377b5cffadcd56ca3a
   FBLazyVector: 0045cf98ca4a48af3bf7108d85b1c243740fa289
@@ -1672,6 +1683,6 @@ SPEC CHECKSUMS:
   TOCropViewController: edfd4f25713d56905ad1e0b9f5be3fbe0f59c863
   Yoga: c2b1f2494060865ac1f27e49639e72371b1205fa
 
-PODFILE CHECKSUM: 40867442c7e5f24993a15602ab75a31ad41aac32
+PODFILE CHECKSUM: 9641eacccdd487440c246c0256cae307c27d5d65
 
 COCOAPODS: 1.12.0
