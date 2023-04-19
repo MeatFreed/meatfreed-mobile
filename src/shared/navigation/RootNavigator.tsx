@@ -7,7 +7,7 @@ import { RouteService } from 'services';
 import { PostHogProvider } from 'posthog-react-native';
 import Config from 'react-native-config';
 import {
-  useAnalytics, useAuthStateChanged, useDynamicLinkListener, useGoogle,
+  useAnalytics, useAuthStateChanged, useCourier, useDynamicLinkListener, useGoogle,
 } from 'hooks';
 import { isDev } from 'helpers';
 import { Stack } from './NavigationOptions';
@@ -20,12 +20,16 @@ export const RootNavigator: React.FC = () => {
 
   useAuthStateChanged();
 
+  const { getPermission } = useCourier();
+
   const { onScreenView } = useAnalytics();
 
   const { configure } = useGoogle();
 
   useEffect(() => {
     configure();
+
+    getPermission();
 
     RNBootSplash.hide({ fade: true });
   }, []);

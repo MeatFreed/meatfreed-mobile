@@ -1,8 +1,4 @@
-#import <React/RCTBridgeDelegate.h>
-#import <UIKit/UIKit.h>
+#import <courier-react-native/CourierReactNativeDelegate.h>
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate, RCTBridgeDelegate>
-
-@property (nonatomic, strong) UIWindow *window;
-
+@interface AppDelegate : CourierReactNativeDelegate
 @end

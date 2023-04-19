@@ -12,16 +12,43 @@
 		0148A1DA29DB53E800EE7828 /* BootSplash.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0148A1D929DB53E800EE7828 /* BootSplash.storyboard */; };
 		01A0777E29DD767E00B7C633 /* AppCenter-Config.plist in Resources */ = {isa = PBXBuildFile; fileRef = 01A0777D29DD767E00B7C633 /* AppCenter-Config.plist */; };
 		01B61A4229E028D500950D0C /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01B61A4129E028D500950D0C /* File.swift */; };
+		01BC5AC629EE993C0033D204 /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01BC5AC529EE993C0033D204 /* NotificationService.swift */; };
+		01BC5ACA29EE993C0033D204 /* CourierService.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 01BC5AC329EE993C0033D204 /* CourierService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		02BAE53286C44DE48CBD29F0 /* DMSans-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BF119CA75A374C35A44FB47D /* DMSans-Medium.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.mm */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1AB298AF29614CF181C2B9E6 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77096D5AC4A1434BAF7ADCC0 /* icomoon.ttf */; };
 		2582E221C0EA43C7A1F4AFA1 /* DMSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E74542BAA074DB1BDAA7DD3 /* DMSans-Regular.ttf */; };
+		37E2DCD01F32F60EEA9726CF /* libPods-CourierService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 994E307557A495BFE9B633C4 /* libPods-CourierService.a */; };
 		3FF53BB6C3F86815E44A3309 /* libPods-MeatFreed.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D95838338D2580444EAD92A /* libPods-MeatFreed.a */; };
-		E1331B530AA247BE9EF85F13 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6D8B2C8F17147A7A4E811A9 /* Raleway-Bold.ttf */; };
 		7D1E03C9715A46D888BECED0 /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21E7E2282AA445FF95266BD5 /* DMSans-Bold.ttf */; };
+		E1331B530AA247BE9EF85F13 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6D8B2C8F17147A7A4E811A9 /* Raleway-Bold.ttf */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		01BC5AC829EE993C0033D204 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 01BC5AC229EE993C0033D204;
+			remoteInfo = CourierService;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		01BC5ACE29EE993C0033D204 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				01BC5ACA29EE993C0033D204 /* CourierService.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		01295E3829DC27A40090FB2E /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -31,24 +58,38 @@
 		01B61A4029E028D400950D0C /* MeatFreed-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MeatFreed-Bridging-Header.h"; sourceTree = "<group>"; };
 		01B61A4129E028D500950D0C /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		01B61A4329E028E100950D0C /* MeatFreed.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MeatFreed.entitlements; path = MeatFreed/MeatFreed.entitlements; sourceTree = "<group>"; };
+		01BC5AC329EE993C0033D204 /* CourierService.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = CourierService.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		01BC5AC529EE993C0033D204 /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		01BC5AC729EE993C0033D204 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		13B07F961A680F5B00A75B9A /* MeatFreed.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MeatFreed.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = MeatFreed/AppDelegate.h; sourceTree = "<group>"; };
 		13B07FB01A68108700A75B9A /* AppDelegate.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = AppDelegate.mm; path = MeatFreed/AppDelegate.mm; sourceTree = "<group>"; };
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MeatFreed/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = MeatFreed/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MeatFreed/main.m; sourceTree = "<group>"; };
+		21E7E2282AA445FF95266BD5 /* DMSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Bold.ttf"; path = "../src/assets/fonts/DMSans-Bold.ttf"; sourceTree = "<group>"; };
 		2E74542BAA074DB1BDAA7DD3 /* DMSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Regular.ttf"; path = "../src/assets/fonts/DMSans-Regular.ttf"; sourceTree = "<group>"; };
 		6D95838338D2580444EAD92A /* libPods-MeatFreed.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MeatFreed.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		77096D5AC4A1434BAF7ADCC0 /* icomoon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = icomoon.ttf; path = ../src/assets/fonts/icomoon.ttf; sourceTree = "<group>"; };
+		7C77D6C5D8252BF95F340DE1 /* Pods-CourierService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourierService.release.xcconfig"; path = "Target Support Files/Pods-CourierService/Pods-CourierService.release.xcconfig"; sourceTree = "<group>"; };
 		83B8AEAA9344AB7F6E1455C5 /* Pods-MeatFreed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatFreed.release.xcconfig"; path = "Target Support Files/Pods-MeatFreed/Pods-MeatFreed.release.xcconfig"; sourceTree = "<group>"; };
+		994E307557A495BFE9B633C4 /* libPods-CourierService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CourierService.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6D8B2C8F17147A7A4E811A9 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-Bold.ttf"; path = "../src/assets/fonts/Raleway-Bold.ttf"; sourceTree = "<group>"; };
 		BF119CA75A374C35A44FB47D /* DMSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Medium.ttf"; path = "../src/assets/fonts/DMSans-Medium.ttf"; sourceTree = "<group>"; };
+		C9C3354D150C4AB6E42BD98F /* Pods-CourierService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourierService.debug.xcconfig"; path = "Target Support Files/Pods-CourierService/Pods-CourierService.debug.xcconfig"; sourceTree = "<group>"; };
 		D21FED989707746DFF1FEBB1 /* Pods-MeatFreed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatFreed.debug.xcconfig"; path = "Target Support Files/Pods-MeatFreed/Pods-MeatFreed.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		21E7E2282AA445FF95266BD5 /* DMSans-Bold.ttf */ = {isa = PBXFileReference; name = "DMSans-Bold.ttf"; path = "../src/assets/fonts/DMSans-Bold.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		01BC5AC029EE993C0033D204 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				37E2DCD01F32F60EEA9726CF /* libPods-CourierService.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		13B07F8C1A680F5B00A75B9A /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -60,6 +101,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01BC5AC429EE993C0033D204 /* CourierService */ = {
+			isa = PBXGroup;
+			children = (
+				01BC5AC529EE993C0033D204 /* NotificationService.swift */,
+				01BC5AC729EE993C0033D204 /* Info.plist */,
+			);
+			path = CourierService;
+			sourceTree = "<group>";
+		};
 		13B07FAE1A68108700A75B9A /* MeatFreed */ = {
 			isa = PBXGroup;
 			children = (
@@ -84,6 +134,7 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				6D95838338D2580444EAD92A /* libPods-MeatFreed.a */,
+				994E307557A495BFE9B633C4 /* libPods-CourierService.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -100,6 +151,7 @@
 			children = (
 				13B07FAE1A68108700A75B9A /* MeatFreed */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
+				01BC5AC429EE993C0033D204 /* CourierService */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
@@ -114,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				13B07F961A680F5B00A75B9A /* MeatFreed.app */,
+				01BC5AC329EE993C0033D204 /* CourierService.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -135,6 +188,8 @@
 			children = (
 				D21FED989707746DFF1FEBB1 /* Pods-MeatFreed.debug.xcconfig */,
 				83B8AEAA9344AB7F6E1455C5 /* Pods-MeatFreed.release.xcconfig */,
+				C9C3354D150C4AB6E42BD98F /* Pods-CourierService.debug.xcconfig */,
+				7C77D6C5D8252BF95F340DE1 /* Pods-CourierService.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -142,6 +197,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		01BC5AC229EE993C0033D204 /* CourierService */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 01BC5ACB29EE993C0033D204 /* Build configuration list for PBXNativeTarget "CourierService" */;
+			buildPhases = (
+				521C111F2D6EDA1D30F054DF /* [CP] Check Pods Manifest.lock */,
+				01BC5ABF29EE993C0033D204 /* Sources */,
+				01BC5AC029EE993C0033D204 /* Frameworks */,
+				01BC5AC129EE993C0033D204 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CourierService;
+			productName = CourierService;
+			productReference = 01BC5AC329EE993C0033D204 /* CourierService.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		13B07F861A680F5B00A75B9A /* MeatFreed */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MeatFreed" */;
@@ -155,10 +228,12 @@
 				B0A08FC4DE7BC37323D2D3D6 /* [CP] Embed Pods Frameworks */,
 				B15601B52DA075684399491F /* [CP] Copy Pods Resources */,
 				89EBD9A9BBA596C712A2DF54 /* [CP-User] [RNFB] Core Configuration */,
+				01BC5ACE29EE993C0033D204 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				01BC5AC929EE993C0033D204 /* PBXTargetDependency */,
 			);
 			name = MeatFreed;
 			productName = MeatFreed;
@@ -171,8 +246,12 @@
 		83CBB9F71A601CBA00E9B192 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 1420;
 				LastUpgradeCheck = 1210;
 				TargetAttributes = {
+					01BC5AC229EE993C0033D204 = {
+						CreatedOnToolsVersion = 14.2;
+					};
 					13B07F861A680F5B00A75B9A = {
 						LastSwiftMigration = 1420;
 					};
@@ -192,11 +271,19 @@
 			projectRoot = "";
 			targets = (
 				13B07F861A680F5B00A75B9A /* MeatFreed */,
+				01BC5AC229EE993C0033D204 /* CourierService */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		01BC5AC129EE993C0033D204 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		13B07F8E1A680F5B00A75B9A /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -232,6 +319,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nWITH_ENVIRONMENT=\"../node_modules/react-native/scripts/xcode/with-environment.sh\"\nREACT_NATIVE_XCODE=\"../node_modules/react-native/scripts/react-native-xcode.sh\"\n\n/bin/sh -c \"$WITH_ENVIRONMENT $REACT_NATIVE_XCODE\"\n";
+		};
+		521C111F2D6EDA1D30F054DF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CourierService-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		89EBD9A9BBA596C712A2DF54 /* [CP-User] [RNFB] Core Configuration */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -324,6 +433,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		01BC5ABF29EE993C0033D204 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01BC5AC629EE993C0033D204 /* NotificationService.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		13B07F871A680F5B00A75B9A /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -336,11 +453,98 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		01BC5AC929EE993C0033D204 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 01BC5AC229EE993C0033D204 /* CourierService */;
+			targetProxy = 01BC5AC829EE993C0033D204 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		01BC5ACC29EE993C0033D204 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = C9C3354D150C4AB6E42BD98F /* Pods-CourierService.debug.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 9LA9Z7S7AC;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CourierService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CourierService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 8;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = app.mobile.meatfreed.com.CourierService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		01BC5ACD29EE993C0033D204 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7C77D6C5D8252BF95F340DE1 /* Pods-CourierService.release.xcconfig */;
+			buildSettings = {
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 9LA9Z7S7AC;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = CourierService/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = CourierService;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 8;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = app.mobile.meatfreed.com.CourierService;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = D21FED989707746DFF1FEBB1 /* Pods-MeatFreed.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -356,7 +560,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 7;
+				MARKETING_VERSION = 8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -379,6 +583,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 83B8AEAA9344AB7F6E1455C5 /* Pods-MeatFreed.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = YES;
 				CLANG_ENABLE_MODULES = YES;
@@ -393,7 +598,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 7;
+				MARKETING_VERSION = 8;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
 					"-ObjC",
@@ -461,7 +666,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -527,7 +732,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					/usr/lib/swift,
 					"$(inherited)",
@@ -553,6 +758,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		01BC5ACB29EE993C0033D204 /* Build configuration list for PBXNativeTarget "CourierService" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01BC5ACC29EE993C0033D204 /* Debug */,
+				01BC5ACD29EE993C0033D204 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "MeatFreed" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

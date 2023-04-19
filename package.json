@@ -41,6 +41,7 @@
     "@react-navigation/stack": "6.3.16",
     "@reduxjs/toolkit": "1.9.3",
     "@shopify/flash-list": "1.4.2",
+    "@trycourier/courier-react-native": "1.0.9",
     "appcenter": "4.4.5",
     "appcenter-analytics": "4.4.5",
     "appcenter-crashes": "4.4.5",
