@@ -28,7 +28,7 @@ export const useFacebook = () => {
 
   const { onLogEvent } = useAnalytics();
 
-  const onFacebookSignIn = async () => {
+  const onFacebookSignIn = async (referralCode = '') => {
     try {
       const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
 
@@ -45,6 +45,33 @@ export const useFacebook = () => {
       const facebookCredential = auth.FacebookAuthProvider.credential(data.accessToken);
 
       const { user } = await auth().signInWithCredential(facebookCredential);
+
+      if (referralCode) {
+        const response = await firestore().collection('users').where('referrer', '==', referralCode).get();
+
+        if (response.empty) {
+          ToastService.onDanger({ title: t('errors.invalid-code') });
+
+          return;
+        }
+
+        const referral = response.docs.map((doc) => ({
+          ...doc.data(), uid: doc.id,
+        }))?.[0] as FirebaseUser;
+
+        await firestore().collection('users').doc(referral.uid).update({
+          referrals: referral?.referrals?.length ? [...referral.referrals, user.uid] : [user.uid],
+          referralsCount: referral.referralsCount + 1,
+        });
+
+        onLogEvent(EventTypes.SIGN_UP_WITH_REFERRAL_CODE, {
+          userId: user.uid,
+          referralCode,
+          provider: 'form',
+          event: EventTypes.SIGN_UP_WITH_REFERRAL_CODE,
+          createdAt: dayjs().valueOf(),
+        });
+      }
 
       const displayName = user.displayName?.split(' ');
 
@@ -91,7 +118,9 @@ export const useFacebook = () => {
       RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
     } catch (error: AnyType) {
       if (error !== 'User cancelled the login process') {
-        ToastService.onDanger({ title: error?.message || t('errors.server-unable') });
+        const message = error?.message?.split?.('] ');
+
+        ToastService.onDanger({ title: message?.[1] || error?.message || t('errors.server-unable') });
       }
     }
   };

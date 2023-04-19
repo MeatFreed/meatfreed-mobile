@@ -195,6 +195,7 @@ export const GoogleSearchBar: React.FC<GoogleSearchBarProps> = ({
             listViewDisplayed
             textInputProps={{
               placeholderTextColor: Colors.basic_600,
+              color: Colors.basic_800,
             }}
             onPress={(data: AnyType, details: AnyType) => {
               onLogEvent('location_searched', { name: data.description });
@@ -221,9 +222,13 @@ export const GoogleSearchBar: React.FC<GoogleSearchBarProps> = ({
                 paddingLeft: 16,
                 paddingRight: 40,
                 overflow: 'hidden',
+                color: Colors.basic_800,
               },
               listView: {
                 marginTop: 10,
+              },
+              description: {
+                color: Colors.basic_800,
               },
             }}
             fetchDetails

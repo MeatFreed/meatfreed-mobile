@@ -122,7 +122,9 @@ export const useSignUp = () => {
 
       RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
     } catch (error: AnyType) {
-      ToastService.onDanger({ title: error?.message || t('errors.server-unable') });
+      const message = error?.message?.split?.('] ');
+
+      ToastService.onDanger({ title: message?.[1] || error?.message || t('errors.server-unable') });
     } finally {
       setIsLoading(false);
     }

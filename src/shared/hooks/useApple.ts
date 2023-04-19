@@ -24,7 +24,7 @@ export const useApple = () => {
 
   const { getReferralCode } = useReferralCode();
 
-  const onAppleSignIn = async () => {
+  const onAppleSignIn = async (referralCode = '') => {
     try {
       const appleAuthRequestResponse = await appleAuth.performRequest({
         requestedOperation: appleAuth.Operation.LOGIN,
@@ -41,6 +41,33 @@ export const useApple = () => {
       const token: AnyType = jwtDecode(identityToken);
 
       const { user } = await auth().signInWithCredential(appleCredential);
+
+      if (referralCode) {
+        const response = await firestore().collection('users').where('referrer', '==', referralCode).get();
+
+        if (response.empty) {
+          ToastService.onDanger({ title: t('errors.invalid-code') });
+
+          return;
+        }
+
+        const referral = response.docs.map((doc) => ({
+          ...doc.data(), uid: doc.id,
+        }))?.[0] as FirebaseUser;
+
+        await firestore().collection('users').doc(referral.uid).update({
+          referrals: referral?.referrals?.length ? [...referral.referrals, user.uid] : [user.uid],
+          referralsCount: referral.referralsCount + 1,
+        });
+
+        onLogEvent(EventTypes.SIGN_UP_WITH_REFERRAL_CODE, {
+          userId: user.uid,
+          referralCode,
+          provider: 'form',
+          event: EventTypes.SIGN_UP_WITH_REFERRAL_CODE,
+          createdAt: dayjs().valueOf(),
+        });
+      }
 
       const response = await firestore().collection('users').doc(user.uid).get();
 
@@ -89,7 +116,9 @@ export const useApple = () => {
       RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
     } catch (error: AnyType) {
       if (error.code !== '1001' && error.code !== '1000') {
-        ToastService.onDanger({ title: error?.message || t('errors.server-unable') });
+        const message = error?.message?.split?.('] ');
+
+        ToastService.onDanger({ title: message?.[1] || error?.message || t('errors.server-unable') });
       }
     }
   };

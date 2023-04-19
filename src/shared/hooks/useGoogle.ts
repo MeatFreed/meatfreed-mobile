@@ -37,7 +37,7 @@ export const useGoogle = () => {
     }
   };
 
-  const onGoogleSignIn = async () => {
+  const onGoogleSignIn = async (referralCode = '') => {
     try {
       if (!isIOS) {
         await GoogleSignin.hasPlayServices();
@@ -48,6 +48,33 @@ export const useGoogle = () => {
       const googleCredential = auth.GoogleAuthProvider.credential(google.idToken);
 
       const { user } = await auth().signInWithCredential(googleCredential);
+
+      if (referralCode) {
+        const response = await firestore().collection('users').where('referrer', '==', referralCode).get();
+
+        if (response.empty) {
+          ToastService.onDanger({ title: t('errors.invalid-code') });
+
+          return;
+        }
+
+        const referral = response.docs.map((doc) => ({
+          ...doc.data(), uid: doc.id,
+        }))?.[0] as FirebaseUser;
+
+        await firestore().collection('users').doc(referral.uid).update({
+          referrals: referral?.referrals?.length ? [...referral.referrals, user.uid] : [user.uid],
+          referralsCount: referral.referralsCount + 1,
+        });
+
+        onLogEvent(EventTypes.SIGN_UP_WITH_REFERRAL_CODE, {
+          userId: user.uid,
+          referralCode,
+          provider: 'form',
+          event: EventTypes.SIGN_UP_WITH_REFERRAL_CODE,
+          createdAt: dayjs().valueOf(),
+        });
+      }
 
       const displayName = user.displayName?.split(' ');
 
