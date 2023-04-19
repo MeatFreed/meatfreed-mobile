@@ -20,9 +20,9 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		1AB298AF29614CF181C2B9E6 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 77096D5AC4A1434BAF7ADCC0 /* icomoon.ttf */; };
 		2582E221C0EA43C7A1F4AFA1 /* DMSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2E74542BAA074DB1BDAA7DD3 /* DMSans-Regular.ttf */; };
-		37E2DCD01F32F60EEA9726CF /* libPods-CourierService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 994E307557A495BFE9B633C4 /* libPods-CourierService.a */; };
 		3FF53BB6C3F86815E44A3309 /* libPods-MeatFreed.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6D95838338D2580444EAD92A /* libPods-MeatFreed.a */; };
 		7D1E03C9715A46D888BECED0 /* DMSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 21E7E2282AA445FF95266BD5 /* DMSans-Bold.ttf */; };
+		D8148B0B5AA36F8966DC5FE5 /* libPods-CourierService.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B0F11869BCD30E19BB070EA /* libPods-CourierService.a */; };
 		E1331B530AA247BE9EF85F13 /* Raleway-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A6D8B2C8F17147A7A4E811A9 /* Raleway-Bold.ttf */; };
 /* End PBXBuildFile section */
 
@@ -69,16 +69,18 @@
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = MeatFreed/main.m; sourceTree = "<group>"; };
 		21E7E2282AA445FF95266BD5 /* DMSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Bold.ttf"; path = "../src/assets/fonts/DMSans-Bold.ttf"; sourceTree = "<group>"; };
 		2E74542BAA074DB1BDAA7DD3 /* DMSans-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Regular.ttf"; path = "../src/assets/fonts/DMSans-Regular.ttf"; sourceTree = "<group>"; };
+		5B0F11869BCD30E19BB070EA /* libPods-CourierService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CourierService.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6D95838338D2580444EAD92A /* libPods-MeatFreed.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MeatFreed.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		77096D5AC4A1434BAF7ADCC0 /* icomoon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = icomoon.ttf; path = ../src/assets/fonts/icomoon.ttf; sourceTree = "<group>"; };
 		7C77D6C5D8252BF95F340DE1 /* Pods-CourierService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourierService.release.xcconfig"; path = "Target Support Files/Pods-CourierService/Pods-CourierService.release.xcconfig"; sourceTree = "<group>"; };
 		83B8AEAA9344AB7F6E1455C5 /* Pods-MeatFreed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatFreed.release.xcconfig"; path = "Target Support Files/Pods-MeatFreed/Pods-MeatFreed.release.xcconfig"; sourceTree = "<group>"; };
-		994E307557A495BFE9B633C4 /* libPods-CourierService.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CourierService.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		A08604F3C13FA732B56532F5 /* Pods-MeatFreed-CourierService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatFreed-CourierService.debug.xcconfig"; path = "Target Support Files/Pods-MeatFreed-CourierService/Pods-MeatFreed-CourierService.debug.xcconfig"; sourceTree = "<group>"; };
 		A6D8B2C8F17147A7A4E811A9 /* Raleway-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Raleway-Bold.ttf"; path = "../src/assets/fonts/Raleway-Bold.ttf"; sourceTree = "<group>"; };
 		BF119CA75A374C35A44FB47D /* DMSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "DMSans-Medium.ttf"; path = "../src/assets/fonts/DMSans-Medium.ttf"; sourceTree = "<group>"; };
 		C9C3354D150C4AB6E42BD98F /* Pods-CourierService.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CourierService.debug.xcconfig"; path = "Target Support Files/Pods-CourierService/Pods-CourierService.debug.xcconfig"; sourceTree = "<group>"; };
 		D21FED989707746DFF1FEBB1 /* Pods-MeatFreed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatFreed.debug.xcconfig"; path = "Target Support Files/Pods-MeatFreed/Pods-MeatFreed.debug.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
+		FF4B1B6BDD787C35FCD417A2 /* Pods-MeatFreed-CourierService.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatFreed-CourierService.release.xcconfig"; path = "Target Support Files/Pods-MeatFreed-CourierService/Pods-MeatFreed-CourierService.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,7 +88,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37E2DCD01F32F60EEA9726CF /* libPods-CourierService.a in Frameworks */,
+				D8148B0B5AA36F8966DC5FE5 /* libPods-CourierService.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,7 +136,7 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				6D95838338D2580444EAD92A /* libPods-MeatFreed.a */,
-				994E307557A495BFE9B633C4 /* libPods-CourierService.a */,
+				5B0F11869BCD30E19BB070EA /* libPods-CourierService.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -190,6 +192,8 @@
 				83B8AEAA9344AB7F6E1455C5 /* Pods-MeatFreed.release.xcconfig */,
 				C9C3354D150C4AB6E42BD98F /* Pods-CourierService.debug.xcconfig */,
 				7C77D6C5D8252BF95F340DE1 /* Pods-CourierService.release.xcconfig */,
+				A08604F3C13FA732B56532F5 /* Pods-MeatFreed-CourierService.debug.xcconfig */,
+				FF4B1B6BDD787C35FCD417A2 /* Pods-MeatFreed-CourierService.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
