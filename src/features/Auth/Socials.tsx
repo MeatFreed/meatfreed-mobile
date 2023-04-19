@@ -21,7 +21,11 @@ const StyledButton = styled.TouchableOpacity`
   ${socialShadow}
 `;
 
-export const Socials: React.FC = () => {
+interface SocialsProps {
+  referralCode?: string;
+}
+
+export const Socials: React.FC<SocialsProps> = ({ referralCode = '' }) => {
   const { onFacebookSignIn } = useFacebook();
   const { onGoogleSignIn } = useGoogle();
   const { onAppleSignIn } = useApple();
@@ -31,17 +35,17 @@ export const Socials: React.FC = () => {
   return (
     <Box ai="center" m={[Spaces.xl, 0, hasNotch ? 0 : Spaces.md]}>
       <Box fd="row" ai="center" jc="center" w={`${width - Spaces['7xl']}px`}>
-        <StyledButton {...touchableConfig} onPress={onGoogleSignIn}>
+        <StyledButton {...touchableConfig} onPress={() => onGoogleSignIn(referralCode)}>
           <Images.Google width={Spaces.xl} height={Spaces.xl} />
         </StyledButton>
 
         {isIOS && (
-          <StyledButton {...touchableConfig} onPress={onAppleSignIn}>
+          <StyledButton {...touchableConfig} onPress={() => onAppleSignIn(referralCode)}>
             <Images.Apple width={Spaces.xl} height={Spaces.xl} />
           </StyledButton>
         )}
 
-        <StyledButton {...touchableConfig} onPress={onFacebookSignIn}>
+        <StyledButton {...touchableConfig} onPress={() => onFacebookSignIn(referralCode)}>
           <Images.Facebook width={Spaces['3xl']} height={Spaces['3xl']} color={Colors.white} />
         </StyledButton>
       </Box>

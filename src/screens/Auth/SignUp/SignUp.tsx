@@ -149,7 +149,7 @@ export const SignUp: React.FC = () => {
           <Box mt={20}>
             <Text mt={Spaces.md} fs={FontSizes.sm} ta="center" ff={FontFamily.DMSansMedium}>{t('authorization.or-login-with-socials')}</Text>
 
-            <Socials />
+            <Socials referralCode={params?.code} />
           </Box>
 
           <Policy />
