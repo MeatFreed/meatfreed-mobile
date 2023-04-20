@@ -38,7 +38,7 @@ export const Search: React.FC = () => {
   const { getCurrentLocation } = usePosition();
 
   const {
-    onRestaurant, placeId, details, isLoading,
+    onRestaurant, placeId, details, isLoading, setPlaceId,
   } = useRestaurantActions();
 
   const hasLocation = useTypedSelector(placeSelectors.hasLocation);
@@ -61,7 +61,10 @@ export const Search: React.FC = () => {
         )}
 
         <StyledBar>
-          <MapSearchBar placeholder={t('placeholders.search-restaurant')} />
+          <MapSearchBar
+            placeholder={t('placeholders.search-restaurant')}
+            getCurrentLocation={getCurrentLocation}
+          />
         </StyledBar>
 
         {hasLocation && (
@@ -75,7 +78,7 @@ export const Search: React.FC = () => {
         )}
 
         {isFocused && placeId && details && (
-          <RestaurantPanel details={details} placeId={placeId} />
+          <RestaurantPanel details={details} placeId={placeId} setPlaceId={setPlaceId} />
         )}
       </Box>
     </Box>

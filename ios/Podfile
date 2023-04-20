@@ -48,7 +48,3 @@ target 'MeatFreed' do
     end
   end
 end
-
-target 'CourierService' do
-  pod 'Courier-iOS'
-end

@@ -1,5 +1,5 @@
 import { AnyType, touchableConfig } from 'helpers';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, TextInputProps } from 'react-native';
 import styled from 'styled-components/native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
@@ -17,10 +17,12 @@ import { useTypedDispatch } from 'stores';
 import { setCurrentLocation } from 'stores/place';
 import { useAnalytics } from 'hooks';
 import FastImage from 'react-native-fast-image';
+import { Icon } from 'ui';
 
 interface MapSearchBarProps extends TextInputProps {
   fullWidth?: boolean;
   label?: string
+  getCurrentLocation: () => void;
 }
 
 const StyledButton = styled.TouchableOpacity`
@@ -29,6 +31,16 @@ const StyledButton = styled.TouchableOpacity`
   border-radius: 25px;
   align-items: center;
   justify-content: center;
+`;
+
+const CloseButton = styled(StyledButton)`
+  position: absolute;
+  right: 0px;
+  z-index: 10;
+  top: 0px;
+  bottom: 8px;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
 `;
 
 const StyledIcon = styled(FastImage as AnyType)`
@@ -65,6 +77,7 @@ const styles = StyleSheet.create({
 
 export const MapSearchBar: React.FC<MapSearchBarProps> = ({
   fullWidth,
+  getCurrentLocation,
   ...rest
 }) => {
   const [isActive, setIsActive] = useState(false);
@@ -75,6 +88,7 @@ export const MapSearchBar: React.FC<MapSearchBarProps> = ({
   const animationPosition = useSharedValue(0);
 
   const { width } = useWindowDimensions();
+  const ref = useRef<AnyType>();
 
   const LAYOUT_WIDTH = width - 50;
 
@@ -136,6 +150,11 @@ export const MapSearchBar: React.FC<MapSearchBarProps> = ({
     }
   }, [isActive]);
 
+  const onReset = () => {
+    getCurrentLocation();
+    ref?.current?.setAddressText?.('');
+  };
+
   return (
     <Box w={fullWidth ? '100%' : 'auto'} bgc={Colors.basic_100} shadowed br="25px">
       <Animated.View style={[styles.layout, animatedLayoutStyle]}>
@@ -148,6 +167,7 @@ export const MapSearchBar: React.FC<MapSearchBarProps> = ({
         <Animated.View style={[styles.wrapper, animatedWrapperStyle]}>
           <StyledInput
             {...rest}
+            ref={ref}
             GooglePlacesDetailsQuery={{ fields: 'geometry' }}
             query={{
               key: Config.MAP_API_KEY,
@@ -198,6 +218,12 @@ export const MapSearchBar: React.FC<MapSearchBarProps> = ({
             debounce={500}
           />
         </Animated.View>
+
+        {isActive && (
+          <CloseButton {...touchableConfig} onPress={onReset}>
+            <Icon name="close" size={20} color={Colors.basic_700} />
+          </CloseButton>
+        )}
       </Animated.View>
     </Box>
   );
