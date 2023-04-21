@@ -18,6 +18,7 @@ const StyledButton = styled.TouchableOpacity`
   width: ${width - 32}px;
   margin: 16px 16px 0px;
   border-radius: 8px;
+  background-color: ${Colors.basic_100};
   border: 1px solid ${Colors.basic_300};
 `;
 
@@ -35,7 +36,7 @@ export const MenuItem: React.FC<MenuItemProps> = ({
       {iconName && <Icon name={iconName} size={24} color={Colors.basic_600} />}
 
       <Text
-        ff={FontFamily.DMSansBold}
+        ff={FontFamily.PoppinsBold}
         ml={12}
         fnw="700"
         fs={14}

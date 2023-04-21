@@ -68,7 +68,7 @@ export const SignUp: React.FC = () => {
 
       <Box f={1} ai="center" bgc={Colors.basic_100}>
         <Box m={[30, 0]}>
-          <Text fs={56} fnw="bold" ff={FontFamily.DMSansBold} color={Colors.purple}>meatfreed</Text>
+          <Text fs={56} fnw="bold" ff={FontFamily.PoppinsBold} color={Colors.purple}>meatfreed</Text>
         </Box>
 
         <Box w={`${width - Spaces['3xl']}px`}>
@@ -147,7 +147,7 @@ export const SignUp: React.FC = () => {
           <Button title={t('buttons.sign-up').toUpperCase()} isLoading={isLoading} onPress={() => handleSubmit()} />
 
           <Box mt={20}>
-            <Text mt={Spaces.md} fs={FontSizes.sm} ta="center" ff={FontFamily.DMSansMedium}>{t('authorization.or-login-with-socials')}</Text>
+            <Text mt={Spaces.md} fs={FontSizes.sm} ta="center" ff={FontFamily.PoppinsMedium}>{t('authorization.or-login-with-socials')}</Text>
 
             <Socials referralCode={params?.code} />
           </Box>

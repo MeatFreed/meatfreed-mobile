@@ -16,7 +16,7 @@ export const Action: React.FC<ActionProps> = ({
   iconName, value, label, buttonTitle, onPress,
 }) => (
   <Box mt={20}>
-    <Text ta="center" fnw="500" ff={FontFamily.DMSansMedium}>{label}</Text>
+    <Text ta="center" fnw="500" ff={FontFamily.PoppinsMedium}>{label}</Text>
 
     <Box m={[8, 0]} h="40px" ai="center" jc="center">
       <Text ttd="underline" ttds="solid" ttdc={Colors.basic_600} ta="center" color={Colors.basic_600}>{value}</Text>

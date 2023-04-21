@@ -131,7 +131,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ placeId, detai
             />
 
             <Box ml={16} f={1}>
-              <Text fnw="bold" ff={FontFamily.DMSansBold} color={Colors.basic_800}>{details.name}</Text>
+              <Text fnw="bold" ff={FontFamily.PoppinsBold} color={Colors.basic_800}>{details.name}</Text>
 
               <Box ai="center" f={1} jc="space-between" fd="row">
                 <Box ai="center" fd="row">
@@ -223,14 +223,14 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ placeId, detai
                 {user?.name && (
                   <Box fd="row" ai="center" jc="flex-start">
                     <Text fs={12} mb={-1} color={Colors.basic_100}>{`${t('labels.name')}: `}</Text>
-                    <Text fs={13} fnw="600" ff={FontFamily.DMSansMedium} color={Colors.basic_100}>{user?.name}</Text>
+                    <Text fs={13} fnw="600" ff={FontFamily.PoppinsMedium} color={Colors.basic_100}>{user?.name}</Text>
                   </Box>
                 )}
 
                 {user?.email && (
                   <Box mt={4} fd="row" ai="center" jc="flex-start">
                     <Text fs={12} mb={-1} color={Colors.basic_100}>{`${t('labels.email')}: `}</Text>
-                    <Text fs={13} fnw="600" ff={FontFamily.DMSansMedium} color={Colors.basic_100}>{user?.email}</Text>
+                    <Text fs={13} fnw="600" ff={FontFamily.PoppinsMedium} color={Colors.basic_100}>{user?.email}</Text>
                   </Box>
                 )}
               </Box>

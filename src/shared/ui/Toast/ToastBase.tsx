@@ -64,7 +64,7 @@ export const ToastBase: FC<ToastBaseProps> = ({ type, title }) => (
       <Box f={1}>
         {!!title && (
           <Text
-            ff={FontFamily.DMSansRegular}
+            ff={FontFamily.PoppinsRegular}
             fs={16}
             color={Colors.basic_800}
           >

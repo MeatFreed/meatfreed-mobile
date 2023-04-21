@@ -3,7 +3,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import i18n from 'i18next';
 import { useTypedSelector } from 'stores';
 import { userSelectors } from 'stores/user';
-import { Icon } from 'ui';
+import { Images } from 'themes';
 import { Routes } from './Routes';
 import { SearchNavigator } from './SearchNavigator';
 import { OfferNavigator } from './OfferNavigator';
@@ -32,6 +32,7 @@ export const BottomTabBarNavigator: React.FC = () => {
 
   return (
     <Tab.Navigator
+      initialRouteName={Routes.LEARN_NAVIGATOR}
       screenOptions={({ route }) => ({
         ...tabBarOptions,
         tabBarLabel: tabs[route.name],
@@ -41,9 +42,7 @@ export const BottomTabBarNavigator: React.FC = () => {
       <Tab.Screen
         name={Routes.SEARCH_NAVIGATOR}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Icon name="earth" size={24} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Images.Home color={color} />,
         }}
         component={SearchNavigator}
       />
@@ -51,9 +50,7 @@ export const BottomTabBarNavigator: React.FC = () => {
       <Tab.Screen
         name={Routes.OFFER_NAVIGATOR}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Icon name="percent" size={24} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Images.Offers color={color} />,
         }}
         component={OfferNavigator}
       />
@@ -61,9 +58,7 @@ export const BottomTabBarNavigator: React.FC = () => {
       <Tab.Screen
         name={Routes.LEARN_NAVIGATOR}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Icon name="book-outline" size={24} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Images.Latest color={color} />,
         }}
         component={LearnNavigator}
       />
@@ -72,9 +67,7 @@ export const BottomTabBarNavigator: React.FC = () => {
         <Tab.Screen
           name={Routes.PROFILE_NAVIGATOR}
           options={{
-            tabBarIcon: ({ color }) => (
-              <Icon name="person-outline" size={24} color={color} />
-            ),
+            tabBarIcon: ({ color }) => <Images.User color={color} />,
           }}
           component={ProfileNavigator}
         />

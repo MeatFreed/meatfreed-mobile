@@ -118,7 +118,7 @@ export const Avatar: React.FC<AvatarProps> = ({
                 <Box ai="center">
                   <Icon name="image-2" size={40} color={Colors.purple} />
 
-                  <Text mt={isLarge ? Spaces.sm : Spaces['2xs']} ff={FontFamily.DMSansMedium} color={Colors.primary_800}>{t('profile.add-photo')}</Text>
+                  <Text mt={isLarge ? Spaces.sm : Spaces['2xs']} ff={FontFamily.PoppinsMedium} color={Colors.primary_800}>{t('profile.add-photo')}</Text>
                 </Box>
               )}
             </>

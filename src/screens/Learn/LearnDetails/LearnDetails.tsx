@@ -11,7 +11,7 @@ import Config from 'react-native-config';
 import { useRoute } from '@react-navigation/native';
 import { LearnDetailsProp } from 'navigation';
 import { ActivityIndicator, StatusBar } from 'ui';
-import { useGetMomentByUID } from 'hooks';
+import { useGetPostByUID } from 'hooks';
 import FastImage from 'react-native-fast-image';
 
 const { width } = Dimensions.get('window');
@@ -33,7 +33,7 @@ const StyledImage = styled(FastImage as AnyType)`
 export const LearnDetails: React.FC = () => {
   const { params } = useRoute<LearnDetailsProp>();
 
-  const { post, onUpdatePlayCount } = useGetMomentByUID(params.uid);
+  const { post, onUpdatePlayCount } = useGetPostByUID(params.uid);
 
   if (!post) {
     return <ActivityIndicator isVisible />;
@@ -68,7 +68,7 @@ export const LearnDetails: React.FC = () => {
 
         <Box p={[16, 16, 0]}>
           {post.title && (
-            <Text fs={FontSizes.xl} fnw="700" ff={FontFamily.DMSansBold} color={Colors.basic_800}>{post.title}</Text>
+            <Text fs={FontSizes.xl} fnw="700" ff={FontFamily.PoppinsBold} color={Colors.basic_800}>{post.title}</Text>
           )}
 
           {post.subtitle && (

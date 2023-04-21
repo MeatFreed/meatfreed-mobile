@@ -23,6 +23,9 @@ export const Colors = {
   primary_light: '#A997E6',
   marker: '#0C0429',
 
+  tabBarInactiveTintColor: '#5C616F',
+  tabBarActiveTintColor: '#7153d6',
+
   /** PRIMARY  */
 
   primary_100: '#e2dcf6',
@@ -42,6 +45,7 @@ export const Colors = {
   /** BASIC */
 
   basic_100: '#FFFFFF',
+  basic_150: '#F6F7F8',
   basic_200: '#F7F9FC',
   basic_300: '#EDF1F7',
   basic_400: '#E4E9F2',
