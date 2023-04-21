@@ -164,10 +164,11 @@
 		<string>Zocial.ttf</string>
 		<string>Fontisto.ttf</string>
 		<string>icomoon.ttf</string>
-		<string>DMSans-Medium.ttf</string>
-		<string>DMSans-Regular.ttf</string>
-		<string>Raleway-Bold.ttf</string>
-		<string>DMSans-Bold.ttf</string>
+		<string>Poppins-Bold.ttf</string>
+		<string>Poppins-Light.ttf</string>
+		<string>Poppins-Medium.ttf</string>
+		<string>Poppins-Regular.ttf</string>
+		<string>Poppins-SemiBold.ttf</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>BootSplash.storyboard</string>
