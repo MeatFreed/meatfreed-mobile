@@ -1,6 +1,6 @@
 import { FlashList } from '@shopify/flash-list';
 import { useGetOffers, useOfferActions, usePosition } from 'hooks';
-import React, { useState } from 'react';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
   Box, Colors, HorizontalDivider, Text,
@@ -10,13 +10,11 @@ import { GlobalOfferCard, RegularOfferCard } from './ui';
 
 export const Offers: React.FC = () => {
   const { t } = useTranslation();
-  const [searchQuery, setSearchQuery] = useState('');
-
   const { offers, onRefresh, isLoading } = useGetOffers();
 
   const { onRegular, onGlobal } = useOfferActions();
 
-  usePosition();
+  const { getCurrentLocation } = usePosition();
 
   return (
     <Box f={1} bgc={Colors.basic_100}>
@@ -26,10 +24,9 @@ export const Offers: React.FC = () => {
 
         <Box m={[0, 25, 16]}>
           <GoogleSearchBar
-            value={searchQuery}
-            onChangeText={(text) => setSearchQuery(text)}
             label={t('labels.restaurant')}
             placeholder={t('placeholders.search-restaurant')}
+            getCurrentLocation={getCurrentLocation}
           />
         </Box>
       </Box>

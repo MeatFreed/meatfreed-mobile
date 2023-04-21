@@ -1,4 +1,6 @@
-import React, { useMemo, useState } from 'react';
+import React, {
+  Dispatch, SetStateAction, useMemo, useState,
+} from 'react';
 import {
   FlatList, Linking, StyleSheet, TouchableOpacity,
 } from 'react-native';
@@ -28,15 +30,13 @@ import { ActionButton } from './ActionButton';
 interface RestaurantPanelProps {
   details: RestaurantInformation;
   placeId: string;
+  setPlaceId: Dispatch<SetStateAction<string | null>>;
 }
 
 const styles = StyleSheet.create({
-  contentContainerStyle: {
+  list: {
     overflow: 'visible',
     flexGrow: 1,
-  },
-  list: {
-    flex: 1,
   },
 });
 
@@ -59,7 +59,7 @@ const Picture = styled(Box)`
   position: absolute;
   top: 15px;
   left: -10px;
-  zIndex: 999px;
+  zIndex: 999;
   border-radius: 5px;
   margin: 0px 2px;
 `;
@@ -91,7 +91,9 @@ const MarqueCard = styled(FastImage as AnyType)`
 
 const today = dayjs().day() - 1;
 
-export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ placeId, details }) => {
+export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({
+  placeId, details, setPlaceId,
+}) => {
   const snapPoints = useMemo(() => [0.1, '80%'], []);
 
   const [isShowSchedule, setIsShoSchedule] = useState(false);
@@ -112,17 +114,23 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ placeId, detai
     Linking.openURL(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(details?.name)}&destination_place_id=${placeId}`);
   };
 
+  const onChange = (index: number) => {
+    if (!index) {
+      setPlaceId(null);
+    }
+  };
+
   return (
     <SwipeablePanel
       ref={SwipeablePanelService.panelRef}
       snapPoints={snapPoints}
+      onChange={onChange}
     >
       <BottomSheetScrollView
         style={styles.list}
-        contentContainerStyle={styles.contentContainerStyle}
         showsVerticalScrollIndicator={false}
       >
-        <Box f={1} p={[0, 10, 50]}>
+        <Box p={[0, 10, 50]}>
           <Box fd="row">
             <StyledImage
               source={{

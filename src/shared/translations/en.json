@@ -21,7 +21,7 @@
     "server-unable": "An error occurred. Please try again later",
     "generate-share-link": "Failed to generate share link",
     "invalid-code": "Code is not valid, try again",
-    "reauthenticate": "Please re-authenticate to delete your account",
+    "reauthenticate": "Please re-authenticate to delete your account"
   },
   "labels": {
     "restaurant": "Find your Restaurant",
@@ -90,7 +90,7 @@
     "description": "Learn more about plant-based in your neighborhood \nand around the world 🤓"
   },
   "my-referral": {
-    "scan": "Save the QR code and share it with your friends to make profit",
+    "scan": "Share the QR code with your friends",
     "code": "Referral Code",
     "link": "Invitation Link",
     "clipboard": "Your invitation code copied to clipboard",

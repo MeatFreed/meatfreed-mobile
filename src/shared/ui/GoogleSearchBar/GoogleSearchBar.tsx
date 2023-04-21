@@ -1,5 +1,5 @@
 import { AnyType, touchableConfig } from 'helpers';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { StyleSheet, Text, TextInputProps } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import styled from 'styled-components/native';
@@ -19,10 +19,12 @@ import { useTypedDispatch } from 'stores';
 import { setCurrentLocation } from 'stores/place';
 import FastImage from 'react-native-fast-image';
 import { useIsFocused } from '@react-navigation/native';
+import { Icon } from 'ui/Icon/Icon';
 
 interface GoogleSearchBarProps extends TextInputProps {
   fullWidth?: boolean;
   label?: string
+  getCurrentLocation: () => void;
 }
 
 const StyledGradient = styled(LinearGradient as AnyType)`
@@ -57,6 +59,26 @@ const StyledInput = styled(GooglePlacesAutocomplete as AnyType)`
   color: ${Colors.basic_800};
 `;
 
+const SearchButton = styled(StyledButton)`
+  position: absolute;
+  left: 0px;
+  z-index: 11;
+  top: 0px;
+  bottom: 8px;
+  border-top-left-radius: 25px;
+  border-bottom-left-radius: 25px;
+`;
+
+const CloseButton = styled(StyledButton)`
+  position: absolute;
+  right: 0px;
+  z-index: 10;
+  top: 0px;
+  bottom: 8px;
+  border-top-right-radius: 25px;
+  border-bottom-right-radius: 25px;
+`;
+
 const styles = StyleSheet.create({
   layout: {
     width: 40,
@@ -71,10 +93,9 @@ const styles = StyleSheet.create({
   },
   btn: {
     position: 'absolute',
-    right: 0,
+    left: 0,
     top: 0,
     zIndex: 10,
-
     overflow: 'hidden',
   },
 });
@@ -82,11 +103,14 @@ const styles = StyleSheet.create({
 export const GoogleSearchBar: React.FC<GoogleSearchBarProps> = ({
   fullWidth,
   label,
+  getCurrentLocation,
   ...rest
 }) => {
   const isFocused = useIsFocused();
 
   const { onLogEvent } = useAnalytics();
+
+  const ref = useRef<AnyType>();
 
   const [isActive, setIsActive] = useState(false);
 
@@ -99,8 +123,6 @@ export const GoogleSearchBar: React.FC<GoogleSearchBarProps> = ({
 
   const LAYOUT_WIDTH = width - 50;
 
-  const WRAPPER_WIDTH = LAYOUT_WIDTH - 40;
-
   const animatedLayoutStyle = useAnimatedStyle(() => {
     const width = interpolate(animationWidth.value, [0, 1], [40, LAYOUT_WIDTH], {
       extrapolateRight: Extrapolation.CLAMP,
@@ -108,7 +130,7 @@ export const GoogleSearchBar: React.FC<GoogleSearchBarProps> = ({
 
     return {
       width: withTiming(width, {
-        duration: 500,
+        duration: 250,
       }),
     };
   });
@@ -120,29 +142,7 @@ export const GoogleSearchBar: React.FC<GoogleSearchBarProps> = ({
 
     return {
       width: withTiming(width, {
-        duration: 500,
-      }),
-    };
-  });
-
-  const animatedPositionStyle = useAnimatedStyle(() => {
-    const position = interpolate(animationPosition.value, [0, 1], [0, WRAPPER_WIDTH], {
-      extrapolateRight: Extrapolation.CLAMP,
-    });
-
-    const radius = interpolate(animationPosition.value, [0, 1], [20, 0], {
-      extrapolateRight: Extrapolation.CLAMP,
-    });
-
-    return {
-      left: withTiming(position, {
-        duration: 500,
-      }),
-      borderBottomLeftRadius: withTiming(radius, {
-        duration: 1,
-      }),
-      borderTopLeftRadius: withTiming(radius, {
-        duration: 1,
+        duration: 250,
       }),
     };
   });
@@ -159,13 +159,18 @@ export const GoogleSearchBar: React.FC<GoogleSearchBarProps> = ({
   useEffect(() => {
     if (isFocused) {
       rest?.onChangeText?.('');
+
       animationWidth.value = 0;
       animationPosition.value = 0;
     }
   }, [isFocused, rest?.onChangeText]);
 
-  return (
+  const onReset = () => {
+    getCurrentLocation();
+    ref?.current?.setAddressText?.('');
+  };
 
+  return (
     <Box w={fullWidth ? '100%' : 'auto'} bgc={Colors.basic_100} shadowed br="25px">
       {label && (
         <StyledGradient
@@ -183,9 +188,14 @@ export const GoogleSearchBar: React.FC<GoogleSearchBarProps> = ({
       )}
 
       <Animated.View style={[styles.layout, animatedLayoutStyle]}>
+        <SearchButton {...touchableConfig} onPress={() => setIsActive(!isActive)}>
+          <StyledIcon source={Images.Find} />
+        </SearchButton>
+
         <Animated.View style={[styles.wrapper, animatedWrapperStyle]}>
           <StyledInput
             {...rest}
+            ref={ref}
             GooglePlacesDetailsQuery={{ fields: 'geometry' }}
             query={{
               key: Config.MAP_API_KEY,
@@ -210,16 +220,16 @@ export const GoogleSearchBar: React.FC<GoogleSearchBarProps> = ({
             }}
             styles={{
               textInputContainer: {
-                borderRadius: 20,
+                borderRadius: 25,
                 height: 40,
                 overflow: 'hidden',
                 marginBottom: 10,
                 color: Colors.basic_600,
               },
               textInput: {
-                borderRadius: 20,
+                borderRadius: 25,
                 height: 40,
-                paddingLeft: 16,
+                paddingLeft: 40,
                 paddingRight: 40,
                 overflow: 'hidden',
                 color: Colors.basic_800,
@@ -235,13 +245,14 @@ export const GoogleSearchBar: React.FC<GoogleSearchBarProps> = ({
             enablePoweredByContainer={false}
             debounce={500}
           />
+
         </Animated.View>
 
-        <Animated.View style={[[styles.btn, animatedPositionStyle]]}>
-          <StyledButton {...touchableConfig} onPress={() => setIsActive(!isActive)}>
-            <StyledIcon source={Images.Find} />
-          </StyledButton>
-        </Animated.View>
+        {isActive && (
+          <CloseButton {...touchableConfig} onPress={onReset}>
+            <Icon name="close" size={20} color={Colors.basic_700} />
+          </CloseButton>
+        )}
       </Animated.View>
     </Box>
   );

@@ -29,6 +29,7 @@ export const SwipeablePanel = React.forwardRef<BottomSheetMethods, SwipeablePane
     return (
       <Portal>
         <BottomSheet
+          {...rest}
           ref={ref}
           snapPoints={rest.snapPoints}
           backgroundStyle={styles.backgroundStyle}
