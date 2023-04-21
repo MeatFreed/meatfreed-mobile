@@ -13,6 +13,8 @@ import dayjs from 'dayjs';
 import { useReferralCode } from './useReferralCode';
 import { useAnalytics } from './useAnalytics';
 
+const { SIGN_UP_WITHOUT_REFERRAL_CODE, SIGN_UP_WITH_REFERRAL_CODE } = EventTypes;
+
 export const useSignUp = () => {
   const [isLoading, setIsLoading] = useState(false);
 
@@ -30,6 +32,8 @@ export const useSignUp = () => {
     setIsLoading(true);
 
     try {
+      const { user } = await auth().createUserWithEmailAndPassword(email, password);
+
       if (referralCode) {
         const response = await firestore().collection('users').where('referrer', '==', referralCode).get();
 
@@ -39,29 +43,6 @@ export const useSignUp = () => {
           return;
         }
 
-        const { user } = await auth().createUserWithEmailAndPassword(email, password);
-
-        const code = await getReferralCode();
-
-        await firestore().collection('users').doc(user.uid).set({
-          ...rest,
-          uid: user.uid,
-          email,
-          firstName: rest.name,
-          lastName: rest.name,
-          referrer: code,
-          referralsCount: 0,
-          photoURL: '',
-        });
-
-        onLogEvent(EventTypes.SIGN_UP_WITH_REFERRAL_CODE, {
-          userId: user.uid,
-          referralCode,
-          provider: 'form',
-          event: EventTypes.SIGN_UP_WITH_REFERRAL_CODE,
-          createdAt: dayjs().valueOf(),
-        });
-
         const referral = response.docs.map((doc) => ({
           ...doc.data(), uid: doc.id,
         }))?.[0] as FirebaseUser;
@@ -70,53 +51,34 @@ export const useSignUp = () => {
           referrals: referral?.referrals?.length ? [...referral.referrals, user.uid] : [user.uid],
           referralsCount: referral.referralsCount + 1,
         });
-
-        dispatch(setUser({
-          ...rest,
-          uid: user.uid,
-          email,
-          firstName: rest.name,
-          lastName: rest.name,
-          referrer: code,
-          referralsCount: 0,
-          photoURL: '',
-        } as unknown as FirebaseUser));
-
-        RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
-
-        return;
       }
-
-      const { user } = await auth().createUserWithEmailAndPassword(email, password);
 
       const code = await getReferralCode();
 
-      await firestore().collection('users').doc(user?.uid).set({
+      const values = {
         ...rest,
+        ...(referralCode && { referralCode }),
         uid: user.uid,
-        email,
         firstName: rest.name,
         lastName: rest.name,
-        referrer: code,
-        referralsCount: 0,
-        photoURL: '',
-      });
-
-      dispatch(setUser({
-        ...rest,
-        uid: user.uid,
         email,
-        firstName: rest.name,
-        lastName: rest.name,
-        referrer: code,
         referralsCount: 0,
-        photoURL: '',
-      } as unknown as FirebaseUser));
-
-      onLogEvent(EventTypes.SIGN_UP_WITHOUT_REFERRAL_CODE, {
-        userId: user.uid,
+        referrer: code,
         provider: 'form',
-        event: EventTypes.SIGN_UP_WITHOUT_REFERRAL_CODE,
+        photoURL: '',
+      };
+
+      await firestore().collection('users').doc(user.uid).set(values);
+
+      dispatch(setUser(values as unknown as FirebaseUser));
+
+      const eventName = referralCode ? SIGN_UP_WITHOUT_REFERRAL_CODE : SIGN_UP_WITH_REFERRAL_CODE;
+
+      onLogEvent(eventName, {
+        ...(referralCode && { referralCode }),
+        userId: user.uid,
+        event: eventName,
+        provider: 'form',
         createdAt: dayjs().valueOf(),
       });
 

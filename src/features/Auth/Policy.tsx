@@ -14,7 +14,7 @@ export const Policy: React.FC = () => {
         i18nKey="authorization.agree"
         parent={Text}
         ta="center"
-        ff={FontFamily.DMSansRegular}
+        ff={FontFamily.PoppinsRegular}
         color={Colors.purple}
         values={{
           terms: t('authorization.terms'),
@@ -22,7 +22,7 @@ export const Policy: React.FC = () => {
         }}
         components={[
           <Text
-            ff={FontFamily.DMSansMedium}
+            ff={FontFamily.PoppinsMedium}
             color={Colors.purple}
             ttd="underline"
             ttds="solid"
@@ -32,7 +32,7 @@ export const Policy: React.FC = () => {
             )}
           />,
           <Text
-            ff={FontFamily.DMSansMedium}
+            ff={FontFamily.PoppinsMedium}
             color={Colors.purple}
             ttd="underline"
             ttds="solid"
