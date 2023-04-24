@@ -7,16 +7,16 @@ export type RootStackParamList = {
   [Routes.MAIN_NAVIGATOR]: undefined;
   [Routes.SEARCH_NAVIGATOR]: undefined;
   [Routes.OFFER_NAVIGATOR]: undefined;
-  [Routes.LEARN_NAVIGATOR]: undefined;
+  [Routes.POST_NAVIGATOR]: undefined;
   [Routes.PROFILE_NAVIGATOR]: undefined;
   [Routes.WELCOME]: undefined;
   [Routes.SIGN_IN]: undefined;
   [Routes.SIGN_UP]: {
     code?: string;
   };
-  [Routes.LEARN]: undefined;
-  [Routes.LEARN_DETAILS]: {
-    uid: string;
+  [Routes.POSTS]: undefined;
+  [Routes.POST_DETAILS]: {
+    contentId: string;
   };
   [Routes.SEARCH]: {
     placeId: string;
@@ -27,7 +27,7 @@ export type RootStackParamList = {
   [Routes.SETTINGS]: undefined;
 };
 
-export type LearnDetailsProp = RouteProp<RootStackParamList, Routes.LEARN_DETAILS>;
+export type PostDetailsProp = RouteProp<RootStackParamList, Routes.POST_DETAILS>;
 
 export type SearchProp = RouteProp<RootStackParamList, Routes.SEARCH>;
 

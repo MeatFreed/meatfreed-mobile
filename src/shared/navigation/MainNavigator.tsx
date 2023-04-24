@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  LearnDetails,
+  PostDetails,
   Referral,
   Settings,
   SignIn,
@@ -8,6 +8,7 @@ import {
   Welcome,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
+import { useGetReactions } from 'hooks';
 import { Routes } from './Routes';
 import { Stack, authOptions, headerOptions } from './NavigationOptions';
 import { BottomTabBarNavigator } from './BottomTabBarNavigator';
@@ -15,8 +16,10 @@ import { BottomTabBarNavigator } from './BottomTabBarNavigator';
 export const MainNavigator: React.FC = () => {
   const { t } = useTranslation();
 
+  useGetReactions();
+
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName={Routes.BOTTOM_TAB_BAR_NAVIGATOR}>
       <Stack.Screen
         name={Routes.BOTTOM_TAB_BAR_NAVIGATOR}
         component={BottomTabBarNavigator}
@@ -54,8 +57,8 @@ export const MainNavigator: React.FC = () => {
       />
 
       <Stack.Screen
-        name={Routes.LEARN_DETAILS}
-        component={LearnDetails}
+        name={Routes.POST_DETAILS}
+        component={PostDetails}
         options={{ ...headerOptions, headerTitle: t('screens.post-details') }}
       />
 

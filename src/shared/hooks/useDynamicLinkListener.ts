@@ -10,13 +10,19 @@ export const useDynamicLinkListener = () => {
   const userId = useTypedSelector(userSelectors.userId);
 
   const handleDynamicLink = (link: FirebaseDynamicLinksTypes.DynamicLink | null) => {
-    if (!link || userId) {
-      return;
-    }
-
     const formattedLink = getFirebaseDeepLinkParam(link, true) as AnyType;
 
-    RouteService.navigate(Routes.SIGN_UP, { code: formattedLink.code });
+    if (userId && formattedLink.contentId) {
+      RouteService.navigate(Routes.POST_DETAILS, { contentId: formattedLink.contentId });
+    }
+
+    if (!userId && formattedLink.contentId) {
+      RouteService.navigate(Routes.SIGN_UP, { code: undefined });
+    }
+
+    if (!userId && formattedLink.code) {
+      RouteService.navigate(Routes.SIGN_UP, { code: formattedLink.code });
+    }
   };
 
   useEffect(() => {

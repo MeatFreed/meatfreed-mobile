@@ -15,4 +15,6 @@ export const Images = {
   Offers: require('assets/images/offers.svg').default,
   User: require('assets/images/user.svg').default,
   PostLogo: require('assets/images/post-logo.svg').default,
+  Heart: require('assets/images/heart.svg').default,
+  Smile: require('assets/images/smile-plus.svg').default,
 };

@@ -5,3 +5,4 @@ export * from './RouteService/RouteService';
 export * from './ToastService/ToastService';
 export * from './SwipeablePanelService/SwipeablePanelService';
 export * from './ImagePickerService/ImagePickerService';
+export * from './StoryblokService/StoryblokService';

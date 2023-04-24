@@ -4,6 +4,7 @@ import { AnyType, getFirebaseDeepLinkParam } from 'helpers';
 import Config from 'react-native-config';
 import dynamicLinks from '@react-native-firebase/dynamic-links';
 import { RouteService } from 'services';
+import { store } from 'stores';
 
 const { URL_SCHEMA, HOST_URL } = Config as AnyType;
 
@@ -14,7 +15,8 @@ export const linking = {
       [Routes.MAIN_NAVIGATOR]: {
         initialRouteName: Routes.BOTTOM_TAB_BAR_NAVIGATOR,
         screens: {
-          [Routes.SIGN_UP]: 'sign-up/:referralCode',
+          [Routes.SIGN_UP]: 'sign-up/:code',
+          [Routes.POST_DETAILS]: 'post-details/:contentId',
         },
       },
     },
@@ -24,11 +26,29 @@ export const linking = {
     const initialLink = await dynamicLinks().getInitialLink();
 
     if (initialLink) {
+      const userId = store.getState().user.uid;
+
       const formattedLink = getFirebaseDeepLinkParam(initialLink) as AnyType;
 
-      RouteService.reset(Routes.SIGN_UP, { code: formattedLink.code });
+      if (userId && formattedLink.contentId) {
+        RouteService.navigate(Routes.POST_DETAILS, { contentId: formattedLink.contentId });
 
-      return `${URL_SCHEMA}://sign-up/${formattedLink.code}`;
+        return `${URL_SCHEMA}://post-details/${formattedLink.contentId}`;
+      }
+
+      if (!userId && formattedLink.contentId) {
+        RouteService.navigate(Routes.SIGN_UP, { code: undefined });
+
+        return `${URL_SCHEMA}://sign-up/${undefined}`;
+      }
+
+      if (!userId && formattedLink.code) {
+        RouteService.navigate(Routes.SIGN_UP, { code: formattedLink.code });
+
+        return `${URL_SCHEMA}://sign-up/${formattedLink.code}`;
+      }
+
+      return '';
     }
 
     const url = await Linking.getInitialURL();

@@ -7,7 +7,7 @@ import { Images } from 'themes';
 import { Routes } from './Routes';
 import { SearchNavigator } from './SearchNavigator';
 import { OfferNavigator } from './OfferNavigator';
-import { LearnNavigator } from './LearnNavigator';
+import { PostNavigator } from './PostNavigator';
 import { tabBarOptions } from './NavigationOptions';
 import { ProfileNavigator } from './ProfileNavigator';
 
@@ -16,14 +16,14 @@ const Tab = createBottomTabNavigator();
 const titles: { [key: string]: string } = {
   [Routes.SEARCH_NAVIGATOR]: i18n.t('screens.membership'),
   [Routes.OFFER_NAVIGATOR]: i18n.t('screens.offers'),
-  [Routes.LEARN_NAVIGATOR]: i18n.t('screens.learn'),
+  [Routes.POST_NAVIGATOR]: i18n.t('screens.posts'),
   [Routes.PROFILE_NAVIGATOR]: i18n.t('screens.profile'),
 };
 
 const tabs: { [key: string]: string } = {
   [Routes.SEARCH_NAVIGATOR]: i18n.t('tabs.search'),
   [Routes.OFFER_NAVIGATOR]: i18n.t('tabs.offers'),
-  [Routes.LEARN_NAVIGATOR]: i18n.t('tabs.learn'),
+  [Routes.POST_NAVIGATOR]: i18n.t('tabs.posts'),
   [Routes.PROFILE_NAVIGATOR]: i18n.t('tabs.profile'),
 };
 
@@ -32,7 +32,6 @@ export const BottomTabBarNavigator: React.FC = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={Routes.LEARN_NAVIGATOR}
       screenOptions={({ route }) => ({
         ...tabBarOptions,
         tabBarLabel: tabs[route.name],
@@ -56,11 +55,11 @@ export const BottomTabBarNavigator: React.FC = () => {
       />
 
       <Tab.Screen
-        name={Routes.LEARN_NAVIGATOR}
+        name={Routes.POST_NAVIGATOR}
         options={{
           tabBarIcon: ({ color }) => <Images.Latest color={color} />,
         }}
-        component={LearnNavigator}
+        component={PostNavigator}
       />
 
       {!!userId && (

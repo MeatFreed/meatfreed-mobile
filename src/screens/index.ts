@@ -1,6 +1,6 @@
 export * from './Auth';
 export * from './Search';
 export * from './Offers';
-export * from './Learn';
+export * from './Posts';
 export * from './Referral';
 export * from './Profile';

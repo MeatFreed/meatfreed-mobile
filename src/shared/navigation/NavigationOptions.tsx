@@ -63,7 +63,7 @@ export const headerOptions: StackNavigationOptions = {
     if (props.canGoBack) {
       return (
         <Box ml={Spaces.xs}>
-          <Button type="icon" iconColor={Colors.basic_800} iconName="arrow-back" onPress={RouteService.goBack} />
+          <Button type="icon" iconColor={Colors.tabBarInactiveTintColor} iconName="arrow-back" onPress={RouteService.goBack} />
         </Box>
       );
     }
@@ -72,7 +72,7 @@ export const headerOptions: StackNavigationOptions = {
   },
   headerRight: () => (
     <Box mr={Spaces.xs}>
-      <Button type="icon" iconName="message-circle-outline" iconColor={Colors.basic_800} onPress={() => openLink(`${LIVE_CHAT_URL}=${LIVE_CHAT_LICENSE}`)} />
+      <Button type="icon" iconName="message-circle-outline" iconColor={Colors.tabBarInactiveTintColor} onPress={() => openLink(`${LIVE_CHAT_URL}=${LIVE_CHAT_LICENSE}`)} />
     </Box>
   ),
 };
@@ -96,7 +96,7 @@ export const authOptions: StackNavigationOptions = {
     if (props.canGoBack) {
       return (
         <Box ml={Spaces.xs}>
-          <Button type="icon" iconName="arrow-back" iconColor={Colors.basic_800} onPress={RouteService.goBack} />
+          <Button type="icon" iconName="arrow-back" iconColor={Colors.tabBarInactiveTintColor} onPress={RouteService.goBack} />
         </Box>
       );
     }

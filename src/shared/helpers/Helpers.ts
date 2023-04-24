@@ -10,6 +10,8 @@ import dynamicLinks, { FirebaseDynamicLinksTypes } from '@react-native-firebase/
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import Config from 'react-native-config';
 
+export const isImage = (url: string) => /^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+
 export type AnyType = any;
 
 export const isDev = __DEV__;
@@ -52,13 +54,16 @@ export const uuid = () => {
   return uuids.join('');
 };
 
+export const truncate = (value: string, length: number, end = '...') => (value.length < length ? value : value.substring(0, length) + end);
+
 export const generateShareLink = async (
+  link: string,
   field: string,
   value: string,
 ) => {
   try {
     const generatedLink = await dynamicLinks().buildShortLink({
-      link: `${Config.FIREBASE_DYNAMIC_URL || ''}?${field}=${value}`,
+      link: `${link}?${field}=${value}`,
       domainUriPrefix: Config.FIREBASE_DYNAMIC_URL_PREFIX || '',
       android: {
         packageName: Config.BUNDLE_ID || '',
