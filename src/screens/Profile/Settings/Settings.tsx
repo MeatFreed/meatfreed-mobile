@@ -13,6 +13,7 @@ import {
   Button,
   Input,
   KeyboardAwareView,
+  StatusBar,
 } from 'ui';
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
@@ -82,7 +83,7 @@ export const Settings: React.FC = () => {
     navigation.setOptions({
       headerRight: () => (
         <Box mr={Spaces.md}>
-          <Button type="label" reversed title={t('buttons.save')} onPress={() => handleSubmit()} />
+          <Button type="label" title={t('buttons.save')} onPress={() => handleSubmit()} />
         </Box>
       ),
     });
@@ -92,9 +93,11 @@ export const Settings: React.FC = () => {
     <>
       <ActivityIndicator isVisible={isLoading} />
 
+      <StatusBar />
+
       <KeyboardAwareView bounces={false} isScrollable>
         <Box f={1} p={[Spaces.md, Spaces.md, 0]} wdbg>
-          <Text mb={Spaces.xl} fs={FontSizes.lg} ff={FontFamily.RalewayBold}>{t('settings.general')}</Text>
+          <Text mb={Spaces.xl} fs={FontSizes.lg} fnw="600" ff={FontFamily.PoppinsSemiMedium}>{t('settings.general')}</Text>
 
           <Input
             value={values.firstName}
@@ -118,7 +121,7 @@ export const Settings: React.FC = () => {
             withBottomOffset
           />
 
-          <Text mb={Spaces.xl} fs={FontSizes.lg} ff={FontFamily.RalewayBold}>{t('settings.main-contacts')}</Text>
+          <Text mb={Spaces.xl} fs={FontSizes.lg} fnw="600" ff={FontFamily.PoppinsSemiMedium}>{t('settings.main-contacts')}</Text>
 
           <Input
             value={values.email}

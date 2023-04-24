@@ -4,6 +4,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { googleApi } from 'api';
 import { placeReducer } from './place';
 import { userReducer } from './user';
+import { reactionsReducer } from './reactions';
 
 const userPersistConfig = {
   key: 'user',
@@ -24,6 +25,7 @@ const userPersistConfig = {
 
 export const rootReducer = combineReducers({
   place: placeReducer,
+  reactions: reactionsReducer,
   user: persistReducer(userPersistConfig, userReducer),
   [googleApi.reducerPath]: googleApi.reducer,
 });

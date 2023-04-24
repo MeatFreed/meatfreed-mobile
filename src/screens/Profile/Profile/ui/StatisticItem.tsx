@@ -12,7 +12,7 @@ interface StatisticItemProps {
 export const StatisticItem: React.FC<StatisticItemProps> = ({ value = 0, title, color }) => (
   <Box ai="center" f={1}>
     <Text
-      ff={FontFamily.RalewayBold}
+      ff={FontFamily.PoppinsBold}
       color={value ? color : Colors.basic_500}
       fs={FontSizes.xl}
       lh={30}

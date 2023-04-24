@@ -40,7 +40,7 @@ export const MenuPanel: React.FC<MenuPanelProps> = ({ onDelete, onLogout }) => {
             color={Colors.danger_400}
           />
 
-          <Text m={[0, 6]} fnw="500" ff={FontFamily.DMSansMedium} color={Colors.danger_400}>{t('buttons.delete-account')}</Text>
+          <Text m={[0, 6]} fnw="500" ff={FontFamily.PoppinsMedium} color={Colors.danger_400}>{t('buttons.delete-account')}</Text>
         </StyledButton>
 
         <Box mt={Spaces.md}>
@@ -51,7 +51,7 @@ export const MenuPanel: React.FC<MenuPanelProps> = ({ onDelete, onLogout }) => {
               color={Colors.basic_600}
             />
 
-            <Text m={[0, 6]} fnw="500" ff={FontFamily.DMSansMedium} color={Colors.basic_600}>{t('buttons.logout')}</Text>
+            <Text m={[0, 6]} fnw="500" ff={FontFamily.PoppinsMedium} color={Colors.basic_600}>{t('buttons.logout')}</Text>
           </StyledButton>
         </Box>
       </Box>

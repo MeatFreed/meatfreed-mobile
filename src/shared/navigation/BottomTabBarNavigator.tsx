@@ -3,11 +3,11 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import i18n from 'i18next';
 import { useTypedSelector } from 'stores';
 import { userSelectors } from 'stores/user';
-import { Icon } from 'ui';
+import { Images } from 'themes';
 import { Routes } from './Routes';
 import { SearchNavigator } from './SearchNavigator';
 import { OfferNavigator } from './OfferNavigator';
-import { LearnNavigator } from './LearnNavigator';
+import { PostNavigator } from './PostNavigator';
 import { tabBarOptions } from './NavigationOptions';
 import { ProfileNavigator } from './ProfileNavigator';
 
@@ -16,14 +16,14 @@ const Tab = createBottomTabNavigator();
 const titles: { [key: string]: string } = {
   [Routes.SEARCH_NAVIGATOR]: i18n.t('screens.membership'),
   [Routes.OFFER_NAVIGATOR]: i18n.t('screens.offers'),
-  [Routes.LEARN_NAVIGATOR]: i18n.t('screens.learn'),
+  [Routes.POST_NAVIGATOR]: i18n.t('screens.posts'),
   [Routes.PROFILE_NAVIGATOR]: i18n.t('screens.profile'),
 };
 
 const tabs: { [key: string]: string } = {
   [Routes.SEARCH_NAVIGATOR]: i18n.t('tabs.search'),
   [Routes.OFFER_NAVIGATOR]: i18n.t('tabs.offers'),
-  [Routes.LEARN_NAVIGATOR]: i18n.t('tabs.learn'),
+  [Routes.POST_NAVIGATOR]: i18n.t('tabs.posts'),
   [Routes.PROFILE_NAVIGATOR]: i18n.t('tabs.profile'),
 };
 
@@ -41,9 +41,7 @@ export const BottomTabBarNavigator: React.FC = () => {
       <Tab.Screen
         name={Routes.SEARCH_NAVIGATOR}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Icon name="earth" size={24} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Images.Home color={color} />,
         }}
         component={SearchNavigator}
       />
@@ -51,30 +49,24 @@ export const BottomTabBarNavigator: React.FC = () => {
       <Tab.Screen
         name={Routes.OFFER_NAVIGATOR}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Icon name="percent" size={24} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Images.Offers color={color} />,
         }}
         component={OfferNavigator}
       />
 
       <Tab.Screen
-        name={Routes.LEARN_NAVIGATOR}
+        name={Routes.POST_NAVIGATOR}
         options={{
-          tabBarIcon: ({ color }) => (
-            <Icon name="book-outline" size={24} color={color} />
-          ),
+          tabBarIcon: ({ color }) => <Images.Latest color={color} />,
         }}
-        component={LearnNavigator}
+        component={PostNavigator}
       />
 
       {!!userId && (
         <Tab.Screen
           name={Routes.PROFILE_NAVIGATOR}
           options={{
-            tabBarIcon: ({ color }) => (
-              <Icon name="person-outline" size={24} color={color} />
-            ),
+            tabBarIcon: ({ color }) => <Images.User color={color} />,
           }}
           component={ProfileNavigator}
         />

@@ -62,7 +62,7 @@ export const DeleteAccountModal: React.FC<DeleteAccountModalProps> = ({
       onBackdropPress={onModalClose}
     >
       <Box>
-        <Text mb={16} ta="center" fs={22} color={Colors.basic_800} ff={FontFamily.DMSansMedium} fnw="500">{t('delete-profile.title')}</Text>
+        <Text mb={16} ta="center" fs={22} color={Colors.basic_800} ff={FontFamily.PoppinsMedium} fnw="500">{t('delete-profile.title')}</Text>
 
         <Text fs={14} lh={24} mb={32} ta="center">{t('delete-profile.description')}</Text>
 

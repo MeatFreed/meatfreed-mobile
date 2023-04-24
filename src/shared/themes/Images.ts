@@ -10,4 +10,11 @@ export const Images = {
   Facebook: require('assets/images/facebook.svg').default,
   Google: require('assets/images/google.svg').default,
   Apple: require('assets/images/apple-logo.svg').default,
+  Home: require('assets/images/home.svg').default,
+  Latest: require('assets/images/latest.svg').default,
+  Offers: require('assets/images/offers.svg').default,
+  User: require('assets/images/user.svg').default,
+  PostLogo: require('assets/images/post-logo.svg').default,
+  Heart: require('assets/images/heart.svg').default,
+  Smile: require('assets/images/smile-plus.svg').default,
 };

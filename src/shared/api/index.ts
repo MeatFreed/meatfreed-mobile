@@ -11,3 +11,6 @@ export * from './google/googleApi';
 export * from './google/models';
 
 export * from './user/models';
+
+export * from './reactions/models';
+export * from './reactions/adapters';

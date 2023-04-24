@@ -16,7 +16,7 @@ export const Label: React.FC<LabelProps> = ({
     {!!label && (
       <Box fd="row">
         <Text
-          ff={FontFamily.DMSansMedium}
+          ff={FontFamily.PoppinsMedium}
           fs={FontSizes.xs}
           mb={Spaces['2xs']}
           fnw="500"

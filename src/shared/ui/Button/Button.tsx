@@ -51,7 +51,7 @@ const StyledButton = styled.TouchableOpacity<{isLoading?: boolean, disabled?: bo
 
 const StyledButtonText = styled.Text<{isLoading?: boolean, disabled?: boolean, reversed?: boolean}>`
   font-size: ${FontSizes.md}px;
-  font-family: ${FontFamily.DMSansBold};
+  font-family: ${FontFamily.PoppinsBold};
   font-weight: 700;
   color: ${({ reversed }) => constructColor(reversed)};
 `;
@@ -69,7 +69,7 @@ const ActionButton = styled.TouchableOpacity`
 const BorderButtonText = styled.Text<{ reversed?: boolean }>`
   color: ${Colors.purple};
   font-size: ${FontSizes.md}px;
-  font-family: ${FontFamily.DMSansMedium};
+  font-family: ${FontFamily.PoppinsMedium};
   margin: 0px 6px;
 `;
 
@@ -93,7 +93,7 @@ const IconButton = styled.TouchableOpacity`
 
 const LabelButtonText = styled.Text<{ reversed?: boolean, accent?: boolean }>`
   font-size: ${FontSizes.sm}px;
-  font-family: ${FontFamily.DMSansMedium};
+  font-family: ${FontFamily.PoppinsMedium};
   font-weight: 700;
   color: ${({ reversed, accent }) => (reversed ? Colors.basic_100 : accent ? Colors.info_600 : Colors.primary_500)};
 `;

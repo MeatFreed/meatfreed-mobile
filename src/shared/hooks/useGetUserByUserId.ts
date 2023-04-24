@@ -1,14 +1,11 @@
 import { useIsFocused } from '@react-navigation/native';
 import { FirebaseUser } from 'api';
-import dynamicLinks from '@react-native-firebase/dynamic-links';
 import { useEffect, useState } from 'react';
 import Config from 'react-native-config';
 import firestore from '@react-native-firebase/firestore';
-import { AnyType } from 'helpers';
+import { AnyType, generateShareLink } from 'helpers';
 
-const {
-  FIREBASE_DYNAMIC_URL, FIREBASE_DYNAMIC_URL_PREFIX, BUNDLE_ID, APP_STORE_ID,
-} = Config as AnyType;
+const { FIREBASE_REFERRAL_URL } = Config as AnyType;
 
 export const useGetUserByUserId = (userId?: string) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -26,17 +23,7 @@ export const useGetUserByUserId = (userId?: string) => {
 
       const data = response.data() as FirebaseUser;
 
-      const shortLink = await dynamicLinks().buildShortLink({
-        link: `${FIREBASE_DYNAMIC_URL}?code=${data.referrer}`,
-        domainUriPrefix: FIREBASE_DYNAMIC_URL_PREFIX,
-        android: {
-          packageName: BUNDLE_ID,
-        },
-        ios: {
-          bundleId: BUNDLE_ID,
-          appStoreId: APP_STORE_ID,
-        },
-      });
+      const shortLink = await generateShareLink(FIREBASE_REFERRAL_URL, 'code', data.referrer);
 
       setUser(data);
       setLink(shortLink);

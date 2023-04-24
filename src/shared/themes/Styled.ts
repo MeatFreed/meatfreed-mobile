@@ -18,7 +18,7 @@ export const socialShadow = `
 `;
 
 export const Text = styled.Text<StyledProps>`
-  font-family: ${({ ff }) => ff || FontFamily.DMSansRegular};
+  font-family: ${({ ff }) => ff || FontFamily.PoppinsRegular};
   font-size: ${({ fs }) => `${fs || 16}px`};
   font-weight: ${({ fnw }) => `${fnw || 'normal'}`};
   color: ${({ color }) => color || Colors.basic_800};

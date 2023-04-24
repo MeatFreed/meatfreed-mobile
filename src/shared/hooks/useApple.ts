@@ -15,6 +15,8 @@ import dayjs from 'dayjs';
 import { useReferralCode } from './useReferralCode';
 import { useAnalytics } from './useAnalytics';
 
+const { SIGN_UP_WITHOUT_REFERRAL_CODE, SIGN_UP_WITH_REFERRAL_CODE } = EventTypes;
+
 export const useApple = () => {
   const { t } = useTranslation();
 
@@ -59,19 +61,11 @@ export const useApple = () => {
           referrals: referral?.referrals?.length ? [...referral.referrals, user.uid] : [user.uid],
           referralsCount: referral.referralsCount + 1,
         });
-
-        onLogEvent(EventTypes.SIGN_UP_WITH_REFERRAL_CODE, {
-          userId: user.uid,
-          referralCode,
-          provider: 'form',
-          event: EventTypes.SIGN_UP_WITH_REFERRAL_CODE,
-          createdAt: dayjs().valueOf(),
-        });
       }
 
       const response = await firestore().collection('users').doc(user.uid).get();
 
-      if (response.data()) {
+      if (response.exists) {
         dispatch(setUser({
           ...response.data(),
           uid: user.uid,
@@ -91,6 +85,7 @@ export const useApple = () => {
           : ['anonymous'];
 
         const values = {
+          ...(referralCode && { referralCode }),
           uid: user.uid,
           firstName: displayName?.[0] || '',
           lastName: displayName?.[1] || '',
@@ -103,9 +98,12 @@ export const useApple = () => {
 
         await firestore().collection('users').doc(user.uid).set(values);
 
-        onLogEvent(EventTypes.SIGN_UP_WITHOUT_REFERRAL_CODE, {
+        const eventName = referralCode ? SIGN_UP_WITHOUT_REFERRAL_CODE : SIGN_UP_WITH_REFERRAL_CODE;
+
+        onLogEvent(eventName, {
+          ...(referralCode && { referralCode }),
           userId: user.uid,
-          event: EventTypes.SIGN_UP_WITHOUT_REFERRAL_CODE,
+          event: eventName,
           provider: 'apple',
           createdAt: dayjs().valueOf(),
         });

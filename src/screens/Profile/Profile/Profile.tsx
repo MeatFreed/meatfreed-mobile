@@ -9,7 +9,7 @@ import { userSelectors } from 'stores/user';
 import {
   Box, Colors, FontFamily, Spaces, Text,
 } from 'themes';
-import { Avatar, Button } from 'ui';
+import { Avatar, Button, StatusBar } from 'ui';
 import { useLogout, useUploadPhoto } from 'hooks';
 import {
   DeleteAccountModal,
@@ -50,6 +50,7 @@ export const Profile: React.FC = () => {
             <Button
               type="icon"
               iconName="message-circle-outline"
+              iconColor={Colors.basic_800}
               onPress={() => openLink(`${LIVE_CHAT_URL}=${LIVE_CHAT_LICENSE}`)}
             />
           </Box>
@@ -58,6 +59,7 @@ export const Profile: React.FC = () => {
             <Button
               type="icon"
               iconName="more-vertical"
+              iconColor={Colors.basic_800}
               onPress={() => SwipeablePanelService.onOpenToTop()}
             />
           </Box>
@@ -74,7 +76,9 @@ export const Profile: React.FC = () => {
 
   return (
     <>
-      <Box f={1} bgc={Colors.white}>
+      <StatusBar />
+
+      <Box f={1} bgc={Colors.basic_150}>
         <ScrollView style={styles.list} contentContainerStyle={styles.contentContainerStyle}>
           <Box p={[Spaces.md, Spaces.md, 0]} ai="center" jc="center">
             <Box>
@@ -88,7 +92,7 @@ export const Profile: React.FC = () => {
             </Box>
 
             <Box ai="center" mt={Spaces.md}>
-              <Text fs={18} fnw="700" ff={FontFamily.DMSansBold} color={Colors.basic_800}>{`${user?.firstName || ''} ${user?.lastName || ''}`}</Text>
+              <Text fs={18} fnw="700" ff={FontFamily.PoppinsBold} color={Colors.basic_800}>{`${user?.firstName || ''} ${user?.lastName || ''}`}</Text>
             </Box>
 
             <Statistics />

@@ -1,9 +1,9 @@
 {
   "screens": {
-    "offers": "My Offers",
+    "offers": "Offers",
     "referrals": "My Referrals",
-    "membership": "My Membership",
-    "learn": "Learn",
+    "membership": "meatfreed",
+    "posts": "The Latest",
     "post-details": "Post Details",
     "sign-in": "Authorization",
     "register": "Register",
@@ -12,10 +12,10 @@
     "settings": "Settings"
   },
   "tabs": {
-    "search": "Search",
+    "search": "Home",
     "offers": "Offers",
-    "learn": "Learn",
-    "profile": "Profile"
+    "posts": "Content",
+    "profile": "You"
   },
   "errors": {
     "server-unable": "An error occurred. Please try again later",
@@ -73,7 +73,8 @@
     "logout": "Logout",
     "delete-account": "Delete Account",
     "save": "Save",
-    "delete-my-account": "Delete my account"
+    "delete-my-account": "Delete my account",
+    "more": "more"
   },
   "search": {
     "directions": "Directions",
@@ -86,8 +87,8 @@
     "valid": "Valid until: {{expires}}",
     "description": "View your personalised offers from us \nand our partner restaurants 🙌"
   },
-  "learn": {
-    "description": "Learn more about plant-based in your neighborhood \nand around the world 🤓"
+  "posts": {
+    "post-link": "Post link"
   },
   "my-referral": {
     "scan": "Share the QR code with your friends",
