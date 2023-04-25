@@ -16,9 +16,9 @@ export const ActionButton: React.FC<ActionButtonProps> = ({
   <Box mb={16}>
     <TouchableOpacity {...touchableConfig} onPress={onPress}>
       <Box fd="row" ai="center">
-        <Icon name={iconName} size={24} color={Colors.tertiary} />
+        <Icon name={iconName} size={20} color={Colors.tertiary} />
 
-        <Text fnw="500" m={[2, 0, 0, 12]} color={Colors.primary_secondary}>{label}</Text>
+        <Text fnw="400" fs={14} m={[2, 0, 0, 12]} color={Colors.primary_secondary}>{label}</Text>
       </Box>
     </TouchableOpacity>
   </Box>
