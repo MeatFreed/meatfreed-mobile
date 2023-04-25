@@ -40,7 +40,7 @@ const today = dayjs().day() - 1;
 
 export const PlaceInfo: React.FC<PlaceInfoProps> = ({
   placeId,
-  name,
+  name = '',
   rating = 0,
   weekdays = [],
   userRatingsTotal = 0,
@@ -59,7 +59,7 @@ export const PlaceInfo: React.FC<PlaceInfoProps> = ({
       />
 
       <Box ml={16} f={1}>
-        <Text fnw="bold" ff={FontFamily.PoppinsBold} color={Colors.basic_800}>{name}</Text>
+        <Text fnw="bold" ff={FontFamily.PoppinsBold} color={Colors.basic_800}>{name || ''}</Text>
 
         <Box ai="center" f={1} jc="space-between" fd="row">
           <Box ai="center" fd="row">
@@ -93,7 +93,7 @@ export const PlaceInfo: React.FC<PlaceInfoProps> = ({
 
         <Box mt={10} />
 
-        {weekdays?.length && (
+        {!!weekdays?.length && (
           <TouchableOpacity
             {...touchableConfig}
             onPress={() => setIsShoSchedule(!isShowSchedule)}
@@ -101,12 +101,12 @@ export const PlaceInfo: React.FC<PlaceInfoProps> = ({
             <Box fd="row">
               <Box>
                 {!isShowSchedule && (
-                <Text mb={8} fs={12} color={Colors.basic_800}>
-                  {weekdays[today]}
-                </Text>
+                  <Text mb={8} fs={12} color={Colors.basic_800}>
+                    {weekdays?.[today] || ''}
+                  </Text>
                 )}
 
-                {isShowSchedule && weekdays.map((day) => (
+                {isShowSchedule && weekdays?.map((day) => (
                   <Text mb={8} fs={12} color={Colors.basic_800} key={day}>{day}</Text>
                 ))}
               </Box>

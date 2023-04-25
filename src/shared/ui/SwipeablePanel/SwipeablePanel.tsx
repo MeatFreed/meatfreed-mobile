@@ -4,7 +4,7 @@ import React, { useCallback } from 'react';
 import { StyleSheet } from 'react-native';
 import type { BottomSheetMethods } from '@gorhom/bottom-sheet/src/types';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { AnyType } from 'helpers';
+import { AnyType, isIOS } from 'helpers';
 import { Box, Colors } from 'themes';
 
 interface SwipeablePanelProps extends BottomSheetProps {
@@ -35,8 +35,7 @@ export const SwipeablePanel = React.forwardRef<BottomSheetMethods, SwipeablePane
           backgroundStyle={styles.backgroundStyle}
           topInset={topSafeArea}
           backdropComponent={renderBackdrop}
-          handleIndicatorStyle={undefined}
-          animateOnMount
+          animateOnMount={isIOS}
         >
           <Box f={1} p={[0, 10, 30]}>{children}</Box>
         </BottomSheet>
