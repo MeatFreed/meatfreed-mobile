@@ -18,11 +18,13 @@ export const usePosition = () => {
 
   const { watchPosition, clearWatch } = Geolocation;
 
+  const onChangeLocation = (position: Geolocation.GeoPosition) => {
+    dispatch(setCurrentLocation(position));
+  };
+
   const watchLocation = () => {
     ref.current = watchPosition(
-      (position) => {
-        dispatch(setCurrentLocation(position));
-      },
+      onChangeLocation,
       undefined,
       { distanceFilter: 5000, interval: 600000, fastestInterval: 600000 },
     );
@@ -30,9 +32,7 @@ export const usePosition = () => {
 
   const getCurrentLocation = () => {
     Geolocation.getCurrentPosition(
-      (position) => {
-        dispatch(setCurrentLocation(position));
-      },
+      onChangeLocation,
       undefined,
       {
         enableHighAccuracy: true,

@@ -89,7 +89,7 @@ export const useRestaurantActions = () => {
     try {
       await getRestaurantByID(id).unwrap();
 
-      await withDelay(1000);
+      await withDelay(500);
 
       SwipeablePanelService.onOpenToTop();
     } catch (error: AnyType) {
