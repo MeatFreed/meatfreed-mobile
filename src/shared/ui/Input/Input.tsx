@@ -76,14 +76,14 @@ const constructInputHeight = (isMultiline?: boolean, isSmall?: boolean, isSearch
 
 const constructIconOffset = (withLabel?: boolean, isSmall?: boolean, isSearch?: boolean) => {
   if (withLabel) {
-    return `${Spaces['2xl']}px`;
+    return '12px';
   }
 
   if (isSearch) {
     return '9px';
   }
 
-  return isSmall ? '9px' : '12px';
+  return isSmall ? '9px' : '10px';
 };
 
 const constructBackgroundColor = (
@@ -159,48 +159,49 @@ export const Input = React.forwardRef<TextInput | undefined, InputProps>(({
     <Box w={fullWidth ? '100%' : 'auto'} mb={withBottomOffset ? Spaces.md : 0}>
       <Label label={label} isError={isError} />
 
-      {!!LeftIcon && (
-        <LeftIconBox withLabel={!!label} isSmall={isSmall} isSearch={isSearch}>
-          {LeftIcon}
-        </LeftIconBox>
-      )}
+      <Box>
+        {!!LeftIcon && (
+          <LeftIconBox withLabel={!!label} isSmall={isSmall} isSearch={isSearch}>
+            {LeftIcon}
+          </LeftIconBox>
+        )}
 
-      {!!RightIcon && (
-        <RightIconBox
-          withLabel={!!label}
-          onPress={onRightPress}
-          {...touchableConfig}
+        {!!RightIcon && (
+          <RightIconBox
+            withLabel={!!label}
+            onPress={onRightPress}
+            {...touchableConfig}
+            isSearch={isSearch}
+          >
+            {RightIcon}
+          </RightIconBox>
+        )}
+
+        <StyledInput
+          {...rest}
+          ref={ref}
+          onFocus={() => {
+            onFocusReceive?.();
+            setFocused(true);
+          }}
+          onBlur={(e: AnyType) => {
+            onFocusLost?.();
+            setFocused(false);
+            rest.onBlur?.(e);
+          }}
+          value={rest.value}
+          isWhite={isWhite}
+          isSmall={isSmall}
+          placeholderTextColor={Colors.basic_600}
+          isFocused={isFocused}
+          isError={isError}
+          isLeftIconShown={!!LeftIcon}
+          isRightIconShown={!!RightIcon}
           isSearch={isSearch}
-        >
-          {RightIcon}
-        </RightIconBox>
-      )}
-
-      <StyledInput
-        {...rest}
-        ref={ref}
-        onFocus={() => {
-          onFocusReceive?.();
-          setFocused(true);
-        }}
-        onBlur={(e: AnyType) => {
-          onFocusLost?.();
-          setFocused(false);
-          rest.onBlur?.(e);
-        }}
-        isMultiline={rest.multiline}
-        accent={accent}
-        value={rest.value}
-        isWhite={isWhite}
-        isSmall={isSmall}
-        placeholderTextColor={Colors.basic_600}
-        isFocused={isFocused}
-        isError={isError}
-        isLeftIconShown={!!LeftIcon}
-        isRightIconShown={!!RightIcon}
-        isSearch={isSearch}
-        autoCapitalize="none"
-      />
+          style={{ textAlignVertical: 'center' }}
+          autoCapitalize="none"
+        />
+      </Box>
 
       {isError && <ErrorMessage accent={accent} error={error} />}
     </Box>

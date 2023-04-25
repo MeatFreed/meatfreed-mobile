@@ -17,4 +17,5 @@ export const Images = {
   PostLogo: require('assets/images/post-logo.svg').default,
   Heart: require('assets/images/heart.svg').default,
   Smile: require('assets/images/smile-plus.svg').default,
+  LogoMain: require('assets/images/logo.svg').default,
 };

@@ -24,7 +24,7 @@ const RegisterSchema = Yup.object().shape({
     .required('validations.password-required'),
   confirmPassword: Yup.string()
     .required('validations.confirm-password-required')
-    .oneOf([Yup.ref('password'), null], 'validations.password-should-match'),
+    .oneOf([Yup.ref('password'), ''], 'validations.password-should-match'),
   referralCode: Yup
     .string()
     .min(5, 'validations.referral-code')
