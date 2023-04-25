@@ -4,7 +4,9 @@ import { useTypedSelector } from 'stores';
 import { userSelectors } from 'stores/user';
 import { useEffect, useState } from 'react';
 import { placeSelectors } from 'stores/place';
-import { AnyType, parseToLocalTime, withDelay } from 'helpers';
+import {
+  AnyType, parseToLocalTime, withDelay,
+} from 'helpers';
 import { geohashForLocation } from 'geofire-common';
 import { RouteService, SwipeablePanelService, ToastService } from 'services';
 import { Routes, SearchProp } from 'navigation';
@@ -89,7 +91,7 @@ export const useRestaurantActions = () => {
     try {
       await getRestaurantByID(id).unwrap();
 
-      await withDelay(500);
+      await withDelay(250);
 
       SwipeablePanelService.onOpenToTop();
     } catch (error: AnyType) {
@@ -121,15 +123,9 @@ export const useRestaurantActions = () => {
 
   useEffect(() => {
     if (isFocused && params?.placeId) {
-      setPlaceId(params.placeId);
+      getRestaurant(params.placeId);
     }
   }, [isFocused, params?.placeId]);
-
-  useEffect(() => {
-    if (placeId) {
-      getRestaurant(placeId);
-    }
-  }, [placeId]);
 
   return {
     isLoading,
@@ -137,6 +133,7 @@ export const useRestaurantActions = () => {
     placeId,
     setPlaceId,
     onRestaurant,
+    getRestaurant,
     details,
   };
 };

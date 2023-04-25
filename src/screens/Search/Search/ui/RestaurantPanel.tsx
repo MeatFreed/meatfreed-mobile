@@ -1,6 +1,4 @@
-import React, {
-  Dispatch, SetStateAction, useMemo,
-} from 'react';
+import React, { useMemo } from 'react';
 import { Linking, StyleSheet } from 'react-native';
 import { BottomSheetScrollView } from '@gorhom/bottom-sheet';
 import { Box, Colors, Text } from 'themes';
@@ -24,7 +22,6 @@ import { PlaceInfo } from './PlaceInfo';
 interface RestaurantPanelProps {
   details: RestaurantInformation;
   placeId: string;
-  setPlaceId: Dispatch<SetStateAction<string | null>>;
 }
 
 const styles = StyleSheet.create({
@@ -47,9 +44,9 @@ const MarqueCard = styled(FastImage as AnyType)`
 `;
 
 export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({
-  placeId, details, setPlaceId,
+  placeId, details,
 }) => {
-  const snapPoints = useMemo(() => [0.1, '80%'], []);
+  const snapPoints = useMemo(() => [0.1, '96%'], []);
 
   const user = useTypedSelector(userSelectors.user);
 
@@ -59,7 +56,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({
 
   const onOpen = () => {
     if (isIOS) {
-      Linking.openURL(`https://maps.apple.com/?daddr=${encodeURIComponent(`${details.geometry.location.lat},${details.geometry.location.lng}`)}`);
+      Linking.openURL(`https://maps.apple.com/?daddr=${encodeURIComponent(`${details?.geometry?.location?.lat},${details.geometry.location.lng}`)}`);
 
       return;
     }
@@ -67,17 +64,11 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({
     Linking.openURL(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(details?.name)}&destination_place_id=${placeId}`);
   };
 
-  const onAnimate = (fromIndex: number, toIndex: number) => {
-    if (fromIndex === 1 && toIndex === 0) {
-      setPlaceId(null);
-    }
-  };
-
   return (
     <SwipeablePanel
       ref={SwipeablePanelService.panelRef}
       snapPoints={snapPoints}
-      onAnimate={onAnimate}
+      index={0}
     >
       <BottomSheetScrollView
         style={styles.list}
@@ -105,7 +96,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({
             delay={2000}
           >
             <FlashList
-              data={details.photos}
+              data={details?.photos}
               keyExtractor={(_, index) => index.toString()}
               estimatedItemSize={200}
               renderItem={({ item: photo }) => (
