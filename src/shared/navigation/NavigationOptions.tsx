@@ -62,9 +62,7 @@ export const headerOptions: StackNavigationOptions = {
   headerLeft: (props: HeaderBackButtonProps) => {
     if (props.canGoBack) {
       return (
-        <Box ml={Spaces.xs}>
-          <Button type="icon" iconColor={Colors.tabBarInactiveTintColor} iconName="arrow-back" onPress={RouteService.goBack} />
-        </Box>
+        <Button type="icon" iconColor={Colors.tabBarInactiveTintColor} iconName="arrow-back" onPress={RouteService.goBack} />
       );
     }
 
@@ -95,9 +93,7 @@ export const authOptions: StackNavigationOptions = {
   headerLeft: (props: HeaderBackButtonProps) => {
     if (props.canGoBack) {
       return (
-        <Box ml={Spaces.xs}>
-          <Button type="icon" iconName="arrow-back" iconColor={Colors.tabBarInactiveTintColor} onPress={RouteService.goBack} />
-        </Box>
+        <Button type="icon" iconColor={Colors.tabBarInactiveTintColor} iconName="arrow-back" onPress={RouteService.goBack} />
       );
     }
 
