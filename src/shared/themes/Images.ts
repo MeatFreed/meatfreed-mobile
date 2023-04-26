@@ -18,4 +18,5 @@ export const Images = {
   Heart: require('assets/images/heart.svg').default,
   Smile: require('assets/images/smile-plus.svg').default,
   LogoMain: require('assets/images/logo.svg').default,
+  BusinessMarker: require('assets/images/business-marker.png'),
 };

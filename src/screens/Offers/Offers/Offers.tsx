@@ -2,10 +2,8 @@ import { FlashList } from '@shopify/flash-list';
 import { useGetOffers, useOfferActions, usePosition } from 'hooks';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Box, Colors, HorizontalDivider, Text,
-} from 'themes';
-import { GoogleSearchBar, Loader, StatusBar } from 'ui';
+import { Box, Colors, HorizontalDivider } from 'themes';
+import { Loader, SearchBar, StatusBar } from 'ui';
 import { GlobalOfferCard, RegularOfferCard } from './ui';
 
 export const Offers: React.FC = () => {
@@ -19,24 +17,18 @@ export const Offers: React.FC = () => {
   return (
     <Box f={1} bgc={Colors.basic_100}>
       <StatusBar />
-      <Box z={1} jc="space-between" bgc={Colors.basic_200} shadowed>
-        <Text ta="center" p={[10, 0]} fs={14} color={Colors.watermelon}>{t('offers.description')}</Text>
 
-        <Box m={[0, 25, 16]}>
-          <GoogleSearchBar
-            label={t('labels.restaurant')}
-            placeholder={t('placeholders.search-restaurant')}
-            getCurrentLocation={getCurrentLocation}
-          />
-        </Box>
-      </Box>
+      <SearchBar
+        placeholder={t('placeholders.search-restaurant')}
+        getCurrentLocation={getCurrentLocation}
+      />
 
       <FlashList
         data={offers}
         showsVerticalScrollIndicator={false}
         keyExtractor={({ uid }) => uid}
         onRefresh={onRefresh}
-        contentContainerStyle={{ paddingTop: 10, paddingBottom: 30 }}
+        contentContainerStyle={{ paddingTop: 80, paddingBottom: 30 }}
         refreshing={!!offers.length && isLoading}
         renderItem={({ item: offer }) => {
           if (offer?.refer) {

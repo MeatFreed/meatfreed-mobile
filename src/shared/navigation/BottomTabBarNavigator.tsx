@@ -5,7 +5,7 @@ import { useTypedSelector } from 'stores';
 import { userSelectors } from 'stores/user';
 import { Images } from 'themes';
 import { Routes } from './Routes';
-import { SearchNavigator } from './SearchNavigator';
+import { HomeNavigator } from './HomeNavigator';
 import { OfferNavigator } from './OfferNavigator';
 import { PostNavigator } from './PostNavigator';
 import { tabBarOptions } from './NavigationOptions';
@@ -14,14 +14,14 @@ import { ProfileNavigator } from './ProfileNavigator';
 const Tab = createBottomTabNavigator();
 
 const titles: { [key: string]: string } = {
-  [Routes.SEARCH_NAVIGATOR]: i18n.t('screens.membership'),
+  [Routes.HOME_NAVIGATOR]: i18n.t('screens.membership'),
   [Routes.OFFER_NAVIGATOR]: i18n.t('screens.offers'),
   [Routes.POST_NAVIGATOR]: i18n.t('screens.posts'),
   [Routes.PROFILE_NAVIGATOR]: i18n.t('screens.profile'),
 };
 
 const tabs: { [key: string]: string } = {
-  [Routes.SEARCH_NAVIGATOR]: i18n.t('tabs.search'),
+  [Routes.HOME_NAVIGATOR]: i18n.t('tabs.search'),
   [Routes.OFFER_NAVIGATOR]: i18n.t('tabs.offers'),
   [Routes.POST_NAVIGATOR]: i18n.t('tabs.posts'),
   [Routes.PROFILE_NAVIGATOR]: i18n.t('tabs.profile'),
@@ -39,11 +39,11 @@ export const BottomTabBarNavigator: React.FC = () => {
       })}
     >
       <Tab.Screen
-        name={Routes.SEARCH_NAVIGATOR}
+        name={Routes.HOME_NAVIGATOR}
         options={{
           tabBarIcon: ({ color }) => <Images.Home color={color} />,
         }}
-        component={SearchNavigator}
+        component={HomeNavigator}
       />
 
       <Tab.Screen

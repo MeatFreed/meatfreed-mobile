@@ -17,7 +17,7 @@ export const useLogout = () => {
 
       await auth().signOut();
 
-      RouteService.navigate(Routes.SEARCH_NAVIGATOR);
+      RouteService.navigate(Routes.HOME_NAVIGATOR);
     } finally {
       dispatch(resetUser());
     }

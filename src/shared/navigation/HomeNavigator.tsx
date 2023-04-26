@@ -1,18 +1,18 @@
 import React from 'react';
-import { Search } from 'screens';
+import { Home } from 'screens';
 import { useTranslation } from 'react-i18next';
 import { Colors, FontFamily } from 'themes';
 import { Routes } from './Routes';
 import { Stack, headerOptions } from './NavigationOptions';
 
-export const SearchNavigator: React.FC = () => {
+export const HomeNavigator: React.FC = () => {
   const { t } = useTranslation();
 
   return (
     <Stack.Navigator screenOptions={headerOptions}>
       <Stack.Screen
-        name={Routes.SEARCH}
-        component={Search}
+        name={Routes.HOME}
+        component={Home}
         options={{
           headerTitle: t('screens.membership'),
           headerTitleStyle: {

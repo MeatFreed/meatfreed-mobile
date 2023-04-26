@@ -41,7 +41,7 @@ export const DeleteAccountModal: React.FC<DeleteAccountModalProps> = ({
 
       dispatch(resetUser());
 
-      RouteService.navigate(Routes.SEARCH_NAVIGATOR);
+      RouteService.navigate(Routes.HOME_NAVIGATOR);
     } catch (error: AnyType) {
       if (error.code === 'auth/requires-recent-login') {
         RouteService.reset(Routes.SIGN_IN);

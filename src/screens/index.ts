@@ -1,5 +1,5 @@
 export * from './Auth';
-export * from './Search';
+export * from './Home';
 export * from './Offers';
 export * from './Posts';
 export * from './Referral';

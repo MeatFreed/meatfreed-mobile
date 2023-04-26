@@ -5,7 +5,7 @@ export type RootStackParamList = {
   [Routes.BOTTOM_TAB_BAR_NAVIGATOR]: undefined;
   [Routes.AUTH_NAVIGATOR]: undefined;
   [Routes.MAIN_NAVIGATOR]: undefined;
-  [Routes.SEARCH_NAVIGATOR]: undefined;
+  [Routes.HOME_NAVIGATOR]: undefined;
   [Routes.OFFER_NAVIGATOR]: undefined;
   [Routes.POST_NAVIGATOR]: undefined;
   [Routes.PROFILE_NAVIGATOR]: undefined;
@@ -18,7 +18,7 @@ export type RootStackParamList = {
   [Routes.POST_DETAILS]: {
     contentId: string;
   };
-  [Routes.SEARCH]: {
+  [Routes.HOME]: {
     placeId: string;
   };
   [Routes.OFFER]: undefined;
@@ -29,6 +29,6 @@ export type RootStackParamList = {
 
 export type PostDetailsProp = RouteProp<RootStackParamList, Routes.POST_DETAILS>;
 
-export type SearchProp = RouteProp<RootStackParamList, Routes.SEARCH>;
+export type SearchProp = RouteProp<RootStackParamList, Routes.HOME>;
 
 export type SignUpProp = RouteProp<RootStackParamList, Routes.SIGN_UP>;

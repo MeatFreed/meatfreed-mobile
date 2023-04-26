@@ -4,6 +4,7 @@ import { placeSelectors } from 'stores/place';
 import { useGetRestaurants } from 'hooks';
 import { StyleSheet } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
+import { MapStyles } from 'themes';
 import { RestaurantMarker } from './RestaurantMarker';
 
 interface MapProps {
@@ -27,6 +28,7 @@ export const Map: React.FC<MapProps> = ({ onRestaurant }) => {
       userInterfaceStyle="light"
       showsUserLocation
       showsMyLocationButton={false}
+      customMapStyle={MapStyles}
       region={{
         ...defaultLocation,
         latitude: currentLocation?.latitude || defaultLocation.latitude,
