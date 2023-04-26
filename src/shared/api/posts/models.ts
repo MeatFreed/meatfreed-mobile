@@ -20,6 +20,16 @@ export interface PostContent {
   assets: PostAsset[];
 }
 
+export interface FirebasePost {
+  uid: string;
+  title: string;
+  subtitle: string;
+  images?: string[];
+  video?: string;
+  body: string;
+  clicksCount?: number;
+}
+
 export interface Post {
   uuid: string;
   content: PostContent

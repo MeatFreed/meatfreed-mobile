@@ -1,16 +1,20 @@
 import { useIsFocused } from '@react-navigation/native';
-import { Post } from 'api';
+import { FirebasePost, Post } from 'api';
+import firestore from '@react-native-firebase/firestore';
 import dayjs from 'dayjs';
 import uniqBy from 'lodash.uniqby';
 import { useEffect, useState } from 'react';
 import { StoryblokService } from 'services';
+import { isDev } from 'helpers';
+
+type Content = Post & FirebasePost
 
 const { client } = StoryblokService;
 
 export const useGetPosts = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [page, setPage] = useState(1);
-  const [results, setResults] = useState<Post[]>([]);
+  const [results, setResults] = useState<Content[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
 
   const isFocused = useIsFocused();
@@ -21,24 +25,36 @@ export const useGetPosts = () => {
     setIsLoading(true);
 
     try {
-      const response = await client.get('cdn/stories/', {
-        filter_query: {
-          active: {
-            in: true,
+      if (isDev) {
+        const response = await client.get('cdn/stories/', {
+          filter_query: {
+            active: {
+              in: true,
+            },
+            component: {
+              in: 'Post',
+            },
+            available_from: {
+              lt_date: dayjs().format('YYYY-MM-DD HH:mm'),
+            },
           },
-          component: {
-            in: 'Post',
-          },
-          available_from: {
-            lt_date: dayjs().format('YYYY-MM-DD HH:mm'),
-          },
-        },
-        sort_by: 'published_at:desc',
-        page,
-        per_page: 10,
-      });
+          sort_by: 'published_at:desc',
+          page,
+          per_page: 10,
+        });
 
-      setResults([...results, ...response.data.stories]);
+        setResults([...results, ...response.data.stories]);
+
+        return;
+      }
+
+      const collection = await firestore().collection('posts').get();
+
+      const posts = collection.docs.map((doc) => ({
+        ...doc.data(), uid: doc.id,
+      })) as Content[];
+
+      setResults([...posts]);
     } finally {
       setIsLoading(false);
     }
@@ -69,7 +85,7 @@ export const useGetPosts = () => {
     searchQuery,
     setSearchQuery,
     isLoading,
-    results: uniqBy(results, 'uuid'),
+    results: isDev ? uniqBy(results, 'uuid') : results,
     getPosts,
     onRefresh,
     onEndReached,
