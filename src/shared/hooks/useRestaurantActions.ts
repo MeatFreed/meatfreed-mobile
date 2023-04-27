@@ -1,35 +1,25 @@
 import firestore from '@react-native-firebase/firestore';
-import { Restaurant, useGetRestaurantByIDMutation } from 'api';
+import { Restaurant, useGetRestaurantByIDQuery } from 'api';
 import { useTypedSelector } from 'stores';
 import { userSelectors } from 'stores/user';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { placeSelectors } from 'stores/place';
-import {
-  AnyType, isIOS, parseToLocalTime, withDelay,
-} from 'helpers';
+import { AnyType, parseToLocalTime } from 'helpers';
 import { geohashForLocation } from 'geofire-common';
-import { RouteService, SwipeablePanelService, ToastService } from 'services';
-import { Routes, SearchProp } from 'navigation';
-import { useIsFocused, useNavigation, useRoute } from '@react-navigation/native';
-import { useTranslation } from 'react-i18next';
+import { RouteService } from 'services';
+import { Routes } from 'navigation';
 
 const restaurantCollection = firestore().collection('restaurants');
 
 export const useRestaurantActions = () => {
-  const { t } = useTranslation();
-
   const [placeId, setPlaceId] = useState<string | null>(null);
 
   const user = useTypedSelector(userSelectors.user);
   const currentLocation = useTypedSelector(placeSelectors.currentLocation);
 
-  const { params } = useRoute<SearchProp>();
-
-  const navigation = useNavigation();
-
-  const isFocused = useIsFocused();
-
-  const [getRestaurantByID, { data: details, isLoading }] = useGetRestaurantByIDMutation();
+  const { data: details, isLoading } = useGetRestaurantByIDQuery(
+    placeId as AnyType,
+  );
 
   const onWebsite = async (placeId: string) => {
     try {
@@ -85,26 +75,6 @@ export const useRestaurantActions = () => {
     } finally {}
   };
 
-  const getRestaurant = async (id: string) => {
-    setPlaceId(id);
-
-    try {
-      await getRestaurantByID(id).unwrap();
-
-      await withDelay(isIOS ? 250 : 2000);
-
-      SwipeablePanelService.onOpenToTop();
-    } catch (error: AnyType) {
-      setPlaceId(null);
-
-      ToastService.onDanger({ title: error?.error_message || t('errors.server-unable') });
-    } finally {
-      navigation.setParams({
-        placeId: null,
-      } as AnyType);
-    }
-  };
-
   const onRestaurant = (id: string) => {
     if (user.uid) {
       onCheckAuth(id);
@@ -117,19 +87,12 @@ export const useRestaurantActions = () => {
     RouteService.reset(Routes.WELCOME);
   };
 
-  useEffect(() => {
-    if (isFocused && params?.placeId) {
-      getRestaurant(params.placeId);
-    }
-  }, [isFocused, params?.placeId]);
-
   return {
     isLoading,
     onWebsite,
     placeId,
     setPlaceId,
     onRestaurant,
-    getRestaurant,
     details,
   };
 };

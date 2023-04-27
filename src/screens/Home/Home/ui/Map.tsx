@@ -1,14 +1,15 @@
 import React from 'react';
 import { useTypedSelector } from 'stores';
 import { placeSelectors } from 'stores/place';
-import { useGetRestaurants } from 'hooks';
 import { StyleSheet } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { MapStyles } from 'themes';
+import { Restaurant } from 'api';
+import { noop } from 'helpers';
 import { RestaurantMarker } from './RestaurantMarker';
 
 interface MapProps {
-  onRestaurant: (placeId: string) => void;
+  restaurants: Restaurant[];
 }
 
 const defaultLocation = {
@@ -18,10 +19,8 @@ const defaultLocation = {
   longitudeDelta: 0.05,
 };
 
-export const Map: React.FC<MapProps> = ({ onRestaurant }) => {
+export const Map: React.FC<MapProps> = ({ restaurants }) => {
   const currentLocation = useTypedSelector(placeSelectors.currentLocation);
-
-  const { restaurants } = useGetRestaurants();
 
   return (
     <MapView
@@ -43,7 +42,7 @@ export const Map: React.FC<MapProps> = ({ onRestaurant }) => {
           key={restaurant.uid}
           zIndex={index + 1}
           restaurant={restaurant}
-          onPress={() => onRestaurant(restaurant.place_id)}
+          onPress={noop}
         />
       ))}
     </MapView>

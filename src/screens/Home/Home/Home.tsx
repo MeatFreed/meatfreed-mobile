@@ -1,26 +1,17 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import { usePosition, useRestaurantActions } from 'hooks';
-import React, { useTransition } from 'react';
+import { useGetRestaurants, usePosition } from 'hooks';
+import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTypedSelector } from 'stores';
 import { placeSelectors } from 'stores/place';
 import styled from 'styled-components/native';
 import { Box, Colors } from 'themes';
 import {
-  ActivityIndicator,
   Button,
   SearchBar,
   StatusBar,
 } from 'ui';
 import { useIsFocused } from '@react-navigation/native';
-import { Map, RestaurantPanel } from './ui';
-
-const StyledBar = styled(Box)`
-  position: absolute;
-  left: 0px;
-  right: 0px;
-  top: 0px;
-`;
+import { RestaurantPanel, Map } from './ui';
 
 const StyledLayout = styled.View`
   position: absolute;
@@ -36,17 +27,13 @@ export const Home: React.FC = () => {
 
   const { getCurrentLocation } = usePosition();
 
-  const {
-    placeId, details, isLoading, getRestaurant,
-  } = useRestaurantActions();
+  const { restaurants } = useGetRestaurants();
 
   const hasLocation = useTypedSelector(placeSelectors.hasLocation);
 
   return (
     <Box f={1} bgc={Colors.basic_100}>
       <StatusBar />
-
-      <ActivityIndicator isVisible={isLoading || !hasLocation} />
 
       <Box f={1}>
         <SearchBar
@@ -61,11 +48,11 @@ export const Home: React.FC = () => {
         )}
 
         {hasLocation && (
-          <Map onRestaurant={(placeId: string) => getRestaurant(placeId)} />
+          <Map restaurants={restaurants} />
         )}
 
-        {isFocused && details && placeId && (
-          <RestaurantPanel details={details} placeId={placeId} />
+        {isFocused && hasLocation && !!restaurants.length && (
+          <RestaurantPanel restaurants={restaurants} />
         )}
       </Box>
     </Box>

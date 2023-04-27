@@ -37,7 +37,7 @@ export const SwipeablePanel = React.forwardRef<BottomSheetMethods, SwipeablePane
           backdropComponent={renderBackdrop}
           animateOnMount={isIOS}
         >
-          <Box f={1} p={[0, 10, 30]}>{children}</Box>
+          <Box f={1} p={[0, 16, 30]}>{children}</Box>
         </BottomSheet>
       </Portal>
     );

@@ -2,9 +2,12 @@ import { useEffect, useRef, useState } from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import { isIOS, withDelay } from 'helpers';
 import { PermissionsService } from 'services';
-import { useTypedDispatch } from 'stores';
+import { store, useTypedDispatch } from 'stores';
 import { setCurrentLocation } from 'stores/place';
 import { useIsFocused } from '@react-navigation/native';
+import { getDistance } from 'geolib';
+
+const SIGNIFICANT_DISTANCE = 500;
 
 export const usePosition = () => {
   const isFocused = useIsFocused();
@@ -19,20 +22,38 @@ export const usePosition = () => {
   const { watchPosition, clearWatch } = Geolocation;
 
   const onChangeLocation = (position: Geolocation.GeoPosition) => {
-    dispatch(setCurrentLocation(position));
+    const { latitude, longitude } = position.coords;
+
+    const { currentLocation } = store.getState().place;
+
+    const isLocationPresent = latitude !== 0 && longitude !== 0;
+
+    const distance = getDistance(
+      {
+        latitude: Number(currentLocation.latitude),
+        longitude: Number(currentLocation.longitude),
+      },
+      { latitude, longitude },
+    );
+
+    const isSignificantDistance = distance > SIGNIFICANT_DISTANCE;
+
+    if (isSignificantDistance && isLocationPresent) {
+      dispatch(setCurrentLocation(position));
+    }
   };
 
   const watchLocation = () => {
     ref.current = watchPosition(
       onChangeLocation,
       undefined,
-      { distanceFilter: 5000, interval: 600000, fastestInterval: 600000 },
+      { distanceFilter: 50 },
     );
   };
 
   const getCurrentLocation = () => {
     Geolocation.getCurrentPosition(
-      onChangeLocation,
+      (position) => dispatch(setCurrentLocation(position)),
       undefined,
       {
         enableHighAccuracy: true,

@@ -1,3 +1,3 @@
 export * from './RestaurantMarker';
-export * from './RestaurantPanel';
 export * from './Map';
+export * from './RestaurantPanel';

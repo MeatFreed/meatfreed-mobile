@@ -119,5 +119,10 @@
   "settings": {
     "general": "General",
     "main-contacts": "Main Contacts"
+  },
+  "home": {
+    "today": "Today:",
+    "close-to-you": "Close to you",
+    "reviews": "reviews"
   }
 }

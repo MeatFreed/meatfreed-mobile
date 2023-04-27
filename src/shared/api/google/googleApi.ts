@@ -13,7 +13,7 @@ export const googleApi = createApi({
   baseQuery: googleQuery,
   reducerPath: 'googleApi',
   endpoints: (builder) => ({
-    getRestaurantByID: builder.mutation<RestaurantInformation, string>({
+    getRestaurantByID: builder.query<RestaurantInformation, string>({
       query: (placeId) => ({
         url: '/maps/api/place/details/json',
         params: { ...defaultParams, place_id: placeId },
@@ -23,4 +23,4 @@ export const googleApi = createApi({
   }),
 });
 
-export const { useGetRestaurantByIDMutation } = googleApi;
+export const { useGetRestaurantByIDQuery } = googleApi;
