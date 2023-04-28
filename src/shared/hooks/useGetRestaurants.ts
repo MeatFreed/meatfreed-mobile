@@ -17,7 +17,7 @@ export const useGetRestaurants = () => {
   const bounds = useMemo(() => geohashQueryBounds([
     currentLocation?.latitude,
     currentLocation?.longitude,
-  ], 15000), [currentLocation]);
+  ], 24000), [currentLocation]);
 
   const getRestaurants = async () => {
     setIsLoading(true);

@@ -20,16 +20,16 @@ const StyledLayout = styled.View`
   z-index: 9999;
 `;
 
-export const Home: React.FC = () => {
+export const Restaurants: React.FC = () => {
   const { t } = useTranslation();
 
   const isFocused = useIsFocused();
 
+  const hasLocation = useTypedSelector(placeSelectors.hasLocation);
+
   const { getCurrentLocation } = usePosition();
 
   const { restaurants } = useGetRestaurants();
-
-  const hasLocation = useTypedSelector(placeSelectors.hasLocation);
 
   return (
     <Box f={1} bgc={Colors.basic_100}>

@@ -1,6 +1,8 @@
 import React from 'react';
 import { StackNavigationOptions, createStackNavigator } from '@react-navigation/stack';
-import { AnyType, hasNotch, openLink } from 'helpers';
+import {
+  AnyType, hasNotch, isIOS, openLink,
+} from 'helpers';
 import {
   Box, Colors, FontFamily, Spaces,
 } from 'themes';
@@ -62,7 +64,9 @@ export const headerOptions: StackNavigationOptions = {
   headerLeft: (props: HeaderBackButtonProps) => {
     if (props.canGoBack) {
       return (
-        <Button type="icon" iconColor={Colors.tabBarInactiveTintColor} iconName="arrow-back" onPress={RouteService.goBack} />
+        <Box ml={Spaces.xs}>
+          <Button type="icon" iconColor={Colors.tabBarInactiveTintColor} iconName="arrow-back" onPress={RouteService.goBack} />
+        </Box>
       );
     }
 
@@ -71,6 +75,34 @@ export const headerOptions: StackNavigationOptions = {
   headerRight: () => (
     <Box mr={Spaces.xs}>
       <Button type="icon" iconName="message-circle-outline" iconColor={Colors.tabBarInactiveTintColor} onPress={() => openLink(`${LIVE_CHAT_URL}=${LIVE_CHAT_LICENSE}`)} />
+    </Box>
+  ),
+};
+
+export const restaurantOptions: StackNavigationOptions = {
+  headerTitleAlign: 'center',
+  headerBackTitleVisible: false,
+  headerTintColor: Colors.white,
+  headerTitleStyle: {
+    fontSize: 20,
+    lineHeight: 24,
+    fontFamily: FontFamily.PoppinsSemiMedium,
+    color: Colors.basic_800,
+  },
+  headerLeft: (props: HeaderBackButtonProps) => {
+    if (props.canGoBack) {
+      return (
+        <Box ml={isIOS ? Spaces.xs : -6}>
+          <Button type="icon" iconColor={Colors.basic_100} iconName="arrow-back" onPress={RouteService.goBack} />
+        </Box>
+      );
+    }
+
+    return null;
+  },
+  headerRight: () => (
+    <Box mr={isIOS ? Spaces.xs : -6}>
+      <Button type="icon" iconName="message-circle-outline" iconColor={Colors.basic_100} onPress={() => openLink(`${LIVE_CHAT_URL}=${LIVE_CHAT_LICENSE}`)} />
     </Box>
   ),
 };
@@ -93,7 +125,9 @@ export const authOptions: StackNavigationOptions = {
   headerLeft: (props: HeaderBackButtonProps) => {
     if (props.canGoBack) {
       return (
-        <Button type="icon" iconColor={Colors.tabBarInactiveTintColor} iconName="arrow-back" onPress={RouteService.goBack} />
+        <Box ml={Spaces.xs}>
+          <Button type="icon" iconColor={Colors.tabBarInactiveTintColor} iconName="arrow-back" onPress={RouteService.goBack} />
+        </Box>
       );
     }
 

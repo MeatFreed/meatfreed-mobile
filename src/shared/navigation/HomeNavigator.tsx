@@ -1,5 +1,5 @@
 import React from 'react';
-import { Home } from 'screens';
+import { Restaurants } from 'screens';
 import { PortalProvider } from '@gorhom/portal';
 import { useTranslation } from 'react-i18next';
 import { Colors, FontFamily } from 'themes';
@@ -13,8 +13,8 @@ export const HomeNavigator: React.FC = () => {
     <PortalProvider>
       <Stack.Navigator screenOptions={headerOptions}>
         <Stack.Screen
-          name={Routes.HOME}
-          component={Home}
+          name={Routes.RESTAURANTS}
+          component={Restaurants}
           options={{
             headerTitle: t('screens.membership'),
             headerTitleStyle: {

@@ -5,6 +5,10 @@ import { useTranslation } from 'react-i18next';
 import { FontFamily, Text } from 'themes';
 import { SwipeablePanel } from 'ui';
 import { AnyType } from 'helpers';
+import { RouteService } from 'services';
+import { Routes } from 'navigation';
+import { useTypedSelector } from 'stores';
+import { userSelectors } from 'stores/user';
 import { RestaurantCard } from './RestaurantCard';
 
 interface RestaurantPanelProps {
@@ -14,14 +18,28 @@ interface RestaurantPanelProps {
 export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants }) => {
   const { t } = useTranslation();
 
-  const snapPoints = useMemo(() => ['37%', '98%'], []);
+  const snapPoints = useMemo(() => ['37.5%', '98%'], []);
 
   const scrollViewRef = useRef<AnyType>(null);
+
+  const userId = useTypedSelector(userSelectors.userId);
 
   const onChange = (panelState: number) => {
     if (!panelState && restaurants?.length) {
       scrollViewRef?.current?.scrollToIndex?.({ index: 0, animated: true });
     }
+  };
+
+  const onRestaurantDetails = (contentId: string) => {
+    if (userId) {
+      RouteService.navigate(Routes.RESTAURANT_NAVIGATOR, {
+        screen: Routes.RESTAURANT_DETAILS, params: { contentId },
+      });
+
+      return;
+    }
+
+    RouteService.reset(Routes.WELCOME);
   };
 
   return (
@@ -36,7 +54,12 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants })
         ref={scrollViewRef}
         data={restaurants}
         keyExtractor={({ uid }) => uid}
-        renderItem={({ item: restaurant }) => <RestaurantCard restaurant={restaurant} />}
+        renderItem={({ item: restaurant }) => (
+          <RestaurantCard
+            restaurant={restaurant}
+            onPress={() => onRestaurantDetails(restaurant.place_id)}
+          />
+        )}
       />
     </SwipeablePanel>
   );

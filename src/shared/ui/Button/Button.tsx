@@ -100,7 +100,7 @@ const LabelButtonText = styled.Text<{ reversed?: boolean, accent?: boolean }>`
 
 const styles = StyleSheet.create({
   icon: {
-    marginLeft: Spaces.sm,
+    marginRight: Spaces.sm,
   },
 });
 
@@ -167,10 +167,6 @@ export const Button: React.FC<ButtonProps> = ({
         <Loader color={Colors.white} />
       ) : (
         <>
-          <StyledButtonText isLoading={isLoading} disabled={disabled}>
-            {title}
-          </StyledButtonText>
-
           {iconName && (
             <IconComponent
               name={iconName}
@@ -179,6 +175,10 @@ export const Button: React.FC<ButtonProps> = ({
               style={styles.icon}
             />
           )}
+
+          <StyledButtonText isLoading={isLoading} disabled={disabled}>
+            {title}
+          </StyledButtonText>
         </>
       )}
     </StyledButton>

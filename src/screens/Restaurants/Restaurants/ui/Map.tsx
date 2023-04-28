@@ -5,7 +5,9 @@ import { StyleSheet } from 'react-native';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { MapStyles } from 'themes';
 import { Restaurant } from 'api';
-import { noop } from 'helpers';
+import { RouteService } from 'services';
+import { Routes } from 'navigation';
+import { userSelectors } from 'stores/user';
 import { RestaurantMarker } from './RestaurantMarker';
 
 interface MapProps {
@@ -21,6 +23,19 @@ const defaultLocation = {
 
 export const Map: React.FC<MapProps> = ({ restaurants }) => {
   const currentLocation = useTypedSelector(placeSelectors.currentLocation);
+  const userId = useTypedSelector(userSelectors.userId);
+
+  const onRestaurantDetails = (contentId: string) => {
+    if (userId) {
+      RouteService.navigate(Routes.RESTAURANT_NAVIGATOR, {
+        screen: Routes.RESTAURANT_DETAILS, params: { contentId },
+      });
+
+      return;
+    }
+
+    RouteService.reset(Routes.WELCOME);
+  };
 
   return (
     <MapView
@@ -42,7 +57,7 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
           key={restaurant.uid}
           zIndex={index + 1}
           restaurant={restaurant}
-          onPress={noop}
+          onPress={() => onRestaurantDetails(restaurant.place_id)}
         />
       ))}
     </MapView>

@@ -74,7 +74,9 @@
     "delete-account": "Delete Account",
     "save": "Save",
     "delete-my-account": "Delete my account",
-    "more": "more"
+    "more": "more",
+    "directions": "Directions",
+    "call": "Call"
   },
   "search": {
     "directions": "Directions",
@@ -124,5 +126,11 @@
     "today": "Today:",
     "close-to-you": "Close to you",
     "reviews": "reviews"
+  },
+  "restaurant-details": {
+    "closed-now": "Closed now",
+    "opened-now": "Open now",
+    "opens-at": "Opens at {{hours}}",
+    "current-day": "Today"
   }
 }

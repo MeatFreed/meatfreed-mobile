@@ -53,7 +53,9 @@ export const usePosition = () => {
 
   const getCurrentLocation = () => {
     Geolocation.getCurrentPosition(
-      (position) => dispatch(setCurrentLocation(position)),
+      (position) => {
+        dispatch(setCurrentLocation(position));
+      },
       undefined,
       {
         enableHighAccuracy: true,
