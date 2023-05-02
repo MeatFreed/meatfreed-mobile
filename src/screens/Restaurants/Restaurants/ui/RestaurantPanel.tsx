@@ -6,7 +6,7 @@ import React, {
 import { useTranslation } from 'react-i18next';
 import { FontFamily, Text } from 'themes';
 import { SwipeablePanel } from 'ui';
-import { AnyType } from 'helpers';
+import { AnyType, isIOS } from 'helpers';
 import { RouteService } from 'services';
 import { Routes } from 'navigation';
 import { useTypedSelector } from 'stores';
@@ -24,7 +24,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants })
 
   const [index, setIndex] = useState(0);
 
-  const snapPoints = useMemo(() => ['37.5%', '98%'], []);
+  const snapPoints = useMemo(() => [isIOS ? '37.5%' : '40%', '98%'], []);
 
   const scrollViewRef = useRef<AnyType>(null);
 

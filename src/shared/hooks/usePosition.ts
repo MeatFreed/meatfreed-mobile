@@ -4,15 +4,12 @@ import { isIOS, withDelay } from 'helpers';
 import { PermissionsService } from 'services';
 import { store, useTypedDispatch } from 'stores';
 import { setCurrentLocation } from 'stores/place';
-import { useIsFocused } from '@react-navigation/native';
 import { getDistance } from 'geolib';
 import throttle from 'lodash.throttle';
 
 const SIGNIFICANT_DISTANCE = 1000;
 
 export const usePosition = () => {
-  const isFocused = useIsFocused();
-
   const [isPermissionDenied, setPermissionDenied] = useState(false);
   const [isPermissionGranted, setPermissionGranted] = useState(false);
 
@@ -72,6 +69,8 @@ export const usePosition = () => {
       const isGranted = await PermissionsService.requestGeolocationPermission();
 
       watchLocation();
+
+      getCurrentLocation();
       setPermissionGranted(isGranted);
       setPermissionDenied(!isGranted);
     } catch (error) {
@@ -79,12 +78,6 @@ export const usePosition = () => {
       setPermissionDenied(true);
     }
   };
-
-  useEffect(() => {
-    if (isFocused) {
-      getCurrentLocation();
-    }
-  }, [isFocused]);
 
   useEffect(() => {
     getPermission();

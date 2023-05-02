@@ -52,7 +52,7 @@ export const OpeningHours: React.FC<ActionProps> = ({ openingHours }) => {
             const isToday = index === today;
 
             return (
-              <Box mb={16} fd="row" ai="center" jc="space-between">
+              <Box key={weekday} mb={16} fd="row" ai="center" jc="space-between">
                 <Box fd="row" ai="center">
                   <Text fs={13} fnw="500" ff={FontFamily.PoppinsMedium} color={Colors.basic_800}>{data?.[0]}</Text>
 

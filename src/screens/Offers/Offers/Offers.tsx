@@ -14,7 +14,6 @@ export const Offers: React.FC = () => {
     onRefresh,
     isRefreshing,
     isEmpty,
-    isLoading,
   } = useGetOffers();
 
   const { onRegular, onGlobal } = useOfferActions();
@@ -58,9 +57,6 @@ export const Offers: React.FC = () => {
             <Loader color={Colors.primary_500} size="large" />
           </Box>
         )}
-        ListFooterComponent={isLoading && !!offers.length ? (
-          <Loader color={Colors.primary_500} />
-        ) : null}
       />
     </Box>
   );

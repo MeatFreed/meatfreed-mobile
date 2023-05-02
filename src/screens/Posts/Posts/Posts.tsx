@@ -31,7 +31,6 @@ export const Posts: React.FC = () => {
   const {
     isRefreshing,
     isEmpty,
-    isLoading,
     results,
     onRefresh,
     onEndReached,
@@ -63,10 +62,10 @@ export const Posts: React.FC = () => {
           keyExtractor={(_, index: number) => index.toString()}
           onRefresh={onRefresh}
           onEndReachedThreshold={0.2}
+          initialNumToRender={10}
           contentContainerStyle={{ paddingTop: 10, paddingBottom: 30, flexGrow: 1 }}
           refreshing={isRefreshing}
           onEndReached={onEndReached}
-          windowSize={3}
           renderItem={renderItem}
           ListEmptyComponent={isEmpty ? (
             <EmptyState />
@@ -75,9 +74,6 @@ export const Posts: React.FC = () => {
               <Loader color={Colors.primary_500} size="large" />
             </Box>
           )}
-          ListFooterComponent={isLoading && !!results.length ? (
-            <Loader color={Colors.primary_500} />
-          ) : null}
         />
       </Box>
     </SafeAreaView>

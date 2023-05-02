@@ -8,6 +8,7 @@ import { Restaurant } from 'api';
 import { RouteService } from 'services';
 import { Routes } from 'navigation';
 import { userSelectors } from 'stores/user';
+import { isIOS } from 'helpers';
 import { RestaurantMarker } from './RestaurantMarker';
 
 interface MapProps {
@@ -17,8 +18,8 @@ interface MapProps {
 const defaultLocation = {
   latitude: 50.1632921,
   longitude: -5.128192,
-  latitudeDelta: 0.05,
-  longitudeDelta: 0.05,
+  latitudeDelta: isIOS ? 0.05 : 0.1,
+  longitudeDelta: isIOS ? 0.05 : 0.1,
 };
 
 export const Map: React.FC<MapProps> = ({ restaurants }) => {
@@ -43,6 +44,7 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
       showsUserLocation
       showsMyLocationButton={false}
       customMapStyle={MapStyles}
+      initialRegion={defaultLocation}
       region={{
         ...defaultLocation,
         latitude: currentLocation?.latitude || defaultLocation.latitude,
