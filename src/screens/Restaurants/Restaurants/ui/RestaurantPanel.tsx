@@ -1,6 +1,8 @@
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { Restaurant } from 'api';
-import React, { useMemo, useRef } from 'react';
+import React, {
+  useCallback, useMemo, useRef, useState,
+} from 'react';
 import { useTranslation } from 'react-i18next';
 import { FontFamily, Text } from 'themes';
 import { SwipeablePanel } from 'ui';
@@ -9,7 +11,9 @@ import { RouteService } from 'services';
 import { Routes } from 'navigation';
 import { useTypedSelector } from 'stores';
 import { userSelectors } from 'stores/user';
+import { ListRenderItem } from 'react-native';
 import { RestaurantCard } from './RestaurantCard';
+import { EmptyState } from './EmptyState';
 
 interface RestaurantPanelProps {
   restaurants: Restaurant[];
@@ -18,6 +22,8 @@ interface RestaurantPanelProps {
 export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants }) => {
   const { t } = useTranslation();
 
+  const [index, setIndex] = useState(0);
+
   const snapPoints = useMemo(() => ['37.5%', '98%'], []);
 
   const scrollViewRef = useRef<AnyType>(null);
@@ -25,6 +31,8 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants })
   const userId = useTypedSelector(userSelectors.userId);
 
   const onChange = (panelState: number) => {
+    setIndex(panelState);
+
     if (!panelState && restaurants?.length) {
       scrollViewRef?.current?.scrollToIndex?.({ index: 0, animated: true });
     }
@@ -42,6 +50,13 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants })
     RouteService.reset(Routes.WELCOME);
   };
 
+  const renderItem: ListRenderItem<Restaurant> = useCallback(({ item: restaurant }) => (
+    <RestaurantCard
+      restaurant={restaurant}
+      onPress={() => onRestaurantDetails(restaurant.place_id)}
+    />
+  ), [onRestaurantDetails, userId]);
+
   return (
     <SwipeablePanel
       snapPoints={snapPoints}
@@ -54,12 +69,9 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants })
         ref={scrollViewRef}
         data={restaurants}
         keyExtractor={({ uid }) => uid}
-        renderItem={({ item: restaurant }) => (
-          <RestaurantCard
-            restaurant={restaurant}
-            onPress={() => onRestaurantDetails(restaurant.place_id)}
-          />
-        )}
+        renderItem={renderItem}
+        contentContainerStyle={index ? { flexGrow: 1 } : undefined}
+        ListEmptyComponent={<EmptyState />}
       />
     </SwipeablePanel>
   );

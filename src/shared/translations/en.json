@@ -91,7 +91,8 @@
     "description": "View your personalised offers from us \nand our partner restaurants 🙌"
   },
   "posts": {
-    "post-link": "Post link"
+    "post-link": "Post link",
+    "empty-state": "No available posts"
   },
   "my-referral": {
     "scan": "Share the QR code with your friends",
@@ -126,7 +127,9 @@
   "home": {
     "today": "Today:",
     "close-to-you": "Close to you",
-    "reviews": "reviews"
+    "reviews": "reviews",
+    "empty-state-title": "No available restaurants.",
+    "empty-state-description": "Please try to select another location"
   },
   "restaurant-details": {
     "closed-now": "Closed now",

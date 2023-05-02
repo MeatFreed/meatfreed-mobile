@@ -1,11 +1,12 @@
 import { RestaurantPhoto } from 'api';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Dimensions } from 'react-native';
 import {
   interpolate,
 } from 'react-native-reanimated';
 import RNCarousel from 'react-native-reanimated-carousel';
 import { Box } from 'themes';
+import { CarouselRenderItem } from 'react-native-reanimated-carousel/lib/typescript/types';
 import { CarouselItem } from './CarouselItem';
 import { Pagination } from './Pagination';
 
@@ -39,6 +40,10 @@ export const Carousel: React.FC<CarouselProps> = ({
     [],
   );
 
+  const renderItem: CarouselRenderItem<RestaurantPhoto> = useCallback(({ item: photo }) => (
+    <CarouselItem reference={photo.photo_reference} />
+  ), []);
+
   return (
     <Box h="300px" ai="center">
       <RNCarousel
@@ -47,11 +52,7 @@ export const Carousel: React.FC<CarouselProps> = ({
         width={width}
         data={photos}
         onSnapToItem={(index: number) => setActiveIndex(index)}
-        renderItem={({ item: photo }) => (
-          <CarouselItem
-            reference={photo.photo_reference}
-          />
-        )}
+        renderItem={renderItem}
         customAnimation={animationStyle}
         scrollAnimationDuration={1200}
       />

@@ -67,6 +67,7 @@ const StyledVolume = styled.TouchableOpacity`
 
 export const PostCard: React.FC<PostCardProps> = ({ post, contentId, isAutoPlay }) => {
   const { assets, description, title } = post;
+
   const [isShowFullDescription, setIsShowFullDescription] = useState(false);
 
   const [isMuted, setIsMuted] = useState(true);

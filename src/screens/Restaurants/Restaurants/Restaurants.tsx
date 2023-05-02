@@ -51,7 +51,7 @@ export const Restaurants: React.FC = () => {
           <Map restaurants={restaurants} />
         )}
 
-        {isFocused && hasLocation && !!restaurants.length && (
+        {isFocused && hasLocation && (
           <RestaurantPanel restaurants={restaurants} />
         )}
       </Box>

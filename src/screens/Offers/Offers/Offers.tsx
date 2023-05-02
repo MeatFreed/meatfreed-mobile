@@ -1,9 +1,10 @@
 import { useGetOffers, useOfferActions, usePosition } from 'hooks';
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, Colors, HorizontalDivider } from 'themes';
 import { Loader, SearchBar, StatusBar } from 'ui';
-import { FlatList } from 'react-native';
+import { FlatList, ListRenderItem } from 'react-native';
+import { Offer } from 'api';
 import { GlobalOfferCard, RegularOfferCard } from './ui';
 
 export const Offers: React.FC = () => {
@@ -13,6 +14,14 @@ export const Offers: React.FC = () => {
   const { onRegular, onGlobal } = useOfferActions();
 
   const { getCurrentLocation } = usePosition();
+
+  const renderItem: ListRenderItem<Offer> = useCallback(({ item: offer }) => {
+    if (offer?.refer) {
+      return <GlobalOfferCard offer={offer} onPress={onGlobal} />;
+    }
+
+    return <RegularOfferCard offer={offer} onPress={() => onRegular(offer)} />;
+  }, [onGlobal, onRegular]);
 
   return (
     <Box f={1} bgc={Colors.basic_100}>
@@ -30,13 +39,7 @@ export const Offers: React.FC = () => {
         onRefresh={onRefresh}
         contentContainerStyle={{ paddingTop: 80, paddingBottom: 30 }}
         refreshing={!!offers.length && isLoading}
-        renderItem={({ item: offer }) => {
-          if (offer?.refer) {
-            return <GlobalOfferCard offer={offer} onPress={onGlobal} />;
-          }
-
-          return <RegularOfferCard offer={offer} onPress={() => onRegular(offer)} />;
-        }}
+        renderItem={renderItem}
         ItemSeparatorComponent={() => (
           <Box m={[0, 16]}>
             <HorizontalDivider />

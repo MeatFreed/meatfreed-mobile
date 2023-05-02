@@ -32,6 +32,7 @@ export const BottomTabBarNavigator: React.FC = () => {
 
   return (
     <Tab.Navigator
+      initialRouteName={Routes.POST_NAVIGATOR}
       screenOptions={({ route }) => ({
         ...tabBarOptions,
         tabBarLabel: tabs[route.name],
