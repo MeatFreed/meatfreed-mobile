@@ -5,6 +5,8 @@ import { useEffect, useMemo, useState } from 'react';
 import { useTypedSelector } from 'stores';
 import { placeSelectors } from 'stores/place';
 import { Restaurant } from 'api';
+import { getDistance } from 'geolib';
+import sortBy from 'lodash.sortby';
 
 export const useGetRestaurants = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -32,11 +34,30 @@ export const useGetRestaurants = () => {
 
       const collections = await Promise.all(requestArray);
 
-      const data = collections
-        .flatMap((collection) => collection.docs)
-        .map((doc) => ({ ...doc.data(), uid: doc.id })) as Restaurant[];
+      const flatData = collections.flatMap((collection) => collection.docs);
 
-      setRestaurants([...data]);
+      const result = flatData.map((doc) => {
+        const data = doc.data() as Restaurant;
+
+        const distance = getDistance(
+          {
+            latitude: Number(currentLocation?.latitude || 0),
+            longitude: Number(currentLocation?.longitude || 0),
+          },
+          {
+            latitude: Number(data?.location?.latitude),
+            longitude: Number(data?.location?.longitude),
+          },
+        );
+
+        return {
+          ...data,
+          distance,
+          uid: doc.id,
+        };
+      });
+
+      setRestaurants([...result]);
     } finally {
       setIsLoading(false);
     }
@@ -56,7 +77,7 @@ export const useGetRestaurants = () => {
 
   return {
     isLoading,
-    restaurants,
+    restaurants: sortBy(restaurants, 'distance'),
     onRefresh,
   };
 };

@@ -5,6 +5,7 @@ export interface Restaurant {
   clicksCount?: number;
   uid: string;
   geohash: string;
+  distance: number;
   place_id: string;
   name: string;
   key?: string;

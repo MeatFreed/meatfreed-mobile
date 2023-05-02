@@ -54,7 +54,7 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 
   return (
     <StyledButton {...touchableConfig} onPress={onPress}>
-      <Box fd="row" br="10px" bw="1px" bc={Colors.basic_400} bgc={Colors.basic_100}>
+      <Box fd="row" br="10px" ai="center" bw="1px" bc={Colors.basic_400} bgc={Colors.basic_100}>
         <StyledImage
           source={{
             uri: `https://meatfreeds3.s3.eu-west-2.amazonaws.com/restaurant+logos/${restaurant.place_id}.png`,

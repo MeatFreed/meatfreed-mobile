@@ -1,6 +1,7 @@
 import { Restaurant } from 'api';
 import React from 'react';
 import { LatLng, Marker } from 'react-native-maps';
+import styled from 'styled-components/native';
 import { Images } from 'themes';
 
 interface RestaurantMarkerProps {
@@ -8,6 +9,11 @@ interface RestaurantMarkerProps {
   zIndex: number;
   onPress?: () => void;
 }
+
+const StyledImage = styled.Image`
+  width: 50px;
+  height: 50px;
+`;
 
 export const RestaurantMarker: React.FC<RestaurantMarkerProps> = ({
   restaurant,
@@ -20,11 +26,8 @@ export const RestaurantMarker: React.FC<RestaurantMarkerProps> = ({
   } as LatLng;
 
   return (
-    <Marker
-      coordinate={coordinate}
-      image={Images.BusinessMarker}
-      onPress={onPress}
-      zIndex={zIndex}
-    />
+    <Marker coordinate={coordinate} onPress={onPress} zIndex={zIndex}>
+      <StyledImage source={Images.BusinessMarker} resizeMode="contain" />
+    </Marker>
   );
 };
