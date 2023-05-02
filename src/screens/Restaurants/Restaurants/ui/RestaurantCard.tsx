@@ -43,16 +43,14 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 
   const distance = getDistanceToPlace(
     {
-      latitude: Number(currentLocation.latitude),
-      longitude: Number(currentLocation.longitude),
+      latitude: Number(currentLocation?.latitude || 0),
+      longitude: Number(currentLocation?.longitude || 0),
     },
     {
       latitude: Number(details?.geometry?.location?.lat),
       longitude: Number(details?.geometry?.location?.lng),
     },
   );
-
-  // console.log({ weekdays, name: details?.name });
 
   return (
     <StyledButton {...touchableConfig} onPress={onPress}>

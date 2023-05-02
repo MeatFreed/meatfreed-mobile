@@ -6,8 +6,9 @@ import { store, useTypedDispatch } from 'stores';
 import { setCurrentLocation } from 'stores/place';
 import { useIsFocused } from '@react-navigation/native';
 import { getDistance } from 'geolib';
+import throttle from 'lodash.throttle';
 
-const SIGNIFICANT_DISTANCE = 500;
+const SIGNIFICANT_DISTANCE = 1000;
 
 export const usePosition = () => {
   const isFocused = useIsFocused();
@@ -21,7 +22,7 @@ export const usePosition = () => {
 
   const { watchPosition, clearWatch } = Geolocation;
 
-  const onChangeLocation = (position: Geolocation.GeoPosition) => {
+  const onChangeLocation = throttle((position: Geolocation.GeoPosition) => {
     const { latitude, longitude } = position.coords;
 
     const { currentLocation } = store.getState().place;
@@ -30,8 +31,8 @@ export const usePosition = () => {
 
     const distance = getDistance(
       {
-        latitude: Number(currentLocation.latitude),
-        longitude: Number(currentLocation.longitude),
+        latitude: Number(currentLocation?.latitude),
+        longitude: Number(currentLocation?.longitude),
       },
       { latitude, longitude },
     );
@@ -41,13 +42,13 @@ export const usePosition = () => {
     if (isSignificantDistance && isLocationPresent) {
       dispatch(setCurrentLocation(position));
     }
-  };
+  }, 300000);
 
   const watchLocation = () => {
     ref.current = watchPosition(
       onChangeLocation,
       undefined,
-      { distanceFilter: 50 },
+      { distanceFilter: 2500 },
     );
   };
 

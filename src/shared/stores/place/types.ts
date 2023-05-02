@@ -4,7 +4,7 @@ interface Location {
 }
 
 export interface PlaceReducer {
-  currentLocation: Location;
+  currentLocation: Location | null;
 }
 
 export interface PlaceState {

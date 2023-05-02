@@ -13,10 +13,11 @@ export const useGetRestaurants = () => {
   const isFocused = useIsFocused();
 
   const currentLocation = useTypedSelector(placeSelectors.currentLocation);
+  const hasLocation = useTypedSelector(placeSelectors.hasLocation);
 
   const bounds = useMemo(() => geohashQueryBounds([
-    currentLocation?.latitude,
-    currentLocation?.longitude,
+    Number(currentLocation?.latitude || 0),
+    Number(currentLocation?.longitude || 0),
   ], 24000), [currentLocation]);
 
   const getRestaurants = async () => {
@@ -42,12 +43,16 @@ export const useGetRestaurants = () => {
   };
 
   const onRefresh = () => {
-    getRestaurants();
+    if (hasLocation) {
+      getRestaurants();
+    }
   };
 
   useEffect(() => {
-    getRestaurants();
-  }, [isFocused, currentLocation]);
+    if (hasLocation) {
+      getRestaurants();
+    }
+  }, [isFocused, currentLocation, hasLocation]);
 
   return {
     isLoading,

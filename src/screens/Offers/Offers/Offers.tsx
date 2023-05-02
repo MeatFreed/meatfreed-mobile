@@ -5,11 +5,17 @@ import { Box, Colors, HorizontalDivider } from 'themes';
 import { Loader, SearchBar, StatusBar } from 'ui';
 import { FlatList, ListRenderItem } from 'react-native';
 import { Offer } from 'api';
-import { GlobalOfferCard, RegularOfferCard } from './ui';
+import { EmptyState, GlobalOfferCard, RegularOfferCard } from './ui';
 
 export const Offers: React.FC = () => {
   const { t } = useTranslation();
-  const { offers, onRefresh, isLoading } = useGetOffers();
+  const {
+    offers,
+    onRefresh,
+    isRefreshing,
+    isEmpty,
+    isLoading,
+  } = useGetOffers();
 
   const { onRegular, onGlobal } = useOfferActions();
 
@@ -37,16 +43,23 @@ export const Offers: React.FC = () => {
         showsVerticalScrollIndicator={false}
         keyExtractor={({ uid }) => uid}
         onRefresh={onRefresh}
-        contentContainerStyle={{ paddingTop: 80, paddingBottom: 30 }}
-        refreshing={!!offers.length && isLoading}
+        contentContainerStyle={{ paddingTop: 80, paddingBottom: 30, flexGrow: 1 }}
+        refreshing={isRefreshing}
         renderItem={renderItem}
         ItemSeparatorComponent={() => (
           <Box m={[0, 16]}>
             <HorizontalDivider />
           </Box>
         )}
-        ListEmptyComponent={isLoading && !!offers.length ? (
-          <Loader color={Colors.purple} size="large" />
+        ListEmptyComponent={isEmpty ? (
+          <EmptyState />
+        ) : (
+          <Box f={1} ai="center" jc="center">
+            <Loader color={Colors.primary_500} size="large" />
+          </Box>
+        )}
+        ListFooterComponent={isLoading && !!offers.length ? (
+          <Loader color={Colors.primary_500} />
         ) : null}
       />
     </Box>

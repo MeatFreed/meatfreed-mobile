@@ -75,7 +75,7 @@ export const Posts: React.FC = () => {
               <Loader color={Colors.primary_500} size="large" />
             </Box>
           )}
-          ListFooterComponent={isLoading && results.length ? (
+          ListFooterComponent={isLoading && !!results.length ? (
             <Loader color={Colors.primary_500} />
           ) : null}
         />

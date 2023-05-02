@@ -3,10 +3,7 @@ import { GeoPosition } from 'react-native-geolocation-service';
 import { PlaceReducer } from './types';
 
 const initialState: PlaceReducer = {
-  currentLocation: {
-    latitude: 50.1632921,
-    longitude: -5.128192,
-  },
+  currentLocation: null,
 };
 
 const place = createSlice({
@@ -15,8 +12,8 @@ const place = createSlice({
   reducers: {
     setCurrentLocation: (state, { payload }: PayloadAction<GeoPosition>) => {
       state.currentLocation = {
-        latitude: payload?.coords?.latitude || 50.1632921,
-        longitude: payload?.coords?.longitude || -5.128192,
+        latitude: payload?.coords?.latitude,
+        longitude: payload?.coords?.longitude,
       };
     },
     resetPlaceState: () => initialState,
