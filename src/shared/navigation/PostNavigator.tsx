@@ -12,7 +12,7 @@ export const PostNavigator: React.FC = () => {
       <Stack.Screen
         name={Routes.POSTS}
         component={Posts}
-        options={{ headerTitle: t('screens.posts') }}
+        options={{ headerTitle: t('screens.posts'), headerShown: false }}
       />
     </Stack.Navigator>
   );

@@ -10,7 +10,7 @@ import dynamicLinks, { FirebaseDynamicLinksTypes } from '@react-native-firebase/
 import { InAppBrowser } from 'react-native-inappbrowser-reborn';
 import Config from 'react-native-config';
 
-export const isImage = (url: string) => /^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
+export const isImage = (url = '') => /^https?:\/\/.+\.(jpg|jpeg|png|webp|avif|gif|svg)$/.test(url);
 
 export type AnyType = any;
 

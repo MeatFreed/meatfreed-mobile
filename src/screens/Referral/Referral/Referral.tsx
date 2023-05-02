@@ -46,25 +46,30 @@ export const Referral: React.FC = () => {
     });
   };
 
-  const onShare = async () => {
-    if (!link || !user?.referrer) {
+  const onShare = async (url: string) => {
+    if (!url || !user?.referrer) {
       return;
     }
 
-    const response = await Share.open({
-      message: t('my-referral.share', { link, code: user.referrer }),
-      url: 'https://www.meatfreed.com/',
-      failOnCancel: false,
-    });
-
-    if (response.success) {
-      onLogEvent(EventTypes.REFERRAL_LINK_SHARED, {
-        userId,
-        link,
-        referrerCode: user.referrer,
-        event: EventTypes.REFERRAL_LINK_SHARED,
-        createdAt: dayjs().valueOf(),
+    try {
+      const response = await Share.open({
+        title: 'MeatFreed',
+        message: t('my-referral.share', { link: url, code: user.referrer }),
+        url: 'https://www.meatfreed.com/',
+        failOnCancel: false,
       });
+
+      if (response.success) {
+        onLogEvent(EventTypes.REFERRAL_LINK_SHARED, {
+          userId,
+          link,
+          referrerCode: user.referrer,
+          event: EventTypes.REFERRAL_LINK_SHARED,
+          createdAt: dayjs().valueOf(),
+        });
+      }
+    } catch (error) {
+      /** empty */
     }
   };
 
@@ -105,7 +110,7 @@ export const Referral: React.FC = () => {
             label={t('my-referral.link').toUpperCase()}
             iconName="share-outline"
             buttonTitle={t('buttons.refer')}
-            onPress={onShare}
+            onPress={() => onShare(link)}
           />
         )}
       </Box>

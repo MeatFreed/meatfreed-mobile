@@ -2,43 +2,30 @@ import React from 'react';
 import {
   Box, Colors, FontFamily, FontSizes, Text,
 } from 'themes';
-import styled from 'styled-components/native';
-import { useTranslation } from 'react-i18next';
-import { isIOS, truncate } from 'helpers';
-
-const StyledContainer = styled(Box)<{y: number}>`
-  transform:  ${({ y }) => `translateY(${y}px)`} 
-`;
+import { touchableConfig, truncate } from 'helpers';
+import { TouchableOpacity } from 'react-native';
 
 interface DescriptionProps {
   description: string;
+  isShowFullDescription?: boolean;
+  onPress?: () => void;
 }
 
-export const Description: React.FC<DescriptionProps> = ({ description }) => {
-  const { t } = useTranslation();
+export const Description: React.FC<DescriptionProps> = ({
+  description, isShowFullDescription = false, onPress,
+}) => (
+  <Box p={[8, 12]} z={2}>
+    <TouchableOpacity
+      {...touchableConfig}
+      onPress={onPress}
+    >
+      <Text lh={24} color={Colors.basic_100} fs={FontSizes.md} ff={FontFamily.PoppinsMedium} fnw="500">
 
-  return (
-    <Box p={[8, 12]}>
-      <Text lh={24} color={Colors.basic_800} fs={FontSizes.md} ff={FontFamily.PoppinsMedium} fnw="500">
-        {truncate(description, 70)}
-
-        {description.length + 1 > 70 && (
-          <StyledContainer y={isIOS ? 2 : 3.2}>
-            <Text
-              ttd="underline"
-              ttdc={Colors.primary_500}
-              ttds="solid"
-              lh={24}
-              fs={FontSizes.md}
-              ff={FontFamily.PoppinsMedium}
-              fnw="500"
-              color={Colors.primary_600}
-            >
-              {`  ${t('buttons.more')}`}
-            </Text>
-          </StyledContainer>
+        {truncate(
+          description,
+          description.length > 70 && isShowFullDescription ? description.length + 1 : 70,
         )}
       </Text>
-    </Box>
-  );
-};
+    </TouchableOpacity>
+  </Box>
+);

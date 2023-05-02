@@ -1,9 +1,9 @@
-import { FlashList } from '@shopify/flash-list';
 import { useGetOffers, useOfferActions, usePosition } from 'hooks';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Box, Colors, HorizontalDivider } from 'themes';
 import { Loader, SearchBar, StatusBar } from 'ui';
+import { FlatList } from 'react-native';
 import { GlobalOfferCard, RegularOfferCard } from './ui';
 
 export const Offers: React.FC = () => {
@@ -23,7 +23,7 @@ export const Offers: React.FC = () => {
         getCurrentLocation={getCurrentLocation}
       />
 
-      <FlashList
+      <FlatList
         data={offers}
         showsVerticalScrollIndicator={false}
         keyExtractor={({ uid }) => uid}
@@ -42,7 +42,6 @@ export const Offers: React.FC = () => {
             <HorizontalDivider />
           </Box>
         )}
-        estimatedItemSize={300}
         ListEmptyComponent={isLoading && !!offers.length ? (
           <Loader color={Colors.purple} size="large" />
         ) : null}

@@ -76,7 +76,6 @@ export const PostDetails: React.FC = () => {
             {userId && (
               <ShareContent
                 title={content.title}
-                description={content.description}
                 contentId={params.contentId}
               />
             )}

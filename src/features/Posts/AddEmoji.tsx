@@ -53,7 +53,7 @@ export const AddEmoji: React.FC<AddEmojiProps> = ({
         onPress={() => setIsShowEmoji(!isShowEmoji)}
       >
         <Box mb={2}>
-          <Images.Smile color={isShowEmoji ? Colors.basic_100 : Colors.tabBarInactiveTintColor} />
+          <Images.Smile color={Colors.basic_100} />
         </Box>
       </ReactionButton>
 

@@ -65,6 +65,7 @@ export const Colors = {
   basic_transparent_32: 'rgba(143, 155, 179, 0.32)',
   basic_transparent_40: 'rgba(143, 155, 179, 0.4)',
   basic_transparent_48: 'rgba(143, 155, 179, 0.48)',
+  basic_transparent_72: 'rgba(0, 0, 0, 0.4)',
 
   basic_reversed_8: 'rgba(255, 255, 255, 0.08)',
   basic_reversed_16: 'rgba(255, 255, 255, 0.16)',

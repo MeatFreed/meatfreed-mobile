@@ -18,10 +18,10 @@
 		2A3F7DBFA4B546159DF41E49 /* Poppins-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 15F38B68EE1341CD9372D751 /* Poppins-SemiBold.ttf */; };
 		57BD125B430A489083890695 /* Poppins-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B02802BC2ECD4D3B900A4494 /* Poppins-Medium.ttf */; };
 		64034DC821FB6401181D7048 /* libPods-MeatFreed.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BE669E468DDB279D2200901C /* libPods-MeatFreed.a */; };
+		74E2D215860E438AB43009B7 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E0317C170AB4713BFEF9C8C /* icomoon.ttf */; };
 		8995D238D7494FC9BD52CCF7 /* Poppins-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3539D972A3D1453AA7858785 /* Poppins-Bold.ttf */; };
 		C555C58C546C4D62B5D8A30F /* Poppins-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 26DA4E56D0464E4781A045AB /* Poppins-Light.ttf */; };
 		FCE9DF6D5E844DB7BF55E7F7 /* Poppins-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = E285A12D00D149D99A3E0841 /* Poppins-Regular.ttf */; };
-		74E2D215860E438AB43009B7 /* icomoon.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5E0317C170AB4713BFEF9C8C /* icomoon.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -54,13 +54,13 @@
 		15F38B68EE1341CD9372D751 /* Poppins-SemiBold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-SemiBold.ttf"; path = "../src/assets/fonts/Poppins-SemiBold.ttf"; sourceTree = "<group>"; };
 		26DA4E56D0464E4781A045AB /* Poppins-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Light.ttf"; path = "../src/assets/fonts/Poppins-Light.ttf"; sourceTree = "<group>"; };
 		3539D972A3D1453AA7858785 /* Poppins-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Bold.ttf"; path = "../src/assets/fonts/Poppins-Bold.ttf"; sourceTree = "<group>"; };
+		5E0317C170AB4713BFEF9C8C /* icomoon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = icomoon.ttf; path = ../src/assets/fonts/icomoon.ttf; sourceTree = "<group>"; };
 		90E8450DA69F6601796483EC /* Pods-MeatFreed.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatFreed.debug.xcconfig"; path = "Target Support Files/Pods-MeatFreed/Pods-MeatFreed.debug.xcconfig"; sourceTree = "<group>"; };
 		B02802BC2ECD4D3B900A4494 /* Poppins-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Medium.ttf"; path = "../src/assets/fonts/Poppins-Medium.ttf"; sourceTree = "<group>"; };
 		B9AFF3536EA6232F5FE20EA9 /* Pods-MeatFreed.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MeatFreed.release.xcconfig"; path = "Target Support Files/Pods-MeatFreed/Pods-MeatFreed.release.xcconfig"; sourceTree = "<group>"; };
 		BE669E468DDB279D2200901C /* libPods-MeatFreed.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-MeatFreed.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E285A12D00D149D99A3E0841 /* Poppins-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Poppins-Regular.ttf"; path = "../src/assets/fonts/Poppins-Regular.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
-		5E0317C170AB4713BFEF9C8C /* icomoon.ttf */ = {isa = PBXFileReference; name = "icomoon.ttf"; path = "../src/assets/fonts/icomoon.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
