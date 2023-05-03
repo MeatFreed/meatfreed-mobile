@@ -20,7 +20,7 @@ export const useGetOffers = () => {
   const bounds = useMemo(() => geohashQueryBounds([
     Number(currentLocation?.latitude || 0),
     Number(currentLocation?.longitude || 0),
-  ], 5000), [currentLocation]);
+  ], 5000), [currentLocation, hasLocation]);
 
   const getOffers = async () => {
     setIsLoading(true);

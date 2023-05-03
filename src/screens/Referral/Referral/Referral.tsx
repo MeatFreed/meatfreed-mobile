@@ -54,8 +54,8 @@ export const Referral: React.FC = () => {
     try {
       const response = await Share.open({
         title: 'MeatFreed',
-        message: t('my-referral.share', { link: url, code: user.referrer }),
-        url: 'https://www.meatfreed.com/',
+        message: t('my-referral.share'),
+        url,
         failOnCancel: false,
       });
 
