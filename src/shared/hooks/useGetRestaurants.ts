@@ -1,11 +1,10 @@
 import { geohashQueryBounds } from 'geofire-common';
 import firestore from '@react-native-firebase/firestore';
 import { useIsFocused } from '@react-navigation/native';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTypedSelector } from 'stores';
 import { placeSelectors } from 'stores/place';
-import { Restaurant } from 'api';
-import { getDistance } from 'geolib';
+import { Restaurant, adaptRestaurants } from 'api';
 import sortBy from 'lodash.sortby';
 
 export const useGetRestaurants = () => {
@@ -17,10 +16,10 @@ export const useGetRestaurants = () => {
   const currentLocation = useTypedSelector(placeSelectors.currentLocation);
   const hasLocation = useTypedSelector(placeSelectors.hasLocation);
 
-  const bounds = useMemo(() => geohashQueryBounds([
+  const bounds = geohashQueryBounds([
     Number(currentLocation?.latitude || 0),
     Number(currentLocation?.longitude || 0),
-  ], 24000), [currentLocation]);
+  ], 24000);
 
   const getRestaurants = async () => {
     setIsLoading(true);
@@ -34,28 +33,7 @@ export const useGetRestaurants = () => {
 
       const collections = await Promise.all(requestArray);
 
-      const flatData = collections.flatMap((collection) => collection.docs);
-
-      const result = flatData.map((doc) => {
-        const data = doc.data() as Restaurant;
-
-        const distance = getDistance(
-          {
-            latitude: Number(currentLocation?.latitude || 0),
-            longitude: Number(currentLocation?.longitude || 0),
-          },
-          {
-            latitude: Number(data?.location?.latitude),
-            longitude: Number(data?.location?.longitude),
-          },
-        );
-
-        return {
-          ...data,
-          distance,
-          uid: doc.id,
-        };
-      });
+      const result = adaptRestaurants(collections, currentLocation);
 
       setRestaurants([...result]);
     } finally {

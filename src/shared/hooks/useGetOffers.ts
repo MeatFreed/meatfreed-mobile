@@ -1,10 +1,12 @@
 import { geohashQueryBounds } from 'geofire-common';
 import firestore from '@react-native-firebase/firestore';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTypedSelector } from 'stores';
 import { placeSelectors } from 'stores/place';
 import { Offer, adaptOffers } from 'api';
 import sortBy from 'lodash.sortby';
+
+const offerCollection = firestore().collection('offers');
 
 export const useGetOffers = () => {
   const [initialLoading, setInitialLoading] = useState(true);
@@ -13,26 +15,21 @@ export const useGetOffers = () => {
   const [offers, setOffers] = useState<Offer[]>([]);
 
   const currentLocation = useTypedSelector(placeSelectors.currentLocation);
-  const hasLocation = useTypedSelector(placeSelectors.hasLocation);
 
   const isEmpty = !initialLoading && !offers.length;
 
-  const bounds = useMemo(() => geohashQueryBounds([
+  const bounds = geohashQueryBounds([
     Number(currentLocation?.latitude || 0),
     Number(currentLocation?.longitude || 0),
-  ], 5000), [currentLocation, hasLocation]);
+  ], 5000);
 
   const getOffers = async () => {
     setIsLoading(true);
 
     try {
-      const response = await firestore().collection('offers').where('global', '==', true).get();
+      const response = await offerCollection.where('global', '==', true).get();
 
-      const requestArray = bounds.map((bound) => firestore().collection('offers')
-        .orderBy('geohash')
-        .startAt(bound[0])
-        .endAt(bound[1])
-        .get());
+      const requestArray = bounds.map((bound) => offerCollection.orderBy('geohash').startAt(bound[0]).endAt(bound[1]).get());
 
       const collections = await Promise.all(requestArray);
 
@@ -51,20 +48,12 @@ export const useGetOffers = () => {
   };
 
   const onRefresh = async () => {
-    if (!hasLocation) {
-      return;
-    }
-
     setRefreshing(true);
 
     try {
-      const response = await firestore().collection('offers').where('global', '==', true).get();
+      const response = await offerCollection.where('global', '==', true).get();
 
-      const requestArray = bounds.map((bound) => firestore().collection('offers')
-        .orderBy('geohash')
-        .startAt(bound[0])
-        .endAt(bound[1])
-        .get());
+      const requestArray = bounds.map((bound) => offerCollection.orderBy('geohash').startAt(bound[0]).endAt(bound[1]).get());
 
       const collections = await Promise.all(requestArray);
 
@@ -81,10 +70,8 @@ export const useGetOffers = () => {
   };
 
   useEffect(() => {
-    if (hasLocation) {
-      getOffers();
-    }
-  }, [currentLocation, hasLocation]);
+    getOffers();
+  }, [currentLocation]);
 
   return {
     isLoading,

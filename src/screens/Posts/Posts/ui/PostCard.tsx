@@ -16,6 +16,8 @@ interface PostCardProps {
   isAutoPlay: boolean
   contentId: string;
   post: PostContent;
+  isMuted: boolean;
+  onChangeVolume: () => void;
 }
 
 const StyledVideo = styled(Video as AnyType)`
@@ -65,12 +67,12 @@ const StyledVolume = styled.TouchableOpacity`
   background-color: ${Colors.basic_transparent_32}
 `;
 
-export const PostCard: React.FC<PostCardProps> = ({ post, contentId, isAutoPlay }) => {
+export const PostCard: React.FC<PostCardProps> = ({
+  post, contentId, isAutoPlay, isMuted, onChangeVolume,
+}) => {
   const { assets, description, title } = post;
 
   const [isShowFullDescription, setIsShowFullDescription] = useState(false);
-
-  const [isMuted, setIsMuted] = useState(true);
 
   const userId = useTypedSelector(userSelectors.userId);
 
@@ -109,7 +111,7 @@ export const PostCard: React.FC<PostCardProps> = ({ post, contentId, isAutoPlay 
           <Images.PostLogo />
 
           {assets?.[0]?.filename && !isVideo && (
-            <StyledVolume {...touchableConfig} onPress={() => setIsMuted(!isMuted)}>
+            <StyledVolume {...touchableConfig} onPress={onChangeVolume}>
               <Icon name={isMuted ? 'volume-off-outline' : 'volume-up-outline'} color={Colors.basic_100} />
             </StyledVolume>
           )}

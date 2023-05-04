@@ -18,6 +18,8 @@ type Content = Post & FirebasePost
 export const Posts: React.FC = () => {
   const isFocused = useIsFocused();
 
+  const [isMuted, setIsMuted] = useState(true);
+
   const [focusedIndex, setFocusedIndex] = useState(0);
 
   const handleScroll = useCallback(({
@@ -40,15 +42,17 @@ export const Posts: React.FC = () => {
     if (isDev) {
       return (
         <PostCard
+          isMuted={isMuted}
           isAutoPlay={isFocused && focusedIndex === index}
           post={post.content}
           contentId={post.uuid}
+          onChangeVolume={() => setIsMuted(!isMuted)}
         />
       );
     }
 
     return <FirebasePostCard post={post} />;
-  }, [focusedIndex, isFocused]);
+  }, [focusedIndex, isFocused, isMuted]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.basic_150 }} edges={['top']}>
