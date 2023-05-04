@@ -1,10 +1,7 @@
-interface Location {
-  latitude: number;
-  longitude: number;
-}
+import { LatLng } from 'react-native-maps';
 
 export interface PlaceReducer {
-  currentLocation: Location;
+  currentLocation: LatLng | null;
 }
 
 export interface PlaceState {

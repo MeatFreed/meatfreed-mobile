@@ -15,15 +15,14 @@ const StyledButton = styled.TouchableOpacity`
 interface ShareContentProps {
   contentId: string;
   title: string;
-  description: string;
 }
 
-export const ShareContent: React.FC<ShareContentProps> = ({ contentId, title, description }) => {
+export const ShareContent: React.FC<ShareContentProps> = ({ contentId, title }) => {
   const { onShareLink } = useSharePostLink();
 
   return (
-    <StyledButton {...touchableConfig} onPress={() => onShareLink(contentId, title, description)}>
-      <FontAwesome size={18} name="send" color={Colors.tabBarInactiveTintColor} />
+    <StyledButton {...touchableConfig} onPress={() => onShareLink(contentId, title)}>
+      <FontAwesome size={18} name="send" color={Colors.basic_100} />
     </StyledButton>
   );
 };

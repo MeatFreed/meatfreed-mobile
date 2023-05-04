@@ -26,8 +26,10 @@ export const Colors = {
   tabBarInactiveTintColor: '#5C616F',
   tabBarActiveTintColor: '#7153d6',
 
-  /** PRIMARY  */
+  weekday: '#F8F6FD',
 
+  /** PRIMARY  */
+  primary_50: 'rgba(113, 83, 214, 0.1)',
   primary_100: '#e2dcf6',
   primary_200: '#b8a9ea',
   primary_300: '#9b86e2',
@@ -63,6 +65,7 @@ export const Colors = {
   basic_transparent_32: 'rgba(143, 155, 179, 0.32)',
   basic_transparent_40: 'rgba(143, 155, 179, 0.4)',
   basic_transparent_48: 'rgba(143, 155, 179, 0.48)',
+  basic_transparent_72: 'rgba(0, 0, 0, 0.4)',
 
   basic_reversed_8: 'rgba(255, 255, 255, 0.08)',
   basic_reversed_16: 'rgba(255, 255, 255, 0.16)',

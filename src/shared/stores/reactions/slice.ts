@@ -1,3 +1,4 @@
+import { resetUser } from 'stores/user';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { ReactionType } from 'api';
 import { ReactionsReducer } from './types';
@@ -13,6 +14,9 @@ const reactions = createSlice({
     setReactions: (state, { payload }: PayloadAction<ReactionType[]>) => {
       state.reactions = payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetUser, () => initialState);
   },
 });
 

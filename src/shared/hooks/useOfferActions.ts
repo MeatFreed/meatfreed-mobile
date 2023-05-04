@@ -50,7 +50,10 @@ export const useOfferActions = () => {
         return;
       }
 
-      RouteService.navigate(Routes.SEARCH, { placeId: offer.place_id });
+      RouteService.navigate(Routes.RESTAURANT_NAVIGATOR, {
+        screen: Routes.RESTAURANT_DETAILS,
+        params: { contentId: offer.place_id },
+      });
     } finally {
       setIsLoading(false);
     }

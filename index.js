@@ -15,6 +15,7 @@ LogBox.ignoreAllLogs(true);
 
 LogBox.ignoreLogs([
   'EventEmitter.removeListener',
+  'Require cycle: node_modules/react-native/Libraries/Network/fetch.js',
   'You seem to update props of the "TRenderEngineProvider" component in short periods of time, causing costly tree rerenders',
   'You should always pass contentWidth prop to properly handle screen rotations and have a seamless support for images scaling.',
   'ViewPropTypes will be removed from React Native. Migrate to ViewPropTypes exported from \'deprecated-react-native-prop-types\'.',

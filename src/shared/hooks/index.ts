@@ -5,7 +5,6 @@ export * from './useGetPostByUID';
 export * from './useGetOffers';
 export * from './useGetRestaurants';
 export * from './useOfferActions';
-export * from './useRestaurantActions';
 export * from './useReferralCode';
 export * from './useSignIn';
 export * from './useSignUp';

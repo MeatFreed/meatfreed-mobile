@@ -43,7 +43,7 @@ export const Emoji: React.FC<EmojiProps> = ({ contentId }) => {
           {...touchableConfig}
           onPress={() => onAddReaction(heart?.uid, heart?.emoji)}
         >
-          <Images.Heart color={Colors.tabBarInactiveTintColor} />
+          <Images.Heart color={Colors.basic_100} />
         </ReactionButton>
       )}
 
@@ -66,7 +66,7 @@ export const Emoji: React.FC<EmojiProps> = ({ contentId }) => {
               <Text mr={6}>{items[0].reaction_content}</Text>
 
               <Text
-                color={userEmoji ? Colors.basic_100 : Colors.basic_800}
+                color={Colors.basic_100}
                 fnw="600"
                 fs={18}
                 ff={FontFamily.PoppinsMedium}

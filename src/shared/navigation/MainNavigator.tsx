@@ -12,6 +12,7 @@ import { useGetReactions } from 'hooks';
 import { Routes } from './Routes';
 import { Stack, authOptions, headerOptions } from './NavigationOptions';
 import { BottomTabBarNavigator } from './BottomTabBarNavigator';
+import { RestaurantNavigator } from './RestaurantNavigator';
 
 export const MainNavigator: React.FC = () => {
   const { t } = useTranslation();
@@ -68,6 +69,15 @@ export const MainNavigator: React.FC = () => {
         options={{
           ...headerOptions,
           headerTitle: t('screens.settings'),
+        }}
+      />
+
+      <Stack.Screen
+        name={Routes.RESTAURANT_NAVIGATOR}
+        component={RestaurantNavigator}
+        options={{
+          ...headerOptions,
+          headerShown: false,
         }}
       />
     </Stack.Navigator>

@@ -5,10 +5,16 @@ export type RootStackParamList = {
   [Routes.BOTTOM_TAB_BAR_NAVIGATOR]: undefined;
   [Routes.AUTH_NAVIGATOR]: undefined;
   [Routes.MAIN_NAVIGATOR]: undefined;
-  [Routes.SEARCH_NAVIGATOR]: undefined;
+  [Routes.HOME_NAVIGATOR]: undefined;
   [Routes.OFFER_NAVIGATOR]: undefined;
   [Routes.POST_NAVIGATOR]: undefined;
   [Routes.PROFILE_NAVIGATOR]: undefined;
+  [Routes.RESTAURANT_NAVIGATOR]: {
+    screen: Routes.RESTAURANT_DETAILS,
+    params: {
+      contentId: string;
+    }
+  },
   [Routes.WELCOME]: undefined;
   [Routes.SIGN_IN]: undefined;
   [Routes.SIGN_UP]: {
@@ -18,9 +24,10 @@ export type RootStackParamList = {
   [Routes.POST_DETAILS]: {
     contentId: string;
   };
-  [Routes.SEARCH]: {
-    placeId: string;
-  };
+  [Routes.RESTAURANTS]: undefined;
+  [Routes.RESTAURANT_DETAILS]: {
+    contentId: string;
+  },
   [Routes.OFFER]: undefined;
   [Routes.REFERRAL]: undefined;
   [Routes.PROFILE]: undefined;
@@ -29,6 +36,6 @@ export type RootStackParamList = {
 
 export type PostDetailsProp = RouteProp<RootStackParamList, Routes.POST_DETAILS>;
 
-export type SearchProp = RouteProp<RootStackParamList, Routes.SEARCH>;
+export type RestaurantDetailsProp = RouteProp<RootStackParamList, Routes.RESTAURANT_DETAILS>;
 
 export type SignUpProp = RouteProp<RootStackParamList, Routes.SIGN_UP>;

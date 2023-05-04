@@ -1,15 +1,19 @@
-export interface Photo {
+export interface RestaurantPhoto {
   photo_reference: string;
+}
+
+export interface RestaurantOpeningHours {
+  open_now: boolean;
+  weekday_text: string[];
 }
 
 export interface RestaurantInformation {
   name: string;
   formatted_address: string;
-  opening_hours: {
-    weekday_text: string[];
-  };
-  photos: Photo[];
+  opening_hours: RestaurantOpeningHours;
+  photos: RestaurantPhoto[];
   website: string;
+  price_level?: number;
   international_phone_number: string;
   rating: number;
   user_ratings_total: number;

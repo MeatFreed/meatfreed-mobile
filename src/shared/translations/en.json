@@ -74,7 +74,10 @@
     "delete-account": "Delete Account",
     "save": "Save",
     "delete-my-account": "Delete my account",
-    "more": "more"
+    "more": "more",
+    "less": "less",
+    "directions": "Directions",
+    "call": "Call"
   },
   "search": {
     "directions": "Directions",
@@ -85,17 +88,19 @@
     "member": "MeatFreed Member",
     "status": "Status: {{tier}}",
     "valid": "Valid until: {{expires}}",
+    "empty-state": "No available offers",
     "description": "View your personalised offers from us \nand our partner restaurants 🙌"
   },
   "posts": {
-    "post-link": "Post link"
+    "post-link": "Post link",
+    "empty-state": "No available posts"
   },
   "my-referral": {
     "scan": "Share the QR code with your friends",
     "code": "Referral Code",
     "link": "Invitation Link",
     "clipboard": "Your invitation code copied to clipboard",
-    "share": "Join MeatFreed for free using my code {{code}} or link {{link}}",
+    "share": "Join our local community",
     "status": "Status",
     "members": "{{count}} new members",
     "registered": "have registered from you"
@@ -119,5 +124,18 @@
   "settings": {
     "general": "General",
     "main-contacts": "Main Contacts"
+  },
+  "home": {
+    "today": "Today:",
+    "close-to-you": "Close to you",
+    "reviews": "reviews",
+    "empty-state-title": "No available restaurants.",
+    "empty-state-description": "Please try to select another location"
+  },
+  "restaurant-details": {
+    "closed-now": "Closed now",
+    "opened-now": "Open now",
+    "opens-at": "Opens at {{hours}}",
+    "current-day": "Today"
   }
 }

@@ -2,13 +2,14 @@ import { useEffect, useRef, useState } from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import { isIOS, withDelay } from 'helpers';
 import { PermissionsService } from 'services';
-import { useTypedDispatch } from 'stores';
+import { store, useTypedDispatch } from 'stores';
 import { setCurrentLocation } from 'stores/place';
-import { useIsFocused } from '@react-navigation/native';
+import { getDistance } from 'geolib';
+import throttle from 'lodash.throttle';
+
+const SIGNIFICANT_DISTANCE = 1000;
 
 export const usePosition = () => {
-  const isFocused = useIsFocused();
-
   const [isPermissionDenied, setPermissionDenied] = useState(false);
   const [isPermissionGranted, setPermissionGranted] = useState(false);
 
@@ -18,21 +19,41 @@ export const usePosition = () => {
 
   const { watchPosition, clearWatch } = Geolocation;
 
-  const onChangeLocation = (position: Geolocation.GeoPosition) => {
-    dispatch(setCurrentLocation(position));
-  };
+  const onChangeLocation = throttle((position: Geolocation.GeoPosition) => {
+    const { latitude, longitude } = position.coords;
+
+    const { currentLocation } = store.getState().place;
+
+    const isLocationPresent = latitude !== 0 && longitude !== 0;
+
+    const distance = getDistance(
+      {
+        latitude: Number(currentLocation?.latitude),
+        longitude: Number(currentLocation?.longitude),
+      },
+      { latitude, longitude },
+    );
+
+    const isSignificantDistance = distance > SIGNIFICANT_DISTANCE;
+
+    if (isSignificantDistance && isLocationPresent) {
+      dispatch(setCurrentLocation(position));
+    }
+  }, 300000);
 
   const watchLocation = () => {
     ref.current = watchPosition(
       onChangeLocation,
       undefined,
-      { distanceFilter: 5000, interval: 600000, fastestInterval: 600000 },
+      { distanceFilter: 2500 },
     );
   };
 
   const getCurrentLocation = () => {
     Geolocation.getCurrentPosition(
-      onChangeLocation,
+      (position) => {
+        dispatch(setCurrentLocation(position));
+      },
       undefined,
       {
         enableHighAccuracy: true,
@@ -48,6 +69,9 @@ export const usePosition = () => {
       const isGranted = await PermissionsService.requestGeolocationPermission();
 
       watchLocation();
+
+      getCurrentLocation();
+
       setPermissionGranted(isGranted);
       setPermissionDenied(!isGranted);
     } catch (error) {
@@ -55,12 +79,6 @@ export const usePosition = () => {
       setPermissionDenied(true);
     }
   };
-
-  useEffect(() => {
-    if (isFocused) {
-      getCurrentLocation();
-    }
-  }, [isFocused]);
 
   useEffect(() => {
     getPermission();

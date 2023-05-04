@@ -1,41 +1,85 @@
 import { useGetPosts } from 'hooks';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { Box, Colors } from 'themes';
 import { Loader, StatusBar } from 'ui';
-import { FlashList } from '@shopify/flash-list';
 import { isDev } from 'helpers';
-import { PostCard, FirebasePostCard } from './ui';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  FlatList, ListRenderItem, NativeScrollEvent, NativeSyntheticEvent,
+} from 'react-native';
+import { FirebasePost, Post } from 'api';
+import { useIsFocused } from '@react-navigation/native';
+import { PostCard, FirebasePostCard, EmptyState } from './ui';
+
+const ITEM_HEIGHT = 620;
+
+type Content = Post & FirebasePost
 
 export const Posts: React.FC = () => {
+  const isFocused = useIsFocused();
+
+  const [isMuted, setIsMuted] = useState(true);
+
+  const [focusedIndex, setFocusedIndex] = useState(0);
+
+  const handleScroll = useCallback(({
+    nativeEvent: { contentOffset: { y } },
+  }: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const offset = Math.round(y / ITEM_HEIGHT);
+
+    setFocusedIndex(Math.abs(offset || 0));
+  }, [setFocusedIndex]);
+
   const {
-    isLoading, results, onRefresh, onEndReached,
+    isRefreshing,
+    isEmpty,
+    results,
+    onRefresh,
+    onEndReached,
   } = useGetPosts();
 
+  const renderItem: ListRenderItem<Content> = useCallback(({ item: post, index }) => {
+    if (isDev) {
+      return (
+        <PostCard
+          isMuted={isMuted}
+          isAutoPlay={isFocused && focusedIndex === index}
+          post={post.content}
+          contentId={post.uuid}
+          onChangeVolume={() => setIsMuted(!isMuted)}
+        />
+      );
+    }
+
+    return <FirebasePostCard post={post} />;
+  }, [focusedIndex, isFocused, isMuted]);
+
   return (
-    <Box f={1} bgc={Colors.basic_150}>
-      <StatusBar />
+    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.basic_150 }} edges={['top']}>
+      <Box f={1} bgc={Colors.basic_150}>
+        <StatusBar />
 
-      <FlashList
-        data={results}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={(_, index: number) => index.toString()}
-        onRefresh={onRefresh}
-        onEndReachedThreshold={0.1}
-        contentContainerStyle={{ paddingTop: 10, paddingBottom: 30 }}
-        refreshing={!!results.length && isLoading}
-        onEndReached={onEndReached}
-        renderItem={({ item: post }) => {
-          if (isDev) {
-            return <PostCard post={post.content} contentId={post.uuid} />;
-          }
-
-          return <FirebasePostCard post={post} />;
-        }}
-        estimatedItemSize={300}
-        ListEmptyComponent={isLoading && !!results.length ? (
-          <Loader color={Colors.purple} size="large" />
-        ) : null}
-      />
-    </Box>
+        <FlatList
+          data={results}
+          onScroll={handleScroll}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={(_, index: number) => index.toString()}
+          onRefresh={onRefresh}
+          onEndReachedThreshold={0.2}
+          initialNumToRender={10}
+          contentContainerStyle={{ paddingTop: 10, paddingBottom: 30, flexGrow: 1 }}
+          refreshing={isRefreshing}
+          onEndReached={onEndReached}
+          renderItem={renderItem}
+          ListEmptyComponent={isEmpty ? (
+            <EmptyState />
+          ) : (
+            <Box f={1} ai="center" jc="center">
+              <Loader color={Colors.primary_500} size="large" />
+            </Box>
+          )}
+        />
+      </Box>
+    </SafeAreaView>
   );
 };

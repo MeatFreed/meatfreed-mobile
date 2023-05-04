@@ -1,10 +1,11 @@
 import { geohashQueryBounds } from 'geofire-common';
 import firestore from '@react-native-firebase/firestore';
 import { useIsFocused } from '@react-navigation/native';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useTypedSelector } from 'stores';
 import { placeSelectors } from 'stores/place';
-import { Restaurant } from 'api';
+import { Restaurant, adaptRestaurants } from 'api';
+import sortBy from 'lodash.sortby';
 
 export const useGetRestaurants = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -13,11 +14,12 @@ export const useGetRestaurants = () => {
   const isFocused = useIsFocused();
 
   const currentLocation = useTypedSelector(placeSelectors.currentLocation);
+  const hasLocation = useTypedSelector(placeSelectors.hasLocation);
 
-  const bounds = useMemo(() => geohashQueryBounds([
-    currentLocation?.latitude,
-    currentLocation?.longitude,
-  ], 15000), [currentLocation]);
+  const bounds = geohashQueryBounds([
+    Number(currentLocation?.latitude || 0),
+    Number(currentLocation?.longitude || 0),
+  ], 24000);
 
   const getRestaurants = async () => {
     setIsLoading(true);
@@ -31,29 +33,29 @@ export const useGetRestaurants = () => {
 
       const collections = await Promise.all(requestArray);
 
-      const data = collections
-        .flatMap((collection) => collection.docs)
-        .map((doc) => ({ ...doc.data(), uid: doc.id })) as Restaurant[];
+      const result = adaptRestaurants(collections, currentLocation);
 
-      setRestaurants([...data]);
+      setRestaurants([...result]);
     } finally {
       setIsLoading(false);
     }
   };
 
   const onRefresh = () => {
-    getRestaurants();
+    if (hasLocation) {
+      getRestaurants();
+    }
   };
 
   useEffect(() => {
-    if (isFocused) {
+    if (hasLocation) {
       getRestaurants();
     }
-  }, [isFocused, currentLocation]);
+  }, [isFocused, currentLocation, hasLocation]);
 
   return {
     isLoading,
-    restaurants,
+    restaurants: sortBy(restaurants, 'distance'),
     onRefresh,
   };
 };

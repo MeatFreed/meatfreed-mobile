@@ -6,6 +6,7 @@ export * from './offers/models';
 export * from './offers/adapters';
 
 export * from './restaurants/models';
+export * from './restaurants/adapters';
 
 export * from './google/googleApi';
 export * from './google/models';
