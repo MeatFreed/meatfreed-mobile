@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GeoPosition } from 'react-native-geolocation-service';
+import { resetUser } from 'stores/user';
 import { PlaceReducer } from './types';
 
 const initialState: PlaceReducer = {
@@ -17,6 +18,9 @@ const place = createSlice({
       };
     },
     resetPlaceState: () => initialState,
+  },
+  extraReducers: (builder) => {
+    builder.addCase(resetUser, () => initialState);
   },
 });
 

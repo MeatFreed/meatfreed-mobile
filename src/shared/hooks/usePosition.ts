@@ -71,6 +71,7 @@ export const usePosition = () => {
       watchLocation();
 
       getCurrentLocation();
+
       setPermissionGranted(isGranted);
       setPermissionDenied(!isGranted);
     } catch (error) {

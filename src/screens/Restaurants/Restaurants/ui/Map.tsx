@@ -23,6 +23,7 @@ const defaultLocation = {
 };
 
 export const Map: React.FC<MapProps> = ({ restaurants }) => {
+  const hasLocation = useTypedSelector(placeSelectors.hasLocation);
   const currentLocation = useTypedSelector(placeSelectors.currentLocation);
   const userId = useTypedSelector(userSelectors.userId);
 
@@ -44,7 +45,11 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
       showsUserLocation
       showsMyLocationButton={false}
       customMapStyle={MapStyles}
-      initialRegion={defaultLocation}
+      initialRegion={!hasLocation ? defaultLocation : {
+        ...defaultLocation,
+        latitude: Number(currentLocation?.latitude),
+        longitude: Number(currentLocation?.longitude),
+      }}
       region={{
         ...defaultLocation,
         latitude: currentLocation?.latitude || defaultLocation.latitude,

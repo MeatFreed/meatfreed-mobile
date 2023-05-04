@@ -39,8 +39,6 @@ export const DeleteAccountModal: React.FC<DeleteAccountModalProps> = ({
       await auth().currentUser?.getIdToken(true);
       await currentUser?.delete();
 
-      dispatch(resetUser());
-
       RouteService.navigate(Routes.HOME_NAVIGATOR);
     } catch (error: AnyType) {
       if (error.code === 'auth/requires-recent-login') {
@@ -53,6 +51,8 @@ export const DeleteAccountModal: React.FC<DeleteAccountModalProps> = ({
         ToastService.onWarning({ title: t('errors.reauthenticate') });
       }
     } finally {
+      dispatch(resetUser());
+
       setLoading(false);
 
       onModalClose();

@@ -23,9 +23,18 @@ const userPersistConfig = {
   timeout: 0,
 };
 
+const placePersistConfig = {
+  key: 'place',
+  storage: AsyncStorage,
+  whitelist: [
+    'currentLocation',
+  ],
+  timeout: 0,
+};
+
 export const rootReducer = combineReducers({
-  place: placeReducer,
   reactions: reactionsReducer,
+  place: persistReducer(placePersistConfig, placeReducer),
   user: persistReducer(userPersistConfig, userReducer),
   [googleApi.reducerPath]: googleApi.reducer,
 });
