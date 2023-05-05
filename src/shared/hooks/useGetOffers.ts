@@ -5,6 +5,7 @@ import { useTypedSelector } from 'stores';
 import { placeSelectors } from 'stores/place';
 import { Offer, adaptOffers } from 'api';
 import sortBy from 'lodash.sortby';
+import uniqBy from 'lodash.uniqby';
 
 const offerCollection = firestore().collection('offers');
 
@@ -78,7 +79,7 @@ export const useGetOffers = () => {
     initialLoading,
     isRefreshing,
     isEmpty,
-    offers: sortBy(offers, 'refer', 'asc') as Offer[],
+    offers: sortBy(uniqBy(offers, 'uid'), 'refer', 'asc') as Offer[],
     onRefresh,
   };
 };

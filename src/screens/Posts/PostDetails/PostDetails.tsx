@@ -1,27 +1,22 @@
-import { AnyType, isDev, isImage } from 'helpers';
+import { AnyType, isImage } from 'helpers';
 import React from 'react';
 import styled from 'styled-components/native';
 import Video from 'react-native-video';
 import {
   Box, Colors, FontFamily, FontSizes, Text,
 } from 'themes';
-import { Dimensions, ScrollView } from 'react-native';
+import { ScrollView } from 'react-native';
 import { useRoute } from '@react-navigation/native';
 import { PostDetailsProp } from 'navigation';
 import { ActivityIndicator, StatusBar } from 'ui';
 import { useGetPostByUID } from 'hooks';
-import RenderHtml from 'react-native-render-html';
 import FastImage from 'react-native-fast-image';
 import { Emoji, ShareContent } from 'features';
 import { useTypedSelector } from 'stores';
+import Gradient from 'react-native-linear-gradient';
 import { userSelectors } from 'stores/user';
-import Config from 'react-native-config';
 
-const { height } = Dimensions.get('window');
-
-const { POST_ASSET_URL } = Config;
-
-const VIDEO_HEIGHT = height / 3;
+const VIDEO_HEIGHT = 620;
 
 const StyledVideo = styled(Video as AnyType)`
   width: 100%;
@@ -31,6 +26,18 @@ const StyledVideo = styled(Video as AnyType)`
 const StyledImage = styled(FastImage as AnyType)`
   width: 100%;
   height: ${VIDEO_HEIGHT}px;
+`;
+
+const StyledTopGradient = styled(Gradient as AnyType)`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 8px;
+  width: 100%;
+  height: 140px;
+  z-index: 2;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
 `;
 
 export const PostDetails: React.FC = () => {
@@ -44,12 +51,20 @@ export const PostDetails: React.FC = () => {
     return <ActivityIndicator isVisible />;
   }
 
-  if (isDev) {
-    const { content } = post;
+  const { content } = post;
 
-    return (
+  return (
+    <>
+      <StatusBar />
+
+      <StyledTopGradient
+        colors={['rgba(0, 0, 0, .5)', 'rgba(0, 0, 0, .2)', 'rgba(0, 0, 0, .01)']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 0.9 }}
+        locations={[0, 0.7, 0.9]}
+      />
+
       <Box f={1} bgc={Colors.basic_100}>
-        <StatusBar />
 
         <ScrollView
           showsVerticalScrollIndicator={false}
@@ -61,7 +76,7 @@ export const PostDetails: React.FC = () => {
               paused
               resizeMode="cover"
               source={{ uri: content?.assets?.[0].filename }}
-              poster="https://iili.io/HOckdkg.png"
+              poster={content?.assets?.[0].filename}
               posterResizeMode="cover"
             />
           )}
@@ -70,80 +85,32 @@ export const PostDetails: React.FC = () => {
             <StyledImage resizeMode="cover" source={{ uri: content?.assets?.[0].filename }} />
           )}
 
+          {!content?.assets?.length && <StyledImage resizeMode="cover" source={{ uri: 'https://iili.io/HOckdkg.png' }} />}
+
           <Box ai="center" fd="row" p={[8, 12]}>
-            <Emoji contentId={params.contentId} />
+            <Emoji contentId={params.contentId} color={Colors.basic_600} />
 
             {userId && (
               <ShareContent
                 title={content.title}
                 contentId={params.contentId}
+                color={Colors.basic_600}
               />
             )}
           </Box>
 
           <Box p={[16, 16, 0]}>
             {content.title && (
-              <Text fs={FontSizes.lg} fnw="600" ff={FontFamily.PoppinsBold} color={Colors.basic_800}>{content.title}</Text>
+            <Text fs={FontSizes.lg} fnw="600" ff={FontFamily.PoppinsBold} color={Colors.basic_800}>{content.title}</Text>
             )}
 
             {content.description && (
-              <Text mt={8} fs={FontSizes.sm} color={Colors.basic_600}>{content.description}</Text>
+            <Text mt={8} fs={FontSizes.sm} color={Colors.basic_600}>{content.description}</Text>
             )}
           </Box>
         </ScrollView>
       </Box>
-    );
-  }
+    </>
 
-  return (
-    <Box f={1} bgc={Colors.basic_100}>
-      <StatusBar />
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={{ paddingBottom: 60 }}
-      >
-        {post?.video && (
-          <StyledVideo
-            controls
-            paused
-            resizeMode="cover"
-            source={{ uri: `${POST_ASSET_URL}${encodeURIComponent(post.video)}` }}
-            poster="https://iili.io/HOckdkg.png"
-            posterResizeMode="cover"
-          />
-        )}
-
-        {post?.images?.length && (
-          <StyledImage resizeMode="cover" source={{ uri: `${POST_ASSET_URL}${encodeURIComponent(post?.images?.[0])}` }} />
-        )}
-
-        <Box p={[16, 16, 0]}>
-          {post.title && (
-            <Text fs={FontSizes.xl} fnw="700" ff={FontFamily.PoppinsMedium} color={Colors.basic_800}>{post.title}</Text>
-          )}
-
-          {post.subtitle && (
-            <Text mt={8} fs={FontSizes.sm} color={Colors.basic_600}>{post.subtitle}</Text>
-          )}
-        </Box>
-
-        {post.body && (
-          <Box p={[16, 16, 0]}>
-            <RenderHtml
-              contentWidth={Dimensions.get('window').width}
-              source={{ html: post.body }}
-              tagsStyles={{
-                p: {
-                  fontSize: FontSizes.sm,
-                  color: Colors.basic_600,
-                  marginVertical: 0,
-                  marginTop: 8,
-                },
-              }}
-            />
-          </Box>
-        )}
-      </ScrollView>
-    </Box>
   );
 };

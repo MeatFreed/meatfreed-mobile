@@ -31,11 +31,13 @@ const Layout = styled(Box)`
 interface AddEmojiProps {
   items: ReactionType[];
   onAddReaction: (id: string, content: string) => void;
+  color?: string;
 }
 
 export const AddEmoji: React.FC<AddEmojiProps> = ({
   items,
   onAddReaction,
+  color = Colors.basic_100,
 }) => {
   const [isShowEmoji, setIsShowEmoji] = useState(false);
 
@@ -53,7 +55,7 @@ export const AddEmoji: React.FC<AddEmojiProps> = ({
         onPress={() => setIsShowEmoji(!isShowEmoji)}
       >
         <Box mb={2}>
-          <Images.Smile color={Colors.basic_100} />
+          <Images.Smile color={isShowEmoji ? Colors.basic_100 : color} />
         </Box>
       </ReactionButton>
 

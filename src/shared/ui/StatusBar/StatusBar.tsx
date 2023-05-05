@@ -21,7 +21,7 @@ export const StatusBar = React.memo(() => {
 
   return isFocused ? (
     <Bar
-      barStyle={isChangeStatusBar ? 'dark-content' : 'dark-content'}
+      barStyle={isChangeStatusBar ? 'light-content' : 'dark-content'}
       backgroundColor="transparent"
       translucent
     />

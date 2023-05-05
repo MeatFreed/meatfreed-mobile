@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  PostDetails,
   Referral,
   Settings,
   SignIn,
@@ -13,6 +12,7 @@ import { Routes } from './Routes';
 import { Stack, authOptions, headerOptions } from './NavigationOptions';
 import { BottomTabBarNavigator } from './BottomTabBarNavigator';
 import { RestaurantNavigator } from './RestaurantNavigator';
+import { PostNavigator } from './PostNavigator';
 
 export const MainNavigator: React.FC = () => {
   const { t } = useTranslation();
@@ -58,9 +58,12 @@ export const MainNavigator: React.FC = () => {
       />
 
       <Stack.Screen
-        name={Routes.POST_DETAILS}
-        component={PostDetails}
-        options={{ ...headerOptions, headerTitle: t('screens.post-details') }}
+        name={Routes.POST_NAVIGATOR}
+        component={PostNavigator}
+        options={{
+          ...headerOptions,
+          headerShown: false,
+        }}
       />
 
       <Stack.Screen

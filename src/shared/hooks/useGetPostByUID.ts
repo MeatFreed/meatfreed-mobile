@@ -1,38 +1,22 @@
 import { useIsFocused } from '@react-navigation/native';
-import { StoryblokService } from 'services';
 import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
-import { FirebasePost, Post } from 'api';
-import { isDev } from 'helpers';
-
-type Content = Post & FirebasePost
-
-const { client } = StoryblokService;
+import { Post } from 'api';
 
 export const useGetPostByUID = (contentId: string) => {
   const isFocused = useIsFocused();
 
   const [isLoading, setIsLoading] = useState(false);
 
-  const [post, setPost] = useState<Content | null>(null);
+  const [post, setPost] = useState<Post | null>(null);
 
   const getPostByUID = async () => {
     setIsLoading(true);
 
     try {
-      if (isDev) {
-        const response = await client.get('cdn/stories/', {
-          by_uuids: contentId,
-        });
+      const response = await firestore().collection('posts_storyblock').doc(contentId).get();
 
-        setPost(response.data.stories[0]);
-
-        return;
-      }
-
-      const response = await firestore().collection('posts').doc(contentId).get();
-
-      setPost(response.data() as Content);
+      setPost(response.data() as Post);
     } finally {
       setIsLoading(false);
     }

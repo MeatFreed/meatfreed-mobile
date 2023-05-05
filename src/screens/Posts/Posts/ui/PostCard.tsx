@@ -9,7 +9,7 @@ import { useTypedSelector } from 'stores';
 import { userSelectors } from 'stores/user';
 import Gradient from 'react-native-linear-gradient';
 import { Emoji, ShareContent } from 'features';
-import { Icon } from 'ui';
+import { Icon, Loader } from 'ui';
 import { Description } from './Description';
 
 interface PostCardProps {
@@ -67,9 +67,20 @@ const StyledVolume = styled.TouchableOpacity`
   background-color: ${Colors.basic_transparent_32}
 `;
 
+const StyledWrapper = styled(Box)`
+  position: absolute;
+  z-index: 10;
+  width: 100%;
+  height: 620px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+`;
+
 export const PostCard: React.FC<PostCardProps> = ({
   post, contentId, isAutoPlay, isMuted, onChangeVolume,
 }) => {
+  const [isLoading, setIsLoading] = useState(true);
   const { assets, description, title } = post;
 
   const [isShowFullDescription, setIsShowFullDescription] = useState(false);
@@ -80,6 +91,12 @@ export const PostCard: React.FC<PostCardProps> = ({
 
   return (
     <Box m={[8, 20]} h="620px" bgc={Colors.basic_100} br="10px" bw="1px" bc={Colors.basic_500}>
+      {isLoading && (
+        <StyledWrapper>
+          <Loader size="large" color={Colors.purple} />
+        </StyledWrapper>
+      )}
+
       {assets?.[0]?.filename && !isVideo && (
         <StyledVideo
           paused={!isAutoPlay}
@@ -88,6 +105,7 @@ export const PostCard: React.FC<PostCardProps> = ({
           source={{ uri: assets?.[0]?.filename }}
           poster={assets?.[0]?.filename}
           muted={isMuted}
+          onLoad={() => setIsLoading(false)}
           posterResizeMode="cover"
         />
       )}
@@ -96,21 +114,26 @@ export const PostCard: React.FC<PostCardProps> = ({
         <StyledImage
           source={{ uri: assets?.[0]?.filename }}
           resizeMode={FastImage.resizeMode.cover}
+          onLoadEnd={() => setIsLoading(false)}
         />
       )}
 
+      {!assets?.length && <StyledImage resizeMode="cover" source={{ uri: 'https://iili.io/HOckdkg.png' }} onLoadEnd={() => setIsLoading(false)} />}
+
       <Box br="10px" z={2} f={1} bgc={isShowFullDescription ? Colors.basic_transparent_72 : 'transparent'}>
-        <StyledTopGradient
-          colors={['rgba(0, 0, 0, .5)', 'rgba(0, 0, 0, .2)', 'rgba(0, 0, 0, .01)']}
-          start={{ x: 0, y: 0 }}
-          end={{ x: 0, y: 0.75 }}
-          locations={[0, 0.7, 0.9]}
-        />
+        {!isLoading && (
+          <StyledTopGradient
+            colors={['rgba(0, 0, 0, .5)', 'rgba(0, 0, 0, .2)', 'rgba(0, 0, 0, .01)']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 0, y: 0.75 }}
+            locations={[0, 0.7, 0.9]}
+          />
+        )}
 
         <Box z={1} p={[8, 12, 16]} fd="row" jc="space-between" ai="center">
           <Images.PostLogo />
 
-          {assets?.[0]?.filename && !isVideo && (
+          {assets?.[0]?.filename && !isVideo && !isLoading && (
             <StyledVolume {...touchableConfig} onPress={onChangeVolume}>
               <Icon name={isMuted ? 'volume-off-outline' : 'volume-up-outline'} color={Colors.basic_100} />
             </StyledVolume>
@@ -137,12 +160,14 @@ export const PostCard: React.FC<PostCardProps> = ({
           )}
         </Box>
 
-        <StyledBottomGradient
-          colors={['rgba(0, 0, 0, .5)', 'rgba(0, 0, 0, .15)', 'rgba(0, 0, 0, .01)']}
-          start={{ x: 0, y: 0.75 }}
-          end={{ x: 0, y: 0 }}
-          locations={[0, 0.7, 0.9]}
-        />
+        {!isLoading && (
+          <StyledBottomGradient
+            colors={['rgba(0, 0, 0, .5)', 'rgba(0, 0, 0, .15)', 'rgba(0, 0, 0, .01)']}
+            start={{ x: 0, y: 0.75 }}
+            end={{ x: 0, y: 0 }}
+            locations={[0, 0.7, 0.9]}
+          />
+        )}
       </Box>
     </Box>
   );

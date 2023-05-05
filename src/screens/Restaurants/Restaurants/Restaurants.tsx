@@ -6,7 +6,6 @@ import { placeSelectors } from 'stores/place';
 import styled from 'styled-components/native';
 import { Box, Colors } from 'themes';
 import {
-  ActivityIndicator,
   Button,
   SearchBar,
   StatusBar,
@@ -30,12 +29,10 @@ export const Restaurants: React.FC = () => {
 
   const { getCurrentLocation } = usePosition();
 
-  const { restaurants, isLoading } = useGetRestaurants();
+  const { restaurants, onEndReached } = useGetRestaurants();
 
   return (
     <Box f={1} bgc={Colors.basic_100}>
-      {isFocused && <ActivityIndicator isVisible={isLoading} />}
-
       <StatusBar />
 
       <Box f={1}>
@@ -53,7 +50,7 @@ export const Restaurants: React.FC = () => {
         {isFocused && <Map restaurants={restaurants} />}
 
         {isFocused && (
-          <RestaurantPanel restaurants={restaurants} />
+          <RestaurantPanel restaurants={restaurants} onEndReached={onEndReached} />
         )}
       </Box>
     </Box>
