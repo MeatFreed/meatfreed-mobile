@@ -42,6 +42,7 @@ export const Offers: React.FC = () => {
         showsVerticalScrollIndicator={false}
         keyExtractor={({ uid }) => uid}
         onRefresh={onRefresh}
+        onEndReachedThreshold={0.1}
         contentContainerStyle={{ paddingTop: 80, paddingBottom: 30, flexGrow: 1 }}
         refreshing={isRefreshing}
         renderItem={renderItem}

@@ -7,19 +7,19 @@ import { useTranslation } from 'react-i18next';
 import { FontFamily, Text } from 'themes';
 import { SwipeablePanel } from 'ui';
 import { AnyType, isIOS } from 'helpers';
-import { RouteService } from 'services';
-import { Routes } from 'navigation';
 import { useTypedSelector } from 'stores';
 import { userSelectors } from 'stores/user';
 import { ListRenderItem } from 'react-native';
+import { useGetRestaurantActions } from 'hooks';
 import { RestaurantCard } from './RestaurantCard';
 import { EmptyState } from './EmptyState';
 
 interface RestaurantPanelProps {
   restaurants: Restaurant[];
+  onEndReached: () => Promise<void>;
 }
 
-export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants }) => {
+export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, onEndReached }) => {
   const { t } = useTranslation();
 
   const [index, setIndex] = useState(0);
@@ -38,22 +38,12 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants })
     }
   };
 
-  const onRestaurantDetails = (contentId: string) => {
-    if (userId) {
-      RouteService.navigate(Routes.RESTAURANT_NAVIGATOR, {
-        screen: Routes.RESTAURANT_DETAILS, params: { contentId },
-      });
-
-      return;
-    }
-
-    RouteService.reset(Routes.WELCOME);
-  };
+  const { onRestaurantDetails } = useGetRestaurantActions();
 
   const renderItem: ListRenderItem<Restaurant> = useCallback(({ item: restaurant }) => (
     <RestaurantCard
       restaurant={restaurant}
-      onPress={() => onRestaurantDetails(restaurant.place_id)}
+      onPress={() => onRestaurantDetails(restaurant.uuid)}
     />
   ), [onRestaurantDetails, userId]);
 
@@ -68,8 +58,10 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants })
       <BottomSheetFlatList
         ref={scrollViewRef}
         data={restaurants}
-        keyExtractor={({ uid }) => uid}
+        onEndReachedThreshold={0.1}
+        keyExtractor={({ uuid }) => uuid}
         renderItem={renderItem}
+        onEndReached={onEndReached}
         contentContainerStyle={index ? { flexGrow: 1 } : undefined}
         ListEmptyComponent={<EmptyState />}
       />

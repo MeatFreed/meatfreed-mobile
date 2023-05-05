@@ -35,9 +35,11 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const currentLocation = useTypedSelector(placeSelectors.currentLocation);
+  const { content } = restaurant;
 
-  const { data: details } = useGetRestaurantByIDQuery(restaurant.place_id);
+  const { data: details } = useGetRestaurantByIDQuery(restaurant?.placeDetails?.place_id);
+
+  const currentLocation = useTypedSelector(placeSelectors.currentLocation);
 
   const hours = getHours(details?.opening_hours);
 
@@ -57,9 +59,9 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
       <Box fd="row" br="10px" ai="center" bw="1px" bc={Colors.basic_400} bgc={Colors.basic_100}>
         <StyledImage
           source={{
-            uri: `https://meatfreeds3.s3.eu-west-2.amazonaws.com/restaurant+logos/${restaurant.place_id}.png`,
+            uri: `https://meatfreeds3.s3.eu-west-2.amazonaws.com/restaurant+logos/${content.google_place_id}.png`,
           }}
-          resizeMode="stretch"
+          resizeMode="cover"
         />
 
         <Box f={1} p={[16, 12]}>

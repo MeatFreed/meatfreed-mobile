@@ -1,10 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GeoPosition } from 'react-native-geolocation-service';
 import { resetUser } from 'stores/user';
-import { PlaceReducer } from './types';
+import { isIOS } from 'helpers';
+import { PlaceReducer, Delta } from './types';
 
 const initialState: PlaceReducer = {
-  currentLocation: null,
+  location: null,
+  delta: {
+    latitudeDelta: isIOS ? 0.05 : 0.1,
+    longitudeDelta: isIOS ? 0.05 : 0.1,
+  },
 };
 
 const place = createSlice({
@@ -12,10 +17,13 @@ const place = createSlice({
   initialState,
   reducers: {
     setCurrentLocation: (state, { payload }: PayloadAction<GeoPosition>) => {
-      state.currentLocation = {
+      state.location = {
         latitude: payload?.coords?.latitude,
         longitude: payload?.coords?.longitude,
       };
+    },
+    setLocationDelta: (state, { payload }: PayloadAction<Delta>) => {
+      state.delta = payload;
     },
     resetPlaceState: () => initialState,
   },
@@ -26,5 +34,5 @@ const place = createSlice({
 
 export const {
   reducer: placeReducer,
-  actions: { setCurrentLocation, resetPlaceState },
+  actions: { setCurrentLocation, resetPlaceState, setLocationDelta },
 } = place;

@@ -5,7 +5,7 @@ import Config from 'react-native-config';
 import FastImage from 'react-native-fast-image';
 import styled from 'styled-components/native';
 
-interface CarouselItemProps {
+interface CarouselPhotoProps {
   reference: string;
 }
 
@@ -18,7 +18,7 @@ const StyledImage = styled(FastImage as AnyType)`
   height: 300px;
 `;
 
-export const CarouselItem: React.FC<CarouselItemProps> = ({ reference }) => {
+export const CarouselPhoto: React.FC<CarouselPhotoProps> = ({ reference }) => {
   const source = { uri: `https://maps.googleapis.com/maps/api/place/photo?photo_reference=${reference}&maxwidth=500&key=${GOOGLE_API_KEY}` };
 
   return (

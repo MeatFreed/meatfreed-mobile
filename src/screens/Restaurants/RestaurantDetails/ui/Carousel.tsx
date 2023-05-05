@@ -1,4 +1,3 @@
-import { RestaurantPhoto } from 'api';
 import React, { useCallback, useState } from 'react';
 import { Dimensions } from 'react-native';
 import {
@@ -7,17 +6,22 @@ import {
 import RNCarousel from 'react-native-reanimated-carousel';
 import { Box } from 'themes';
 import { CarouselRenderItem } from 'react-native-reanimated-carousel/lib/typescript/types';
-import { CarouselItem } from './CarouselItem';
+import { CarouselPhoto } from './CarouselPhoto';
 import { Pagination } from './Pagination';
+import { CarouselAsset } from './CarourelAsset';
 
 interface CarouselProps {
-  photos?: RestaurantPhoto[]
+  photos?: string[]
+  assets?: string[];
+  hasAssets?: boolean;
 }
 
 const { width } = Dimensions.get('window');
 
 export const Carousel: React.FC<CarouselProps> = ({
   photos = [],
+  assets = [],
+  hasAssets = false,
 }) => {
   const [activeIndex, setActiveIndex] = useState(0);
 
@@ -40,9 +44,13 @@ export const Carousel: React.FC<CarouselProps> = ({
     [],
   );
 
-  const renderItem: CarouselRenderItem<RestaurantPhoto> = useCallback(({ item: photo }) => (
-    <CarouselItem reference={photo.photo_reference} />
-  ), []);
+  const renderItem: CarouselRenderItem<string> = useCallback(({ item: photo }) => {
+    if (hasAssets) {
+      return <CarouselAsset reference={photo} />;
+    }
+
+    return <CarouselPhoto reference={photo} />;
+  }, [hasAssets]);
 
   return (
     <Box h="300px" ai="center">
@@ -50,7 +58,7 @@ export const Carousel: React.FC<CarouselProps> = ({
         loop
         style={{ width, height: 300 }}
         width={width}
-        data={photos}
+        data={hasAssets ? assets : photos}
         onSnapToItem={(index: number) => setActiveIndex(index)}
         renderItem={renderItem}
         customAnimation={animationStyle}

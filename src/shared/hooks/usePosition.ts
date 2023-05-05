@@ -7,7 +7,7 @@ import { setCurrentLocation } from 'stores/place';
 import { getDistance } from 'geolib';
 import throttle from 'lodash.throttle';
 
-const SIGNIFICANT_DISTANCE = 1000;
+const SIGNIFICANT_DISTANCE = 3000;
 
 export const usePosition = () => {
   const [isPermissionDenied, setPermissionDenied] = useState(false);
@@ -22,14 +22,14 @@ export const usePosition = () => {
   const onChangeLocation = throttle((position: Geolocation.GeoPosition) => {
     const { latitude, longitude } = position.coords;
 
-    const { currentLocation } = store.getState().place;
+    const { location } = store.getState().place;
 
     const isLocationPresent = latitude !== 0 && longitude !== 0;
 
     const distance = getDistance(
       {
-        latitude: Number(currentLocation?.latitude),
-        longitude: Number(currentLocation?.longitude),
+        latitude: Number(location?.latitude),
+        longitude: Number(location?.longitude),
       },
       { latitude, longitude },
     );
@@ -69,8 +69,6 @@ export const usePosition = () => {
       const isGranted = await PermissionsService.requestGeolocationPermission();
 
       watchLocation();
-
-      getCurrentLocation();
 
       setPermissionGranted(isGranted);
       setPermissionDenied(!isGranted);
