@@ -17,9 +17,10 @@ import { EmptyState } from './EmptyState';
 
 interface RestaurantPanelProps {
   restaurants: Restaurant[];
+  onEndReached: () => Promise<void>;
 }
 
-export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants }) => {
+export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, onEndReached }) => {
   const { t } = useTranslation();
 
   const [index, setIndex] = useState(0);
@@ -70,6 +71,8 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants })
         data={restaurants}
         keyExtractor={({ uid }) => uid}
         renderItem={renderItem}
+        onEndReachedThreshold={0.1}
+        onEndReached={onEndReached}
         contentContainerStyle={index ? { flexGrow: 1 } : undefined}
         ListEmptyComponent={<EmptyState />}
       />

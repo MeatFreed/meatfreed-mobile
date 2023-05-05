@@ -21,7 +21,9 @@ export const Action: React.FC<ActionProps> = ({ label, onPress, iconName }) => (
     <Box fd="row" ai="center">
       <Icon name={iconName} size={20} color={Colors.primary_500} />
 
-      <Text ml={12} fnw="500" ff={FontFamily.PoppinsMedium} color={Colors.basic_800}>{label}</Text>
+      <Box f={1}>
+        <Text m={[0, 12]} fnw="500" ff={FontFamily.PoppinsMedium} color={Colors.basic_800}>{label}</Text>
+      </Box>
     </Box>
 
     <Box mt={16} w="100%" h="1px" bgc={Colors.basic_400} />

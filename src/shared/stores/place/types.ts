@@ -1,7 +1,13 @@
 import { LatLng } from 'react-native-maps';
 
+export interface Delta {
+  latitudeDelta: number;
+  longitudeDelta: number;
+}
+
 export interface PlaceReducer {
-  currentLocation: LatLng | null;
+  location: LatLng | null;
+  delta: Delta
 }
 
 export interface PlaceState {

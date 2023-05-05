@@ -2,13 +2,27 @@ import { useRoute } from '@react-navigation/native';
 import { useGetRestaurantByIDQuery } from 'api';
 import { RestaurantDetailsProp } from 'navigation';
 import React from 'react';
-import { ActivityIndicator } from 'ui';
+import { ActivityIndicator, StatusBar } from 'ui';
 import { Linking, ScrollView } from 'react-native';
 import { Colors } from 'themes';
-import { isIOS } from 'helpers';
+import { AnyType, isIOS } from 'helpers';
+import styled from 'styled-components/native';
+import Gradient from 'react-native-linear-gradient';
 import {
   Action, Carousel, Details, Navigation, OpeningHours,
 } from './ui';
+
+const StyledTopGradient = styled(Gradient as AnyType)`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 8px;
+  width: 100%;
+  height: 140px;
+  z-index: 1;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+`;
 
 export const RestaurantDetails: React.FC = () => {
   const { params } = useRoute<RestaurantDetailsProp>();
@@ -37,6 +51,15 @@ export const RestaurantDetails: React.FC = () => {
 
   return (
     <>
+      <StatusBar />
+
+      <StyledTopGradient
+        colors={['rgba(0, 0, 0, .5)', 'rgba(0, 0, 0, .2)', 'rgba(0, 0, 0, .01)']}
+        start={{ x: 0, y: 0 }}
+        end={{ x: 0, y: 0.9 }}
+        locations={[0, 0.7, 0.9]}
+      />
+
       <ScrollView
         style={{ backgroundColor: Colors.basic_100 }}
         contentContainerStyle={{ flexGrow: 1, paddingBottom: 150 }}
@@ -69,7 +92,6 @@ export const RestaurantDetails: React.FC = () => {
             onPress={() => Linking.openURL(`tel:${details?.international_phone_number}`)}
           />
         )}
-
       </ScrollView>
 
       <Navigation
