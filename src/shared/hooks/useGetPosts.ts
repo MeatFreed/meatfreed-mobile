@@ -1,9 +1,10 @@
 import { Post } from 'api';
 import firestore from '@react-native-firebase/firestore';
-import dayjs from 'dayjs';
-import uniqBy from 'lodash.uniqby';
 import { useEffect, useState } from 'react';
-import { isDev } from 'helpers';
+import orderBy from 'lodash.orderby';
+import { geohashQueryBounds } from 'geofire-common';
+import { useTypedSelector } from 'stores';
+import { placeSelectors } from 'stores/place';
 
 const postCollection = firestore().collection('posts_storyblock');
 
@@ -18,20 +19,30 @@ export const useGetPosts = () => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const shouldPaginate = results.length < totalCount;
-
   const isEmpty = !initialLoading && !results.length;
 
-  const timestamp = dayjs().startOf('day').valueOf() / 1000;
+  const currentLocation = useTypedSelector(placeSelectors.currentLocation);
+
+  const bounds = geohashQueryBounds([
+    Number(currentLocation?.latitude || 0),
+    Number(currentLocation?.longitude || 0),
+  ], 24000);
 
   const getTotalCount = async () => {
     try {
-      const response = await postCollection
+      const requestArray = bounds.map((bound) => postCollection
+        .orderBy('geohash', 'desc')
         .orderBy('published_at', 'desc')
-        .where('published_at', '>', timestamp)
+        .where('geohash', '>=', bound[0])
+        .where('geohash', '<=', bound[1])
         .where('content.active', '==', true)
-        .get();
+        .get());
 
-      setTotalCount(response.size);
+      const collections = await Promise.all(requestArray);
+
+      const value = collections?.reduce((acc, next) => acc + next.docs.length, 0);
+
+      setTotalCount(value);
     } catch (error) {
       /** empty */
     }
@@ -41,14 +52,20 @@ export const useGetPosts = () => {
     setIsLoading(true);
 
     try {
-      const collection = await postCollection
+      const requestArray = bounds.map((bound) => postCollection
+        .orderBy('geohash', 'desc')
         .orderBy('published_at', 'desc')
-        .where('published_at', '>', timestamp)
+        .where('geohash', '>=', bound[0])
+        .where('geohash', '<=', bound[1])
         .where('content.active', '==', true)
         .limit(limit)
-        .get();
+        .get());
 
-      const posts = collection.docs.map((doc) => doc.data()) as Post[];
+      const response = await Promise.all(requestArray);
+
+      const collections = response.flatMap((data) => data.docs);
+
+      const posts = collections.map((doc) => doc.data()) as Post[];
 
       setResults([...posts]);
     } finally {
@@ -64,14 +81,20 @@ export const useGetPosts = () => {
     setRefreshing(true);
 
     try {
-      const collection = await postCollection
+      const requestArray = bounds.map((bound) => postCollection
+        .orderBy('geohash', 'desc')
         .orderBy('published_at', 'desc')
-        .where('published_at', '>=', timestamp)
+        .where('geohash', '>=', bound[0])
+        .where('geohash', '<=', bound[1])
         .where('content.active', '==', true)
         .limit(5)
-        .get();
+        .get());
 
-      const posts = collection.docs.map((doc) => doc.data()) as Post[];
+      const response = await Promise.all(requestArray);
+
+      const collections = response.flatMap((data) => data.docs);
+
+      const posts = collections.map((doc) => doc.data()) as Post[];
 
       setResults([...posts]);
     } finally {
@@ -101,7 +124,7 @@ export const useGetPosts = () => {
     initialLoading,
     isRefreshing,
     isEmpty,
-    results: isDev ? uniqBy(results, 'uuid') : results,
+    results: orderBy(results, 'published_at', 'desc') as Post[],
     getPosts,
     onRefresh,
     onEndReached,
