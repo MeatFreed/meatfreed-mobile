@@ -2,10 +2,12 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GeoPosition } from 'react-native-geolocation-service';
 import { resetUser } from 'stores/user';
 import { isIOS } from 'helpers';
+import { LatLng } from 'react-native-maps';
 import { PlaceReducer, Delta } from './types';
 
 const initialState: PlaceReducer = {
   location: null,
+  selectLocation: null,
   delta: {
     latitudeDelta: isIOS ? 0.05 : 0.1,
     longitudeDelta: isIOS ? 0.05 : 0.1,
@@ -22,6 +24,9 @@ const place = createSlice({
         longitude: payload?.coords?.longitude,
       };
     },
+    setSelectLocation: (state, { payload }: PayloadAction<LatLng | null>) => {
+      state.selectLocation = payload;
+    },
     setLocationDelta: (state, { payload }: PayloadAction<Delta>) => {
       state.delta = payload;
     },
@@ -34,5 +39,7 @@ const place = createSlice({
 
 export const {
   reducer: placeReducer,
-  actions: { setCurrentLocation, resetPlaceState, setLocationDelta },
+  actions: {
+    setCurrentLocation, resetPlaceState, setLocationDelta, setSelectLocation,
+  },
 } = place;

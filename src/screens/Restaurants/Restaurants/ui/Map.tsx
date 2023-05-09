@@ -1,14 +1,13 @@
 import React, { useCallback } from 'react';
 import { useTypedDispatch, useTypedSelector } from 'stores';
-import { placeSelectors, setCurrentLocation, setLocationDelta } from 'stores/place';
+import { placeSelectors, setLocationDelta, setSelectLocation } from 'stores/place';
 import { StyleSheet } from 'react-native';
-import MapView, { PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import MapView, { LatLng, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 import { MapStyles } from 'themes';
 import { Restaurant } from 'api';
 import { isIOS } from 'helpers';
 import { RouteService } from 'services';
 import { Routes } from 'navigation';
-import { GeoPosition } from 'react-native-geolocation-service';
 import { userSelectors } from 'stores/user';
 import { RestaurantMarker } from './RestaurantMarker';
 
@@ -28,13 +27,20 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
 
   const hasLocation = useTypedSelector(placeSelectors.hasLocation);
   const currentLocation = useTypedSelector(placeSelectors.currentLocation);
-  const locationDelta = useTypedSelector(placeSelectors.locationDelta);
+  const selectLocation = useTypedSelector(placeSelectors.selectLocation);
+  const delta = useTypedSelector(placeSelectors.delta);
   const userId = useTypedSelector(userSelectors.userId);
 
-  const coordinates = {
-    ...locationDelta,
-    latitude: currentLocation?.latitude || defaultLocation.latitude,
-    longitude: currentLocation?.longitude || defaultLocation.longitude,
+  const initialRegion = !hasLocation ? defaultLocation : {
+    ...delta,
+    latitude: Number(selectLocation?.latitude || 0) || Number(currentLocation?.latitude),
+    longitude: Number(selectLocation?.longitude || 0) || Number(currentLocation?.longitude),
+  };
+
+  const region = {
+    ...delta,
+    latitude: selectLocation?.latitude || currentLocation?.latitude || defaultLocation.latitude,
+    longitude: selectLocation?.longitude || currentLocation?.longitude || defaultLocation.longitude,
   };
 
   const onRestaurantDetails = (contentId: string) => {
@@ -48,13 +54,12 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
 
     RouteService.reset(Routes.WELCOME);
   };
+
   const onRegionChangeComplete = useCallback((region: Region) => {
-    dispatch(setCurrentLocation({
-      coords: {
-        latitude: region.latitude,
-        longitude: region.longitude,
-      },
-    } as GeoPosition));
+    dispatch(setSelectLocation({
+      latitude: region.latitude,
+      longitude: region.longitude,
+    } as LatLng));
 
     dispatch(setLocationDelta({
       latitudeDelta: region.latitudeDelta,
@@ -68,12 +73,8 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
       showsUserLocation
       showsMyLocationButton={false}
       customMapStyle={MapStyles}
-      initialRegion={!hasLocation ? defaultLocation : {
-        ...locationDelta,
-        latitude: Number(currentLocation?.latitude),
-        longitude: Number(currentLocation?.longitude),
-      }}
-      region={coordinates}
+      initialRegion={initialRegion}
+      region={region}
       onRegionChangeComplete={onRegionChangeComplete}
       style={StyleSheet.absoluteFillObject}
       showsCompass={false}

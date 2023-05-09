@@ -108,3 +108,10 @@ export const openLink = async (link: string) => {
     }
   } catch {}
 };
+
+export const defaultLocation = {
+  latitude: 50.1632921,
+  longitude: -5.128192,
+  latitudeDelta: isIOS ? 0.05 : 0.1,
+  longitudeDelta: isIOS ? 0.05 : 0.1,
+};
