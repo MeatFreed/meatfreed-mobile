@@ -7,7 +7,7 @@ import { placeSelectors, setCurrentLocation, setSelectLocation } from 'stores/pl
 import { getDistance } from 'geolib';
 import throttle from 'lodash.throttle';
 
-const SIGNIFICANT_DISTANCE = 2000;
+const SIGNIFICANT_DISTANCE = 500;
 
 export const usePosition = () => {
   const [isPermissionDenied, setPermissionDenied] = useState(false);
@@ -44,13 +44,13 @@ export const usePosition = () => {
     if (isSignificantDistance && isLocationPresent) {
       dispatch(setCurrentLocation(position));
     }
-  }, 300000);
+  }, 5000);
 
   const watchLocation = () => {
     ref.current = watchPosition(
       onChangeLocation,
       undefined,
-      { distanceFilter: 2500 },
+      { distanceFilter: 500 },
     );
   };
 

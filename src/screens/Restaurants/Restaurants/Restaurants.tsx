@@ -27,7 +27,7 @@ export const Restaurants: React.FC = () => {
 
   const hasLocation = useTypedSelector(placeSelectors.hasLocation);
 
-  const { getCurrentLocation } = usePosition();
+  const { getCurrentLocation, onShowMyLocation } = usePosition();
 
   const { restaurants, onEndReached } = useGetRestaurants();
 
@@ -43,7 +43,7 @@ export const Restaurants: React.FC = () => {
 
         {hasLocation && (
           <StyledLayout>
-            <Button type="action" iconName="my-location" onPress={getCurrentLocation} />
+            <Button type="action" iconName="my-location" onPress={onShowMyLocation} />
           </StyledLayout>
         )}
 
