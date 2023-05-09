@@ -50,7 +50,7 @@ export const usePosition = () => {
     ref.current = watchPosition(
       onChangeLocation,
       undefined,
-      { distanceFilter: 500 },
+      { distanceFilter: 10 },
     );
   };
 
