@@ -65,6 +65,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, o
         initialNumToRender={10}
         windowSize={8}
         onEndReached={onEndReached}
+        showsVerticalScrollIndicator={false}
         contentContainerStyle={index ? { flexGrow: 1 } : undefined}
         ListEmptyComponent={<EmptyState index={index} />}
       />

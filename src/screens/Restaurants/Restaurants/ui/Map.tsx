@@ -22,11 +22,18 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
   const selectLocation = useTypedSelector(placeSelectors.selectLocation);
   const delta = useTypedSelector(placeSelectors.delta);
 
-  const coordinates = {
+  const initialRegion = !hasLocation ? defaultLocation : {
+    ...delta,
+    latitude: Number(selectLocation?.latitude || 0) || Number(currentLocation?.latitude),
+    longitude: Number(selectLocation?.longitude || 0) || Number(currentLocation?.longitude),
+  };
+
+  const region = {
     ...delta,
     latitude: selectLocation?.latitude || currentLocation?.latitude || defaultLocation.latitude,
     longitude: selectLocation?.longitude || currentLocation?.longitude || defaultLocation.longitude,
   };
+
   const onRegionChangeComplete = useCallback((region: Region) => {
     dispatch(setSelectLocation({
       latitude: region.latitude,
@@ -48,12 +55,8 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
       showsUserLocation
       showsMyLocationButton={false}
       customMapStyle={MapStyles}
-      initialRegion={!hasLocation ? defaultLocation : {
-        ...delta,
-        latitude: Number(selectLocation?.latitude || 0) || Number(currentLocation?.latitude),
-        longitude: Number(selectLocation?.longitude || 0) || Number(currentLocation?.longitude),
-      }}
-      region={coordinates}
+      initialRegion={initialRegion}
+      region={region}
       onRegionChangeComplete={onRegionChangeComplete}
       style={StyleSheet.absoluteFillObject}
       showsCompass={false}

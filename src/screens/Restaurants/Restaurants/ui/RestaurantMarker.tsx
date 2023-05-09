@@ -1,5 +1,5 @@
 import { Restaurant } from 'api';
-import React from 'react';
+import React, { useState } from 'react';
 import { LatLng, Marker } from 'react-native-maps';
 import styled from 'styled-components/native';
 import { Images } from 'themes';
@@ -21,6 +21,7 @@ export const RestaurantMarker: React.FC<RestaurantMarkerProps> = ({
   zIndex,
 }) => {
   const { placeDetails: details } = restaurant;
+  const [tracksViewChanges, setTracksViewChanges] = useState(true);
 
   const coordinate = {
     latitude: details.geometry.location.lat,
@@ -28,8 +29,13 @@ export const RestaurantMarker: React.FC<RestaurantMarkerProps> = ({
   } as LatLng;
 
   return (
-    <Marker coordinate={coordinate} onPress={onPress} zIndex={zIndex}>
-      <StyledImage source={Images.BusinessMarker} resizeMode="contain" />
+    <Marker
+      coordinate={coordinate}
+      onPress={onPress}
+      zIndex={zIndex}
+      tracksViewChanges={tracksViewChanges}
+    >
+      <StyledImage source={Images.BusinessMarker} resizeMode="contain" onLoadEnd={() => setTracksViewChanges(false)} />
     </Marker>
   );
 };
