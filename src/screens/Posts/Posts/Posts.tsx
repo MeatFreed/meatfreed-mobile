@@ -57,7 +57,7 @@ export const Posts: React.FC = () => {
           keyExtractor={(_, index: number) => index.toString()}
           onRefresh={onRefresh}
           onEndReachedThreshold={0.1}
-          initialNumToRender={10}
+          initialNumToRender={5}
           contentContainerStyle={{ paddingTop: 10, paddingBottom: 30, flexGrow: 1 }}
           refreshing={isRefreshing}
           onEndReached={onEndReached}
