@@ -27,7 +27,9 @@ const placePersistConfig = {
   key: 'place',
   storage: AsyncStorage,
   whitelist: [
-    'currentLocation',
+    'location',
+    'delta',
+    'selectLocation',
   ],
   timeout: 0,
 };

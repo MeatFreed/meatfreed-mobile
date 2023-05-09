@@ -1,7 +1,5 @@
 import Config from 'react-native-config';
-import {
-  AnyType, generateShareLink, isIOS, withDelay,
-} from 'helpers';
+import { AnyType, generateShareLink } from 'helpers';
 import Share from 'react-native-share';
 import { ToastService } from 'services/ToastService/ToastService';
 import { useTranslation } from 'react-i18next';
@@ -15,11 +13,9 @@ export const useSharePostLink = () => {
     try {
       const link = await generateShareLink(FIREBASE_POST_URL, 'contentId', contentId);
 
-      await withDelay(isIOS ? 7500 : 1000);
-
       await Share.open({
         title: 'MeatFreed',
-        message,
+        message: `${message}.\n${link}`,
         url: link,
         failOnCancel: false,
       });

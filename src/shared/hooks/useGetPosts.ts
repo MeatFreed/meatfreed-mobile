@@ -115,7 +115,7 @@ export const useGetPosts = () => {
   useEffect(() => {
     getTotalCount();
     getPosts();
-  }, []);
+  }, [currentLocation]);
 
   return {
     searchQuery,

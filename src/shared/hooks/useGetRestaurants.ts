@@ -1,6 +1,5 @@
 import { geohashQueryBounds } from 'geofire-common';
 import firestore from '@react-native-firebase/firestore';
-import { useIsFocused } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { useTypedSelector } from 'stores';
 import { placeSelectors } from 'stores/place';
@@ -14,8 +13,6 @@ export const useGetRestaurants = () => {
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
-
-  const isFocused = useIsFocused();
 
   const shouldPaginate = restaurants.length < totalCount;
 
@@ -83,13 +80,8 @@ export const useGetRestaurants = () => {
 
   useEffect(() => {
     getTotalCount();
+    getRestaurants();
   }, [currentLocation]);
-
-  useEffect(() => {
-    if (hasLocation) {
-      getRestaurants();
-    }
-  }, [isFocused, currentLocation, hasLocation]);
 
   return {
     isLoading,

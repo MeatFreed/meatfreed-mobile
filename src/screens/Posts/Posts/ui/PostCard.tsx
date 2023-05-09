@@ -105,6 +105,7 @@ export const PostCard: React.FC<PostCardProps> = ({
           source={{ uri: assets?.[0]?.filename }}
           poster={assets?.[0]?.filename}
           muted={isMuted}
+          ignoreSilentSwitch="ignore"
           onLoad={() => setIsLoading(false)}
           posterResizeMode="cover"
         />
