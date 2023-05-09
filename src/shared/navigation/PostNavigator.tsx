@@ -1,19 +1,22 @@
 import React from 'react';
-import { Posts } from 'screens';
-import { useTranslation } from 'react-i18next';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
+import { AnyType, isIOS } from 'helpers';
+import { PostDetails } from 'screens';
 import { Routes } from './Routes';
-import { Stack, headerOptions } from './NavigationOptions';
+import { restaurantOptions } from './NavigationOptions';
 
-export const PostNavigator: React.FC = () => {
-  const { t } = useTranslation();
+const Stack = isIOS ? createStackNavigator() : createNativeStackNavigator();
 
-  return (
-    <Stack.Navigator screenOptions={headerOptions}>
-      <Stack.Screen
-        name={Routes.POSTS}
-        component={Posts}
-        options={{ headerTitle: t('screens.posts'), headerShown: false }}
-      />
-    </Stack.Navigator>
-  );
-};
+export const PostNavigator: React.FC = () => (
+  <Stack.Navigator
+    initialRouteName={Routes.POST_DETAILS}
+    screenOptions={restaurantOptions as AnyType}
+  >
+    <Stack.Screen
+      name={Routes.POST_DETAILS}
+      component={PostDetails}
+      options={{ headerTitle: '', headerTransparent: true }}
+    />
+  </Stack.Navigator>
+);

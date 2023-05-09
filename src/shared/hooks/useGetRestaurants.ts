@@ -45,7 +45,7 @@ export const useGetRestaurants = () => {
     }
   };
 
-  const getRestaurants = async (limit = 10) => {
+  const getRestaurants = async (limit = 5) => {
     setIsLoading(true);
 
     try {

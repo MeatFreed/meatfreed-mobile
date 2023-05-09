@@ -7,7 +7,13 @@ export type RootStackParamList = {
   [Routes.MAIN_NAVIGATOR]: undefined;
   [Routes.HOME_NAVIGATOR]: undefined;
   [Routes.OFFER_NAVIGATOR]: undefined;
-  [Routes.POST_NAVIGATOR]: undefined;
+  [Routes.POSTS_NAVIGATOR]: undefined;
+  [Routes.POST_NAVIGATOR]: {
+    screen: Routes.POST_DETAILS,
+    params: {
+      contentId: string;
+    }
+  };
   [Routes.PROFILE_NAVIGATOR]: undefined;
   [Routes.RESTAURANT_NAVIGATOR]: {
     screen: Routes.RESTAURANT_DETAILS,

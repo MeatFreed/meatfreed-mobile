@@ -33,9 +33,6 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
     latitude: currentLocation?.latitude || defaultLocation.latitude,
     longitude: currentLocation?.longitude || defaultLocation.longitude,
   };
-
-  const { onRestaurantDetails } = useGetRestaurantActions();
-
   const onRegionChangeComplete = useCallback((region: Region) => {
     dispatch(setCurrentLocation({
       coords: {
@@ -49,6 +46,8 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
       longitudeDelta: region.longitudeDelta,
     }));
   }, []);
+
+  const { onRestaurantDetails } = useGetRestaurantActions();
 
   return (
     <MapView

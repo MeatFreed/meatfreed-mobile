@@ -1,7 +1,7 @@
 import { useRoute } from '@react-navigation/native';
 import { RestaurantDetailsProp } from 'navigation';
 import React from 'react';
-import { ActivityIndicator } from 'ui';
+import { ActivityIndicator, StatusBar } from 'ui';
 import { Linking, ScrollView } from 'react-native';
 import { Colors } from 'themes';
 import { AnyType, isIOS, noop } from 'helpers';
@@ -68,6 +68,8 @@ export const RestaurantDetails: React.FC = () => {
 
   return (
     <>
+      <StatusBar />
+
       <StyledTopGradient
         colors={['rgba(0, 0, 0, .5)', 'rgba(0, 0, 0, .2)', 'rgba(0, 0, 0, .01)']}
         start={{ x: 0, y: 0 }}
@@ -111,7 +113,6 @@ export const RestaurantDetails: React.FC = () => {
             onPress={() => Linking.openURL(`tel:${details?.international_phone_number}`)}
           />
         )}
-
       </ScrollView>
 
       <Navigation

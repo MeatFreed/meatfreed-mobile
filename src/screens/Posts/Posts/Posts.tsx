@@ -2,18 +2,15 @@ import { useGetPosts } from 'hooks';
 import React, { useCallback, useState } from 'react';
 import { Box, Colors } from 'themes';
 import { Loader, StatusBar } from 'ui';
-import { isDev } from 'helpers';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   FlatList, ListRenderItem, NativeScrollEvent, NativeSyntheticEvent,
 } from 'react-native';
-import { FirebasePost, Post } from 'api';
+import { Post } from 'api';
 import { useIsFocused } from '@react-navigation/native';
-import { PostCard, FirebasePostCard, EmptyState } from './ui';
+import { PostCard, EmptyState } from './ui';
 
 const ITEM_HEIGHT = 620;
-
-type Content = Post & FirebasePost
 
 export const Posts: React.FC = () => {
   const isFocused = useIsFocused();
@@ -38,21 +35,15 @@ export const Posts: React.FC = () => {
     onEndReached,
   } = useGetPosts();
 
-  const renderItem: ListRenderItem<Content> = useCallback(({ item: post, index }) => {
-    if (isDev) {
-      return (
-        <PostCard
-          isMuted={isMuted}
-          isAutoPlay={isFocused && focusedIndex === index}
-          post={post.content}
-          contentId={post.uuid}
-          onChangeVolume={() => setIsMuted(!isMuted)}
-        />
-      );
-    }
-
-    return <FirebasePostCard post={post} />;
-  }, [focusedIndex, isFocused, isMuted]);
+  const renderItem: ListRenderItem<Post> = useCallback(({ item: post, index }) => (
+    <PostCard
+      isMuted={isMuted}
+      isAutoPlay={isFocused && focusedIndex === index}
+      post={post.content}
+      contentId={post.uuid}
+      onChangeVolume={() => setIsMuted(!isMuted)}
+    />
+  ), [focusedIndex, isFocused, isMuted]);
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: Colors.basic_150 }} edges={['top']}>

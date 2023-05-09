@@ -22,9 +22,13 @@ const ReactionButton = styled.TouchableOpacity`
 
 interface EmojiProps {
   contentId: string;
+  color?: string;
 }
 
-export const Emoji: React.FC<EmojiProps> = ({ contentId }) => {
+export const Emoji: React.FC<EmojiProps> = ({
+  contentId,
+  color = Colors.basic_100,
+}) => {
   const { reactions: data, onAddReaction, onDeleteReaction } = usePostReactions(contentId);
 
   const userId = useTypedSelector(userSelectors.userId);
@@ -43,7 +47,7 @@ export const Emoji: React.FC<EmojiProps> = ({ contentId }) => {
           {...touchableConfig}
           onPress={() => onAddReaction(heart?.uid, heart?.emoji)}
         >
-          <Images.Heart color={Colors.basic_100} />
+          <Images.Heart color={color} />
         </ReactionButton>
       )}
 
@@ -83,6 +87,7 @@ export const Emoji: React.FC<EmojiProps> = ({ contentId }) => {
         <AddEmoji
           items={availableReaction}
           onAddReaction={(id: string, content: string) => onAddReaction(id, content)}
+          color={color}
         />
       )}
     </Box>

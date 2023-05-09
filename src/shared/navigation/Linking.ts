@@ -16,7 +16,7 @@ export const linking = {
         initialRouteName: Routes.BOTTOM_TAB_BAR_NAVIGATOR,
         screens: {
           [Routes.SIGN_UP]: 'sign-up/:code',
-          [Routes.POST_DETAILS]: 'post-details/:contentId',
+          [Routes.POSTS_NAVIGATOR]: 'post-details/:contentId',
         },
       },
     },
@@ -31,7 +31,10 @@ export const linking = {
       const formattedLink = getFirebaseDeepLinkParam(initialLink) as AnyType;
 
       if (userId && formattedLink.contentId) {
-        RouteService.navigate(Routes.POST_DETAILS, { contentId: formattedLink.contentId });
+        RouteService.navigate(Routes.POST_NAVIGATOR, {
+          screen: Routes.POST_DETAILS,
+          params: { contentId: formattedLink.contentId },
+        });
 
         return `${URL_SCHEMA}://post-details/${formattedLink.contentId}`;
       }

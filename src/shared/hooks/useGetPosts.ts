@@ -1,60 +1,54 @@
-import { FirebasePost, Post } from 'api';
+import { Post } from 'api';
 import firestore from '@react-native-firebase/firestore';
 import dayjs from 'dayjs';
 import uniqBy from 'lodash.uniqby';
 import { useEffect, useState } from 'react';
-import { StoryblokService } from 'services';
 import { isDev } from 'helpers';
 
-type Content = Post & FirebasePost
-
-const { client } = StoryblokService;
+const postCollection = firestore().collection('posts_storyblock');
 
 export const useGetPosts = () => {
+  const [offset, setOffset] = useState(5);
+  const [totalCount, setTotalCount] = useState(0);
   const [initialLoading, setInitialLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [isRefreshing, setRefreshing] = useState(false);
-  const [page, setPage] = useState(1);
 
-  const [results, setResults] = useState<Content[]>([]);
+  const [results, setResults] = useState<Post[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
 
-  const shouldPaginate = results.length >= 10;
+  const shouldPaginate = results.length < totalCount;
 
   const isEmpty = !initialLoading && !results.length;
 
-  const getPosts = async (page = 1) => {
+  const timestamp = dayjs().startOf('day').valueOf() / 1000;
+
+  const getTotalCount = async () => {
+    try {
+      const response = await postCollection
+        .orderBy('published_at', 'desc')
+        .where('published_at', '>', timestamp)
+        .where('content.active', '==', true)
+        .get();
+
+      setTotalCount(response.size);
+    } catch (error) {
+      /** empty */
+    }
+  };
+
+  const getPosts = async (limit = 5) => {
     setIsLoading(true);
 
     try {
-      if (isDev) {
-        const response = await client.get('cdn/stories/', {
-          filter_query: {
-            active: {
-              in: true,
-            },
-            component: {
-              in: 'Post',
-            },
-            available_from: {
-              lt_date: dayjs().format('YYYY-MM-DD HH:mm'),
-            },
-          },
-          sort_by: 'published_at:desc',
-          page,
-          per_page: 10,
-        });
+      const collection = await postCollection
+        .orderBy('published_at', 'desc')
+        .where('published_at', '>', timestamp)
+        .where('content.active', '==', true)
+        .limit(limit)
+        .get();
 
-        setResults([...results, ...response.data.stories]);
-
-        return;
-      }
-
-      const collection = await firestore().collection('posts').get();
-
-      const posts = collection.docs.map((doc) => ({
-        ...doc.data(), uid: doc.id,
-      })) as Content[];
+      const posts = collection.docs.map((doc) => doc.data()) as Post[];
 
       setResults([...posts]);
     } finally {
@@ -65,39 +59,19 @@ export const useGetPosts = () => {
   };
 
   const onRefresh = async () => {
-    setPage(1);
+    setOffset(5);
 
     setRefreshing(true);
 
     try {
-      if (isDev) {
-        const response = await client.get('cdn/stories/', {
-          filter_query: {
-            active: {
-              in: true,
-            },
-            component: {
-              in: 'Post',
-            },
-            available_from: {
-              lt_date: dayjs().format('YYYY-MM-DD HH:mm'),
-            },
-          },
-          sort_by: 'published_at:desc',
-          page,
-          per_page: 10,
-        });
+      const collection = await postCollection
+        .orderBy('published_at', 'desc')
+        .where('published_at', '>=', timestamp)
+        .where('content.active', '==', true)
+        .limit(5)
+        .get();
 
-        setResults([...results, ...response.data.stories]);
-
-        return;
-      }
-
-      const collection = await firestore().collection('posts').get();
-
-      const posts = collection.docs.map((doc) => ({
-        ...doc.data(), uid: doc.id,
-      })) as Content[];
+      const posts = collection.docs.map((doc) => doc.data()) as Post[];
 
       setResults([...posts]);
     } finally {
@@ -110,12 +84,13 @@ export const useGetPosts = () => {
       return;
     }
 
-    setPage(page + 1);
+    setOffset(offset + 5);
 
-    getPosts(page + 1);
+    getPosts(offset + 5);
   };
 
   useEffect(() => {
+    getTotalCount();
     getPosts();
   }, []);
 

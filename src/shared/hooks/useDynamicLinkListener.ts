@@ -13,7 +13,10 @@ export const useDynamicLinkListener = () => {
     const formattedLink = getFirebaseDeepLinkParam(link, true) as AnyType;
 
     if (userId && formattedLink.contentId) {
-      RouteService.navigate(Routes.POST_DETAILS, { contentId: formattedLink.contentId });
+      RouteService.navigate(Routes.POST_NAVIGATOR, {
+        screen: Routes.POST_DETAILS,
+        params: { contentId: formattedLink.contentId },
+      });
     }
 
     if (!userId && formattedLink.contentId) {
