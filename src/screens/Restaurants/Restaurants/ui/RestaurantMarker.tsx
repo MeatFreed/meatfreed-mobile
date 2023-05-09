@@ -26,7 +26,12 @@ export const RestaurantMarker: React.FC<RestaurantMarkerProps> = ({
   } as LatLng;
 
   return (
-    <Marker coordinate={coordinate} onPress={onPress} zIndex={zIndex}>
+    <Marker
+      coordinate={coordinate}
+      onPress={onPress}
+      zIndex={zIndex}
+      tracksViewChanges={false}
+    >
       <StyledImage source={Images.BusinessMarker} resizeMode="contain" />
     </Marker>
   );
