@@ -80,6 +80,7 @@ export const RestaurantDetails: React.FC = () => {
       <ScrollView
         style={{ backgroundColor: Colors.basic_100 }}
         contentContainerStyle={{ flexGrow: 1, paddingBottom: 150 }}
+        showsVerticalScrollIndicator={false}
       >
         <Carousel photos={photos} assets={assets} hasAssets={!!assets?.length} />
 

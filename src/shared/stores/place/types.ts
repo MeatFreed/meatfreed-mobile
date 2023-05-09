@@ -7,6 +7,7 @@ export interface Delta {
 
 export interface PlaceReducer {
   location: LatLng | null;
+  selectLocation: LatLng | null;
   delta: Delta
 }
 

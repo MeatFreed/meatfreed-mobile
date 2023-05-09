@@ -86,9 +86,7 @@ export const useGetRestaurants = () => {
   }, [currentLocation]);
 
   useEffect(() => {
-    if (hasLocation) {
-      getRestaurants();
-    }
+    getRestaurants();
   }, [isFocused, currentLocation, hasLocation]);
 
   return {

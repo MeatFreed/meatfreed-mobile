@@ -24,7 +24,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, o
 
   const [index, setIndex] = useState(0);
 
-  const snapPoints = useMemo(() => [isIOS ? '37.5%' : '40%', '98%'], []);
+  const snapPoints = useMemo(() => [isIOS ? '25%' : '28%', '98%'], []);
 
   const scrollViewRef = useRef<AnyType>(null);
 
@@ -51,6 +51,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, o
     <SwipeablePanel
       snapPoints={snapPoints}
       onChange={onChange}
+      enableContentPanningGesture={!restaurants?.length}
       index={0}
     >
       <Text mb={16} fs={18} fnw="700" ff={FontFamily.PoppinsMedium}>{t('home.close-to-you')}</Text>
@@ -62,8 +63,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, o
         keyExtractor={({ uuid }) => uuid}
         renderItem={renderItem}
         onEndReached={onEndReached}
-        contentContainerStyle={index ? { flexGrow: 1 } : undefined}
-        ListEmptyComponent={<EmptyState />}
+        ListEmptyComponent={<EmptyState index={index} />}
       />
     </SwipeablePanel>
   );

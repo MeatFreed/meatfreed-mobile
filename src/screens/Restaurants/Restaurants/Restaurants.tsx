@@ -11,12 +11,13 @@ import {
   StatusBar,
 } from 'ui';
 import { useIsFocused } from '@react-navigation/native';
+import { isIOS } from 'helpers';
 import { RestaurantPanel, Map } from './ui';
 
 const StyledLayout = styled.View`
   position: absolute;
-  bottom: 30px;
-  right: 25px;
+  bottom: ${isIOS ? '28%' : '32%'};
+  right: 16px;
   z-index: 9999;
 `;
 
@@ -27,7 +28,7 @@ export const Restaurants: React.FC = () => {
 
   const hasLocation = useTypedSelector(placeSelectors.hasLocation);
 
-  const { getCurrentLocation } = usePosition();
+  const { getCurrentLocation, onShowMyLocation } = usePosition();
 
   const { restaurants, onEndReached } = useGetRestaurants();
 
@@ -43,7 +44,7 @@ export const Restaurants: React.FC = () => {
 
         {hasLocation && (
           <StyledLayout>
-            <Button type="action" iconName="my-location" onPress={getCurrentLocation} />
+            <Button type="action" iconName="my-location" onPress={onShowMyLocation} />
           </StyledLayout>
         )}
 

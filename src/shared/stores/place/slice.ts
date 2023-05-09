@@ -6,6 +6,7 @@ import { PlaceReducer, Delta } from './types';
 
 const initialState: PlaceReducer = {
   location: null,
+  selectLocation: null,
   delta: {
     latitudeDelta: isIOS ? 0.05 : 0.1,
     longitudeDelta: isIOS ? 0.05 : 0.1,
@@ -22,6 +23,12 @@ const place = createSlice({
         longitude: payload?.coords?.longitude,
       };
     },
+    setSelectLocation: (state, { payload }: PayloadAction<GeoPosition>) => {
+      state.selectLocation = {
+        latitude: payload?.coords?.latitude,
+        longitude: payload?.coords?.longitude,
+      };
+    },
     setLocationDelta: (state, { payload }: PayloadAction<Delta>) => {
       state.delta = payload;
     },
@@ -34,5 +41,7 @@ const place = createSlice({
 
 export const {
   reducer: placeReducer,
-  actions: { setCurrentLocation, resetPlaceState, setLocationDelta },
+  actions: {
+    setCurrentLocation, resetPlaceState, setLocationDelta, setSelectLocation,
+  },
 } = place;

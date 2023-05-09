@@ -79,7 +79,11 @@ export const Profile: React.FC = () => {
       <StatusBar />
 
       <Box f={1} bgc={Colors.basic_150}>
-        <ScrollView style={styles.list} contentContainerStyle={styles.contentContainerStyle}>
+        <ScrollView
+          style={styles.list}
+          contentContainerStyle={styles.contentContainerStyle}
+          showsVerticalScrollIndicator={false}
+        >
           <Box p={[Spaces.md, Spaces.md, 0]} ai="center" jc="center">
             <Box>
               <Avatar
