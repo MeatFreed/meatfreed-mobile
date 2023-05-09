@@ -3,11 +3,11 @@ import Geolocation from 'react-native-geolocation-service';
 import { defaultLocation, isIOS, withDelay } from 'helpers';
 import { MapService, PermissionsService } from 'services';
 import { store, useTypedDispatch, useTypedSelector } from 'stores';
-import { placeSelectors, setCurrentLocation } from 'stores/place';
+import { placeSelectors, setCurrentLocation, setSelectLocation } from 'stores/place';
 import { getDistance } from 'geolib';
 import throttle from 'lodash.throttle';
 
-const SIGNIFICANT_DISTANCE = 3000;
+const SIGNIFICANT_DISTANCE = 2000;
 
 export const usePosition = () => {
   const [isPermissionDenied, setPermissionDenied] = useState(false);
@@ -90,6 +90,7 @@ export const usePosition = () => {
   const onShowMyLocation = () => {
     Geolocation.getCurrentPosition(
       (position) => {
+        dispatch(setSelectLocation(null));
         dispatch(setCurrentLocation(position));
 
         MapService.animateToRegion({

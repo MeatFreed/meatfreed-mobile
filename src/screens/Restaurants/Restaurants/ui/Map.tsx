@@ -2,13 +2,12 @@ import React, { useCallback } from 'react';
 import { useTypedDispatch, useTypedSelector } from 'stores';
 import { placeSelectors, setLocationDelta, setSelectLocation } from 'stores/place';
 import { StyleSheet } from 'react-native';
-import MapView, { PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import MapView, { LatLng, PROVIDER_GOOGLE, Region } from 'react-native-maps';
 import { MapStyles } from 'themes';
 import { Restaurant } from 'api';
-import { GeoPosition } from 'react-native-geolocation-service';
-import { useGetRestaurantActions } from 'hooks';
 import { defaultLocation } from 'helpers';
 import { MapService } from 'services';
+import { useGetRestaurantActions } from 'hooks';
 import { RestaurantMarker } from './RestaurantMarker';
 
 interface MapProps {
@@ -30,11 +29,9 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
   };
   const onRegionChangeComplete = useCallback((region: Region) => {
     dispatch(setSelectLocation({
-      coords: {
-        latitude: region.latitude,
-        longitude: region.longitude,
-      },
-    } as GeoPosition));
+      latitude: region.latitude,
+      longitude: region.longitude,
+    } as LatLng));
 
     dispatch(setLocationDelta({
       latitudeDelta: region.latitudeDelta,

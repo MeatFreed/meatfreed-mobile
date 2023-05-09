@@ -51,7 +51,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, o
     <SwipeablePanel
       snapPoints={snapPoints}
       onChange={onChange}
-      enableContentPanningGesture={!restaurants?.length}
+      enableContentPanningGesture={!!restaurants?.length}
       index={0}
     >
       <Text mb={16} fs={18} fnw="700" ff={FontFamily.PoppinsMedium}>{t('home.close-to-you')}</Text>
@@ -62,7 +62,10 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, o
         onEndReachedThreshold={0.1}
         keyExtractor={({ uuid }) => uuid}
         renderItem={renderItem}
+        initialNumToRender={10}
+        windowSize={8}
         onEndReached={onEndReached}
+        contentContainerStyle={index ? { flexGrow: 1 } : undefined}
         ListEmptyComponent={<EmptyState index={index} />}
       />
     </SwipeablePanel>
