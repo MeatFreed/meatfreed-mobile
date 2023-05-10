@@ -10,20 +10,8 @@ const GeolocationConfig = Platform.select({
   default: PERMISSIONS.IOS.LOCATION_ALWAYS,
 });
 
-const GeolocationConfigWhenInUse = Platform.select({
-  ios: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
-  android: PERMISSIONS.ANDROID.ACCESS_FINE_LOCATION,
-  default: PERMISSIONS.IOS.LOCATION_WHEN_IN_USE,
-});
-
 const checkGeolocationPermission = async () => {
   const response = await check(GeolocationConfig);
-
-  return response === RESULTS.GRANTED;
-};
-
-const checkGeolocationWhenInUsePermission = async () => {
-  const response = await check(GeolocationConfigWhenInUse);
 
   return response === RESULTS.GRANTED;
 };
@@ -43,5 +31,4 @@ const requestGeolocationPermission = async () => {
 export const PermissionsService = {
   checkGeolocationPermission,
   requestGeolocationPermission,
-  checkGeolocationWhenInUsePermission,
 };

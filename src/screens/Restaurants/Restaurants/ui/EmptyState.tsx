@@ -7,14 +7,20 @@ import {
 
 const { width } = Dimensions.get('window');
 
-const IMAGE_SIZE = width / 3;
+const IMAGE_SIZE = width / 4;
 
-export const EmptyState: React.FC = () => {
+interface EmptyStateProps {
+  index: number;
+}
+
+export const EmptyState: React.FC<EmptyStateProps> = ({ index }) => {
   const { t } = useTranslation();
+
+  const size = !index ? 50 : IMAGE_SIZE;
 
   return (
     <Box f={1} ai="center" jc="center">
-      <Images.EmptyState width={IMAGE_SIZE} height={IMAGE_SIZE} />
+      <Images.EmptyState width={size} height={size} />
 
       <Text mt={10} color={Colors.primary_500} fnw="500" ff={FontFamily.PoppinsMedium} ta="center">{t('home.empty-state-title')}</Text>
 

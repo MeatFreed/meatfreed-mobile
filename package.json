@@ -23,7 +23,7 @@
     "@gorhom/bottom-sheet": "4.4.5",
     "@gorhom/portal": "1.0.14",
     "@invertase/react-native-apple-authentication": "2.2.2",
-    "@lumitech/mobile-hooks": "0.4.0",
+    "@lumitech/mobile-hooks": "0.5.0",
     "@react-native-async-storage/async-storage": "1.18.1",
     "@react-native-clipboard/clipboard": "1.11.2",
     "@react-native-community/blur": "4.3.0",

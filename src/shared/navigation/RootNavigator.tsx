@@ -1,14 +1,14 @@
 import { NavigationContainer } from '@react-navigation/native';
-import React, { useEffect } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import RNBootSplash from 'react-native-bootsplash';
 import { ToastMessage } from 'ui';
 import { RouteService } from 'services';
 import { PostHogProvider } from 'posthog-react-native';
 import Config from 'react-native-config';
 import {
-  useAnalytics, useAuthStateChanged, useDynamicLinkListener, useGoogle,
+  useAnalytics, useDynamicLinkListener, useGetPosition, useGoogle,
 } from 'hooks';
-import { isDev } from 'helpers';
+import { isDev, withDelay } from 'helpers';
 import { Stack } from './NavigationOptions';
 import { Routes } from './Routes';
 import { MainNavigator } from './MainNavigator';
@@ -17,17 +17,24 @@ import { linking } from './Linking';
 export const RootNavigator: React.FC = () => {
   useDynamicLinkListener();
 
-  useAuthStateChanged();
-
   const { onScreenView } = useAnalytics();
 
+  const { getPermission } = useGetPosition();
   const { configure } = useGoogle();
 
-  useEffect(() => {
+  const bootstrap = useCallback(async () => {
     configure();
 
     RNBootSplash.hide({ fade: true });
+
+    await withDelay(1000);
+
+    getPermission();
   }, []);
+
+  useEffect(() => {
+    bootstrap();
+  }, [bootstrap]);
 
   return (
     <>

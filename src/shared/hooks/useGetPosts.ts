@@ -21,11 +21,11 @@ export const useGetPosts = () => {
   const shouldPaginate = results.length < totalCount;
   const isEmpty = !initialLoading && !results.length;
 
-  const currentLocation = useTypedSelector(placeSelectors.currentLocation);
+  const location = useTypedSelector(placeSelectors.currentLocation);
 
   const bounds = geohashQueryBounds([
-    Number(currentLocation?.latitude || 0),
-    Number(currentLocation?.longitude || 0),
+    Number(location?.latitude || 0),
+    Number(location?.longitude || 0),
   ], 24000);
 
   const getTotalCount = async () => {
@@ -113,9 +113,11 @@ export const useGetPosts = () => {
   };
 
   useEffect(() => {
-    getTotalCount();
-    getPosts();
-  }, [currentLocation]);
+    if (location?.latitude && location?.longitude) {
+      getTotalCount();
+      getPosts();
+    }
+  }, [location]);
 
   return {
     searchQuery,
