@@ -70,7 +70,7 @@ export const Emoji: React.FC<EmojiProps> = ({
               <Text mr={6}>{items[0].reaction_content}</Text>
 
               <Text
-                color={Colors.basic_100}
+                color={userEmoji ? Colors.basic_150 : Colors.primary_500}
                 fnw="600"
                 fs={18}
                 ff={FontFamily.PoppinsMedium}

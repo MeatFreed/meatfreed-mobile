@@ -1,5 +1,5 @@
 import Config from 'react-native-config';
-import { AnyType, generateShareLink } from 'helpers';
+import { AnyType, generateShareLink, isIOS } from 'helpers';
 import Share from 'react-native-share';
 import { ToastService } from 'services/ToastService/ToastService';
 import { useTranslation } from 'react-i18next';
@@ -15,7 +15,7 @@ export const useSharePostLink = () => {
 
       await Share.open({
         title: 'MeatFreed',
-        message: `${message}.\n${link}`,
+        message: `${message}.\n${isIOS ? link : ''}`,
         url: link,
         failOnCancel: false,
       });
