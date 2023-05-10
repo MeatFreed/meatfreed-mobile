@@ -12,7 +12,7 @@ import {
 import { ActivityIndicator, StatusBar } from 'ui';
 import { ScrollView } from 'react-native';
 import { ToastService } from 'services';
-import { EventTypes } from 'helpers';
+import { EventTypes, isIOS } from 'helpers';
 import dayjs from 'dayjs';
 import { Action } from './ui';
 
@@ -54,7 +54,7 @@ export const Referral: React.FC = () => {
     try {
       const response = await Share.open({
         title: 'MeatFreed',
-        message: `${t('my-referral.share')}.\n${url}`,
+        message: `${t('my-referral.share')}.\n${isIOS ? url : ''}`,
         url,
         failOnCancel: false,
       });
