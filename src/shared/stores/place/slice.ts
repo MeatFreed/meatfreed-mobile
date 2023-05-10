@@ -30,6 +30,12 @@ const place = createSlice({
     setLocationDelta: (state, { payload }: PayloadAction<Delta>) => {
       state.delta = payload;
     },
+    onChangeRegion: (state, {
+      payload,
+    }: PayloadAction<{ selectLocation: LatLng | null, delta: Delta }>) => {
+      state.selectLocation = payload.selectLocation;
+      state.delta = payload.delta;
+    },
     resetPlaceState: () => initialState,
   },
   extraReducers: (builder) => {
@@ -40,6 +46,6 @@ const place = createSlice({
 export const {
   reducer: placeReducer,
   actions: {
-    setCurrentLocation, resetPlaceState, setLocationDelta, setSelectLocation,
+    setCurrentLocation, resetPlaceState, setLocationDelta, setSelectLocation, onChangeRegion,
   },
 } = place;

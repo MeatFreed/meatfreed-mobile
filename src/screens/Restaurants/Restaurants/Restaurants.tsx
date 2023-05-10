@@ -1,4 +1,4 @@
-import { useGetRestaurants, usePosition } from 'hooks';
+import { useGetRestaurants, useGetPositionActions } from 'hooks';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTypedSelector } from 'stores';
@@ -11,11 +11,12 @@ import {
   StatusBar,
 } from 'ui';
 import { useIsFocused } from '@react-navigation/native';
+import { isIOS } from 'helpers';
 import { RestaurantPanel, Map } from './ui';
 
 const StyledLayout = styled.View`
   position: absolute;
-  bottom: 30px;
+  bottom: ${isIOS ? '28%' : '32%'};
   right: 25px;
   z-index: 9999;
 `;
@@ -27,7 +28,7 @@ export const Restaurants: React.FC = () => {
 
   const hasLocation = useTypedSelector(placeSelectors.hasLocation);
 
-  const { getCurrentLocation, onShowMyLocation } = usePosition();
+  const { getCurrentLocation, onShowMyLocation } = useGetPositionActions();
 
   const { restaurants, onEndReached } = useGetRestaurants();
 
