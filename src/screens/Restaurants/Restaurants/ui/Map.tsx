@@ -1,13 +1,13 @@
-import React, { useCallback } from 'react';
-import { useTypedDispatch, useTypedSelector } from 'stores';
-import { placeSelectors, setLocationDelta, setSelectLocation } from 'stores/place';
+import React, { useRef } from 'react';
+import { useTypedSelector } from 'stores';
+import { placeSelectors } from 'stores/place';
 import { StyleSheet } from 'react-native';
-import MapView, { LatLng, PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE, Region } from 'react-native-maps';
 import { MapStyles } from 'themes';
 import { Restaurant } from 'api';
-import { defaultLocation } from 'helpers';
+import { useGetPositionActions, useGetRestaurantActions } from 'hooks';
+import { AnyType, defaultLocation } from 'helpers';
 import { MapService } from 'services';
-import { useGetRestaurantActions } from 'hooks';
 import { RestaurantMarker } from './RestaurantMarker';
 
 interface MapProps {
@@ -15,38 +15,38 @@ interface MapProps {
 }
 
 export const Map: React.FC<MapProps> = ({ restaurants }) => {
-  const dispatch = useTypedDispatch();
-
   const hasLocation = useTypedSelector(placeSelectors.hasLocation);
-  const currentLocation = useTypedSelector(placeSelectors.currentLocation);
+  const location = useTypedSelector(placeSelectors.currentLocation);
   const selectLocation = useTypedSelector(placeSelectors.selectLocation);
   const delta = useTypedSelector(placeSelectors.delta);
 
-  const initialRegion = !hasLocation ? defaultLocation : {
-    ...delta,
-    latitude: Number(selectLocation?.latitude || 0) || Number(currentLocation?.latitude),
-    longitude: Number(selectLocation?.longitude || 0) || Number(currentLocation?.longitude),
-  };
-
-  const region = {
-    ...delta,
-    latitude: selectLocation?.latitude || currentLocation?.latitude || defaultLocation.latitude,
-    longitude: selectLocation?.longitude || currentLocation?.longitude || defaultLocation.longitude,
-  };
-
-  const onRegionChangeComplete = useCallback((region: Region) => {
-    dispatch(setSelectLocation({
-      latitude: region.latitude,
-      longitude: region.longitude,
-    } as LatLng));
-
-    dispatch(setLocationDelta({
-      latitudeDelta: region.latitudeDelta,
-      longitudeDelta: region.longitudeDelta,
-    }));
-  }, []);
+  const time = useRef<AnyType>();
 
   const { onRestaurantDetails } = useGetRestaurantActions();
+
+  const { onRegionChangeComplete } = useGetPositionActions();
+
+  const initialRegion = !hasLocation ? defaultLocation : {
+    ...delta,
+    latitude: selectLocation?.latitude || location?.latitude || 0,
+    longitude: selectLocation?.longitude || location?.longitude || 0,
+  };
+
+  const region = !hasLocation ? defaultLocation : {
+    ...delta,
+    latitude: selectLocation?.latitude || location?.latitude || 0,
+    longitude: selectLocation?.longitude || location?.longitude || 0,
+  };
+
+  const onRegionChange = (region: Region) => {
+    if (time.current) {
+      clearTimeout(time.current);
+    }
+
+    time.current = setTimeout(() => {
+      onRegionChangeComplete(region);
+    }, 350);
+  };
 
   return (
     <MapView
@@ -57,7 +57,7 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
       customMapStyle={MapStyles}
       initialRegion={initialRegion}
       region={region}
-      onRegionChangeComplete={onRegionChangeComplete}
+      onRegionChange={onRegionChange}
       style={StyleSheet.absoluteFillObject}
       showsCompass={false}
       provider={PROVIDER_GOOGLE}

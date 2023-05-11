@@ -16,12 +16,13 @@ export const useGetRestaurants = () => {
 
   const shouldPaginate = restaurants.length < totalCount;
 
-  const currentLocation = useTypedSelector(placeSelectors.currentLocation);
   const hasLocation = useTypedSelector(placeSelectors.hasLocation);
 
+  const location = useTypedSelector(placeSelectors.currentLocation);
+
   const bounds = geohashQueryBounds([
-    Number(currentLocation?.latitude || 0),
-    Number(currentLocation?.longitude || 0),
+    Number(location?.latitude || 0),
+    Number(location?.longitude || 0),
   ], 24000);
 
   const getTotalCount = async () => {
@@ -55,7 +56,7 @@ export const useGetRestaurants = () => {
 
       const collections = await Promise.all(requestArray);
 
-      const result = adaptRestaurants(collections, currentLocation);
+      const result = adaptRestaurants(collections, location);
 
       setRestaurants([...result]);
     } finally {
@@ -81,7 +82,7 @@ export const useGetRestaurants = () => {
   useEffect(() => {
     getTotalCount();
     getRestaurants();
-  }, [currentLocation]);
+  }, [location]);
 
   return {
     isLoading,

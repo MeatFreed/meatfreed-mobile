@@ -15,13 +15,13 @@ export const useGetOffers = () => {
   const [isRefreshing, setRefreshing] = useState(false);
   const [offers, setOffers] = useState<Offer[]>([]);
 
-  const currentLocation = useTypedSelector(placeSelectors.currentLocation);
+  const location = useTypedSelector(placeSelectors.currentLocation);
 
   const isEmpty = !initialLoading && !offers.length;
 
   const bounds = geohashQueryBounds([
-    Number(currentLocation?.latitude || 0),
-    Number(currentLocation?.longitude || 0),
+    Number(location?.latitude || 0),
+    Number(location?.longitude || 0),
   ], 5000);
 
   const getOffers = async () => {
@@ -72,7 +72,7 @@ export const useGetOffers = () => {
 
   useEffect(() => {
     getOffers();
-  }, [currentLocation]);
+  }, [location]);
 
   return {
     isLoading,

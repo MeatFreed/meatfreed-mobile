@@ -1,15 +1,10 @@
 import { BottomSheetFlatList } from '@gorhom/bottom-sheet';
 import { Restaurant } from 'api';
-import React, {
-  useCallback, useMemo, useRef, useState,
-} from 'react';
+import React, { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FontFamily, Text } from 'themes';
 import { SwipeablePanel } from 'ui';
 import { AnyType, isIOS } from 'helpers';
-import { useTypedSelector } from 'stores';
-import { userSelectors } from 'stores/user';
-import { ListRenderItem } from 'react-native';
 import { useGetRestaurantActions } from 'hooks';
 import { RestaurantCard } from './RestaurantCard';
 import { EmptyState } from './EmptyState';
@@ -28,7 +23,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, o
 
   const scrollViewRef = useRef<AnyType>(null);
 
-  const userId = useTypedSelector(userSelectors.userId);
+  const { onRestaurantDetails } = useGetRestaurantActions();
 
   const onChange = (panelState: number) => {
     setIndex(panelState);
@@ -37,15 +32,6 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, o
       scrollViewRef?.current?.scrollToIndex?.({ index: 0, animated: true });
     }
   };
-
-  const { onRestaurantDetails } = useGetRestaurantActions();
-
-  const renderItem: ListRenderItem<Restaurant> = useCallback(({ item: restaurant }) => (
-    <RestaurantCard
-      restaurant={restaurant}
-      onPress={() => onRestaurantDetails(restaurant.uuid)}
-    />
-  ), [onRestaurantDetails, userId]);
 
   return (
     <SwipeablePanel
@@ -59,9 +45,14 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, o
       <BottomSheetFlatList
         ref={scrollViewRef}
         data={restaurants}
-        onEndReachedThreshold={0.1}
         keyExtractor={({ uuid }) => uuid}
-        renderItem={renderItem}
+        renderItem={({ item: restaurant }) => (
+          <RestaurantCard
+            restaurant={restaurant}
+            onPress={() => onRestaurantDetails(restaurant.uuid)}
+          />
+        )}
+        onEndReachedThreshold={0.1}
         initialNumToRender={10}
         windowSize={8}
         onEndReached={onEndReached}

@@ -15,7 +15,7 @@ export const useSharePostLink = () => {
 
       await Share.open({
         title: 'MeatFreed',
-        message: `${message}.\n${link}`,
+        message: `${message}`,
         url: link,
         failOnCancel: false,
       });

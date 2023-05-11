@@ -73,7 +73,7 @@ export const PostDetails: React.FC = () => {
           {content?.assets?.[0].filename && !isImage(content?.assets?.[0].filename) && (
             <StyledVideo
               controls
-              paused
+              repeat
               resizeMode="cover"
               source={{ uri: content?.assets?.[0].filename }}
               poster={content?.assets?.[0].filename}
