@@ -10,3 +10,5 @@ export * from './Input/Input';
 export * from './StatusBar/StatusBar';
 export * from './Avatar/Avatar';
 export * from './SearchBar/SearchBar';
+export * from './TopGradient/TopGradient';
+export * from './Carousel/Carousel';

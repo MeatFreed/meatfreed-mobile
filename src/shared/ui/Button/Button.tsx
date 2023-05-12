@@ -25,25 +25,18 @@ interface ButtonProps {
 }
 
 const constructColor = (
-  reversed?: boolean,
-) => (reversed ? Colors.purple : Colors.white);
+  disabled?: boolean,
+) => (disabled ? Colors.purple : Colors.white);
 
 const constructBackgroundColor = (
   isLoading?: boolean,
   disabled?: boolean,
-  reversed?: boolean,
-) => {
-  const defaultColor = reversed ? Colors.white : Colors.purple;
-
-  const loadingColor = reversed ? Colors.white : Colors.primary_light;
-
-  return isLoading || disabled ? loadingColor : defaultColor;
-};
+) => (isLoading || disabled ? Colors.primary_100 : Colors.purple);
 
 const StyledButton = styled.TouchableOpacity<{isLoading?: boolean, disabled?: boolean, reversed?: boolean}>`
-  background-color: ${({ isLoading, disabled, reversed }) => constructBackgroundColor(isLoading, disabled, reversed)};
+  background-color: ${({ isLoading, disabled }) => constructBackgroundColor(isLoading, disabled)};
   height: 48px;
-  border-radius: 12px;
+  border-radius: 25px;
   justify-content: center;
   align-items: center;
   flex-direction: row;
@@ -51,9 +44,9 @@ const StyledButton = styled.TouchableOpacity<{isLoading?: boolean, disabled?: bo
 
 const StyledButtonText = styled.Text<{isLoading?: boolean, disabled?: boolean, reversed?: boolean}>`
   font-size: ${FontSizes.md}px;
-  font-family: ${FontFamily.PoppinsBold};
+  font-family: ${FontFamily.PoppinsSemiMedium};
   font-weight: 700;
-  color: ${({ reversed }) => constructColor(reversed)};
+  color: ${({ disabled }) => constructColor(disabled)};
 `;
 
 const ActionButton = styled.TouchableOpacity`
@@ -78,7 +71,7 @@ const BorderStyledButton = styled(StyledButton)<{ reversed?: boolean }>`
   padding: 0px 10px;
   justify-content: center;
   align-items: center;
-  border-radius: 12px;
+  border-radius: 25px;
   border: 2px solid ${Colors.purple};
   background-color: transparent;
 `;
@@ -167,7 +160,7 @@ export const Button: React.FC<ButtonProps> = ({
         <Loader color={Colors.white} />
       ) : (
         <>
-          {iconName && (
+          {iconName && !disabled && (
             <IconComponent
               name={iconName}
               size={24}
