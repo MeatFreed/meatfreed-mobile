@@ -1,34 +1,22 @@
 import { useRoute } from '@react-navigation/native';
 import { RestaurantDetailsProp } from 'navigation';
 import React from 'react';
-import { ActivityIndicator, StatusBar } from 'ui';
+import {
+  ActivityIndicator, Carousel, StatusBar, TopGradient,
+} from 'ui';
 import { Linking, ScrollView } from 'react-native';
 import { Colors } from 'themes';
-import { AnyType, isIOS, noop } from 'helpers';
-import Gradient from 'react-native-linear-gradient';
+import { isIOS, noop } from 'helpers';
 import { useGetRestaurantActions, useGetRestaurantByUID } from 'hooks';
 import { useGetRestaurantByIDQuery } from 'api';
-import styled from 'styled-components/native';
 import {
-  Action, Carousel, Details, Navigation, OpeningHours,
+  Action, Details, Navigation, OpeningHours,
 } from './ui';
-
-const StyledTopGradient = styled(Gradient as AnyType)`
-  position: absolute;
-  top: 0px;
-  left: 0px;
-  right: 8px;
-  width: 100%;
-  height: 140px;
-  z-index: 1;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-`;
 
 export const RestaurantDetails: React.FC = () => {
   const { params } = useRoute<RestaurantDetailsProp>();
 
-  const contentId = params?.contentId || '8f8353ed-dd81-4ce7-b588-efe4ee11030d';
+  const contentId = params?.contentId || '';
 
   const { restaurant } = useGetRestaurantByUID(contentId);
 
@@ -70,12 +58,7 @@ export const RestaurantDetails: React.FC = () => {
     <>
       <StatusBar />
 
-      <StyledTopGradient
-        colors={['rgba(0, 0, 0, .5)', 'rgba(0, 0, 0, .2)', 'rgba(0, 0, 0, .01)']}
-        start={{ x: 0, y: 0 }}
-        end={{ x: 0, y: 0.9 }}
-        locations={[0, 0.7, 0.9]}
-      />
+      <TopGradient />
 
       <ScrollView
         style={{ backgroundColor: Colors.basic_100 }}

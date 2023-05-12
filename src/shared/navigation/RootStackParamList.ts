@@ -1,15 +1,26 @@
 import { RouteProp } from '@react-navigation/native';
 import { Routes } from './Routes';
 
+type OfferScreenType = Routes.VOUCHER_DETAILS | Routes.RAFFLE_DETAILS
+
 export type RootStackParamList = {
   [Routes.BOTTOM_TAB_BAR_NAVIGATOR]: undefined;
   [Routes.AUTH_NAVIGATOR]: undefined;
   [Routes.MAIN_NAVIGATOR]: undefined;
   [Routes.HOME_NAVIGATOR]: undefined;
-  [Routes.OFFER_NAVIGATOR]: undefined;
+  [Routes.OFFERS_NAVIGATOR]: undefined;
   [Routes.POSTS_NAVIGATOR]: undefined;
+  [Routes.OFFER_TOP_TAB_NAVIGATOR]: undefined;
+  [Routes.ALL_OFFERS]: undefined;
+  [Routes.CLAIMED_OFFERS]: undefined;
   [Routes.POST_NAVIGATOR]: {
     screen: Routes.POST_DETAILS,
+    params: {
+      contentId: string;
+    }
+  };
+  [Routes.OFFER_NAVIGATOR]: {
+    screen: OfferScreenType,
     params: {
       contentId: string;
     }
@@ -34,7 +45,12 @@ export type RootStackParamList = {
   [Routes.RESTAURANT_DETAILS]: {
     contentId: string;
   },
-  [Routes.OFFER]: undefined;
+  [Routes.VOUCHER_DETAILS]: {
+    contentId: string;
+  },
+  [Routes.RAFFLE_DETAILS]: {
+    contentId: string;
+  },
   [Routes.REFERRAL]: undefined;
   [Routes.PROFILE]: undefined;
   [Routes.SETTINGS]: undefined;
@@ -43,5 +59,7 @@ export type RootStackParamList = {
 export type PostDetailsProp = RouteProp<RootStackParamList, Routes.POST_DETAILS>;
 
 export type RestaurantDetailsProp = RouteProp<RootStackParamList, Routes.RESTAURANT_DETAILS>;
+
+export type OfferDetailsProp = RouteProp<RootStackParamList, Routes.VOUCHER_DETAILS>;
 
 export type SignUpProp = RouteProp<RootStackParamList, Routes.SIGN_UP>;

@@ -1,4 +1,3 @@
-export * from './Carousel';
 export * from './Navigation';
 export * from './Details';
 export * from './Action';

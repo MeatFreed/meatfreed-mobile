@@ -157,7 +157,7 @@ export const Button: React.FC<ButtonProps> = ({
       disabled={isLoading || disabled}
     >
       {isLoading ? (
-        <Loader color={Colors.white} />
+        <Loader color={Colors.primary_500} />
       ) : (
         <>
           {iconName && !disabled && (

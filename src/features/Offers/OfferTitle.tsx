@@ -3,7 +3,7 @@ import { getBasicDateFormat } from 'helpers';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import {
-  Box, Colors, FontFamily, HorizontalDivider, Text,
+  Box, Colors, FontFamily, Text,
 } from 'themes';
 
 interface OfferTitleProps {
@@ -24,8 +24,6 @@ export const OfferTitle: React.FC<OfferTitleProps> = ({ title, endDate, type }) 
       <Text mt={10} fs={13} fnw="500" ff={FontFamily.PoppinsMedium} color={Colors.basic_600}>
         {isVoucher ? t('offers.can-redeemed-once') : t('offers.draw-closes-in', { date: getBasicDateFormat(endDate) })}
       </Text>
-
-      <HorizontalDivider />
     </Box>
   );
 };

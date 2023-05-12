@@ -1,19 +1,25 @@
 import React from 'react';
-import { Offers } from 'screens';
-import { useTranslation } from 'react-i18next';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
+import { AnyType, isIOS } from 'helpers';
+import { RaffleDetails, VoucherDetails } from 'screens';
 import { Routes } from './Routes';
-import { Stack, headerOptions } from './NavigationOptions';
+import { restaurantOptions } from './NavigationOptions';
 
-export const OfferNavigator: React.FC = () => {
-  const { t } = useTranslation();
+const Stack = isIOS ? createStackNavigator() : createNativeStackNavigator();
 
-  return (
-    <Stack.Navigator screenOptions={headerOptions}>
-      <Stack.Screen
-        name={Routes.OFFER}
-        component={Offers}
-        options={{ headerTitle: t('screens.offers') }}
-      />
-    </Stack.Navigator>
-  );
-};
+export const OfferNavigator: React.FC = () => (
+  <Stack.Navigator screenOptions={restaurantOptions as AnyType}>
+    <Stack.Screen
+      name={Routes.VOUCHER_DETAILS}
+      component={VoucherDetails}
+      options={{ headerTitle: '', headerTransparent: true }}
+    />
+
+    <Stack.Screen
+      name={Routes.RAFFLE_DETAILS}
+      component={RaffleDetails}
+      options={{ headerTitle: '', headerTransparent: true }}
+    />
+  </Stack.Navigator>
+);

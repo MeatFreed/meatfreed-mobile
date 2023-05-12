@@ -16,16 +16,19 @@ const StyledLayout = styled(Box)`
 interface OfferNavigationProps {
   isDisabled?: boolean;
   title: string;
+  isLoading?: boolean;
   onPress?: () => void;
 }
 
-export const OfferNavigation: React.FC<OfferNavigationProps> = ({ title, onPress, isDisabled }) => {
+export const OfferNavigation: React.FC<OfferNavigationProps> = ({
+  title, onPress, isDisabled, isLoading,
+}) => {
   const { width } = useWindowDimensions();
 
   return (
     <StyledLayout w="100%" fd="row" p={[20, 20, hasNotch ? 32 : 20]} jc="space-between" bgc={Colors.basic_100}>
-      <Box w={`${width - 40}`}>
-        <Button iconName="fire-work" title={title} onPress={onPress} disabled={isDisabled} />
+      <Box w={`${width - 40}px`}>
+        <Button iconName="fire-work" isLoading={isLoading} title={title} onPress={onPress} disabled={isDisabled} />
       </Box>
     </StyledLayout>
   );

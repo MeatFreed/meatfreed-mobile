@@ -2,4 +2,4 @@ export * from './RootNavigator';
 export * from './Routes';
 export * from './RootStackParamList';
 export * from './PostsNavigator';
-export * from './BottomTabBarNavigator';
+export * from './tabs/BottomTabBarNavigator';

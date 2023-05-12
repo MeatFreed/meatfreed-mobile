@@ -6,7 +6,7 @@ import { RouteService } from 'services';
 import { PostHogProvider } from 'posthog-react-native';
 import Config from 'react-native-config';
 import {
-  useAnalytics, useDynamicLinkListener, useGetPosition, useGoogle,
+  useAnalytics, useDynamicLinkListener, useGetPosition, useGetReactions, useGoogle,
 } from 'hooks';
 import { isDev, withDelay } from 'helpers';
 import { Stack } from './NavigationOptions';
@@ -18,6 +18,8 @@ export const RootNavigator: React.FC = () => {
   useDynamicLinkListener();
 
   const { onScreenView } = useAnalytics();
+
+  useGetReactions();
 
   const { getPermission } = useGetPosition();
   const { configure } = useGoogle();

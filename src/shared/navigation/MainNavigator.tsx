@@ -7,17 +7,15 @@ import {
   Welcome,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
-import { useGetReactions } from 'hooks';
 import { Routes } from './Routes';
 import { Stack, authOptions, headerOptions } from './NavigationOptions';
-import { BottomTabBarNavigator } from './BottomTabBarNavigator';
+import { BottomTabBarNavigator } from './tabs/BottomTabBarNavigator';
 import { RestaurantNavigator } from './RestaurantNavigator';
 import { PostNavigator } from './PostNavigator';
+import { OfferNavigator } from './OfferNavigator';
 
 export const MainNavigator: React.FC = () => {
   const { t } = useTranslation();
-
-  useGetReactions();
 
   return (
     <Stack.Navigator initialRouteName={Routes.BOTTOM_TAB_BAR_NAVIGATOR}>
@@ -60,6 +58,15 @@ export const MainNavigator: React.FC = () => {
       <Stack.Screen
         name={Routes.POST_NAVIGATOR}
         component={PostNavigator}
+        options={{
+          ...headerOptions,
+          headerShown: false,
+        }}
+      />
+
+      <Stack.Screen
+        name={Routes.OFFER_NAVIGATOR}
+        component={OfferNavigator}
         options={{
           ...headerOptions,
           headerShown: false,

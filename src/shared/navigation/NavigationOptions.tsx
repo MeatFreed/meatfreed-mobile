@@ -54,6 +54,7 @@ export const tabBarOptions: BottomTabNavigationOptions = {
 export const headerOptions: StackNavigationOptions = {
   headerTitleAlign: 'center',
   headerBackTitleVisible: false,
+  headerShadowVisible: false,
   headerTintColor: Colors.white,
   headerTitleStyle: {
     fontSize: 20,
@@ -83,6 +84,7 @@ export const restaurantOptions: StackNavigationOptions = {
   headerTitleAlign: 'center',
   headerBackTitleVisible: false,
   headerTintColor: Colors.white,
+  headerShadowVisible: false,
   headerTitleStyle: {
     fontSize: 20,
     lineHeight: 24,

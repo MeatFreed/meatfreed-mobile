@@ -1,25 +1,34 @@
 import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
-import { AnyType, getLocalTime } from 'helpers';
+import { isBetweenAvailableTime } from 'helpers';
 import { Offer } from './models';
 
-export const adaptOffers = (
-  docs: FirebaseFirestoreTypes.QueryDocumentSnapshot<FirebaseFirestoreTypes.DocumentData>[],
+export const adaptAvailableOffers = (
+  userId: string,
+  collections: FirebaseFirestoreTypes.QuerySnapshot<FirebaseFirestoreTypes.DocumentData>[],
 ) => {
-  const offers = docs.map((doc) => {
-    const offer = { ...doc.data(), uid: doc.id } as Offer;
+  const flatData = collections.flatMap((collection) => collection.docs);
 
-    if (offer?.expires?.toDate()) {
-      const date = new Date(offer?.expires?.toDate());
+  const adaptOffers = flatData.map((doc) => doc.data()) as Offer[];
 
-      if (date.getTime() >= new Date().getTime()) {
-        offer.expires = getLocalTime(offer?.expires) as AnyType;
-      } else {
-        return null;
-      }
-    }
+  const filteredByUserId = adaptOffers.filter((offer) => !offer?.userIds?.includes(userId));
 
-    return offer;
-  }).filter(Boolean);
+  const filteredByAvailableDate = filteredByUserId.filter((offer) => isBetweenAvailableTime(
+    offer?.content?.start_date,
+    offer?.content?.end_date,
+  ));
 
-  return offers as Offer[];
+  return filteredByAvailableDate as Offer[];
+};
+
+export const adaptClaimedOffers = (
+  userId: string,
+  collections: FirebaseFirestoreTypes.QuerySnapshot<FirebaseFirestoreTypes.DocumentData>[],
+) => {
+  const flatData = collections.flatMap((collection) => collection.docs);
+
+  const adaptOffers = flatData.map((doc) => doc.data()) as Offer[];
+
+  const filteredByUserId = adaptOffers.filter((offer) => offer?.userIds?.includes(userId));
+
+  return filteredByUserId as Offer[];
 };
