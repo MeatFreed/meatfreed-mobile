@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Box, Colors, FontFamily, FontSizes, Spaces, Text,
-} from 'themes';
+import { Box, Colors, Spaces } from 'themes';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {
   Button,
-  Icon, Input, KeyboardAwareView, StatusBar,
+  Icon,
+  Input,
+  KeyboardAwareView,
+  StatusBar,
 } from 'ui';
 import { Dimensions } from 'react-native';
-import { Policy, Socials } from 'features';
+import { Policy } from 'features';
 import { useSignIn } from 'hooks';
 
 const { width } = Dimensions.get('window');
@@ -44,11 +45,7 @@ export const SignIn: React.FC = () => {
       <StatusBar />
 
       <Box f={1} ai="center" bgc={Colors.basic_100}>
-        <Box m={[30, 0]}>
-          <Text fs={56} fnw="bold" ff={FontFamily.PoppinsBold} color={Colors.purple}>meatfreed</Text>
-        </Box>
-
-        <Box w={`${width - Spaces['3xl']}px`}>
+        <Box mt={16} w={`${width - Spaces['3xl']}px`}>
           <Input
             value={values.email}
             label={t('labels.email')}
@@ -82,17 +79,9 @@ export const SignIn: React.FC = () => {
         <Box w={`${width - Spaces['3xl']}px`}>
           <Button isLoading={isLoading} title={t('buttons.login').toUpperCase()} onPress={() => handleSubmit()} />
 
-          <Box mt={20}>
-            <Text mt={Spaces.md} fs={FontSizes.sm} ta="center" ff={FontFamily.PoppinsMedium}>{t('authorization.or-login-with-socials')}</Text>
-
-            <Socials />
-          </Box>
-
           <Policy />
         </Box>
-
       </Box>
-
     </KeyboardAwareView>
   );
 };

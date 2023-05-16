@@ -12,6 +12,7 @@ import { FirebaseUser } from 'api';
 import { Routes } from 'navigation';
 import { setUser } from 'stores/user';
 import dayjs from 'dayjs';
+import { useState } from 'react';
 import { useReferralCode } from './useReferralCode';
 import { useAnalytics } from './useAnalytics';
 
@@ -20,6 +21,8 @@ const { SIGN_UP_WITHOUT_REFERRAL_CODE, SIGN_UP_WITH_REFERRAL_CODE } = EventTypes
 export const useApple = () => {
   const { t } = useTranslation();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useTypedDispatch();
 
   const { onLogEvent } = useAnalytics();
@@ -27,6 +30,8 @@ export const useApple = () => {
   const { getReferralCode } = useReferralCode();
 
   const onAppleSignIn = async (referralCode = '') => {
+    setIsLoading(true);
+
     try {
       const appleAuthRequestResponse = await appleAuth.performRequest({
         requestedOperation: appleAuth.Operation.LOGIN,
@@ -118,10 +123,13 @@ export const useApple = () => {
 
         ToastService.onDanger({ title: message?.[1] || error?.message || t('errors.server-unable') });
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
   return {
     onAppleSignIn,
+    isLoading,
   };
 };

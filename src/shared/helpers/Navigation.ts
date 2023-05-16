@@ -8,6 +8,7 @@ export const screens = [
   Routes.OFFER_NAVIGATOR,
   Routes.VOUCHER_DETAILS,
   Routes.RAFFLE_DETAILS,
+  Routes.WELCOME,
 ];
 
 export const getStatusBar = (routeName: Routes) => screens.includes(routeName);

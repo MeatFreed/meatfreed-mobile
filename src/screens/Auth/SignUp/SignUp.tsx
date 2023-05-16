@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import {
-  Box, Colors, FontFamily, FontSizes, Spaces, Text,
-} from 'themes';
+import { Box, Colors, Spaces } from 'themes';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {
   Button,
-  Icon, Input, KeyboardAwareView, StatusBar,
+  Icon,
+  Input,
+  KeyboardAwareView,
+  StatusBar,
 } from 'ui';
 import { Dimensions } from 'react-native';
-import { Policy, Socials } from 'features';
+import { Policy } from 'features';
 import { useSignUp } from 'hooks';
 import { useRoute } from '@react-navigation/native';
 import { SignUpProp } from 'navigation';
@@ -67,11 +68,7 @@ export const SignUp: React.FC = () => {
       <StatusBar />
 
       <Box f={1} ai="center" bgc={Colors.basic_100}>
-        <Box m={[30, 0]}>
-          <Text fs={56} fnw="bold" ff={FontFamily.PoppinsBold} color={Colors.purple}>meatfreed</Text>
-        </Box>
-
-        <Box w={`${width - Spaces['3xl']}px`}>
+        <Box mt={16} w={`${width - Spaces['3xl']}px`}>
           <Input
             value={values.name}
             label={t('labels.name')}
@@ -146,16 +143,9 @@ export const SignUp: React.FC = () => {
         <Box w={`${width - Spaces['3xl']}px`}>
           <Button title={t('buttons.sign-up').toUpperCase()} isLoading={isLoading} onPress={() => handleSubmit()} />
 
-          <Box mt={20}>
-            <Text mt={Spaces.md} fs={FontSizes.sm} ta="center" ff={FontFamily.PoppinsMedium}>{t('authorization.or-login-with-socials')}</Text>
-
-            <Socials referralCode={params?.code} />
-          </Box>
-
           <Policy />
         </Box>
       </Box>
-
     </KeyboardAwareView>
   );
 };

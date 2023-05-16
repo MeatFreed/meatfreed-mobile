@@ -11,7 +11,7 @@ export const Colors = {
   watermelon: '#DE5B28',
   kaleGreen: '#113308',
   carateOrange: '#ECB657',
-  pachPink: '#FFAAB4',
+  pink: '#FFB5C0',
   raspbPink: '#FFF3F1',
   spanchGreen: '#17815F',
   darkers: '#003049',

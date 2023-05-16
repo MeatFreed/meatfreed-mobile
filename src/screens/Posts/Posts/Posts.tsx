@@ -2,7 +2,6 @@ import { useGetPosts } from 'hooks';
 import React, { useCallback, useState } from 'react';
 import { Box, Colors } from 'themes';
 import { Loader, StatusBar } from 'ui';
-import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   FlatList, NativeScrollEvent, NativeSyntheticEvent,
 } from 'react-native';
@@ -35,40 +34,39 @@ export const Posts: React.FC = () => {
   } = useGetPosts();
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: Colors.basic_150 }} edges={['top']}>
-      <Box f={1} bgc={Colors.basic_150}>
-        <StatusBar />
+    <Box f={1} bgc={Colors.basic_150}>
+      <StatusBar />
 
-        <FlatList
-          data={results}
-          onScroll={handleScroll}
-          showsVerticalScrollIndicator={false}
-          keyExtractor={(_, index: number) => index.toString()}
-          onRefresh={onRefresh}
-          onEndReachedThreshold={0.1}
-          initialNumToRender={3}
-          windowSize={3}
-          contentContainerStyle={{ paddingTop: 10, paddingBottom: 30, flexGrow: 1 }}
-          refreshing={isRefreshing}
-          onEndReached={onEndReached}
-          renderItem={({ item: post, index }) => (
-            <PostCard
-              isMuted={isMuted}
-              isAutoPlay={isFocused && focusedIndex === index}
-              post={post.content}
-              contentId={post.uuid}
-              onChangeVolume={() => setIsMuted(!isMuted)}
-            />
-          )}
-          ListEmptyComponent={isEmpty ? (
-            <EmptyState />
-          ) : (
-            <Box f={1} ai="center" jc="center">
-              <Loader color={Colors.primary_500} size="large" />
-            </Box>
-          )}
-        />
-      </Box>
-    </SafeAreaView>
+      <FlatList
+        data={results}
+        onScroll={handleScroll}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={(_, index: number) => index.toString()}
+        onRefresh={onRefresh}
+        onEndReachedThreshold={0.1}
+        initialNumToRender={3}
+        windowSize={3}
+        contentContainerStyle={{ flexGrow: 1 }}
+        refreshing={isRefreshing}
+        onEndReached={onEndReached}
+        renderItem={({ item: post, index }) => (
+          <PostCard
+            isMuted={isMuted}
+            isFirst={index === 0}
+            isAutoPlay={isFocused && focusedIndex === index}
+            post={post.content}
+            contentId={post.uuid}
+            onChangeVolume={() => setIsMuted(!isMuted)}
+          />
+        )}
+        ListEmptyComponent={isEmpty ? (
+          <EmptyState />
+        ) : (
+          <Box f={1} ai="center" jc="center">
+            <Loader color={Colors.primary_500} size="large" />
+          </Box>
+        )}
+      />
+    </Box>
   );
 };

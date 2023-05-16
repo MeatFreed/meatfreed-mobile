@@ -20,4 +20,8 @@ export const Images = {
   LogoMain: require('assets/images/logo.svg').default,
   BusinessMarker: require('assets/images/business-marker.png'),
   EmptyState: require('assets/images/empty-state.svg').default,
+  Email: require('assets/images/email.svg').default,
+  WelcomeBackground: require('assets/images/welcome-background.png'),
+  WelcomeInfo: require('assets/images/welcome-info.svg').default,
+  WelcomeLogo: require('assets/images/welcome-logo.svg').default,
 };

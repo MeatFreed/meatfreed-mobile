@@ -59,7 +59,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, o
         onEndReached={onEndReached}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={index ? { flexGrow: 1, paddingBottom: 16 } : undefined}
-        ListEmptyComponent={<EmptyState index={index} />}
+        ListEmptyComponent={<EmptyState />}
       />
     </SwipeablePanel>
   );

@@ -12,9 +12,7 @@ import { ActivityIndicator, StatusBar } from 'ui';
 import { useGetPostByUID } from 'hooks';
 import FastImage from 'react-native-fast-image';
 import { Emoji, ShareContent } from 'features';
-import { useTypedSelector } from 'stores';
 import Gradient from 'react-native-linear-gradient';
-import { userSelectors } from 'stores/user';
 
 const VIDEO_HEIGHT = 620;
 
@@ -44,8 +42,6 @@ export const PostDetails: React.FC = () => {
   const { params } = useRoute<PostDetailsProp>();
 
   const { post } = useGetPostByUID(params.contentId);
-
-  const userId = useTypedSelector(userSelectors.userId);
 
   if (!post) {
     return <ActivityIndicator isVisible />;
@@ -90,13 +86,11 @@ export const PostDetails: React.FC = () => {
           <Box ai="center" fd="row" p={[8, 12]}>
             <Emoji contentId={params.contentId} color={Colors.basic_600} />
 
-            {userId && (
-              <ShareContent
-                title={content.title}
-                contentId={params.contentId}
-                color={Colors.basic_600}
-              />
-            )}
+            <ShareContent
+              title={content.title}
+              contentId={params.contentId}
+              color={Colors.basic_600}
+            />
           </Box>
 
           <Box p={[16, 16, 0]}>

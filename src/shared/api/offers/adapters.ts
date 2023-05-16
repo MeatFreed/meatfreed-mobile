@@ -19,16 +19,3 @@ export const adaptAvailableOffers = (
 
   return filteredByAvailableDate as Offer[];
 };
-
-export const adaptClaimedOffers = (
-  userId: string,
-  collections: FirebaseFirestoreTypes.QuerySnapshot<FirebaseFirestoreTypes.DocumentData>[],
-) => {
-  const flatData = collections.flatMap((collection) => collection.docs);
-
-  const adaptOffers = flatData.map((doc) => doc.data()) as Offer[];
-
-  const filteredByUserId = adaptOffers.filter((offer) => offer?.userIds?.includes(userId));
-
-  return filteredByUserId as Offer[];
-};

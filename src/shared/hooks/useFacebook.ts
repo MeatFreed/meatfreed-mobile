@@ -16,6 +16,7 @@ import { Routes } from 'navigation';
 import { setUser } from 'stores/user';
 import { AnyType, EventTypes } from 'helpers';
 import dayjs from 'dayjs';
+import { useState } from 'react';
 import { useReferralCode } from './useReferralCode';
 import { useAnalytics } from './useAnalytics';
 
@@ -24,6 +25,8 @@ const { SIGN_UP_WITHOUT_REFERRAL_CODE, SIGN_UP_WITH_REFERRAL_CODE } = EventTypes
 export const useFacebook = () => {
   const { t } = useTranslation();
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const dispatch = useTypedDispatch();
 
   const { getReferralCode } = useReferralCode();
@@ -31,6 +34,8 @@ export const useFacebook = () => {
   const { onLogEvent } = useAnalytics();
 
   const onFacebookSignIn = async (referralCode = '') => {
+    setIsLoading(true);
+
     try {
       const result = await LoginManager.logInWithPermissions(['public_profile', 'email']);
 
@@ -120,6 +125,8 @@ export const useFacebook = () => {
 
         ToastService.onDanger({ title: message?.[1] || error?.message || t('errors.server-unable') });
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -145,5 +152,6 @@ export const useFacebook = () => {
   return {
     onFacebookSignIn,
     onFacebookLogout,
+    isLoading,
   };
 };

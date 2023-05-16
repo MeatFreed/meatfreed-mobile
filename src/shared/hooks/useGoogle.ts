@@ -11,6 +11,7 @@ import { FirebaseUser } from 'api';
 import { Routes } from 'navigation';
 import dayjs from 'dayjs';
 import { setUser } from 'stores/user';
+import { useState } from 'react';
 import { useAnalytics } from './useAnalytics';
 import { useReferralCode } from './useReferralCode';
 
@@ -20,6 +21,8 @@ export const useGoogle = () => {
   const { t } = useTranslation();
 
   const dispatch = useTypedDispatch();
+
+  const [isLoading, setIsLoading] = useState(false);
 
   const { onLogEvent } = useAnalytics();
 
@@ -40,6 +43,8 @@ export const useGoogle = () => {
   };
 
   const onGoogleSignIn = async (referralCode = '') => {
+    setIsLoading(true);
+
     try {
       if (!isIOS) {
         await GoogleSignin.hasPlayServices();
@@ -123,6 +128,8 @@ export const useGoogle = () => {
 
         ToastService.onDanger({ title: message || t('errors.server-unable') });
       }
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -139,5 +146,6 @@ export const useGoogle = () => {
     configure,
     onGoogleSignIn,
     onGoogleLogout,
+    isLoading,
   };
 };

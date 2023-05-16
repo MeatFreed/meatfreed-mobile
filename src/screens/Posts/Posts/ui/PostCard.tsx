@@ -5,11 +5,10 @@ import styled from 'styled-components/native';
 import Video from 'react-native-video';
 import { Box, Colors, Images } from 'themes';
 import FastImage from 'react-native-fast-image';
-import { useTypedSelector } from 'stores';
-import { userSelectors } from 'stores/user';
 import Gradient from 'react-native-linear-gradient';
 import { Emoji, ShareContent } from 'features';
 import { Icon, Loader } from 'ui';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Description } from './Description';
 
 interface PostCardProps {
@@ -18,6 +17,7 @@ interface PostCardProps {
   post: PostContent;
   isMuted: boolean;
   onChangeVolume: () => void;
+  isFirst: boolean;
 }
 
 const StyledVideo = styled(Video as AnyType)`
@@ -64,7 +64,7 @@ const StyledVolume = styled.TouchableOpacity`
   border-radius: 12px;
   align-items: center;
   justify-content: center;
-  background-color: ${Colors.basic_transparent_32}
+  background-color: ${Colors.basic_transparent_32};
 `;
 
 const StyledWrapper = styled(Box)`
@@ -78,19 +78,21 @@ const StyledWrapper = styled(Box)`
 `;
 
 export const PostCard: React.FC<PostCardProps> = ({
-  post, contentId, isAutoPlay, isMuted, onChangeVolume,
+  post, contentId, isAutoPlay, isMuted, onChangeVolume, isFirst,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
   const { assets, description, title } = post;
 
   const [isShowFullDescription, setIsShowFullDescription] = useState(false);
 
-  const userId = useTypedSelector(userSelectors.userId);
-
   const isVideo = isImage(assets?.[0]?.filename);
 
+  const safe = useSafeAreaInsets();
+
+  const marginTop = (safe.top || 10) + 8;
+
   return (
-    <Box m={[8, 20]} h="620px" bgc={Colors.basic_100} br="10px" bw="1px" bc={Colors.basic_500}>
+    <Box m={[isFirst ? marginTop : 8, 20, 8]} h="620px" bgc={Colors.basic_100} br="10px" bw="1px" bc={Colors.basic_500}>
       {isLoading && (
         <StyledWrapper>
           <Loader size="large" color={Colors.purple} />
@@ -156,9 +158,7 @@ export const PostCard: React.FC<PostCardProps> = ({
         <Box z={2} ai="center" fd="row" p={[8, 12]}>
           <Emoji contentId={contentId} />
 
-          {userId && (
-            <ShareContent title={title} contentId={contentId} />
-          )}
+          <ShareContent title={title} contentId={contentId} />
         </Box>
 
         {!isLoading && (

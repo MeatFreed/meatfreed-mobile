@@ -6,6 +6,7 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native';
+import Config from 'react-native-config';
 import FastImage from 'react-native-fast-image';
 import Video from 'react-native-video';
 import styled from 'styled-components/native';
@@ -39,7 +40,9 @@ export const OfferCard: React.FC<OfferCardProps> = ({ offer, onPress }) => {
     assets, offer_type, end_date, title,
   } = offer.content;
 
-  const source = assets?.[0].filename;
+  const { photos } = offer.placeDetails;
+
+  const source = assets?.[0]?.filename || `https://maps.googleapis.com/maps/api/place/photo?photo_reference=${photos?.[0].photo_reference}&maxwidth=500&key=${Config.GOOGLE_API_KEY}`;
 
   const isVideo = !isImage(source);
 

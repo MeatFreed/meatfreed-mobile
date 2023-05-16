@@ -7,7 +7,7 @@ import { useWindowDimensions } from '@lumitech/mobile-hooks';
 import { Box, Colors } from 'themes';
 import Config from 'react-native-config';
 import { useTypedDispatch } from 'stores';
-import { setCurrentLocation } from 'stores/place';
+import { setSelectLocation } from 'stores/place';
 import { useAnalytics } from 'hooks';
 import { Icon } from 'ui';
 
@@ -75,12 +75,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
     onLogEvent(EventTypes.LOCATION_SEARCHED, { name: data.description });
 
-    dispatch(setCurrentLocation({
-      coords: {
-        latitude: detail?.geometry?.location?.lat,
-        longitude: detail?.geometry?.location?.lng,
-      } as AnyType,
-      timestamp: 0,
+    dispatch(setSelectLocation({
+      latitude: detail?.geometry?.location?.lat || 0,
+      longitude: detail?.geometry?.location?.lng || 0,
     }));
   };
 
@@ -108,6 +105,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             onChangeText: (value: string) => setSearchQuery(value),
           }}
           onPress={onSelectLocation}
+          renderRightButton={() => null}
           styles={{
             textInputContainer: {
               height: 48,
@@ -139,9 +137,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         />
 
         {!!searchQuery && (
-        <CloseIcon {...touchableConfig} onPress={onReset}>
-          <Icon name="close" size={24} color={Colors.basic_700} />
-        </CloseIcon>
+          <CloseIcon {...touchableConfig} onPress={onReset}>
+            <Icon name="close" size={24} color={Colors.basic_700} />
+          </CloseIcon>
         )}
       </Box>
     </StyledLayout>
