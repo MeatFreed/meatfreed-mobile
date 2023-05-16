@@ -6,7 +6,7 @@ import { placeSelectors } from 'stores/place';
 import { Restaurant, adaptRestaurants } from 'api';
 import sortBy from 'lodash.sortby';
 
-const restaurantCollection = firestore().collection('restaurants');
+const restaurantCollection = firestore().collection('companies_storyblock');
 
 export const useGetRestaurants = () => {
   const [offset, setOffset] = useState(5);
@@ -45,8 +45,6 @@ export const useGetRestaurants = () => {
 
   const getRestaurants = async (limit = 5) => {
     setIsLoading(true);
-
-    console.log('!');
 
     try {
       const requestArray = bounds.map((bound) => restaurantCollection

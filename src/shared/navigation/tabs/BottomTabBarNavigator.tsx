@@ -4,25 +4,25 @@ import i18n from 'i18next';
 import { useTypedSelector } from 'stores';
 import { userSelectors } from 'stores/user';
 import { Images } from 'themes';
-import { Routes } from './Routes';
-import { HomeNavigator } from './HomeNavigator';
-import { OfferNavigator } from './OfferNavigator';
-import { PostsNavigator } from './PostsNavigator';
-import { tabBarOptions } from './NavigationOptions';
-import { ProfileNavigator } from './ProfileNavigator';
+import { Routes } from '../Routes';
+import { HomeNavigator } from '../HomeNavigator';
+import { OffersNavigator } from '../OffersNavigator';
+import { PostsNavigator } from '../PostsNavigator';
+import { tabBarOptions } from '../NavigationOptions';
+import { ProfileNavigator } from '../ProfileNavigator';
 
 const Tab = createBottomTabNavigator();
 
 const titles: { [key: string]: string } = {
   [Routes.HOME_NAVIGATOR]: i18n.t('screens.membership'),
-  [Routes.OFFER_NAVIGATOR]: i18n.t('screens.offers'),
+  [Routes.OFFERS_NAVIGATOR]: i18n.t('screens.offers'),
   [Routes.POSTS_NAVIGATOR]: i18n.t('screens.posts'),
   [Routes.PROFILE_NAVIGATOR]: i18n.t('screens.profile'),
 };
 
 const tabs: { [key: string]: string } = {
   [Routes.HOME_NAVIGATOR]: i18n.t('tabs.search'),
-  [Routes.OFFER_NAVIGATOR]: i18n.t('tabs.offers'),
+  [Routes.OFFERS_NAVIGATOR]: i18n.t('tabs.offers'),
   [Routes.POSTS_NAVIGATOR]: i18n.t('tabs.posts'),
   [Routes.PROFILE_NAVIGATOR]: i18n.t('tabs.profile'),
 };
@@ -32,7 +32,7 @@ export const BottomTabBarNavigator: React.FC = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={Routes.HOME_NAVIGATOR}
+      initialRouteName={Routes.OFFERS_NAVIGATOR}
       screenOptions={({ route }) => ({
         ...tabBarOptions,
         tabBarLabel: tabs[route.name],
@@ -48,11 +48,11 @@ export const BottomTabBarNavigator: React.FC = () => {
       />
 
       <Tab.Screen
-        name={Routes.OFFER_NAVIGATOR}
+        name={Routes.OFFERS_NAVIGATOR}
         options={{
           tabBarIcon: ({ color }) => <Images.Offers color={color} />,
         }}
-        component={OfferNavigator}
+        component={OffersNavigator}
       />
 
       <Tab.Screen

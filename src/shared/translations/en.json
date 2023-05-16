@@ -9,7 +9,9 @@
     "register": "Register",
     "my-referral": "My Referrals",
     "profile": "Profile",
-    "settings": "Settings"
+    "settings": "Settings",
+    "all-offers": "Available",
+    "claimed-offers": "Redeemed"
   },
   "tabs": {
     "search": "Home",
@@ -77,7 +79,11 @@
     "more": "more",
     "less": "less",
     "directions": "Directions",
-    "call": "Call"
+    "call": "Call",
+    "enter-competition": "Enter competition",
+    "competition-entered": "Competition entered",
+    "claim-offer": "Claim offer",
+    "offer-claimed": "Offer claimed"
   },
   "search": {
     "directions": "Directions",
@@ -89,7 +95,17 @@
     "status": "Status: {{tier}}",
     "valid": "Valid until: {{expires}}",
     "empty-state": "No available offers",
-    "description": "View your personalised offers from us \nand our partner restaurants 🙌"
+    "description": "View your personalised offers from us \nand our partner restaurants 🙌",
+    "can-redeemed-once": "Can only be redeemed once",
+    "draw-closes-in": "Draw closes: {{date}}",
+    "draw-closes": "Draw closes...",
+    "about-offer": "About this offer",
+    "show-code": "show unique code at checkout",
+    "total-entries": "{{totalEntries}} ENTRIES",
+    "days": "days",
+    "hrs": "hrs",
+    "mins": "mins",
+    "secs": "secs"
   },
   "posts": {
     "post-link": "Post link",

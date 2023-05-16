@@ -7,6 +7,7 @@ import { MapStyles } from 'themes';
 import { Restaurant } from 'api';
 import { useGetPositionActions, useGetRestaurantActions } from 'hooks';
 import { AnyType, defaultLocation } from 'helpers';
+import { MapService } from 'services';
 import { RestaurantMarker } from './RestaurantMarker';
 
 interface MapProps {
@@ -49,6 +50,7 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
 
   return (
     <MapView
+      ref={MapService.mapRef}
       userInterfaceStyle="light"
       showsUserLocation
       showsMyLocationButton={false}
@@ -62,10 +64,10 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
     >
       {restaurants.map((restaurant, index) => (
         <RestaurantMarker
-          key={restaurant.uid}
+          key={restaurant.uuid}
           zIndex={index + 1}
           restaurant={restaurant}
-          onPress={() => onRestaurantDetails(restaurant.place_id)}
+          onPress={() => onRestaurantDetails(restaurant.uuid)}
         />
       ))}
     </MapView>

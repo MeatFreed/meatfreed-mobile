@@ -1,4 +1,4 @@
-import { AnyType, touchableConfig } from 'helpers';
+import { AnyType, EventTypes, touchableConfig } from 'helpers';
 import React, { useRef, useState } from 'react';
 import { TextInputProps } from 'react-native';
 import styled from 'styled-components/native';
@@ -73,7 +73,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
   const onSelectLocation = (data: GooglePlaceData, detail: GooglePlaceDetail | null) => {
     setSearchQuery(data.description);
 
-    onLogEvent('location_searched', { name: data.description });
+    onLogEvent(EventTypes.LOCATION_SEARCHED, { name: data.description });
 
     dispatch(setCurrentLocation({
       coords: {

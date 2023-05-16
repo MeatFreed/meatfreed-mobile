@@ -5,7 +5,7 @@ import { usePostHog } from 'posthog-react-native';
 import { RouteService } from 'services';
 import debounce from 'lodash.debounce';
 import isEqual from 'lodash.isequal';
-import { AnyType, isDev } from 'helpers';
+import { AnyType, EventTypes, isDev } from 'helpers';
 
 export const useAnalytics = () => {
   const postHog = usePostHog();
@@ -33,7 +33,7 @@ export const useAnalytics = () => {
     }
   }, 1000);
 
-  const onLogEvent = (event: string, params: AnyType = {}) => {
+  const onLogEvent = (event: EventTypes, params: AnyType = {}) => {
     if (isDev) {
       return;
     }

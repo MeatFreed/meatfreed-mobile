@@ -19,12 +19,12 @@ interface RestaurantCardProps {
 }
 
 const StyledButton = styled.TouchableOpacity`
-  margin-bottom: 10px;
+  margin: 0px 16px 10px;
 `;
 
 const StyledImage = styled(FastImage as AnyType)`
-  width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
 `;
@@ -35,9 +35,11 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const currentLocation = useTypedSelector(placeSelectors.currentLocation);
+  const { content } = restaurant;
 
-  const { data: details } = useGetRestaurantByIDQuery(restaurant.place_id);
+  const { data: details } = useGetRestaurantByIDQuery(restaurant?.placeDetails?.place_id);
+
+  const currentLocation = useTypedSelector(placeSelectors.currentLocation);
 
   const hours = getHours(details?.opening_hours);
 
@@ -55,15 +57,17 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
   return (
     <StyledButton {...touchableConfig} onPress={onPress}>
       <Box fd="row" br="10px" ai="center" bw="1px" bc={Colors.basic_400} bgc={Colors.basic_100}>
-        <StyledImage
-          source={{
-            uri: `https://meatfreeds3.s3.eu-west-2.amazonaws.com/restaurant+logos/${restaurant.place_id}.png`,
-          }}
-          resizeMode="stretch"
-        />
+        <Box w="100px" h="100px">
+          <StyledImage
+            source={{
+              uri: `https://meatfreeds3.s3.eu-west-2.amazonaws.com/restaurant+logos/${content.google_place_id}.png`,
+            }}
+            resizeMode="contain"
+          />
+        </Box>
 
         <Box f={1} p={[16, 12]}>
-          <Text fnw="500" ff={FontFamily.PoppinsSemiMedium}>{details?.name}</Text>
+          <Text fnw="500" ff={FontFamily.PoppinsSemiMedium}>{content?.title}</Text>
 
           <Box m={[4, 0]} fd="row" ai="center">
             <Icon name="star" size={16} color={Colors.warning_600} />

@@ -9,6 +9,7 @@ import { Icon } from 'ui';
 interface ActionProps {
   iconName: string;
   label: string;
+  isPrimaryColor?: boolean;
   onPress?: () => void;
 }
 
@@ -16,13 +17,18 @@ const StyledButton = styled.TouchableOpacity`
   padding: 16px 16px 0px;
 `;
 
-export const Action: React.FC<ActionProps> = ({ label, onPress, iconName }) => (
+export const Action: React.FC<ActionProps> = ({
+  label,
+  onPress,
+  iconName,
+  isPrimaryColor = false,
+}) => (
   <StyledButton {...touchableConfig} onPress={onPress}>
     <Box fd="row" ai="center">
       <Icon name={iconName} size={20} color={Colors.primary_500} />
 
       <Box f={1}>
-        <Text m={[0, 12]} fnw="500" ff={FontFamily.PoppinsMedium} color={Colors.basic_800}>{label}</Text>
+        <Text ml={12} fnw="500" ff={FontFamily.PoppinsMedium} color={isPrimaryColor ? Colors.primary_500 : Colors.basic_800}>{label}</Text>
       </Box>
     </Box>
 

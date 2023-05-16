@@ -18,6 +18,7 @@ export interface RestaurantInformation {
   rating: number;
   user_ratings_total: number;
   icon_background_color: string;
+  place_id: string;
   current_opening_hours: {
     open_now: boolean;
   }

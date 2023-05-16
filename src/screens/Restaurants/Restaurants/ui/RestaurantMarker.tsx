@@ -20,11 +20,12 @@ export const RestaurantMarker: React.FC<RestaurantMarkerProps> = ({
   onPress,
   zIndex,
 }) => {
+  const { placeDetails: details } = restaurant;
   const [tracksViewChanges, setTracksViewChanges] = useState(true);
 
   const coordinate = {
-    latitude: restaurant?.location?.latitude || restaurant?.geolocation?.latitude,
-    longitude: restaurant?.location?.longitude || restaurant?.geolocation?.longitude,
+    latitude: details.geometry.location.lat,
+    longitude: details.geometry.location.lng,
   } as LatLng;
 
   return (

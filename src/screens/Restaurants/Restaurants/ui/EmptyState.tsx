@@ -20,7 +20,7 @@ export const EmptyState: React.FC<EmptyStateProps> = ({ index }) => {
 
   return (
     <Box f={1} ai="center" jc="center">
-      <Images.EmptyState width={size} height={size} />
+      <Images.EmptyState width={size} height={size} color={Colors.basic_100} />
 
       <Text mt={10} color={Colors.primary_500} fnw="500" ff={FontFamily.PoppinsMedium} ta="center">{t('home.empty-state-title')}</Text>
 

@@ -18,8 +18,8 @@ export const adaptRestaurants = (
         longitude: Number(location?.longitude || 0),
       },
       {
-        latitude: Number(data?.location?.latitude),
-        longitude: Number(data?.location?.longitude),
+        latitude: Number(data?.placeDetails.geometry?.location?.lat),
+        longitude: Number(data?.placeDetails.geometry?.location?.lng),
       },
     );
 
