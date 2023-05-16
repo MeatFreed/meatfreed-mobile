@@ -13,13 +13,15 @@ import { useAnalytics } from './useAnalytics';
 
 interface OfferDetails {
   offerId: string;
-  offerType: OfferType;
+  offerType?: OfferType;
   businessId?: string;
   offerCode?: string;
   userIds?: string[]
 }
 
-const { VIEW_VOUCHER_DETAILS, VIEW_RAFFLE_DETAILS, CLAIMED_OFFER } = EventTypes;
+const {
+  VIEW_VOUCHER_DETAILS, VIEW_RAFFLE_DETAILS, CLAIMED_OFFER, ENTER_COMPETITION,
+} = EventTypes;
 
 export const useGetOffersActions = () => {
   const { t } = useTranslation();
@@ -88,9 +90,42 @@ export const useGetOffersActions = () => {
     }
   };
 
+  const onEnterOffer = async ({
+    businessId, offerId, userIds = [],
+  }: OfferDetails) => {
+    setIsLoading(true);
+
+    try {
+      await firestore().collection('user_offers').add({
+        offerCode: '',
+        offerId,
+        userId,
+        createdAt: dayjs().valueOf(),
+        status: OfferStatus.PENDING,
+      });
+
+      await firestore().collection('offers_storyblock').doc(offerId).update({
+        userIds: [...new Set([...userIds, userId])],
+      });
+
+      onLogEvent(ENTER_COMPETITION, {
+        offerId,
+        userId,
+        businessId,
+        event: ENTER_COMPETITION,
+        createdAt: dayjs().valueOf(),
+      });
+    } catch (error: AnyType) {
+      ToastService.onDanger({ title: error?.message || t('errors.server-unable') });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return {
     onOfferDetails,
     onClaimedOffer,
+    onEnterOffer,
     isLoading,
   };
 };

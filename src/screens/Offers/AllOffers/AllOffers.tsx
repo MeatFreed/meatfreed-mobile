@@ -31,9 +31,9 @@ export const AllOffers: React.FC = () => {
           <OfferCard
             offer={offer}
             onPress={() => onOfferDetails({
-              offerId: offer.uuid,
-              businessId: offer.content.business,
-              offerType: offer.content.offer_type,
+              offerId: offer?.uuid,
+              businessId: offer?.content?.business,
+              offerType: offer?.content?.offer_type,
             })}
           />
         )}

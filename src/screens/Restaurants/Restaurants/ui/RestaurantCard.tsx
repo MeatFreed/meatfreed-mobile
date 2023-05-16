@@ -19,7 +19,7 @@ interface RestaurantCardProps {
 }
 
 const StyledButton = styled.TouchableOpacity`
-  margin-bottom: 10px;
+  margin: 0px 16px 10px;
 `;
 
 const StyledImage = styled(FastImage as AnyType)`
@@ -67,7 +67,7 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
         </Box>
 
         <Box f={1} p={[16, 12]}>
-          <Text fnw="500" ff={FontFamily.PoppinsSemiMedium}>{details?.name}</Text>
+          <Text fnw="500" ff={FontFamily.PoppinsSemiMedium}>{content?.title}</Text>
 
           <Box m={[4, 0]} fd="row" ai="center">
             <Icon name="star" size={16} color={Colors.warning_600} />

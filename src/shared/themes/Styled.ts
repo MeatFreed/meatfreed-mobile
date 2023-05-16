@@ -64,5 +64,5 @@ export const HorizontalDivider = styled.View<{ withoutSpace?: boolean, color?: s
   width: 100%;
   height: 1px;
   background-color: ${({ color }) => color || Colors.basic_300};
-  margin-vertical: ${({ withoutSpace }) => (withoutSpace ? '0px' : '12px')};
+  margin: ${({ withoutSpace }) => (withoutSpace ? '0px' : '12px 0px')};
 `;

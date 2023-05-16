@@ -98,8 +98,14 @@
     "description": "View your personalised offers from us \nand our partner restaurants 🙌",
     "can-redeemed-once": "Can only be redeemed once",
     "draw-closes-in": "Draw closes: {{date}}",
+    "draw-closes": "Draw closes...",
     "about-offer": "About this offer",
-    "show-code": "show unique code at checkout"
+    "show-code": "show unique code at checkout",
+    "total-entries": "{{totalEntries}} ENTRIES",
+    "days": "days",
+    "hrs": "hrs",
+    "mins": "mins",
+    "secs": "secs"
   },
   "posts": {
     "post-link": "Post link",

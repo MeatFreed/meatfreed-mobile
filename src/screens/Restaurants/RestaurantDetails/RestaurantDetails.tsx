@@ -6,11 +6,11 @@ import {
 } from 'ui';
 import { Linking, ScrollView } from 'react-native';
 import { Colors } from 'themes';
-import { isIOS, noop } from 'helpers';
+import { isIOS } from 'helpers';
 import { useGetRestaurantActions, useGetRestaurantByUID } from 'hooks';
 import { useGetRestaurantByIDQuery } from 'api';
 import {
-  Action, Details, Navigation, OpeningHours,
+  Action, Details, Navigation, Offer, OpeningHours,
 } from './ui';
 
 export const RestaurantDetails: React.FC = () => {
@@ -28,18 +28,6 @@ export const RestaurantDetails: React.FC = () => {
     return <ActivityIndicator isVisible />;
   }
 
-  const { content } = restaurant;
-
-  const photos = details?.photos?.map((photo) => photo.photo_reference);
-
-  const assets = content?.assets?.map((asset) => asset.filename);
-
-  const onOpenWebsite = () => {
-    onRestaurantWebsite(contentId);
-
-    Linking.openURL(details?.website);
-  };
-
   const onOpen = () => {
     if (!details) {
       return;
@@ -52,6 +40,18 @@ export const RestaurantDetails: React.FC = () => {
     }
 
     Linking.openURL(`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(details?.name)}&destination_place_id=${contentId}`);
+  };
+
+  const { content } = restaurant;
+
+  const photos = details?.photos?.map((photo) => photo.photo_reference);
+
+  const assets = content?.assets?.map((asset) => asset.filename);
+
+  const onOpenWebsite = () => {
+    onRestaurantWebsite(contentId);
+
+    Linking.openURL(details?.website);
   };
 
   return (
@@ -75,7 +75,7 @@ export const RestaurantDetails: React.FC = () => {
         />
 
         {!!content.main_offer && !!content.offer_title && (
-          <Action iconName="fire-work" label={content.offer_title} isPrimaryColor onPress={noop} />
+          <Offer iconName="fire-work" label={content.offer_title} isPrimaryColor offerId={content.main_offer} />
         )}
 
         {!!details?.formatted_address && (

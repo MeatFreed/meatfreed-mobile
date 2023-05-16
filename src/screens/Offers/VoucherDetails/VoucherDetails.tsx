@@ -1,9 +1,7 @@
 /* eslint-disable camelcase */
 import { useRoute } from '@react-navigation/native';
-import { OfferStatus, useGetRestaurantByIDQuery } from 'api';
-import dayjs from 'dayjs';
 import {
-  OfferDescription, OfferNavigation, OfferTitle, VoucherCode,
+  OfferDescription, OfferNavigation, VoucherTitle, VoucherCode,
 } from 'features';
 import { useGetOfferByUID, useGetOffersActions, useGetVoucherCode } from 'hooks';
 import { OfferDetailsProp } from 'navigation';
@@ -20,31 +18,25 @@ export const VoucherDetails: React.FC = () => {
 
   const { params } = useRoute<OfferDetailsProp>();
 
-  const contentId = params?.contentId || '9192fc7b-316c-46b6-a0cf-078b4dbc7da6';
+  const contentId = params?.contentId || '';
 
-  const { offer, userOffer } = useGetOfferByUID(contentId);
-
-  const { data: details } = useGetRestaurantByIDQuery(offer?.placeDetails?.place_id);
+  const {
+    offer,
+    userOffer,
+    isAllowVoucherClaimed,
+    isClaimedOffer,
+    photos,
+    images,
+    hasData,
+  } = useGetOfferByUID(contentId);
 
   const { offerCode } = useGetVoucherCode(offer?.content?.voucher_code?.[0]);
 
   const { onClaimedOffer, isLoading } = useGetOffersActions();
 
-  if (!offer || !details) {
+  if (!hasData) {
     return <ActivityIndicator isVisible />;
   }
-
-  const {
-    assets, title, end_date, offer_type, description, business,
-  } = offer.content;
-
-  const photos = details?.photos?.map((photo) => photo.photo_reference);
-
-  const images = assets?.map((asset) => asset.filename);
-
-  const isClaimedOffer = userOffer?.status === OfferStatus.CLAIMED;
-
-  const isBefore = dayjs().isBefore(end_date, 'm');
 
   return (
     <>
@@ -57,11 +49,11 @@ export const VoucherDetails: React.FC = () => {
         contentContainerStyle={{ flexGrow: 1, paddingBottom: 150 }}
         showsVerticalScrollIndicator={false}
       >
-        <Carousel photos={photos} assets={images} hasAssets={!!assets?.length} />
+        <Carousel photos={photos} assets={images} hasAssets={!!images?.length} />
 
-        <OfferTitle endDate={end_date} type={offer_type} title={title} />
+        <VoucherTitle title={offer?.content?.title} />
 
-        {isClaimedOffer && !!userOffer.voucherCode && (
+        {isClaimedOffer && !!userOffer?.voucherCode && (
           <VoucherCode code={userOffer.voucherCode} />
         )}
 
@@ -69,20 +61,20 @@ export const VoucherDetails: React.FC = () => {
           <HorizontalDivider />
         </Box>
 
-        {!!description && (
-          <OfferDescription description={description} />
+        {!!offer?.content?.description && (
+          <OfferDescription description={offer?.content?.description} />
         )}
       </ScrollView>
 
-      {isBefore && (
+      {isAllowVoucherClaimed && (
         <OfferNavigation
           title={isClaimedOffer ? t('buttons.offer-claimed') : t('buttons.claim-offer')}
           isLoading={isLoading}
           isDisabled={isClaimedOffer}
           onPress={() => onClaimedOffer({
             offerId: contentId,
-            businessId: business,
-            offerType: offer_type,
+            businessId: offer?.content?.business,
+            offerType: offer?.content?.offer_type,
             offerCode,
             userIds: offer?.userIds,
           })}

@@ -1,16 +1,18 @@
 /* eslint-disable camelcase */
 import { useRoute } from '@react-navigation/native';
-import { useGetRestaurantByIDQuery } from 'api';
-import { OfferDescription, OfferNavigation, OfferTitle } from 'features';
-import { useGetOfferByUID } from 'hooks';
+import {
+  OfferDescription, OfferNavigation, RaffleTitle, VoucherCode,
+} from 'features';
+import { useGetOfferByUID, useGetOffersActions, useGetVoucherCode } from 'hooks';
 import { OfferDetailsProp } from 'navigation';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native';
-import { Colors } from 'themes';
+import { Box, Colors, HorizontalDivider } from 'themes';
 import {
   ActivityIndicator, Carousel, StatusBar, TopGradient,
 } from 'ui';
+import { Timer } from './ui';
 
 export const RaffleDetails: React.FC = () => {
   const { t } = useTranslation();
@@ -19,21 +21,26 @@ export const RaffleDetails: React.FC = () => {
 
   const contentId = params?.contentId || '';
 
-  const { offer } = useGetOfferByUID(contentId);
+  const {
+    offer,
+    userOffer,
+    isAllowRaffleClaimed,
+    isAllowRaffleEntry,
+    isClaimedOffer,
+    photos,
+    images,
+    hasData,
+    isPendingOffer,
+    totalEntries,
+  } = useGetOfferByUID(contentId);
 
-  const { data: details } = useGetRestaurantByIDQuery(offer?.placeDetails?.place_id);
+  const { offerCode } = useGetVoucherCode(offer?.content?.voucher_code?.[0]);
 
-  if (!offer || !details) {
+  const { onClaimedOffer, isLoading, onEnterOffer } = useGetOffersActions();
+
+  if (!hasData) {
     return <ActivityIndicator isVisible />;
   }
-
-  const {
-    assets, title, end_date, offer_type, description,
-  } = offer.content;
-
-  const photos = details?.photos?.map((photo) => photo.photo_reference);
-
-  const images = assets?.map((asset) => asset.filename);
 
   return (
     <>
@@ -46,16 +53,59 @@ export const RaffleDetails: React.FC = () => {
         contentContainerStyle={{ flexGrow: 1, paddingBottom: 150 }}
         showsVerticalScrollIndicator={false}
       >
-        <Carousel photos={photos} assets={images} hasAssets={!!assets?.length} />
+        <Carousel photos={photos} assets={images} hasAssets={!!images?.length} />
 
-        <OfferTitle endDate={end_date} type={offer_type} title={title} />
+        <RaffleTitle
+          title={offer?.content?.title}
+          totalEntries={totalEntries}
+        />
 
-        {!!description && (
-          <OfferDescription description={description} />
+        {!isClaimedOffer && offer?.content?.end_date && (
+          <Timer endDate={offer?.content?.end_date} />
+        )}
+
+        {isClaimedOffer && !!userOffer?.voucherCode && (
+          <VoucherCode code={userOffer.voucherCode} />
+        )}
+
+        <Box m={[0, 16]}>
+          <HorizontalDivider />
+        </Box>
+
+        {!!offer?.content?.description && (
+          <OfferDescription description={offer?.content?.description} />
         )}
       </ScrollView>
 
-      <OfferNavigation title={t('buttons.enter-competition')} />
+      {isAllowRaffleEntry && (
+        <OfferNavigation
+          isLoading={isLoading}
+          isDisabled={isPendingOffer}
+          onPress={() => onEnterOffer({
+            offerId: contentId,
+            businessId: offer?.content?.business,
+            offerType: offer?.content?.offer_type,
+            offerCode,
+            userIds: offer?.userIds,
+          })}
+          title={isPendingOffer ? t('buttons.competition-entered') : t('buttons.enter-competition')}
+        />
+      )}
+
+      {isAllowRaffleClaimed && (
+        <OfferNavigation
+          title={isClaimedOffer ? t('buttons.offer-claimed') : t('buttons.claim-offer')}
+          isLoading={isLoading}
+          isDisabled={isClaimedOffer}
+          onPress={() => onClaimedOffer({
+            offerId: contentId,
+            businessId: offer?.content?.business,
+            offerType: offer?.content?.offer_type,
+            offerCode,
+            userIds: offer?.userIds,
+          })}
+        />
+      )}
     </>
   );
 };

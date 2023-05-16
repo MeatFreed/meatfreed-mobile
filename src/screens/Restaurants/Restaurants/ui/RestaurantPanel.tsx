@@ -37,10 +37,11 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, o
     <SwipeablePanel
       snapPoints={snapPoints}
       onChange={onChange}
+      hasPaddingHorizontal={false}
       enableContentPanningGesture={!!restaurants?.length}
       index={0}
     >
-      <Text mb={16} fs={18} fnw="700" ff={FontFamily.PoppinsMedium}>{t('home.close-to-you')}</Text>
+      <Text m={[0, 16, 16]} fs={18} fnw="700" ff={FontFamily.PoppinsMedium}>{t('home.close-to-you')}</Text>
 
       <BottomSheetFlatList
         ref={scrollViewRef}
@@ -57,7 +58,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, o
         windowSize={8}
         onEndReached={onEndReached}
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={index ? { flexGrow: 1 } : undefined}
+        contentContainerStyle={index ? { flexGrow: 1, paddingBottom: 16 } : undefined}
         ListEmptyComponent={<EmptyState index={index} />}
       />
     </SwipeablePanel>

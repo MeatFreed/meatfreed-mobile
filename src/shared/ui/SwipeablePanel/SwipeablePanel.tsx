@@ -9,6 +9,7 @@ import { Box, Colors } from 'themes';
 
 interface SwipeablePanelProps extends BottomSheetProps {
   isShowHandleIndicator?: boolean;
+  hasPaddingHorizontal?: boolean;
 }
 
 const styles = StyleSheet.create({
@@ -18,7 +19,7 @@ const styles = StyleSheet.create({
 });
 
 export const SwipeablePanel = React.forwardRef<BottomSheetMethods, SwipeablePanelProps>(
-  ({ children, ...rest }, ref) => {
+  ({ children, hasPaddingHorizontal = true, ...rest }, ref) => {
     const { top: topSafeArea } = useSafeAreaInsets();
 
     const renderBackdrop = useCallback(
@@ -37,7 +38,7 @@ export const SwipeablePanel = React.forwardRef<BottomSheetMethods, SwipeablePane
           backdropComponent={renderBackdrop}
           animateOnMount={isIOS}
         >
-          <Box f={1} p={[0, 16, 30]}>{children}</Box>
+          <Box f={1} p={[0, hasPaddingHorizontal ? 16 : 0, 0]}>{children}</Box>
         </BottomSheet>
       </Portal>
     );

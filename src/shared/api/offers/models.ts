@@ -12,8 +12,8 @@ export enum OfferType {
 }
 
 export enum OfferStatus {
-  PENDING = 'pending',
-  WON = 'won',
+  PENDING = 'PENDING',
+  WON = 'WON',
   CLAIMED = 'CLAIMED'
 }
 
@@ -36,6 +36,7 @@ export interface OfferContent {
   voucher_code: AnyType;
   business: string;
   google_place_id?: string;
+  status: OfferStatus;
 }
 
 export interface Offer {
