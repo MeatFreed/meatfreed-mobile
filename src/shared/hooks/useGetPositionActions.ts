@@ -17,7 +17,11 @@ export const useGetPositionActions = () => {
   const onShowMyLocation = () => {
     Geolocation.getCurrentPosition(
       (position) => {
-        dispatch(setSelectLocation(null));
+        dispatch(setSelectLocation({
+          latitude: position.coords.latitude || location?.latitude || 0,
+          longitude: position.coords.longitude || location?.longitude || 0,
+        }));
+
         dispatch(setCurrentLocation(position));
 
         MapService.animateToRegion({

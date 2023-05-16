@@ -25,6 +25,9 @@ export interface StyledProps {
   /** margin-top */
   mt?: number;
 
+  /** line-height */
+  lh?: number;
+
   /** margin-bottom */
   mb?: number;
 

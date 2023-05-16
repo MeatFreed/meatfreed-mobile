@@ -9,8 +9,8 @@ const initialState: PlaceReducer = {
   location: null,
   selectLocation: null,
   delta: {
-    latitudeDelta: isIOS ? 0.05 : 0.1,
-    longitudeDelta: isIOS ? 0.05 : 0.1,
+    latitudeDelta: isIOS ? 0.1 : 0.2,
+    longitudeDelta: isIOS ? 0.1 : 0.2,
   },
 };
 
@@ -46,6 +46,6 @@ const place = createSlice({
 export const {
   reducer: placeReducer,
   actions: {
-    setCurrentLocation, resetPlaceState, setLocationDelta, setSelectLocation, onChangeRegion,
+    setCurrentLocation, resetPlaceState, setLocationDelta, onChangeRegion, setSelectLocation,
   },
 } = place;

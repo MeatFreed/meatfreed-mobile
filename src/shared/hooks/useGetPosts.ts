@@ -5,10 +5,12 @@ import orderBy from 'lodash.orderby';
 import { geohashQueryBounds } from 'geofire-common';
 import { useTypedSelector } from 'stores';
 import { placeSelectors } from 'stores/place';
+import { useIsFocused } from '@react-navigation/native';
 
 const postCollection = firestore().collection('posts_storyblock');
 
 export const useGetPosts = () => {
+  const isFocused = useIsFocused();
   const [offset, setOffset] = useState(5);
   const [totalCount, setTotalCount] = useState(0);
   const [initialLoading, setInitialLoading] = useState(true);
@@ -21,11 +23,11 @@ export const useGetPosts = () => {
   const shouldPaginate = results.length < totalCount;
   const isEmpty = !initialLoading && !results.length;
 
-  const location = useTypedSelector(placeSelectors.currentLocation);
+  const selectLocation = useTypedSelector(placeSelectors.selectLocation);
 
   const bounds = geohashQueryBounds([
-    Number(location?.latitude || 0),
-    Number(location?.longitude || 0),
+    Number(selectLocation?.latitude || 0),
+    Number(selectLocation?.longitude || 0),
   ], 24000);
 
   const getTotalCount = async () => {
@@ -80,6 +82,8 @@ export const useGetPosts = () => {
 
     setRefreshing(true);
 
+    getTotalCount();
+
     try {
       const requestArray = bounds.map((bound) => postCollection
         .orderBy('geohash', 'desc')
@@ -113,11 +117,11 @@ export const useGetPosts = () => {
   };
 
   useEffect(() => {
-    if (location?.latitude && location?.longitude) {
+    if (isFocused) {
       getTotalCount();
       getPosts();
     }
-  }, [location]);
+  }, [selectLocation, isFocused]);
 
   return {
     searchQuery,

@@ -2,6 +2,7 @@ import styled from 'styled-components/native';
 import { Colors } from './Colors';
 import { FontFamily } from './Typography';
 import { constructBgc, constructSizing, StyledProps } from './StyledConstructors';
+import { Spaces } from './Spaces';
 
 export const shadow = `
   shadow-color: ${Colors.basic_700};
@@ -27,6 +28,7 @@ export const Text = styled.Text<StyledProps>`
   text-decoration: ${({ ttd }) => ttd || 'none'};
   text-decoration-style: ${({ ttds }) => ttds || 'dotted'};
   text-decoration-color: ${({ ttdc }) => ttdc || 'transparent'};
+  line-height: ${({ lh }) => `${lh || Spaces.xl}px`};
 
   ${(props) => constructSizing(props, 'margin')};
   ${(props) => constructSizing(props, 'padding')};

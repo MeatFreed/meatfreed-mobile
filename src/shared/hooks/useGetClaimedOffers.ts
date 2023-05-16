@@ -1,16 +1,18 @@
-import { geohashQueryBounds } from 'geofire-common';
 import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useTypedSelector } from 'stores';
 import { placeSelectors } from 'stores/place';
 import orderBy from 'lodash.orderby';
-import { Offer, adaptClaimedOffers } from 'api';
+import { Offer } from 'api';
 import { userSelectors } from 'stores/user';
 import { useIsFocused } from '@react-navigation/native';
 
 const offerCollection = firestore().collection('offers_storyblock');
 
 export const useGetClaimedOffers = () => {
+  const [offset, setOffset] = useState(10);
+  const [totalCount, setTotalCount] = useState(0);
+
   const isFocused = useIsFocused();
 
   const userId = useTypedSelector(userSelectors.userId);
@@ -22,28 +24,34 @@ export const useGetClaimedOffers = () => {
   const [results, setResults] = useState<Offer[]>([]);
 
   const isEmpty = !initialLoading && !results.length;
+  const shouldPaginate = results.length < totalCount;
 
   const location = useTypedSelector(placeSelectors.currentLocation);
 
-  const bounds = geohashQueryBounds([
-    Number(location?.latitude || 0),
-    Number(location?.longitude || 0),
-  ], 24000);
+  const getTotalCount = async () => {
+    try {
+      const response = await offerCollection
+        .where('userIds', 'array-contains', userId)
+        .where('content.active', '==', true)
+        .get();
 
-  const getOffers = async () => {
+      setTotalCount(response.size);
+    } catch (error) {
+      /** empty */
+    }
+  };
+
+  const getOffers = async (limit = 10) => {
     setIsLoading(true);
 
     try {
-      const requestArray = bounds.map((bound) => offerCollection
-        .orderBy('geohash', 'desc')
-        .where('geohash', '>=', bound[0])
-        .where('geohash', '<=', bound[1])
+      const response = await offerCollection
+        .where('userIds', 'array-contains', userId)
         .where('content.active', '==', true)
-        .get());
+        .limit(limit)
+        .get();
 
-      const collections = await Promise.all(requestArray);
-
-      const offers = adaptClaimedOffers(userId, collections);
+      const offers = response.docs.map((doc) => doc.data()) as Offer[];
 
       setResults([...offers]);
     } finally {
@@ -56,17 +64,18 @@ export const useGetClaimedOffers = () => {
   const onRefresh = async () => {
     setRefreshing(true);
 
+    setOffset(10);
+
+    getTotalCount();
+
     try {
-      const requestArray = bounds.map((bound) => offerCollection
-        .orderBy('geohash', 'desc')
-        .where('geohash', '>=', bound[0])
-        .where('geohash', '<=', bound[1])
+      const response = await offerCollection
+        .where('userIds', 'array-contains', userId)
         .where('content.active', '==', true)
-        .get());
+        .limit(10)
+        .get();
 
-      const collections = await Promise.all(requestArray);
-
-      const offers = adaptClaimedOffers(userId, collections);
+      const offers = response.docs.map((doc) => doc.data()) as Offer[];
 
       setResults([...offers]);
     } finally {
@@ -74,9 +83,20 @@ export const useGetClaimedOffers = () => {
     }
   };
 
+  const onEndReached = async () => {
+    if (!shouldPaginate) {
+      return;
+    }
+
+    setOffset(offset + 10);
+
+    getOffers(offset + 10);
+  };
+
   useEffect(() => {
     if (location?.latitude && location?.longitude && isFocused) {
       getOffers();
+      getTotalCount();
     }
   }, [location, isFocused]);
 
@@ -88,5 +108,6 @@ export const useGetClaimedOffers = () => {
     results: orderBy(results, 'published_at', 'desc') as Offer[],
     getOffers,
     onRefresh,
+    onEndReached,
   };
 };

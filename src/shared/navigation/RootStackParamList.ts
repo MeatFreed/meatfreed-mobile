@@ -32,7 +32,9 @@ export type RootStackParamList = {
       contentId: string;
     }
   },
-  [Routes.WELCOME]: undefined;
+  [Routes.WELCOME]: {
+    code?: string;
+  };
   [Routes.SIGN_IN]: undefined;
   [Routes.SIGN_UP]: {
     code?: string;
@@ -55,6 +57,8 @@ export type RootStackParamList = {
   [Routes.PROFILE]: undefined;
   [Routes.SETTINGS]: undefined;
 };
+
+export type WelcomeProp = RouteProp<RootStackParamList, Routes.WELCOME>;
 
 export type PostDetailsProp = RouteProp<RootStackParamList, Routes.POST_DETAILS>;
 

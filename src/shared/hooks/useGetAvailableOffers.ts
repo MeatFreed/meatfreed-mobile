@@ -23,11 +23,11 @@ export const useGetAvailableOffers = () => {
 
   const isEmpty = !initialLoading && !results.length;
 
-  const location = useTypedSelector(placeSelectors.currentLocation);
+  const selectLocation = useTypedSelector(placeSelectors.selectLocation);
 
   const bounds = geohashQueryBounds([
-    Number(location?.latitude || 0),
-    Number(location?.longitude || 0),
+    Number(selectLocation?.latitude || 0),
+    Number(selectLocation?.longitude || 0),
   ], 24000);
 
   const getOffers = async () => {
@@ -79,10 +79,10 @@ export const useGetAvailableOffers = () => {
   };
 
   useEffect(() => {
-    if (location?.latitude && location?.longitude && isFocused) {
+    if (isFocused) {
       getOffers();
     }
-  }, [location, isFocused]);
+  }, [selectLocation, isFocused]);
 
   return {
     isLoading,

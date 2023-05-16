@@ -11,6 +11,7 @@ export const ClaimedOffers: React.FC = () => {
     onRefresh,
     isRefreshing,
     isEmpty,
+    onEndReached,
   } = useGetClaimedOffers();
 
   const { onOfferDetails } = useGetOffersActions();
@@ -27,6 +28,7 @@ export const ClaimedOffers: React.FC = () => {
         onEndReachedThreshold={0.1}
         contentContainerStyle={{ paddingTop: 10, paddingBottom: 30, flexGrow: 1 }}
         refreshing={isRefreshing}
+        onEndReached={onEndReached}
         renderItem={({ item: offer }) => (
           <OfferCard
             offer={offer}

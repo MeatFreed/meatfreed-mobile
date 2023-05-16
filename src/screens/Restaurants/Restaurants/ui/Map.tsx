@@ -45,7 +45,7 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
 
     time.current = setTimeout(() => {
       onRegionChangeComplete(region);
-    }, 350);
+    }, 1000);
   };
 
   return (

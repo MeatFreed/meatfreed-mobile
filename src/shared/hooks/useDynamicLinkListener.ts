@@ -12,19 +12,15 @@ export const useDynamicLinkListener = () => {
   const handleDynamicLink = (link: FirebaseDynamicLinksTypes.DynamicLink | null) => {
     const formattedLink = getFirebaseDeepLinkParam(link, true) as AnyType;
 
-    if (userId && formattedLink.contentId) {
+    if (formattedLink.contentId) {
       RouteService.navigate(Routes.POST_NAVIGATOR, {
         screen: Routes.POST_DETAILS,
         params: { contentId: formattedLink.contentId },
       });
     }
 
-    if (!userId && formattedLink.contentId) {
-      RouteService.navigate(Routes.SIGN_UP, { code: undefined });
-    }
-
     if (!userId && formattedLink.code) {
-      RouteService.navigate(Routes.SIGN_UP, { code: formattedLink.code });
+      RouteService.navigate(Routes.WELCOME, { code: formattedLink.code });
     }
   };
 

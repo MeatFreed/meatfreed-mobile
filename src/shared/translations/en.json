@@ -65,6 +65,11 @@
     "policy": "Privacy Policy",
     "terms": "Terms of Service"
   },
+  "welcome": {
+    "title": "Now it pays to be plant-based",
+    "description": "Discover exclusive offers at\nbusinesses near you",
+    "has-account": "Already got an account? "
+  },
   "buttons": {
     "sign-in": "Log in",
     "register": "Register",
@@ -83,7 +88,11 @@
     "enter-competition": "Enter competition",
     "competition-entered": "Competition entered",
     "claim-offer": "Claim offer",
-    "offer-claimed": "Offer claimed"
+    "offer-claimed": "Offer claimed",
+    "google": "Sign up with Google",
+    "facebook": "Sign up with Facebook",
+    "apple": "Sign up with Apple",
+    "email": "Sign up with e-mail"
   },
   "search": {
     "directions": "Directions",
@@ -94,7 +103,7 @@
     "member": "MeatFreed Member",
     "status": "Status: {{tier}}",
     "valid": "Valid until: {{expires}}",
-    "empty-state": "No available offers",
+    "empty-state": "Not found offers",
     "description": "View your personalised offers from us \nand our partner restaurants 🙌",
     "can-redeemed-once": "Can only be redeemed once",
     "draw-closes-in": "Draw closes: {{date}}",
@@ -109,7 +118,7 @@
   },
   "posts": {
     "post-link": "Post link",
-    "empty-state": "No available posts"
+    "empty-state": "Not found posts"
   },
   "my-referral": {
     "scan": "Share the QR code with your friends",

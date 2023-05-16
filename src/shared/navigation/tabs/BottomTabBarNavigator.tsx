@@ -32,7 +32,7 @@ export const BottomTabBarNavigator: React.FC = () => {
 
   return (
     <Tab.Navigator
-      initialRouteName={Routes.OFFERS_NAVIGATOR}
+      initialRouteName={Routes.HOME_NAVIGATOR}
       screenOptions={({ route }) => ({
         ...tabBarOptions,
         tabBarLabel: tabs[route.name],

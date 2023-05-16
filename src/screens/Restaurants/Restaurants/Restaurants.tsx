@@ -17,7 +17,7 @@ import { RestaurantPanel, Map } from './ui';
 const StyledLayout = styled.View`
   position: absolute;
   bottom: ${isIOS ? '28%' : '32%'};
-  right: 25px;
+  right: 16px;
   z-index: 9999;
 `;
 

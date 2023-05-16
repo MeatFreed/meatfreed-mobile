@@ -1,47 +1,88 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
+import {
+  Box, Colors, FontFamily, Images, Text,
+} from 'themes';
+import { StatusBar } from 'ui';
+import { Socials } from 'features';
+import { AnyType, hasNotch } from 'helpers';
+import Gradient from 'react-native-linear-gradient';
+import { useRoute } from '@react-navigation/native';
+import { WelcomeProp } from 'navigation';
+import { Dimensions, ImageBackground } from 'react-native';
 import styled from 'styled-components/native';
-import { Box, Images } from 'themes';
-import { Dimensions } from 'react-native';
-import { Button, StatusBar } from 'ui';
-import { RouteService } from 'services';
-import { Routes } from 'navigation';
 
 const { width } = Dimensions.get('window');
 
 const Navigation = styled(Box)`
+  bottom: 0px;
   position: absolute;
-  bottom: 60px;
+  left: 0px;
 `;
 
-const BUTTON_WIDTH = (width - 60) / 2;
+const StyledTopGradient = styled(Gradient as AnyType)`
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 8px;
+  width: 100%;
+  height: 140px;
+  z-index: 1;
+`;
+
+const StyledBottomGradient = styled(Gradient as AnyType)`
+  position: absolute;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  width: 100%;
+  height: 140px;
+  z-index: 1;
+`;
 
 export const Welcome: React.FC = () => {
   const { t } = useTranslation();
 
+  const { params } = useRoute<WelcomeProp>();
+
   return (
-    <Box f={1} p={[10, 20, 0]}>
+    <Box f={1} bgc={Colors.primary_500}>
       <StatusBar />
 
-      <Box f={1} ai="center" jc="center" mb={100}>
-        <Images.LogoMain />
+      <Box f={1} ai="center">
+        <ImageBackground style={{ width, height: width }} source={Images.WelcomeBackground}>
+
+          <StyledTopGradient
+            colors={['#714ED8', 'rgba(113, 78, 216, .01)']}
+            start={{ x: 0, y: 0 }}
+            end={{ x: 0, y: 0.9 }}
+          />
+
+          <Box ai="center" jc="space-between" m={[hasNotch ? 60 : 90, 0, 0]} style={{ zIndex: 2 }}>
+            <Images.WelcomeLogo />
+
+            {hasNotch && (
+              <Box mt={32}>
+                <Images.WelcomeInfo width={width} />
+              </Box>
+            )}
+          </Box>
+
+          <StyledBottomGradient
+            colors={['#714ED8', 'rgba(113, 78, 216, .01)']}
+            start={{ x: 0, y: 0.75 }}
+            end={{ x: 0, y: 0 }}
+          />
+        </ImageBackground>
+
       </Box>
 
-      <Navigation m={[0, 20]} w="100%" fd="row" jc="space-between">
-        <Box w={`${BUTTON_WIDTH}px`}>
-          <Button
-            type="border"
-            title={t('buttons.sign-in').toUpperCase()}
-            onPress={() => RouteService.navigate(Routes.SIGN_IN)}
-          />
-        </Box>
+      <Navigation ai="center" jc="center">
+        <Text fs={34} fnw="bold" ff={FontFamily.PoppinsBold} lh={44} color={Colors.basic_100} ta="center" m={[0, 32, 8]}>{t('welcome.title')}</Text>
 
-        <Box w={`${BUTTON_WIDTH}px`}>
-          <Button
-            title={t('buttons.register').toUpperCase()}
-            onPress={() => RouteService.navigate(Routes.SIGN_UP)}
-          />
-        </Box>
+        <Text lh={24} fs={18} color={Colors.basic_100} ta="center" m={[0, 32]}>{t('welcome.description')}</Text>
+
+        <Socials referralCode={params?.code} />
       </Navigation>
     </Box>
   );

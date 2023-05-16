@@ -15,7 +15,7 @@ export const linking = {
       [Routes.MAIN_NAVIGATOR]: {
         initialRouteName: Routes.BOTTOM_TAB_BAR_NAVIGATOR,
         screens: {
-          [Routes.SIGN_UP]: 'sign-up/:code',
+          [Routes.WELCOME]: 'welcome/:code',
           [Routes.POSTS_NAVIGATOR]: 'post-details/:contentId',
         },
       },
@@ -30,7 +30,7 @@ export const linking = {
 
       const formattedLink = getFirebaseDeepLinkParam(initialLink) as AnyType;
 
-      if (userId && formattedLink.contentId) {
+      if (formattedLink.contentId) {
         RouteService.navigate(Routes.POST_NAVIGATOR, {
           screen: Routes.POST_DETAILS,
           params: { contentId: formattedLink.contentId },
@@ -39,19 +39,13 @@ export const linking = {
         return `${URL_SCHEMA}://post-details/${formattedLink.contentId}`;
       }
 
-      if (!userId && formattedLink.contentId) {
-        RouteService.navigate(Routes.SIGN_UP, { code: undefined });
-
-        return `${URL_SCHEMA}://sign-up/${undefined}`;
-      }
-
       if (!userId && formattedLink.code) {
-        RouteService.navigate(Routes.SIGN_UP, { code: formattedLink.code });
+        RouteService.navigate(Routes.WELCOME, { code: formattedLink.code });
 
-        return `${URL_SCHEMA}://sign-up/${formattedLink.code}`;
+        return `${URL_SCHEMA}://welcome/${formattedLink.code}`;
       }
 
-      return '';
+      return `${URL_SCHEMA}://`;
     }
 
     const url = await Linking.getInitialURL();
@@ -60,7 +54,7 @@ export const linking = {
       return url;
     }
 
-    return '';
+    return `${URL_SCHEMA}://`;
   },
 
   subscribe(listener: (url: string) => void) {
