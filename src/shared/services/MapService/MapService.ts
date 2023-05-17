@@ -5,7 +5,7 @@ import MapView from 'react-native-maps';
 const mapRef = createRef<MapView>();
 
 const animateCamera = (camera: Partial<Camera>) => {
-  mapRef?.current?.animateCamera({ ...camera, zoom: 11.5 }, { duration: 250 });
+  mapRef?.current?.animateCamera({ ...camera, zoom: 14 }, { duration: 500 });
 };
 
 const getEdgePadding = (hasTrip?: boolean) => ({

@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { Box, Colors, Spaces } from 'themes';
+import {
+  Box, Colors, FontFamily, Spaces, Text,
+} from 'themes';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {
   Button,
-  Icon,
-  Input,
-  KeyboardAwareView,
-  StatusBar,
+  Icon, Input, KeyboardAwareView, StatusBar,
 } from 'ui';
 import { Dimensions } from 'react-native';
-import { Policy } from 'features';
 import { useSignUp } from 'hooks';
 import { useRoute } from '@react-navigation/native';
 import { SignUpProp } from 'navigation';
@@ -68,7 +66,11 @@ export const SignUp: React.FC = () => {
       <StatusBar />
 
       <Box f={1} ai="center" bgc={Colors.basic_100}>
-        <Box mt={16} w={`${width - Spaces['3xl']}px`}>
+        <Box m={[16, 0, 0]}>
+          <Text lh={56} fs={48} fnw="bold" ff={FontFamily.PoppinsBold} color={Colors.purple}>meatfreed</Text>
+        </Box>
+
+        <Box w={`${width - Spaces['3xl']}px`}>
           <Input
             value={values.name}
             label={t('labels.name')}
@@ -142,10 +144,9 @@ export const SignUp: React.FC = () => {
 
         <Box w={`${width - Spaces['3xl']}px`}>
           <Button title={t('buttons.sign-up').toUpperCase()} isLoading={isLoading} onPress={() => handleSubmit()} />
-
-          <Policy />
         </Box>
       </Box>
+
     </KeyboardAwareView>
   );
 };

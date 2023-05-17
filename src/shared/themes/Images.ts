@@ -24,4 +24,5 @@ export const Images = {
   WelcomeBackground: require('assets/images/welcome-background.png'),
   WelcomeInfo: require('assets/images/welcome-info.svg').default,
   WelcomeLogo: require('assets/images/welcome-logo.svg').default,
+  Pin: require('assets/images/circle-marker.png'),
 };

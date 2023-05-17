@@ -95,7 +95,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
           query={{
             key: Config.MAP_API_KEY,
             lenguage: 'en',
-            types: ['cities'],
+            types: ['cities|cafe|restaurant'],
           }}
           listViewDisplayed
           textInputProps={{

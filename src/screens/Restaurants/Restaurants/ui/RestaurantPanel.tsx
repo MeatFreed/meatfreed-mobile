@@ -11,10 +11,9 @@ import { EmptyState } from './EmptyState';
 
 interface RestaurantPanelProps {
   restaurants: Restaurant[];
-  onEndReached: () => Promise<void>;
 }
 
-export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, onEndReached }) => {
+export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants }) => {
   const { t } = useTranslation();
 
   const [index, setIndex] = useState(0);
@@ -53,10 +52,8 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants, o
             onPress={() => onRestaurantDetails(restaurant.uuid)}
           />
         )}
-        onEndReachedThreshold={0.1}
         initialNumToRender={10}
         windowSize={8}
-        onEndReached={onEndReached}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={index ? { flexGrow: 1, paddingBottom: 16 } : undefined}
         ListEmptyComponent={<EmptyState />}
