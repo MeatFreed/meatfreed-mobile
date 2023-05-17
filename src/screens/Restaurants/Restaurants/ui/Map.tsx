@@ -62,8 +62,8 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
       showsCompass={false}
       provider={PROVIDER_GOOGLE}
     >
-      <Marker coordinate={region}>
-        <Image style={{ width: 20, height: 20 }} source={Images.Pin} />
+      <Marker zIndex={9999} coordinate={region}>
+        <Image style={{ width: 20, height: 20, borderRadius: 10 }} source={Images.Pin} />
       </Marker>
 
       {restaurants.map((restaurant, index) => (
