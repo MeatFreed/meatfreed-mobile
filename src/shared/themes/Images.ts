@@ -25,4 +25,11 @@ export const Images = {
   WelcomeInfo: require('assets/images/welcome-info.svg').default,
   WelcomeLogo: require('assets/images/welcome-logo.svg').default,
   Pin: require('assets/images/circle-marker.png'),
+  Pencil: require('assets/images/pencil.svg').default,
+  ShareCode: require('assets/images/share-code.svg').default,
+  Support: require('assets/images/support.svg').default,
+  Privacy: require('assets/images/privacy.svg').default,
+  Terms: require('assets/images/terms.svg').default,
+  Logout: require('assets/images/logout.svg').default,
+  Delete: require('assets/images/delete.svg').default,
 };

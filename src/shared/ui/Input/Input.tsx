@@ -109,12 +109,12 @@ const StyledInput = styled.TextInput<StyledInputProps>`
     isFocused, isError, accent,
   }) => constructBorderColor(isFocused, isError, accent)
 };
-  font-family: ${FontFamily.PoppinsRegular}
+  font-family: ${FontFamily.PoppinsRegular};
   border-top-left-radius: 8px;
   border-top-right-radius: ${({ isRemoveRightRounded }) => (isRemoveRightRounded ? '0px' : '8px')};
   border-bottom-left-radius: 8px;
   border-bottom-right-radius: ${({ isRemoveRightRounded }) => (isRemoveRightRounded ? '0px' : '8px')};
-  background-color: ${({ accent }) => constructBackgroundColor(accent)};
+  background-color: ${({ isWhite }) => constructBackgroundColor(isWhite)};
   font-size: ${FontSizes.md}px;
   padding-top: ${({ isMultiline }) => (isMultiline ? '10px' : paddingTop)};
   color: ${({ accent }) => constructColor(accent)};

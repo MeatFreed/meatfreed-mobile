@@ -36,13 +36,13 @@ export const useGetOfferByUID = (contentId?: string) => {
 
   const isBefore = dayjs().isBefore(offer?.content?.end_date, 'm');
 
-  const isAllowToUse = totalEntries <= (offer?.content?.max_claims_per_user || 0);
+  const isAllowToUse = totalEntries < (offer?.content?.max_claims_per_user || 0);
 
   const isAllowRaffleEntry = isBefore && !isWonOffer && !isClaimedOffer && active && isAllowToUse;
 
   const isAllowRaffleClaimed = (isWonOffer || isClaimedOffer) && active;
 
-  const isAllowVoucherClaimed = isBefore && active && isAllowToUse;
+  const isAllowVoucherClaimed = isBefore && active;
 
   const getOfferByUID = async () => {
     setIsLoading(true);

@@ -92,7 +92,8 @@
     "google": "Sign up with Google",
     "facebook": "Sign up with Facebook",
     "apple": "Sign up with Apple",
-    "email": "Sign up with e-mail"
+    "email": "Sign up with e-mail",
+    "share-referral-code": "Share your referral code"
   },
   "search": {
     "directions": "Directions",
@@ -130,23 +131,27 @@
     "members": "{{count}} new members",
     "registered": "have registered from you"
   },
-  "count": {
-    "shared": "Referral code\nshared",
-    "members": "New\nmembers"
-  },
   "menu": {
     "logout": "Logout",
-    "delete-account": "Delete Account",
+    "terms": "Terms & Conditions",
+    "privacy": "Privacy & Policy",
+    "support": "Help & Support",
+    "delete": "Delete account (noooo!)",
     "settings": "Settings"
   },
   "profile": {
-    "add-photo": "Add Photo"
+    "add-photo": "Add Photo",
+    "title": "Refer and unlock offers",
+    "description": "Get your friends to join and get access to exclusive offers",
+    "link-shared": "links shared",
+    "friend-joined": "friends joined"
   },
   "delete-profile": {
     "title": "Are you sure?",
     "description": "All of your MeatFreed data will be permanently deleted."
   },
   "settings": {
+    "account-settings": "Account Settings",
     "general": "General",
     "main-contacts": "Main Contacts"
   },

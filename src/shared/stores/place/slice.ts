@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { GeoPosition } from 'react-native-geolocation-service';
 import { resetUser } from 'stores/user';
-import { isIOS } from 'helpers';
 import { LatLng } from 'react-native-maps';
 import { PlaceReducer, Delta } from './types';
 
@@ -9,8 +8,8 @@ const initialState: PlaceReducer = {
   location: null,
   selectLocation: null,
   delta: {
-    latitudeDelta: isIOS ? 0.1 : 0.2,
-    longitudeDelta: isIOS ? 0.1 : 0.2,
+    latitudeDelta: 0.3,
+    longitudeDelta: 0.3,
   },
 };
 

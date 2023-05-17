@@ -1,8 +1,6 @@
 import React from 'react';
 import { StackNavigationOptions, createStackNavigator } from '@react-navigation/stack';
-import {
-  AnyType, hasNotch, isIOS, openLink,
-} from 'helpers';
+import { hasNotch, isIOS } from 'helpers';
 import {
   Box, Colors, FontFamily, Spaces,
 } from 'themes';
@@ -10,10 +8,7 @@ import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { HeaderBackButtonProps } from '@react-navigation/elements';
 import { RouteService } from 'services';
 import { Button } from 'ui';
-import Config from 'react-native-config';
 import { RootStackParamList } from './RootStackParamList';
-
-const { LIVE_CHAT_URL, LIVE_CHAT_LICENSE } = Config as AnyType;
 
 export const Stack = createStackNavigator<RootStackParamList>();
 
@@ -73,11 +68,6 @@ export const headerOptions: StackNavigationOptions = {
 
     return null;
   },
-  headerRight: () => (
-    <Box mr={Spaces.xs}>
-      <Button type="icon" iconName="message-circle-outline" iconColor={Colors.tabBarInactiveTintColor} onPress={() => openLink(`${LIVE_CHAT_URL}=${LIVE_CHAT_LICENSE}`)} />
-    </Box>
-  ),
 };
 
 export const restaurantOptions: StackNavigationOptions = {
@@ -102,11 +92,6 @@ export const restaurantOptions: StackNavigationOptions = {
 
     return null;
   },
-  headerRight: () => (
-    <Box mr={isIOS ? Spaces.xs : -6}>
-      <Button type="icon" iconName="message-circle-outline" iconColor={Colors.basic_100} onPress={() => openLink(`${LIVE_CHAT_URL}=${LIVE_CHAT_LICENSE}`)} />
-    </Box>
-  ),
 };
 
 export const authOptions: StackNavigationOptions = {
