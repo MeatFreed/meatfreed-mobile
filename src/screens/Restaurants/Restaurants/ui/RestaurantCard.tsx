@@ -39,14 +39,14 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 
   const { data: details } = useGetRestaurantByIDQuery(restaurant?.placeDetails?.place_id);
 
-  const selectLocation = useTypedSelector(placeSelectors.selectLocation);
+  const currentLocation = useTypedSelector(placeSelectors.currentLocation);
 
   const hours = getHours(details?.opening_hours);
 
   const distance = getDistanceToPlace(
     {
-      latitude: Number(selectLocation?.latitude || 0),
-      longitude: Number(selectLocation?.longitude || 0),
+      latitude: Number(currentLocation?.latitude || 0),
+      longitude: Number(currentLocation?.longitude || 0),
     },
     {
       latitude: Number(details?.geometry?.location?.lat),

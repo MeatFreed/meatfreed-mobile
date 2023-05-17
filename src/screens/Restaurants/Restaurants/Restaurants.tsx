@@ -1,5 +1,5 @@
 import { useGetRestaurants, useGetPositionActions } from 'hooks';
-import React from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTypedSelector } from 'stores';
 import { placeSelectors } from 'stores/place';
@@ -11,7 +11,7 @@ import {
   StatusBar,
 } from 'ui';
 import { useIsFocused } from '@react-navigation/native';
-import { isIOS } from 'helpers';
+import { AnyType, isIOS } from 'helpers';
 import { RestaurantPanel, Map } from './ui';
 
 const StyledLayout = styled.View`
@@ -24,6 +24,8 @@ const StyledLayout = styled.View`
 export const Restaurants: React.FC = () => {
   const { t } = useTranslation();
 
+  const [searchQuery, setSearchQuery] = useState('');
+
   const isFocused = useIsFocused();
 
   const hasLocation = useTypedSelector(placeSelectors.hasLocation);
@@ -32,19 +34,35 @@ export const Restaurants: React.FC = () => {
 
   const { restaurants } = useGetRestaurants();
 
+  const ref = useRef<AnyType>();
+
+  const onReset = useCallback(() => {
+    getCurrentLocation();
+    ref?.current?.setAddressText?.('');
+    setSearchQuery('');
+  }, []);
+
+  const onLocation = useCallback(() => {
+    onReset();
+    onShowMyLocation();
+  }, []);
+
   return (
     <Box f={1} bgc={Colors.basic_100}>
       <StatusBar />
 
       <Box f={1}>
         <SearchBar
+          ref={ref}
           placeholder={t('placeholders.search-restaurant')}
-          getCurrentLocation={getCurrentLocation}
+          onReset={onReset}
+          searchQuery={searchQuery}
+          setSearchQuery={setSearchQuery}
         />
 
         {hasLocation && (
           <StyledLayout>
-            <Button type="action" iconName="my-location" onPress={onShowMyLocation} />
+            <Button type="action" iconName="my-location" onPress={onLocation} />
           </StyledLayout>
         )}
 

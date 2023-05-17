@@ -1,9 +1,9 @@
 import React, { useRef } from 'react';
 import { useTypedSelector } from 'stores';
 import { placeSelectors } from 'stores/place';
-import { Image, StyleSheet } from 'react-native';
-import MapView, { PROVIDER_GOOGLE, Region, Marker } from 'react-native-maps';
-import { Images, MapStyles } from 'themes';
+import { StyleSheet } from 'react-native';
+import MapView, { PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import { MapStyles } from 'themes';
 import { Restaurant } from 'api';
 import { useGetPositionActions, useGetRestaurantActions } from 'hooks';
 import { AnyType, defaultLocation } from 'helpers';
@@ -52,7 +52,7 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
     <MapView
       ref={MapService.mapRef}
       userInterfaceStyle="light"
-      showsUserLocation={false}
+      showsUserLocation
       showsMyLocationButton={false}
       customMapStyle={MapStyles}
       initialRegion={initialRegion}
@@ -62,10 +62,6 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
       showsCompass={false}
       provider={PROVIDER_GOOGLE}
     >
-      <Marker zIndex={9999} coordinate={region}>
-        <Image style={{ width: 20, height: 20, borderRadius: 10 }} source={Images.Pin} />
-      </Marker>
-
       {restaurants.map((restaurant, index) => (
         <RestaurantMarker
           key={restaurant.uuid}
