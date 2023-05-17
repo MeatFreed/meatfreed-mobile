@@ -44,7 +44,7 @@ export const SignIn: React.FC = () => {
     <KeyboardAwareView showsVerticalScrollIndicator={false} bounces={false} isScrollable>
       <StatusBar />
 
-      <Box f={1} ai="center" bgc={Colors.basic_100}>
+      <Box f={1} ai="center" bgc={Colors.basic_150}>
         <Box m={[16, 0, 0]}>
           <Text lh={56} fs={48} fnw="bold" ff={FontFamily.PoppinsBold} color={Colors.purple}>meatfreed</Text>
         </Box>
@@ -60,6 +60,7 @@ export const SignIn: React.FC = () => {
             error={errors.email ? t(errors.email) : ''}
             keyboardType="email-address"
             withBottomOffset
+            isWhite
           />
         </Box>
 
@@ -74,6 +75,7 @@ export const SignIn: React.FC = () => {
             error={errors.password ? t(errors.password) : ''}
             secureTextEntry={!isShowPassword}
             withBottomOffset
+            isWhite
             onRightPress={() => setIsShowPassword(!isShowPassword)}
             RightIcon={<Icon name={isShowPassword ? 'eye-off-outline' : 'eye-outline'} size={24} color={Colors.basic_600} />}
           />
