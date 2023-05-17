@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-  Referral,
   Settings,
   SignIn,
   SignUp,
@@ -47,12 +46,6 @@ export const MainNavigator: React.FC = () => {
           ...authOptions,
           headerTitle: t('screens.register'),
         }}
-      />
-
-      <Stack.Screen
-        name={Routes.REFERRAL}
-        component={Referral}
-        options={{ ...headerOptions, headerTitle: t('screens.my-referral') }}
       />
 
       <Stack.Screen

@@ -6,7 +6,7 @@ import { RouteService, ToastService } from 'services';
 import { useTypedDispatch, useTypedSelector } from 'stores';
 import { userSelectors, setUser } from 'stores/user';
 import {
-  Box, FontFamily, FontSizes, Spaces, Text,
+  Box, Colors, FontFamily, FontSizes, Images, Spaces, Text,
 } from 'themes';
 import {
   ActivityIndicator,
@@ -18,6 +18,10 @@ import {
 import firestore from '@react-native-firebase/firestore';
 import auth from '@react-native-firebase/auth';
 import * as Yup from 'yup';
+import Config from 'react-native-config';
+import { AnyType, openLink } from 'helpers';
+import { useLogout } from 'hooks';
+import { DeleteAccountModal, MenuItem } from './ui';
 
 interface Values {
   firstName: string;
@@ -31,13 +35,20 @@ const SettingsSchema = Yup.object().shape({
   lastName: Yup.string().required('validations.last-name-required'),
 });
 
+const { LIVE_CHAT_URL, LIVE_CHAT_LICENSE } = Config as AnyType;
+
 export const Settings: React.FC = () => {
   const { t } = useTranslation();
+
+  const [isShowDeleteAccountModal, setIsShowDeleteAccountModal] = useState(false);
+
   const [isLoading, setIsLoading] = useState(false);
   const navigation = useNavigation();
 
   const user = useTypedSelector(userSelectors.user);
   const dispatch = useTypedDispatch();
+
+  const { onLogout } = useLogout();
 
   const onSubmit = async (values: Values) => {
     setIsLoading(true);
@@ -96,42 +107,63 @@ export const Settings: React.FC = () => {
       <StatusBar />
 
       <KeyboardAwareView bounces={false} isScrollable>
-        <Box f={1} p={[Spaces.md, Spaces.md, 0]} wdbg>
-          <Text mb={Spaces.xl} fs={FontSizes.lg} fnw="600" ff={FontFamily.PoppinsSemiMedium}>{t('settings.general')}</Text>
+        <Box f={1} p={[Spaces.md, 0, 0]} bgc={Colors.basic_150}>
+          <Box m={[0, Spaces.md]}>
+            <Text mb={Spaces.md} fs={FontSizes.lg} fnw="700" ff={FontFamily.PoppinsMedium}>{t('settings.account-settings')}</Text>
 
-          <Input
-            value={values.firstName}
-            label={t('labels.first-name')}
-            placeholder={t('placeholders.first-name')}
-            onBlur={handleBlur('firstName')}
-            onChangeText={handleChange('firstName')}
-            isError={!!errors.firstName && !!touched.firstName}
-            error={errors.firstName ? t(errors.firstName) : ''}
-            withBottomOffset
-          />
+            <Input
+              value={values.firstName}
+              label={t('labels.first-name')}
+              placeholder={t('placeholders.first-name')}
+              onBlur={handleBlur('firstName')}
+              onChangeText={handleChange('firstName')}
+              isError={!!errors.firstName && !!touched.firstName}
+              error={errors.firstName ? t(errors.firstName) : ''}
+              withBottomOffset
+              isWhite
+            />
 
-          <Input
-            value={values.lastName}
-            label={t('labels.last-name')}
-            placeholder={t('placeholders.last-name')}
-            onBlur={handleBlur('lastName')}
-            onChangeText={handleChange('lastName')}
-            isError={!!errors.lastName && !!touched.lastName}
-            error={errors.lastName ? t(errors.lastName) : ''}
-            withBottomOffset
-          />
+            <Input
+              value={values.lastName}
+              label={t('labels.last-name')}
+              placeholder={t('placeholders.last-name')}
+              onBlur={handleBlur('lastName')}
+              onChangeText={handleChange('lastName')}
+              isError={!!errors.lastName && !!touched.lastName}
+              error={errors.lastName ? t(errors.lastName) : ''}
+              withBottomOffset
+              isWhite
+            />
 
-          <Text mb={Spaces.xl} fs={FontSizes.lg} fnw="600" ff={FontFamily.PoppinsSemiMedium}>{t('settings.main-contacts')}</Text>
+            <Input
+              value={values.email}
+              label={t('labels.email')}
+              placeholder={t('placeholders.email')}
+              onBlur={handleBlur('email')}
+              onChangeText={handleChange('email')}
+              isError={!!errors.email && !!touched.email}
+              error={errors.email ? t(errors.email) : ''}
+              withBottomOffset
+              isWhite
+            />
 
-          <Input
-            value={values.email}
-            label={t('labels.email')}
-            placeholder={t('placeholders.email')}
-            onBlur={handleBlur('email')}
-            onChangeText={handleChange('email')}
-            isError={!!errors.email && !!touched.email}
-            error={errors.email ? t(errors.email) : ''}
-            withBottomOffset
+            <Text mb={Spaces.md} fs={FontSizes.lg} fnw="700" ff={FontFamily.PoppinsMedium}>{t('settings.general')}</Text>
+
+          </Box>
+
+          <MenuItem Icon={<Images.Support />} title={t('menu.support')} onPress={() => openLink(`${LIVE_CHAT_URL}=${LIVE_CHAT_LICENSE}`)} />
+
+          <MenuItem Icon={<Images.Privacy />} title={t('menu.privacy')} onPress={() => openLink('https://www.meatfreed.com/privacypolicy/')} />
+
+          <MenuItem Icon={<Images.Terms />} title={t('menu.terms')} onPress={() => openLink('https://www.meatfreed.com/termsandconditions/')} />
+
+          <MenuItem Icon={<Images.Logout />} title={t('menu.logout')} onPress={onLogout} />
+
+          <MenuItem Icon={<Images.Delete />} hasLine={false} title={t('menu.delete')} onPress={() => setIsShowDeleteAccountModal(true)} />
+
+          <DeleteAccountModal
+            isModalVisible={isShowDeleteAccountModal}
+            onModalClose={() => setIsShowDeleteAccountModal(false)}
           />
         </Box>
       </KeyboardAwareView>

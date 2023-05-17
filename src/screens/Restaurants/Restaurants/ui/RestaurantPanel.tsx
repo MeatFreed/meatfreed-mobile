@@ -4,7 +4,7 @@ import React, { useMemo, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { FontFamily, Text } from 'themes';
 import { SwipeablePanel } from 'ui';
-import { AnyType, isIOS } from 'helpers';
+import { AnyType, hasNotch } from 'helpers';
 import { useGetRestaurantActions } from 'hooks';
 import { RestaurantCard } from './RestaurantCard';
 import { EmptyState } from './EmptyState';
@@ -18,7 +18,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants })
 
   const [index, setIndex] = useState(0);
 
-  const snapPoints = useMemo(() => [isIOS ? '25%' : '28%', '98%'], []);
+  const snapPoints = useMemo(() => [hasNotch ? '25%' : '28%', '98%'], []);
 
   const scrollViewRef = useRef<AnyType>(null);
 

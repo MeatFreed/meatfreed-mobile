@@ -1,25 +1,33 @@
 import React from 'react';
+import { Dimensions } from 'react-native';
 import {
-  Box, Colors, Text, FontFamily, FontSizes,
+  Box, Text, FontFamily, FontSizes,
 } from 'themes';
 
 interface StatisticItemProps {
   color: string;
   value?: number;
   title: string
+  bgc: string;
 }
 
-export const StatisticItem: React.FC<StatisticItemProps> = ({ value = 0, title, color }) => (
-  <Box ai="center" f={1}>
+const { width } = Dimensions.get('window');
+
+const ITEM_WIDTH = (width - 42) / 2;
+
+export const StatisticItem: React.FC<StatisticItemProps> = ({
+  value = 0, title, color, bgc,
+}) => (
+  <Box ai="center" jc="center" br="16px" w={`${ITEM_WIDTH}px`} h="120px" bgc={bgc}>
     <Text
       ff={FontFamily.PoppinsBold}
-      color={value ? color : Colors.basic_500}
-      fs={FontSizes.xl}
-      lh={30}
+      color={color}
+      fs={40}
+      lh={50}
     >
       {value}
     </Text>
 
-    <Text mt={4} fs={FontSizes.sm} color={Colors.basic_600} ta="center">{title}</Text>
+    <Text mt={-4} fs={FontSizes.sm} color={color} ta="center">{title}</Text>
   </Box>
 );

@@ -20,7 +20,7 @@ export const Label: React.FC<LabelProps> = ({
           fs={FontSizes.xs}
           mb={Spaces['2xs']}
           fnw="500"
-          color={isError ? Colors.danger_500 : Colors.basic_600}
+          color={isError ? Colors.danger_500 : Colors.basic_650}
         >
           {label}
         </Text>

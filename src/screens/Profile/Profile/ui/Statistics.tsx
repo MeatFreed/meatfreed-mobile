@@ -1,4 +1,3 @@
-import { useWindowDimensions } from '@lumitech/mobile-hooks';
 import { useIsFocused } from '@react-navigation/native';
 import React, { useState, useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
@@ -11,7 +10,6 @@ import { StatisticItem } from './StatisticItem';
 
 export const Statistics: React.FC = () => {
   const { t } = useTranslation();
-  const { width } = useWindowDimensions();
 
   const isFocused = useIsFocused();
 
@@ -44,15 +42,14 @@ export const Statistics: React.FC = () => {
 
   return (
     <Box
-      m={[24, 0]}
+      m={[10, 0, 16]}
       fd="row"
       jc="space-between"
-      ai="flex-start"
-      w={`${width / 1.5}px`}
+      w="100%"
     >
-      <StatisticItem color={Colors.primary_500} value={values.members} title={t('count.members')} />
+      <StatisticItem bgc={Colors.primary_100} color={Colors.primary_500} value={values.members} title={t('profile.link-shared')} />
 
-      <StatisticItem color={Colors.info_600} value={values.shared} title={t('count.shared')} />
+      <StatisticItem bgc={Colors.primary_500} color={Colors.basic_100} value={values.shared} title={t('profile.friend-joined')} />
     </Box>
   );
 };

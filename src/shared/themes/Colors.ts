@@ -53,6 +53,7 @@ export const Colors = {
   basic_400: '#E4E9F2',
   basic_500: '#C5CEE0',
   basic_600: '#6D7D9D',
+  basic_650: '#5C616F',
   basic_700: '#2E3A59',
   basic_800: '#222B45',
   basic_900: '#192038',
