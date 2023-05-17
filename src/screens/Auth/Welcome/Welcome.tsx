@@ -4,13 +4,13 @@ import {
   Box, Colors, FontFamily, Images, Text,
 } from 'themes';
 import { StatusBar } from 'ui';
-import { Socials } from 'features';
 import { AnyType, hasNotch } from 'helpers';
 import Gradient from 'react-native-linear-gradient';
 import { useRoute } from '@react-navigation/native';
 import { WelcomeProp } from 'navigation';
 import { Dimensions, ImageBackground } from 'react-native';
 import styled from 'styled-components/native';
+import { Socials } from './ui';
 
 const { width } = Dimensions.get('window');
 

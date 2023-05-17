@@ -30,7 +30,7 @@ export const Restaurants: React.FC = () => {
 
   const { getCurrentLocation, onShowMyLocation } = useGetPositionActions();
 
-  const { restaurants, onEndReached } = useGetRestaurants();
+  const { restaurants } = useGetRestaurants();
 
   return (
     <Box f={1} bgc={Colors.basic_100}>
@@ -51,7 +51,7 @@ export const Restaurants: React.FC = () => {
         {isFocused && <Map restaurants={restaurants} />}
 
         {isFocused && (
-          <RestaurantPanel restaurants={restaurants} onEndReached={onEndReached} />
+          <RestaurantPanel restaurants={restaurants} />
         )}
       </Box>
     </Box>

@@ -1,4 +1,3 @@
-import { defaultLocation } from 'helpers';
 import Geolocation from 'react-native-geolocation-service';
 import { Region } from 'react-native-maps';
 import { MapService } from 'services';
@@ -12,7 +11,6 @@ export const useGetPositionActions = () => {
   const dispatch = useTypedDispatch();
 
   const location = useTypedSelector(placeSelectors.currentLocation);
-  const delta = useTypedSelector(placeSelectors.delta);
 
   const onShowMyLocation = () => {
     Geolocation.getCurrentPosition(
@@ -24,11 +22,11 @@ export const useGetPositionActions = () => {
 
         dispatch(setCurrentLocation(position));
 
-        MapService.animateToRegion({
-          latitude: position.coords.latitude || location?.latitude || 0,
-          longitude: position.coords.longitude || location?.longitude || 0,
-          latitudeDelta: delta?.latitudeDelta || defaultLocation.latitudeDelta,
-          longitudeDelta: delta?.longitudeDelta || defaultLocation.longitudeDelta,
+        MapService.animateCamera({
+          center: {
+            latitude: position.coords.latitude || location?.latitude || 0,
+            longitude: position.coords.longitude || location?.longitude || 0,
+          },
         });
       },
       undefined,
