@@ -37,7 +37,7 @@ export const OfferCard: React.FC<OfferCardProps> = ({ offer, onPress }) => {
   const { t } = useTranslation();
 
   const {
-    assets, offer_type, end_date, title,
+    assets, offer_type, end_date, title, subtitle,
   } = offer.content;
 
   const { photos } = offer.placeDetails;
@@ -73,7 +73,7 @@ export const OfferCard: React.FC<OfferCardProps> = ({ offer, onPress }) => {
             <Text fs={16} fnw="700" ff={FontFamily.PoppinsSemiMedium} color={Colors.basic_800}>{title}</Text>
 
             <Text fs={13} fnw="500" ff={FontFamily.PoppinsMedium} color={Colors.basic_600}>
-              {isVoucher ? t('offers.can-redeemed-once') : t('offers.draw-closes-in', { date: getBasicDateFormat(end_date) })}
+              {isVoucher ? subtitle : t('offers.draw-closes-in', { date: getBasicDateFormat(end_date) })}
             </Text>
           </Box>
         </Box>

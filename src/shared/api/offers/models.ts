@@ -37,6 +37,7 @@ export interface OfferContent {
   business: string;
   google_place_id?: string;
   status: OfferStatus;
+  subtitle: string;
 }
 
 export interface Offer {

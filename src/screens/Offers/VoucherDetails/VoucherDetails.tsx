@@ -51,7 +51,7 @@ export const VoucherDetails: React.FC = () => {
       >
         <Carousel photos={photos} assets={images} hasAssets={!!images?.length} />
 
-        <VoucherTitle title={offer?.content?.title} />
+        <VoucherTitle title={offer?.content?.title} subtitle={offer?.content?.subtitle} />
 
         {isClaimedOffer && !!userOffer?.voucherCode && (
           <VoucherCode code={userOffer.voucherCode} />
