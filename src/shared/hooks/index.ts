@@ -28,3 +28,4 @@ export * from './useGetOfferByUID';
 export * from './useGetVoucherCode';
 export * from './useGetClaimedOffers';
 export * from './useGetRaffleTimer';
+export * from './useGetBounds';

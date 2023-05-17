@@ -1,12 +1,11 @@
-import { geohashQueryBounds } from 'geofire-common';
 import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useTypedSelector } from 'stores';
-import { placeSelectors } from 'stores/place';
 import orderBy from 'lodash.orderby';
 import { Offer, adaptAvailableOffers } from 'api';
 import { userSelectors } from 'stores/user';
 import { useIsFocused } from '@react-navigation/native';
+import { useGetBounds } from './useGetBounds';
 
 const offerCollection = firestore().collection('offers_storyblock');
 
@@ -23,12 +22,7 @@ export const useGetAvailableOffers = () => {
 
   const isEmpty = !initialLoading && !results.length;
 
-  const selectLocation = useTypedSelector(placeSelectors.selectLocation);
-
-  const bounds = geohashQueryBounds([
-    Number(selectLocation?.latitude || 0),
-    Number(selectLocation?.longitude || 0),
-  ], 24000);
+  const { bounds, selectLocation } = useGetBounds();
 
   const getOffers = async () => {
     setIsLoading(true);

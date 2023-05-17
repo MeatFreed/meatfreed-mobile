@@ -1,5 +1,5 @@
 import { AnyType, EventTypes, touchableConfig } from 'helpers';
-import React, { useRef, useState } from 'react';
+import React, { Dispatch, SetStateAction, forwardRef } from 'react';
 import { TextInputProps } from 'react-native';
 import styled from 'styled-components/native';
 import { GooglePlacesAutocomplete, GooglePlaceData, GooglePlaceDetail } from 'react-native-google-places-autocomplete';
@@ -12,7 +12,9 @@ import { useAnalytics } from 'hooks';
 import { Icon } from 'ui';
 
 interface SearchBarProps extends TextInputProps {
-  getCurrentLocation: () => void;
+  onReset: () => void;
+  searchQuery: string;
+  setSearchQuery: Dispatch<SetStateAction<string>>;
 }
 
 const StyledLayout = styled(Box)`
@@ -47,28 +49,21 @@ const StyledInput = styled(GooglePlacesAutocomplete as AnyType)`
   color: ${Colors.basic_800};
 `;
 
-export const SearchBar: React.FC<SearchBarProps> = ({
-  getCurrentLocation,
+export const SearchBar = forwardRef<AnyType, SearchBarProps>(({
+  onReset,
+  searchQuery,
+  setSearchQuery,
   ...rest
-}) => {
-  const [searchQuery, setSearchQuery] = useState('');
-
+}, ref) => {
   const { onLogEvent } = useAnalytics();
 
   const { width } = useWindowDimensions();
-  const ref = useRef<AnyType>();
 
   const LAYOUT_WIDTH = width - 50;
 
   const WRAPPER_WIDTH = LAYOUT_WIDTH - 40;
 
   const dispatch = useTypedDispatch();
-
-  const onReset = () => {
-    getCurrentLocation();
-    ref?.current?.setAddressText?.('');
-    setSearchQuery('');
-  };
 
   const onSelectLocation = (data: GooglePlaceData, detail: GooglePlaceDetail | null) => {
     setSearchQuery(data.description);
@@ -103,9 +98,10 @@ export const SearchBar: React.FC<SearchBarProps> = ({
             color: Colors.basic_800,
             value: searchQuery,
             onChangeText: (value: string) => setSearchQuery(value),
+            clearButtonMode: 'never',
           }}
           onPress={onSelectLocation}
-          renderRightButton={() => null}
+          renderRightButton={() => {}}
           styles={{
             textInputContainer: {
               height: 48,
@@ -144,4 +140,4 @@ export const SearchBar: React.FC<SearchBarProps> = ({
       </Box>
     </StyledLayout>
   );
-};
+});

@@ -2,10 +2,8 @@ import { Post } from 'api';
 import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
 import orderBy from 'lodash.orderby';
-import { geohashQueryBounds } from 'geofire-common';
-import { useTypedSelector } from 'stores';
-import { placeSelectors } from 'stores/place';
 import { useIsFocused } from '@react-navigation/native';
+import { useGetBounds } from './useGetBounds';
 
 const postCollection = firestore().collection('posts_storyblock');
 
@@ -23,12 +21,7 @@ export const useGetPosts = () => {
   const shouldPaginate = results.length < totalCount;
   const isEmpty = !initialLoading && !results.length;
 
-  const selectLocation = useTypedSelector(placeSelectors.selectLocation);
-
-  const bounds = geohashQueryBounds([
-    Number(selectLocation?.latitude || 0),
-    Number(selectLocation?.longitude || 0),
-  ], 24000);
+  const { bounds, selectLocation } = useGetBounds();
 
   const getTotalCount = async () => {
     try {

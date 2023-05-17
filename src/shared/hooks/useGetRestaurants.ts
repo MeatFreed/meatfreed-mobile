@@ -1,10 +1,8 @@
-import { geohashQueryBounds } from 'geofire-common';
 import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
-import { useTypedSelector } from 'stores';
-import { placeSelectors } from 'stores/place';
 import { Restaurant, adaptRestaurants } from 'api';
-import sortBy from 'lodash.sortby';
+import orderBy from 'lodash.orderby';
+import { useGetBounds } from './useGetBounds';
 
 const restaurantCollection = firestore().collection('companies_storyblock');
 
@@ -12,12 +10,7 @@ export const useGetRestaurants = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
-  const selectLocation = useTypedSelector(placeSelectors.selectLocation);
-
-  const bounds = geohashQueryBounds([
-    Number(selectLocation?.latitude || 0),
-    Number(selectLocation?.longitude || 0),
-  ], 24000);
+  const { bounds, currentLocation, selectLocation } = useGetBounds();
 
   const getRestaurants = async () => {
     setIsLoading(true);
@@ -31,7 +24,7 @@ export const useGetRestaurants = () => {
 
       const collections = await Promise.all(requestArray);
 
-      const result = adaptRestaurants(collections, selectLocation);
+      const result = adaptRestaurants(collections, currentLocation);
 
       setRestaurants([...result]);
     } finally {
@@ -51,7 +44,7 @@ export const useGetRestaurants = () => {
 
   return {
     isLoading,
-    restaurants: sortBy(restaurants, 'distance') as Restaurant[],
+    restaurants: orderBy(restaurants, 'distance', 'asc') as Restaurant[],
     onRefresh,
   };
 };
