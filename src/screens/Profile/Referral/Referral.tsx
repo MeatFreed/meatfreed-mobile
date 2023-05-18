@@ -36,7 +36,7 @@ export const Referral: React.FC = () => {
 
     Clipboard.setString(user?.referrer);
 
-    ToastService.onSuccess({ title: t('my-referral.clipboard'), position: 'bottom' });
+    ToastService.onSuccess({ title: t('referral.clipboard'), position: 'bottom' });
 
     onLogEvent(EventTypes.REFERRAL_CODE_SHARED, {
       userId,
@@ -54,7 +54,7 @@ export const Referral: React.FC = () => {
     try {
       const response = await Share.open({
         title: 'MeatFreed',
-        message: `${t('my-referral.share')}`,
+        message: `${t('referral.share', { code: user.referrer })}`,
         url,
         failOnCancel: false,
       });

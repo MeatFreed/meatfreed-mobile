@@ -1,10 +1,13 @@
 /* eslint-disable no-empty */
+import { useIsFocused } from '@react-navigation/native';
 import { useEffect, useState } from 'react';
 import { StoryblokService } from 'services';
 
 const { client } = StoryblokService;
 
 export const useGetVoucherCode = (code: string) => {
+  const isFocused = useIsFocused();
+
   const [offerCode, setOfferCode] = useState<string | undefined>(undefined);
 
   const getVoucherCode = async () => {
@@ -18,10 +21,10 @@ export const useGetVoucherCode = (code: string) => {
   };
 
   useEffect(() => {
-    if (code) {
+    if (code && isFocused) {
       getVoucherCode();
     }
-  }, [code]);
+  }, [code, isFocused]);
 
   return {
     offerCode,

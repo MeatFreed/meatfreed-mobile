@@ -102,6 +102,8 @@
     "description": "View your membership card by \ntapping on a restaurant 👆"
   },
   "offers": {
+    "featured": "Featured",
+    "title": "Offers we think you’ll love",
     "refer": "Refer new members and a chance to\n win £",
     "member": "MeatFreed Member",
     "status": "Status: {{tier}}",
@@ -111,6 +113,7 @@
     "can-redeemed-once": "Can only be redeemed once",
     "draw-closes-in": "Draw closes: {{date}}",
     "draw-closes": "Draw closes...",
+    "closes-in": "Closes in {{days}} days",
     "about-offer": "About this offer",
     "show-code": "show unique code at checkout",
     "total-entries": "{{totalEntries}} ENTRIES",
@@ -126,7 +129,9 @@
   "referral": {
     "qr-code": "Share the QR code with your friends",
     "other-methods": "Other ways to share",
-    "code": "Your referral code"
+    "code": "Your referral code",
+    "clipboard": "Your invitation code copied to clipboard",
+    "share": "Join MeatFreed for free using my code {{code}} or link "
   },
   "menu": {
     "logout": "Logout",
