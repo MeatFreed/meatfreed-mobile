@@ -19,3 +19,19 @@ export const adaptAvailableOffers = (
 
   return filteredByAvailableDate as Offer[];
 };
+
+export const adaptFeaturedOffers = (
+  userId: string,
+  collection: FirebaseFirestoreTypes.QuerySnapshot<FirebaseFirestoreTypes.DocumentData>,
+) => {
+  const adaptOffers = collection.docs.map((doc) => doc.data()) as Offer[];
+
+  const filteredByUserId = adaptOffers.filter((offer) => !offer?.userIds?.includes(userId));
+
+  const filteredByAvailableDate = filteredByUserId.filter((offer) => isBetweenAvailableTime(
+    offer?.content?.start_date,
+    offer?.content?.end_date,
+  ));
+
+  return filteredByAvailableDate as Offer[];
+};

@@ -32,6 +32,7 @@ export const MaterialTopTabNavigator: React.FC = () => {
   return (
     <Tab.Navigator
       screenOptions={{
+        swipeEnabled: false,
         tabBarLabelStyle: styles.tabBarLabelStyle,
         tabBarActiveTintColor: Colors.basic_800,
         tabBarInactiveTintColor: Colors.basic_600,

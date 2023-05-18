@@ -47,9 +47,9 @@ export const Statistics: React.FC = () => {
       jc="space-between"
       w="100%"
     >
-      <StatisticItem bgc={Colors.primary_100} color={Colors.primary_500} value={values.members} title={t('profile.link-shared')} />
+      <StatisticItem bgc={Colors.primary_100} color={Colors.primary_500} value={values.shared} title={t('profile.link-shared')} />
 
-      <StatisticItem bgc={Colors.primary_500} color={Colors.basic_100} value={values.shared} title={t('profile.friend-joined')} />
+      <StatisticItem bgc={Colors.primary_500} color={Colors.basic_100} value={values.members} title={t('profile.friend-joined')} />
     </Box>
   );
 };
