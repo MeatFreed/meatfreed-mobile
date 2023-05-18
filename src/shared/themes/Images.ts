@@ -32,4 +32,6 @@ export const Images = {
   Terms: require('assets/images/terms.svg').default,
   Logout: require('assets/images/logout.svg').default,
   Delete: require('assets/images/delete.svg').default,
+  Share: require('assets/images/share.svg').default,
+  Copy: require('assets/images/copy.svg').default,
 };

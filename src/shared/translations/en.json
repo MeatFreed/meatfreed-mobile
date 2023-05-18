@@ -1,7 +1,6 @@
 {
   "screens": {
     "offers": "Offers",
-    "referrals": "My Referrals",
     "membership": "meatfreed",
     "posts": "The Latest",
     "post-details": "Post Details",
@@ -11,7 +10,8 @@
     "profile": "Profile",
     "settings": "Settings",
     "all-offers": "Available",
-    "claimed-offers": "Redeemed"
+    "claimed-offers": "Redeemed",
+    "referral": "Refer and unlock offers"
   },
   "tabs": {
     "search": "Home",
@@ -93,7 +93,9 @@
     "facebook": "Sign up with Facebook",
     "apple": "Sign up with Apple",
     "email": "Sign up with e-mail",
-    "share-referral-code": "Share your referral code"
+    "share-referral-code": "Share your referral code",
+    "copy-code": "Copy code to clipboard",
+    "invite-link": "Refer using invite link"
   },
   "search": {
     "directions": "Directions",
@@ -121,15 +123,10 @@
     "post-link": "Post link",
     "empty-state": "Not found posts"
   },
-  "my-referral": {
-    "scan": "Share the QR code with your friends",
-    "code": "Referral Code",
-    "link": "Invitation Link",
-    "clipboard": "Your invitation code copied to clipboard",
-    "share": "Join our local community",
-    "status": "Status",
-    "members": "{{count}} new members",
-    "registered": "have registered from you"
+  "referral": {
+    "qr-code": "Share the QR code with your friends",
+    "other-methods": "Other ways to share",
+    "code": "Your referral code"
   },
   "menu": {
     "logout": "Logout",

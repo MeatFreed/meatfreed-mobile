@@ -3,6 +3,7 @@ import {
   Settings,
   SignIn,
   SignUp,
+  Referral,
   Welcome,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
@@ -72,6 +73,15 @@ export const MainNavigator: React.FC = () => {
         options={{
           ...headerOptions,
           headerTitle: t('screens.settings'),
+        }}
+      />
+
+      <Stack.Screen
+        name={Routes.REFERRAL}
+        component={Referral}
+        options={{
+          ...headerOptions,
+          headerTitle: t('screens.referral'),
         }}
       />
 
