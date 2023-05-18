@@ -6,12 +6,10 @@ import {
   Box, Colors, FontFamily, Images, Spaces, Text,
 } from 'themes';
 import { Avatar, Button, StatusBar } from 'ui';
-import Share from 'react-native-share';
-import { useAnalytics, useGetUserByUserId, useUploadPhoto } from 'hooks';
+import { useUploadPhoto } from 'hooks';
 import { useTranslation } from 'react-i18next';
-import { EventTypes, touchableConfig } from 'helpers';
-import dayjs from 'dayjs';
-import { RouteService, ToastService } from 'services';
+import { touchableConfig } from 'helpers';
+import { RouteService } from 'services';
 import { Routes } from 'navigation';
 import { useNavigation } from '@react-navigation/native';
 import styled from 'styled-components/native';
@@ -27,13 +25,11 @@ const styles = StyleSheet.create({
   },
 });
 
-const { REFERRAL_LINK_SHARED } = EventTypes;
-
 const StyledButton = styled.TouchableOpacity`
   height: 55px;
   width: 100%;
   border-radius: 8px;
-  border: 1px solid ${Colors.basic_300};
+  border: 1px solid ${Colors.basic_400};
   background-color: ${Colors.basic_100};
   align-items: center;
   justify-content: center;
@@ -45,14 +41,9 @@ export const Profile: React.FC = () => {
 
   const navigation = useNavigation();
 
-  const userId = useTypedSelector(userSelectors.userId);
   const user = useTypedSelector(userSelectors.user);
 
-  const { link } = useGetUserByUserId(userId);
-
   const { onUploadPhoto, isLoading } = useUploadPhoto();
-
-  const { onLogEvent } = useAnalytics();
 
   useLayoutEffect(() => {
     navigation.setOptions({
@@ -68,33 +59,6 @@ export const Profile: React.FC = () => {
       ),
     });
   }, [navigation]);
-
-  const onShare = async (url: string) => {
-    if (!url || !user?.referrer) {
-      return;
-    }
-
-    try {
-      const response = await Share.open({
-        title: 'MeatFreed',
-        message: `${t('my-referral.share')}`,
-        url,
-        failOnCancel: false,
-      });
-
-      if (response.success) {
-        onLogEvent(REFERRAL_LINK_SHARED, {
-          userId,
-          link,
-          referrerCode: user.referrer,
-          event: REFERRAL_LINK_SHARED,
-          createdAt: dayjs().valueOf(),
-        });
-      }
-    } catch (error) {
-      ToastService.onDanger({ title: t('errors.server-unable') });
-    }
-  };
 
   return (
     <>
@@ -133,13 +97,14 @@ export const Profile: React.FC = () => {
 
             <Statistics />
 
-            {!!link && (
-              <StyledButton {...touchableConfig} onPress={() => onShare(link)}>
-                <Images.ShareCode width={20} height={20} />
+            <StyledButton
+              {...touchableConfig}
+              onPress={() => RouteService.navigate(Routes.REFERRAL)}
+            >
+              <Images.ShareCode width={20} height={20} />
 
-                <Text m={[2, 0, 0, 10]} ff={FontFamily.PoppinsMedium} color={Colors.basic_800}>{t('buttons.share-referral-code')}</Text>
-              </StyledButton>
-            )}
+              <Text m={[2, 0, 0, 10]} ff={FontFamily.PoppinsMedium} color={Colors.basic_800}>{t('buttons.share-referral-code')}</Text>
+            </StyledButton>
 
           </Box>
         </ScrollView>
