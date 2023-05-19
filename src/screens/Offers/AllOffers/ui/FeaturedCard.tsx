@@ -69,7 +69,7 @@ export const FeaturedCard: React.FC<FeaturedCardProps> = ({
 
   return (
     <TouchableOpacity {...touchableConfig} onPress={onPress}>
-      <Box m={[10, 16, 0, isFirst ? 16 : 0]} br="8px" h="120px" w={`${width - 48}px`}>
+      <Box m={[10, 16, 0, isFirst ? 16 : 0]} br="8px" h="130px" w={`${width - 48}px`}>
         {isVideo ? (
           <StyledVideo
             controls={false}
@@ -86,7 +86,7 @@ export const FeaturedCard: React.FC<FeaturedCardProps> = ({
         )}
 
         <Box f={1} z={1} bgc={Colors.basic_transparent_80} br="8px" p={16}>
-          <Text fs={18} lh={24} fnw="500" ff={FontFamily.PoppinsSemiMedium} color={Colors.basic_100}>{title}</Text>
+          <Text numberOfLines={2} fs={18} lh={24} fnw="500" ff={FontFamily.PoppinsSemiMedium} color={Colors.basic_100}>{title}</Text>
 
           <Box fd="row" ai="center">
             {!isVoucher && !!totalEntries && (
