@@ -97,7 +97,7 @@ export const useGetOffersActions = () => {
 
     try {
       await firestore().collection('user_offers').add({
-        offerCode: '',
+        voucherCode: '',
         offerId,
         userId,
         createdAt: dayjs().valueOf(),
