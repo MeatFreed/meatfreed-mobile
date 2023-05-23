@@ -5,10 +5,13 @@ import { ToastMessage } from 'ui';
 import { RouteService } from 'services';
 import { PostHogProvider } from 'posthog-react-native';
 import Config from 'react-native-config';
+import Courier from '@trycourier/courier-react-native';
 import {
-  useAnalytics, useDynamicLinkListener, useGetPosition, useGetReactions, useGoogle,
+  useAnalytics, useCourier, useDynamicLinkListener, useGetPosition, useGetReactions, useGoogle,
 } from 'hooks';
-import { isDev, withDelay } from 'helpers';
+import { AnyType, isDev, withDelay } from 'helpers';
+import { useTypedSelector } from 'stores';
+import { userSelectors } from 'stores/user';
 import { Stack } from './NavigationOptions';
 import { Routes } from './Routes';
 import { MainNavigator } from './MainNavigator';
@@ -19,10 +22,22 @@ export const RootNavigator: React.FC = () => {
 
   const { onScreenView } = useAnalytics();
 
+  const userId = useTypedSelector(userSelectors.userId);
+
   useGetReactions();
 
   const { getPermission } = useGetPosition();
   const { configure } = useGoogle();
+
+  const { onCourierSignIn } = useCourier();
+
+  const onPushNotificationClicked = (push: AnyType) => {
+    console.log({ push });
+  };
+
+  const onPushNotificationDelivered = (push: AnyType) => {
+    console.log({ push });
+  };
 
   const bootstrap = useCallback(async () => {
     configure();
@@ -36,7 +51,22 @@ export const RootNavigator: React.FC = () => {
 
   useEffect(() => {
     bootstrap();
+
+    const subscribe = Courier.registerPushNotificationListeners({
+      onPushNotificationClicked,
+      onPushNotificationDelivered,
+    });
+
+    return () => {
+      subscribe?.();
+    };
   }, [bootstrap]);
+
+  useEffect(() => {
+    if (userId) {
+      onCourierSignIn(userId);
+    }
+  }, [userId]);
 
   return (
     <>

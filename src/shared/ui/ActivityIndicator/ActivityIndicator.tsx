@@ -21,7 +21,7 @@ export const ActivityIndicator: React.FC<ActivityIndicatorProps> = ({ isVisible 
     deviceWidth={width}
   >
     <Box f={1} jc="center" ai="center">
-      <Indicator size="large" color={Colors.purple} />
+      <Indicator size="large" color={Colors.primary_500} />
     </Box>
   </Modal>
 );

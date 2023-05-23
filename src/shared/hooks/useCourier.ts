@@ -1,50 +1,33 @@
 /* eslint-disable no-console */
-import { useEffect, useState } from 'react';
 import Courier from '@trycourier/courier-react-native';
 import { AnyType } from 'helpers';
+import Config from 'react-native-config';
+
+const { COURIER_API_KEY } = Config as AnyType;
 
 export const useCourier = () => {
-  const [permission, setPermission] = useState<string | null>(null);
-
-  const onPushNotificationClicked = (push: AnyType) => {
-    console.log({ push });
-  };
-
-  const onPushNotificationDelivered = (push: AnyType) => {
-    console.log({ push });
-  };
-
-  const onSignIn = async (userId: string) => {
+  const onCourierSignIn = async (userId: string) => {
     await Courier.apnsToken;
     await Courier.fcmToken;
 
-    return Courier.signIn({ accessToken: 'pk_test_3V3BBTZYPX4KEXQ2PDGWZPBNBK07', userId });
+    Courier.signIn({
+      accessToken: COURIER_API_KEY,
+      userId,
+    });
   };
 
   const getPermission = async () => {
     const status = await Courier.notificationPermissionStatus;
 
-    setPermission(status);
+    if (status === 'authorized') {
+      return;
+    }
 
-    const requestStatus = await Courier.requestNotificationPermission();
-
-    setPermission(requestStatus);
+    await Courier.requestNotificationPermission();
   };
 
-  useEffect(() => {
-    const subscribe = Courier.registerPushNotificationListeners({
-      onPushNotificationClicked,
-      onPushNotificationDelivered,
-    });
-
-    return () => {
-      subscribe?.();
-    };
-  }, []);
-
   return {
-    onSignIn,
+    onCourierSignIn,
     getPermission,
-    permission,
   };
 };

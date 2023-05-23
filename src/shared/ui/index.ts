@@ -12,3 +12,5 @@ export * from './Avatar/Avatar';
 export * from './SearchBar/SearchBar';
 export * from './TopGradient/TopGradient';
 export * from './Carousel/Carousel';
+export * from './Switch/Switch';
+export * from './InfoBlock/InfoBlock';
