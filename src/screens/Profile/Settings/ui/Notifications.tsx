@@ -71,11 +71,12 @@ export const Notifications: React.FC = () => {
           </Box>
         )}
 
-        {preferences?.map((preference) => (
+        {preferences?.map((preference, index) => (
           <Switch
             key={preference.topic_id}
             title={preference.topic_name}
             value={preference.status === OPTED_IN}
+            hasLine={index !== preferences.length - 1}
             onValueChange={(isEnabled) => onUpdatePreference(preference.topic_id, isEnabled)}
           />
         ))}

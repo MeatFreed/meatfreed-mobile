@@ -10,6 +10,7 @@ interface SwitchProps {
   value: boolean;
   onValueChange: (value: boolean) => void;
   withBottomOffset?: boolean;
+  hasLine?: boolean;
 }
 
 const styles = StyleSheet.create({
@@ -26,13 +27,14 @@ export const Switch: React.FC<SwitchProps> = ({
   title,
   value,
   onValueChange,
+  hasLine = true,
 }) => (
   <Box mb={withBottomOffset ? Spaces.md : 0}>
     <Box fd="row" w="100%" ai="center" p={[Spaces.sm, 0]} jc="space-between">
       <Text ff={FontFamily.PoppinsMedium}>{title}</Text>
 
       <SwitchComponent
-        backgroundActive={Colors.basic_550}
+        backgroundActive={Colors.primary_500}
         backgroundInactive={Colors.basic_500}
         circleSize={28}
         value={value}
@@ -40,7 +42,7 @@ export const Switch: React.FC<SwitchProps> = ({
         renderActiveText={false}
         renderInActiveText={false}
         changeValueImmediately
-        circleActiveColor={Colors.switch}
+        circleActiveColor={Colors.basic_100}
         innerCircleStyle={styles.innerCircleStyle}
         outerCircleStyle={styles.outerCircleStyle}
         switchWidthMultiplier={2}
@@ -50,6 +52,6 @@ export const Switch: React.FC<SwitchProps> = ({
       />
     </Box>
 
-    <Box w="100%" h="1px" bgc={Colors.basic_300} />
+    {hasLine && <Box w="100%" h="1px" bgc={Colors.basic_400} />}
   </Box>
 );
