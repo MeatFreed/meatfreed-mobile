@@ -1,3 +1,4 @@
+import Courier from '@trycourier/courier-react-native';
 import { useTypedDispatch } from 'stores';
 import auth from '@react-native-firebase/auth';
 import { resetUser } from 'stores/user';
@@ -16,6 +17,8 @@ export const useLogout = () => {
       }
 
       await auth().signOut();
+
+      Courier.signOut();
 
       RouteService.navigate(Routes.HOME_NAVIGATOR);
     } finally {

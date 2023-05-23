@@ -28,6 +28,10 @@ export const Colors = {
 
   weekday: '#F8F6FD',
 
+  switch: '#FFA3B1',
+
+  // switchEnabled
+
   /** PRIMARY  */
   primary_50: 'rgba(113, 83, 214, 0.1)',
   primary_100: '#F1ECFF',
@@ -52,6 +56,7 @@ export const Colors = {
   basic_300: '#EDF1F7',
   basic_400: '#E4E9F2',
   basic_500: '#C5CEE0',
+  basic_550: '#E3DCF7',
   basic_600: '#6D7D9D',
   basic_650: '#5C616F',
   basic_700: '#2E3A59',

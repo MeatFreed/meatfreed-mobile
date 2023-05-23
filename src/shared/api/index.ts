@@ -15,3 +15,6 @@ export * from './user/models';
 
 export * from './reactions/models';
 export * from './reactions/adapters';
+
+export * from './preferences/models';
+export * from './preferences/preferencesApi';

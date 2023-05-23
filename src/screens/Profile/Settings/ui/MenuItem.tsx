@@ -10,6 +10,7 @@ import { Dimensions } from 'react-native';
 const StyledButton = styled.TouchableOpacity`
   align-items: center;
   background-color: ${Colors.basic_100};
+  height: 56px;
 `;
 
 interface MenuItemProps {

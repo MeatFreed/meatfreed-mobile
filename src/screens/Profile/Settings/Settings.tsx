@@ -12,7 +12,6 @@ import {
   ActivityIndicator,
   Button,
   Input,
-  KeyboardAwareView,
   StatusBar,
 } from 'ui';
 import firestore from '@react-native-firebase/firestore';
@@ -21,7 +20,8 @@ import * as Yup from 'yup';
 import Config from 'react-native-config';
 import { AnyType, openLink } from 'helpers';
 import { useLogout } from 'hooks';
-import { DeleteAccountModal, MenuItem } from './ui';
+import { ScrollView } from 'react-native';
+import { DeleteAccountModal, MenuItem, Notifications } from './ui';
 
 interface Values {
   firstName: string;
@@ -106,8 +106,11 @@ export const Settings: React.FC = () => {
 
       <StatusBar />
 
-      <KeyboardAwareView bounces={false} isScrollable>
-        <Box f={1} p={[Spaces.md, 0, 0]} bgc={Colors.basic_150}>
+      <ScrollView
+        contentContainerStyle={{ flexGrow: 1, paddingBottom: 30 }}
+        showsVerticalScrollIndicator={false}
+      >
+        <Box p={[Spaces.md, 0, 0]} bgc={Colors.basic_150}>
           <Box m={[0, Spaces.md]}>
             <Text mb={Spaces.md} fs={FontSizes.lg} fnw="700" ff={FontFamily.PoppinsMedium}>{t('settings.account-settings')}</Text>
 
@@ -147,9 +150,11 @@ export const Settings: React.FC = () => {
               isWhite
             />
 
-            <Text mb={Spaces.md} fs={FontSizes.lg} fnw="700" ff={FontFamily.PoppinsMedium}>{t('settings.general')}</Text>
-
           </Box>
+
+          <Notifications />
+
+          <Text m={[0, Spaces.md, Spaces.md]} fs={FontSizes.lg} fnw="700" ff={FontFamily.PoppinsMedium}>{t('settings.general')}</Text>
 
           <MenuItem Icon={<Images.Support />} title={t('menu.support')} onPress={() => openLink(`${LIVE_CHAT_URL}=${LIVE_CHAT_LICENSE}`)} />
 
@@ -166,7 +171,7 @@ export const Settings: React.FC = () => {
             onModalClose={() => setIsShowDeleteAccountModal(false)}
           />
         </Box>
-      </KeyboardAwareView>
+      </ScrollView>
     </>
   );
 };

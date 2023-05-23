@@ -11,7 +11,8 @@
     "settings": "Settings",
     "all-offers": "Available",
     "claimed-offers": "Redeemed",
-    "referral": "Refer and unlock offers"
+    "referral": "Refer and unlock offers",
+    "notifications": "Notifications"
   },
   "tabs": {
     "search": "Home",
@@ -141,7 +142,8 @@
     "privacy": "Privacy Policy",
     "support": "Support",
     "delete": "Delete account (noooo!)",
-    "settings": "Settings"
+    "settings": "Settings",
+    "notifications": "Notifications"
   },
   "profile": {
     "add-photo": "Add Photo",
@@ -157,7 +159,8 @@
   "settings": {
     "account-settings": "Account Settings",
     "general": "General",
-    "main-contacts": "Main Contacts"
+    "main-contacts": "Main Contacts",
+    "notifications": "Notification Settings"
   },
   "home": {
     "today": "Today:",
@@ -171,5 +174,8 @@
     "opened-now": "Open now",
     "opens-at": "Opens at {{hours}}",
     "current-day": "Today"
+  }, 
+  "notifications": {
+    "warning": "Please enable push notification in your device setting for receiving messages about offers MeatFreed."
   }
 }
