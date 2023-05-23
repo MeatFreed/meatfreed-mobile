@@ -36,7 +36,7 @@
     "last-name": "Last Name"
   },
   "placeholders": {
-    "search-restaurant": "Start typing restaurant name",
+    "search-restaurant": "Where would you like to go?",
     "name": "Name",
     "email": "Email",
     "password": "Fill your password",
