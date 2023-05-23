@@ -31,6 +31,7 @@ export const useGetPosts = () => {
         .where('geohash', '>=', bound[0])
         .where('geohash', '<=', bound[1])
         .where('content.active', '==', true)
+        .where('content.featured', '==', false)
         .get());
 
       const collections = await Promise.all(requestArray);
@@ -53,6 +54,7 @@ export const useGetPosts = () => {
         .where('geohash', '>=', bound[0])
         .where('geohash', '<=', bound[1])
         .where('content.active', '==', true)
+        .where('content.featured', '==', false)
         .limit(limit)
         .get());
 
@@ -84,6 +86,7 @@ export const useGetPosts = () => {
         .where('geohash', '>=', bound[0])
         .where('geohash', '<=', bound[1])
         .where('content.active', '==', true)
+        .where('content.featured', '==', false)
         .limit(5)
         .get());
 

@@ -6,7 +6,7 @@ export const useGetPosition = () => {
   const { onShowMyLocation } = useGetPositionActions();
 
   const getPermission = async () => {
-    await withDelay(isIOS ? 2000 : 3000);
+    await withDelay(isIOS ? 2500 : 3500);
 
     await PermissionsService.requestGeolocationPermission();
 

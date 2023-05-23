@@ -36,7 +36,7 @@
     "last-name": "Last Name"
   },
   "placeholders": {
-    "search-restaurant": "Start typing restaurant name",
+    "search-restaurant": "Where would you like to go?",
     "name": "Name",
     "email": "Email",
     "password": "Fill your password",
@@ -124,7 +124,9 @@
   },
   "posts": {
     "post-link": "Post link",
-    "empty-state": "Not found posts"
+    "empty-state": "Not found posts",
+    "featured": "Featured",
+    "browse-all": "Browse all"
   },
   "referral": {
     "qr-code": "Share the QR code with your friends",
@@ -136,8 +138,8 @@
   "menu": {
     "logout": "Logout",
     "terms": "Terms & Conditions",
-    "privacy": "Privacy & Policy",
-    "support": "Help & Support",
+    "privacy": "Privacy Policy",
+    "support": "Support",
     "delete": "Delete account (noooo!)",
     "settings": "Settings"
   },
