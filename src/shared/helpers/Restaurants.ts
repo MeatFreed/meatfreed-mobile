@@ -12,7 +12,7 @@ export const getDistanceToPlace = (currentLocation: LatLng, placeLocation: LatLn
 
   const value = isKilometer ? Math.ceil(distance / 1000) : distance;
 
-  return `${value}${isKilometer ? 'km' : 'm'}`;
+  return `${Number.isNaN(value) ? 0 : value}${isKilometer ? 'km' : 'm'}`;
 };
 
 export const getHours = (openingHours?: RestaurantOpeningHours) => {
