@@ -124,7 +124,9 @@
   },
   "posts": {
     "post-link": "Post link",
-    "empty-state": "Not found posts"
+    "empty-state": "Not found posts",
+    "featured": "Featured",
+    "browse-all": "Browse all"
   },
   "referral": {
     "qr-code": "Share the QR code with your friends",
@@ -136,7 +138,7 @@
   "menu": {
     "logout": "Logout",
     "terms": "Terms & Conditions",
-    "privacy": "Privacy & Policy",
+    "privacy": "Privacy Policy",
     "support": "Help & Support",
     "delete": "Delete account (noooo!)",
     "settings": "Settings"
