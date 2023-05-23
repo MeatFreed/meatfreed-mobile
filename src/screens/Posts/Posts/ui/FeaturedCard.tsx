@@ -3,31 +3,34 @@ import { AnyType, isImage, touchableConfig } from 'helpers';
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import Video from 'react-native-video';
-import { Box, Colors, Images } from 'themes';
+import { Box, Colors } from 'themes';
 import FastImage from 'react-native-fast-image';
 import Gradient from 'react-native-linear-gradient';
-import { Emoji, ShareContent } from 'features';
-import { Icon, Loader } from 'ui';
-import { Description } from './Description';
+import { Loader } from 'ui';
+import { Dimensions } from 'react-native';
 
-interface PostCardProps {
-  isAutoPlay: boolean
-  contentId: string;
+const { width } = Dimensions.get('window');
+
+interface FeaturedCardProps {
   post: PostContent;
-  isMuted: boolean;
-  onChangeVolume: () => void;
+  isFirst: boolean;
+  onPress?: () => void;
 }
 
+const ITEM_WIDTH = width / 3;
+
+const ITEM_HEIGHT = width / 2;
+
 const StyledVideo = styled(Video as AnyType)`
-  width: 100%;
-  height: 620px;
+  width: ${ITEM_WIDTH}px;
+  height: ${ITEM_HEIGHT}px;
   position: absolute;
   border-radius: 10px;
 `;
 
 const StyledImage = styled(FastImage as AnyType)`
-  width: 100%;
-  height: 620px;
+  width: ${ITEM_WIDTH}px;
+  height: ${ITEM_HEIGHT}px;
   position: absolute;
   border-radius: 10px;
 `;
@@ -38,10 +41,9 @@ const StyledTopGradient = styled(Gradient as AnyType)`
   left: 0px;
   right: 8px;
   width: 100%;
-  height: 140px;
+  height: 30px;
   z-index: 1;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
+  border-radius: 10px;
 `;
 
 const StyledBottomGradient = styled(Gradient as AnyType)`
@@ -50,43 +52,39 @@ const StyledBottomGradient = styled(Gradient as AnyType)`
   left: 0px;
   right: 8px;
   width: 100%;
-  height: 130px;
+  height: 30px;
   z-index: 1;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
-`;
-
-const StyledVolume = styled.TouchableOpacity`
-  width: 24px;
-  height: 24px;
-  border-radius: 12px;
-  align-items: center;
-  justify-content: center;
-  background-color: ${Colors.basic_transparent_32};
+  border-radius: 10px;
 `;
 
 const StyledWrapper = styled(Box)`
   position: absolute;
   z-index: 10;
-  width: 100%;
-  height: 620px;
+  width: ${ITEM_WIDTH}px;
+  height: ${ITEM_HEIGHT}px;
   align-items: center;
   justify-content: center;
   border-radius: 12px;
 `;
 
-export const PostCard: React.FC<PostCardProps> = ({
-  post, contentId, isAutoPlay, isMuted, onChangeVolume,
+const StyledButton = styled.TouchableOpacity<{ isFirst: boolean }>`
+  border-radius: 10px;
+  border: 1px solid ${Colors.basic_500};
+  width: ${ITEM_WIDTH}px;
+  height: ${ITEM_HEIGHT}px;
+  margin: ${({ isFirst }) => `10px 16px 0px ${isFirst ? '16px' : '0px'}`};
+`;
+
+export const FeaturedCard: React.FC<FeaturedCardProps> = ({
+  post, isFirst, onPress,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const { assets, description, title } = post;
-
-  const [isShowFullDescription, setIsShowFullDescription] = useState(false);
+  const { assets } = post;
 
   const isVideo = isImage(assets?.[0]?.filename);
 
   return (
-    <Box m={[8, 16, 8]} h="620px" bgc={Colors.basic_100} br="10px" bw="1px" bc={Colors.basic_500}>
+    <StyledButton {...touchableConfig} isFirst={isFirst} onPress={onPress}>
       {isLoading && (
         <StyledWrapper>
           <Loader size="large" color={Colors.purple} />
@@ -95,12 +93,11 @@ export const PostCard: React.FC<PostCardProps> = ({
 
       {assets?.[0]?.filename && !isVideo && (
         <StyledVideo
-          paused={!isAutoPlay}
+          paused
           resizeMode="cover"
           repeat
           source={{ uri: assets?.[0]?.filename }}
           poster={assets?.[0]?.filename}
-          muted={isMuted}
           ignoreSilentSwitch="ignore"
           onLoad={() => setIsLoading(false)}
           posterResizeMode="cover"
@@ -117,7 +114,7 @@ export const PostCard: React.FC<PostCardProps> = ({
 
       {!assets?.length && <StyledImage resizeMode="cover" source={{ uri: 'https://iili.io/HOckdkg.png' }} onLoadEnd={() => setIsLoading(false)} />}
 
-      <Box br="10px" z={2} f={1} bgc={isShowFullDescription ? Colors.basic_transparent_72 : 'transparent'}>
+      <Box br="10px" z={2} f={1} bgc="transparent">
         {!isLoading && (
           <StyledTopGradient
             colors={['rgba(0, 0, 0, .5)', 'rgba(0, 0, 0, .2)', 'rgba(0, 0, 0, .01)']}
@@ -126,34 +123,6 @@ export const PostCard: React.FC<PostCardProps> = ({
             locations={[0, 0.7, 0.9]}
           />
         )}
-
-        <Box z={1} p={[8, 12, 16]} fd="row" jc="space-between" ai="center">
-          <Images.PostLogo />
-
-          {assets?.[0]?.filename && !isVideo && !isLoading && (
-            <StyledVolume {...touchableConfig} onPress={onChangeVolume}>
-              <Icon name={isMuted ? 'volume-off-outline' : 'volume-up-outline'} color={Colors.basic_100} />
-            </StyledVolume>
-          )}
-        </Box>
-
-        <Box f={1} />
-
-        {!!description && (
-          <Description
-            description={description}
-            isShowFullDescription={isShowFullDescription}
-            onPress={() => setIsShowFullDescription(!isShowFullDescription)}
-          />
-        )}
-
-        <Box z={2} w="auto" m={[0, 12]} h="1px" bgc={Colors.basic_500} />
-
-        <Box z={2} ai="center" fd="row" p={[8, 12]}>
-          <Emoji contentId={contentId} />
-
-          <ShareContent title={title} contentId={contentId} />
-        </Box>
 
         {!isLoading && (
           <StyledBottomGradient
@@ -164,6 +133,6 @@ export const PostCard: React.FC<PostCardProps> = ({
           />
         )}
       </Box>
-    </Box>
+    </StyledButton>
   );
 };

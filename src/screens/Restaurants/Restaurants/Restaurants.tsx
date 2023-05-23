@@ -66,7 +66,7 @@ export const Restaurants: React.FC = () => {
           </StyledLayout>
         )}
 
-        {isFocused && <Map restaurants={restaurants} />}
+        <Map restaurants={restaurants} />
 
         {isFocused && (
           <RestaurantPanel restaurants={restaurants} />
