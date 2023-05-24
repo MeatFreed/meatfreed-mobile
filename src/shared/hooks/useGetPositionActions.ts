@@ -1,5 +1,5 @@
 import Geolocation from 'react-native-geolocation-service';
-import { Region } from 'react-native-maps';
+import { Details, Region } from 'react-native-maps';
 import { MapService } from 'services';
 import { useTypedDispatch, useTypedSelector } from 'stores';
 import {
@@ -49,17 +49,19 @@ export const useGetPositionActions = () => {
     );
   };
 
-  const onRegionChangeComplete = (region: Region) => {
-    dispatch(onChangeRegion({
-      delta: {
-        latitudeDelta: region.latitudeDelta,
-        longitudeDelta: region.longitudeDelta,
-      },
-      selectLocation: {
-        latitude: region.latitude,
-        longitude: region.longitude,
-      },
-    }));
+  const onRegionChangeComplete = (region: Region, details: Details) => {
+    if (details.isGesture) {
+      dispatch(onChangeRegion({
+        delta: {
+          latitudeDelta: region.latitudeDelta,
+          longitudeDelta: region.longitudeDelta,
+        },
+        selectLocation: {
+          latitude: region.latitude,
+          longitude: region.longitude,
+        },
+      }));
+    }
   };
 
   return {

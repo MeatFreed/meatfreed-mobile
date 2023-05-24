@@ -99,7 +99,7 @@ export const PostCard: React.FC<PostCardProps> = ({
           resizeMode="cover"
           repeat
           source={{ uri: assets?.[0]?.filename }}
-          poster={assets?.[0]?.filename}
+          poster={assets?.[0]?.filename || 'https://iili.io/HOckdkg.png'}
           muted={isMuted}
           ignoreSilentSwitch="ignore"
           onLoad={() => setIsLoading(false)}

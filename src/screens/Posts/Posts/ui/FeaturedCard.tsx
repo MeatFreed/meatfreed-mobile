@@ -93,11 +93,11 @@ export const FeaturedCard: React.FC<FeaturedCardProps> = ({
 
       {assets?.[0]?.filename && !isVideo && (
         <StyledVideo
-          paused
-          resizeMode="cover"
           repeat
+          resizeMode="cover"
+          muted
           source={{ uri: assets?.[0]?.filename }}
-          poster={assets?.[0]?.filename}
+          poster={assets?.[0]?.filename || 'https://iili.io/HOckdkg.png'}
           ignoreSilentSwitch="ignore"
           onLoad={() => setIsLoading(false)}
           posterResizeMode="cover"
