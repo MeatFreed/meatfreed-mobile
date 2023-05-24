@@ -2,11 +2,14 @@ import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
 import { Restaurant, adaptRestaurants } from 'api';
 import orderBy from 'lodash.orderby';
+import { useIsFocused } from '@react-navigation/native';
 import { useGetBounds } from './useGetBounds';
 
 const restaurantCollection = firestore().collection('companies_storyblock');
 
 export const useGetRestaurants = () => {
+  const isFocused = useIsFocused();
+
   const [isLoading, setIsLoading] = useState(false);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
@@ -20,6 +23,7 @@ export const useGetRestaurants = () => {
         .orderBy('geohash')
         .startAt(bound[0])
         .endAt(bound[1])
+        .where('content.public', '==', true)
         .get());
 
       const collections = await Promise.all(requestArray);
@@ -39,8 +43,10 @@ export const useGetRestaurants = () => {
   };
 
   useEffect(() => {
-    getRestaurants();
-  }, [selectLocation]);
+    if (isFocused) {
+      getRestaurants();
+    }
+  }, [selectLocation, isFocused]);
 
   return {
     isLoading,

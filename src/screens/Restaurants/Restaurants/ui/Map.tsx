@@ -1,12 +1,12 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useTypedSelector } from 'stores';
 import { placeSelectors } from 'stores/place';
 import { StyleSheet } from 'react-native';
-import MapView, { PROVIDER_GOOGLE, Region } from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps';
 import { MapStyles } from 'themes';
 import { Restaurant } from 'api';
 import { useGetPositionActions, useGetRestaurantActions } from 'hooks';
-import { AnyType, defaultLocation } from 'helpers';
+import { defaultLocation } from 'helpers';
 import { MapService } from 'services';
 import { RestaurantMarker } from './RestaurantMarker';
 
@@ -19,8 +19,6 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
   const location = useTypedSelector(placeSelectors.currentLocation);
   const selectLocation = useTypedSelector(placeSelectors.selectLocation);
   const delta = useTypedSelector(placeSelectors.delta);
-
-  const time = useRef<AnyType>();
 
   const { onRestaurantDetails } = useGetRestaurantActions();
 
@@ -38,16 +36,6 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
     longitude: selectLocation?.longitude || location?.longitude || 0,
   };
 
-  const onRegionChange = (region: Region) => {
-    if (time.current) {
-      clearTimeout(time.current);
-    }
-
-    time.current = setTimeout(() => {
-      onRegionChangeComplete(region);
-    }, 1000);
-  };
-
   return (
     <MapView
       ref={MapService.mapRef}
@@ -57,7 +45,7 @@ export const Map: React.FC<MapProps> = ({ restaurants }) => {
       customMapStyle={MapStyles}
       initialRegion={initialRegion}
       region={region}
-      onRegionChange={onRegionChange}
+      onRegionChangeComplete={onRegionChangeComplete}
       style={StyleSheet.absoluteFillObject}
       showsCompass={false}
       provider={PROVIDER_GOOGLE}
