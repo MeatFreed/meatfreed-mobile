@@ -176,6 +176,6 @@
     "current-day": "Today"
   }, 
   "notifications": {
-    "warning": "Please enable push notification in your device setting for receiving messages about offers MeatFreed."
+    "warning": "Please enable push notifications on your device to receive messages from MeatFreed"
   }
 }
