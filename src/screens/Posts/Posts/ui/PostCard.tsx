@@ -102,6 +102,10 @@ export const PostCard: React.FC<PostCardProps> = ({
           poster={assets?.[0]?.filename || 'https://iili.io/HOckdkg.png'}
           muted={isMuted}
           ignoreSilentSwitch="ignore"
+          selectedVideoTrack={{
+            type: 'resolution',
+            value: 360,
+          }}
           onLoad={() => setIsLoading(false)}
           posterResizeMode="cover"
         />

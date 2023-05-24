@@ -12,7 +12,7 @@ const ReactionButton = styled.TouchableOpacity<{ isActive: boolean }>`
   justify-content: center;
   border-radius: 20px;
   padding: 5px 9px;
-  background-color: ${({ isActive }) => (isActive ? Colors.primary_500 : 'transparent')}
+  background-color: ${({ isActive }) => (isActive ? Colors.primary_500 : 'transparent')};
 `;
 
 const Emoji = styled.TouchableOpacity`
@@ -48,7 +48,7 @@ export const AddEmoji: React.FC<AddEmojiProps> = ({
   };
 
   return (
-    <Box shadowed>
+    <Box>
       <ReactionButton
         {...touchableConfig}
         isActive={isShowEmoji}

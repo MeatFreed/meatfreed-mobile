@@ -97,7 +97,6 @@ export const Emoji: React.FC<EmojiProps> = ({
           />
         )}
       </Box>
-
     </Box>
   );
 };

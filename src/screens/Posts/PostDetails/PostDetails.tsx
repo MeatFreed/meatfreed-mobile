@@ -95,11 +95,11 @@ export const PostDetails: React.FC = () => {
 
           <Box p={[16, 16, 0]}>
             {content.title && (
-            <Text fs={FontSizes.lg} fnw="600" ff={FontFamily.PoppinsBold} color={Colors.basic_800}>{content.title}</Text>
+              <Text fs={FontSizes.lg} fnw="600" ff={FontFamily.PoppinsBold} color={Colors.basic_800}>{content.title}</Text>
             )}
 
             {content.description && (
-            <Text mt={8} fs={FontSizes.sm} color={Colors.basic_600}>{content.description}</Text>
+              <Text mt={8} fs={FontSizes.sm} color={Colors.basic_600}>{content.description}</Text>
             )}
           </Box>
         </ScrollView>

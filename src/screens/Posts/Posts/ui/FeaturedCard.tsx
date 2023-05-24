@@ -100,6 +100,10 @@ export const FeaturedCard: React.FC<FeaturedCardProps> = ({
           poster={assets?.[0]?.filename || 'https://iili.io/HOckdkg.png'}
           ignoreSilentSwitch="ignore"
           onLoad={() => setIsLoading(false)}
+          selectedVideoTrack={{
+            type: 'resolution',
+            value: 360,
+          }}
           posterResizeMode="cover"
         />
       )}
