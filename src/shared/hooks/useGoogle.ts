@@ -3,7 +3,7 @@ import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import {
-  AnyType, EventTypes, isIOS, withDelay,
+  AnyType, EventTypes, isIOS,
 } from 'helpers';
 import { useTranslation } from 'react-i18next';
 import Config from 'react-native-config';
@@ -16,7 +16,6 @@ import { setUser } from 'stores/user';
 import { useState } from 'react';
 import { useAnalytics } from './useAnalytics';
 import { useReferralCode } from './useReferralCode';
-import { useCourier } from './useCourier';
 
 const { SIGN_UP_WITHOUT_REFERRAL_CODE, SIGN_UP_WITH_REFERRAL_CODE } = EventTypes;
 
@@ -30,9 +29,6 @@ export const useGoogle = () => {
   const { onLogEvent } = useAnalytics();
 
   const { getReferralCode } = useReferralCode();
-
-  const { getPermission } = useCourier();
-
   const configure = () => {
     if (isIOS) {
       GoogleSignin.configure({
@@ -126,11 +122,13 @@ export const useGoogle = () => {
         dispatch(setUser(values as FirebaseUser));
       }
 
-      RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
-
-      await withDelay(1000);
-
-      getPermission();
+      if (response.exists) {
+        RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
+      } else {
+        RouteService.reset(Routes.AUTH_NAVIGATOR, {
+          screen: Routes.SIGN_UP_CONFIRMATION,
+        });
+      }
     } catch (error: AnyType) {
       if (error.code !== '-5') {
         const message = error?.message?.replace(`[${error?.code}] `, '');

@@ -18,7 +18,7 @@ interface ButtonProps {
   Icon?: React.ReactNode;
   iconName?: string;
   iconColor?: string;
-  type?: 'label' | 'default' | 'secondary' | 'icon' | 'action' | 'border' | 'danger' | 'header';
+  type?: 'label' | 'default' | 'secondary' | 'icon' | 'action' | 'border' | 'danger' | 'header' | 'secondary';
   reversed?: boolean;
   shadowed?: boolean;
   accent?: boolean;
@@ -33,8 +33,22 @@ const constructBackgroundColor = (
   disabled?: boolean,
 ) => (isLoading || disabled ? Colors.primary_100 : Colors.purple);
 
+const constructSecondaryBackgroundColor = (
+  isLoading?: boolean,
+  disabled?: boolean,
+) => (isLoading || disabled ? Colors.primary_100 : Colors.pink);
+
 const StyledButton = styled.TouchableOpacity<{isLoading?: boolean, disabled?: boolean, reversed?: boolean}>`
   background-color: ${({ isLoading, disabled }) => constructBackgroundColor(isLoading, disabled)};
+  height: 48px;
+  border-radius: 25px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
+
+const SecondaryButton = styled(StyledButton)<{isLoading?: boolean, disabled?: boolean, reversed?: boolean}>`
+  background-color: ${({ isLoading, disabled }) => constructSecondaryBackgroundColor(isLoading, disabled)};
   height: 48px;
   border-radius: 25px;
   justify-content: center;
@@ -47,6 +61,10 @@ const StyledButtonText = styled.Text<{isLoading?: boolean, disabled?: boolean, r
   font-family: ${FontFamily.PoppinsSemiMedium};
   font-weight: 700;
   color: ${({ disabled }) => constructColor(disabled)};
+`;
+
+const SecondaryText = styled(StyledButtonText)<{isLoading?: boolean, disabled?: boolean, reversed?: boolean}>`
+  color: ${Colors.basic_800};
 `;
 
 const ActionButton = styled.TouchableOpacity`
@@ -146,6 +164,36 @@ export const Button: React.FC<ButtonProps> = ({
           />
         )}
       </IconButton>
+    );
+  }
+
+  if (type === 'secondary') {
+    return (
+      <SecondaryButton
+        {...touchableConfig}
+        onPress={onPress}
+        onLongPress={onLongPress}
+        disabled={isLoading || disabled}
+      >
+        {isLoading ? (
+          <Loader color={Colors.primary_500} />
+        ) : (
+          <>
+            {iconName && !disabled && (
+              <IconComponent
+                name={iconName}
+                size={24}
+                color={iconColor || Colors.basic_100}
+                style={styles.icon}
+              />
+            )}
+
+            <SecondaryText isLoading={isLoading} disabled={disabled}>
+              {title}
+            </SecondaryText>
+          </>
+        )}
+      </SecondaryButton>
     );
   }
 

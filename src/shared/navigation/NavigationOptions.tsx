@@ -127,22 +127,21 @@ export const authOptions: StackNavigationOptions = {
   headerTitleAlign: 'center',
   headerBackTitleVisible: false,
   headerTintColor: Colors.white,
+  headerShadowVisible: false,
   headerTitleStyle: {
     fontSize: 20,
     lineHeight: 24,
     fontFamily: FontFamily.PoppinsSemiMedium,
-    color: Colors.basic_800,
+    color: Colors.basic_100,
   },
   headerStyle: {
-    backgroundColor: Colors.white,
-    borderBottomWidth: 1,
-    borderBottomColor: Colors.basic_300,
+    backgroundColor: Colors.primary_500,
   },
   headerLeft: (props: HeaderBackButtonProps) => {
     if (props.canGoBack) {
       return (
         <Box ml={Spaces.xs}>
-          <Button type="icon" iconColor={Colors.tabBarInactiveTintColor} iconName="arrow-back" onPress={RouteService.goBack} />
+          <Button type="icon" iconColor={Colors.basic_100} iconName="arrow-back" onPress={RouteService.goBack} />
         </Box>
       );
     }

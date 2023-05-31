@@ -22,6 +22,7 @@ export const Colors = {
 
   primary_light: '#A997E6',
   marker: '#0C0429',
+  button: '#040C22',
 
   tabBarInactiveTintColor: '#5C616F',
   tabBarActiveTintColor: '#7153d6',

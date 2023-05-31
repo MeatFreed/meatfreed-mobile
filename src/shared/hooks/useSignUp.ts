@@ -8,11 +8,10 @@ import { FirebaseUser } from 'api';
 import { useTypedDispatch } from 'stores';
 import { Routes } from 'navigation';
 import { setUser } from 'stores/user';
-import { AnyType, EventTypes, withDelay } from 'helpers';
+import { AnyType, EventTypes } from 'helpers';
 import dayjs from 'dayjs';
 import { useReferralCode } from './useReferralCode';
 import { useAnalytics } from './useAnalytics';
-import { useCourier } from './useCourier';
 
 const { SIGN_UP_WITHOUT_REFERRAL_CODE, SIGN_UP_WITH_REFERRAL_CODE } = EventTypes;
 
@@ -26,8 +25,6 @@ export const useSignUp = () => {
   const dispatch = useTypedDispatch();
 
   const { getReferralCode } = useReferralCode();
-
-  const { getPermission } = useCourier();
 
   const onSignUp = async ({
     email, password, referralCode, confirmPassword, ...rest
@@ -62,8 +59,8 @@ export const useSignUp = () => {
         ...rest,
         ...(referralCode && { referralCode }),
         uid: user.uid,
-        firstName: rest.name,
-        lastName: rest.name,
+        firstName: rest.firstName,
+        lastName: rest.lastName,
         email,
         referralsCount: 0,
         referrer: code,
@@ -85,11 +82,9 @@ export const useSignUp = () => {
         createdAt: dayjs().valueOf(),
       });
 
-      RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
-
-      await withDelay(1000);
-
-      getPermission();
+      RouteService.reset(Routes.AUTH_NAVIGATOR, {
+        screen: Routes.SIGN_UP_CONFIRMATION,
+      });
     } catch (error: AnyType) {
       const message = error?.message?.split?.('] ');
 

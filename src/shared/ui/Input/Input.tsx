@@ -29,6 +29,7 @@ interface InputProps extends TextInputProps {
   isWhite?: boolean;
   isImportant?: boolean;
   description?: string;
+  isWhiteLabel?: boolean;
   isRemoveRightRounded?: boolean;
 }
 
@@ -110,10 +111,10 @@ const StyledInput = styled.TextInput<StyledInputProps>`
   }) => constructBorderColor(isFocused, isError, accent)
 };
   font-family: ${FontFamily.PoppinsRegular};
-  border-top-left-radius: 8px;
-  border-top-right-radius: ${({ isRemoveRightRounded }) => (isRemoveRightRounded ? '0px' : '8px')};
-  border-bottom-left-radius: 8px;
-  border-bottom-right-radius: ${({ isRemoveRightRounded }) => (isRemoveRightRounded ? '0px' : '8px')};
+  border-top-left-radius: 10px;
+  border-top-right-radius: ${({ isRemoveRightRounded }) => (isRemoveRightRounded ? '0px' : '10px')};
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: ${({ isRemoveRightRounded }) => (isRemoveRightRounded ? '0px' : '10px')};
   background-color: ${({ isWhite }) => constructBackgroundColor(isWhite)};
   font-size: ${FontSizes.md}px;
   padding-top: ${({ isMultiline }) => (isMultiline ? '10px' : paddingTop)};
@@ -151,13 +152,14 @@ export const Input = React.forwardRef<TextInput | undefined, InputProps>(({
   isSmall,
   withBottomOffset,
   isWhite,
+  isWhiteLabel,
   ...rest
 }, ref) => {
   const [isFocused, setFocused] = useState(false);
 
   return (
     <Box w={fullWidth ? '100%' : 'auto'} mb={withBottomOffset ? Spaces.md : 0}>
-      <Label label={label} isError={isError} />
+      <Label label={label} isError={isError} isWhiteLabel={isWhiteLabel} />
 
       <Box>
         {!!LeftIcon && (

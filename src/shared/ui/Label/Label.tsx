@@ -6,26 +6,31 @@ import {
 interface LabelProps {
   label?: string;
   isError?: boolean;
+  isWhiteLabel?: boolean
 }
 
 export const Label: React.FC<LabelProps> = ({
   label,
   isError,
-}) => (
-  <Box fd="row" jc="space-between" w="100%">
-    {!!label && (
-      <Box fd="row">
-        <Text
-          ff={FontFamily.PoppinsMedium}
-          fs={FontSizes.xs}
-          mb={Spaces['2xs']}
-          fnw="500"
-          color={isError ? Colors.danger_500 : Colors.basic_650}
-        >
-          {label}
-        </Text>
+  isWhiteLabel,
+}) => {
+  const defaultColor = isWhiteLabel ? Colors.basic_100 : Colors.basic_650;
 
-      </Box>
-    )}
-  </Box>
-);
+  return (
+    <Box fd="row" jc="space-between" w="100%">
+      {!!label && (
+        <Box fd="row">
+          <Text
+            ff={FontFamily.PoppinsMedium}
+            fs={FontSizes.xs}
+            mb={Spaces['2xs']}
+            fnw="500"
+            color={isError ? Colors.danger_500 : defaultColor}
+          >
+            {label}
+          </Text>
+        </Box>
+      )}
+    </Box>
+  );
+};

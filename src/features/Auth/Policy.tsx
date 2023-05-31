@@ -15,7 +15,7 @@ export const Policy: React.FC = () => {
         parent={Text}
         ta="center"
         ff={FontFamily.PoppinsRegular}
-        color={Colors.purple}
+        color={Colors.basic_100}
         values={{
           terms: t('authorization.terms'),
           policy: t('authorization.policy'),
@@ -23,20 +23,20 @@ export const Policy: React.FC = () => {
         components={[
           <Text
             ff={FontFamily.PoppinsMedium}
-            color={Colors.purple}
+            color={Colors.basic_100}
             ttd="underline"
             ttds="solid"
-            ttdc={Colors.purple}
+            ttdc={Colors.basic_100}
             onPress={() => Linking.openURL(
               'https://www.meatfreed.com/termsandconditions/',
             )}
           />,
           <Text
             ff={FontFamily.PoppinsMedium}
-            color={Colors.purple}
+            color={Colors.basic_100}
             ttd="underline"
             ttds="solid"
-            ttdc={Colors.purple}
+            ttdc={Colors.basic_100}
             onPress={() => Linking.openURL(
               'https://www.meatfreed.com/privacypolicy/',
             )}
