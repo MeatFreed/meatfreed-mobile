@@ -131,6 +131,8 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>$(PRODUCT_NAME) would like access to your camera to change your profile picture.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like access to your location to show our nearby partners and their offers.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
@@ -139,8 +141,6 @@
 	<string>$(PRODUCT_NAME) would like access to your location to show our nearby partners and their offers.</string>
 	<key>NSMicrophoneUsageDescription</key>
 	<string>$(PRODUCT_NAME) wants to access your microphone</string>
-	<key>NSCameraUsageDescription</key>
-	<string>$(PRODUCT_NAME) would like access to your camera to change your profile picture.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>$(PRODUCT_NAME) would like access to your photo gallery to change your profile picture.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
@@ -169,6 +169,11 @@
 		<string>Poppins-Regular.ttf</string>
 		<string>Poppins-SemiBold.ttf</string>
 		<string>icomoon.ttf</string>
+	</array>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>fetch</string>
+		<string>remote-notification</string>
 	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>BootSplash.storyboard</string>

@@ -49,7 +49,7 @@
       </activity>
 
       <service
-        android:name="app.mobile.meatfreed.com.ExampleServiceJava"
+        android:name="app.mobile.meatfreed.com.YourExampleService"
         android:exported="false">
         <intent-filter>
           <action android:name="com.google.firebase.MESSAGING_EVENT" />

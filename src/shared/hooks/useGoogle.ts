@@ -1,8 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { AnyType, EventTypes, isIOS } from 'helpers';
+import {
+  AnyType, EventTypes, isIOS, withDelay,
+} from 'helpers';
 import { useTranslation } from 'react-i18next';
 import Config from 'react-native-config';
 import { RouteService, ToastService } from 'services';
@@ -14,6 +16,7 @@ import { setUser } from 'stores/user';
 import { useState } from 'react';
 import { useAnalytics } from './useAnalytics';
 import { useReferralCode } from './useReferralCode';
+import { useCourier } from './useCourier';
 
 const { SIGN_UP_WITHOUT_REFERRAL_CODE, SIGN_UP_WITH_REFERRAL_CODE } = EventTypes;
 
@@ -27,6 +30,8 @@ export const useGoogle = () => {
   const { onLogEvent } = useAnalytics();
 
   const { getReferralCode } = useReferralCode();
+
+  const { getPermission } = useCourier();
 
   const configure = () => {
     if (isIOS) {
@@ -122,6 +127,10 @@ export const useGoogle = () => {
       }
 
       RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
+
+      await withDelay(1000);
+
+      getPermission();
     } catch (error: AnyType) {
       if (error.code !== '-5') {
         const message = error?.message?.replace(`[${error?.code}] `, '');
