@@ -41,60 +41,63 @@ export const SignIn: React.FC = () => {
   });
 
   return (
-    <KeyboardAwareView showsVerticalScrollIndicator={false} bounces={false} isScrollable>
-      <StatusBar />
+    <Box f={1} bgc={Colors.primary_500}>
+      <KeyboardAwareView showsVerticalScrollIndicator={false} bounces={false} isScrollable>
+        <StatusBar />
 
-      <Box f={1} ai="center" bgc={Colors.basic_150}>
-        <Box m={[16, 0, 0]}>
-          <Text lh={56} fs={48} fnw="bold" ff={FontFamily.PoppinsBold} color={Colors.purple}>meatfreed</Text>
-        </Box>
-
-        <Box w={`${width - Spaces['3xl']}px`}>
-          <Input
-            value={values.email}
-            label={t('labels.email')}
-            placeholder={t('placeholders.email')}
-            onBlur={handleBlur('email')}
-            onChangeText={handleChange('email')}
-            isError={!!errors.email && !!touched.email}
-            error={errors.email ? t(errors.email) : ''}
-            keyboardType="email-address"
-            withBottomOffset
-            isWhite
-          />
-        </Box>
-
-        <Box w={`${width - Spaces['3xl']}px`}>
-          <Input
-            value={values.password}
-            label={t('labels.password')}
-            placeholder={t('placeholders.password')}
-            onBlur={handleBlur('password')}
-            onChangeText={handleChange('password')}
-            isError={!!errors.password && !!touched.password}
-            error={errors.password ? t(errors.password) : ''}
-            secureTextEntry={!isShowPassword}
-            withBottomOffset
-            isWhite
-            onRightPress={() => setIsShowPassword(!isShowPassword)}
-            RightIcon={<Icon name={isShowPassword ? 'eye-off-outline' : 'eye-outline'} size={24} color={Colors.basic_600} />}
-          />
-
-        </Box>
-
-        <Box w={`${width - Spaces['3xl']}px`}>
-          <Button isLoading={isLoading} title={t('buttons.login').toUpperCase()} onPress={() => handleSubmit()} />
-
-          <Box mt={20}>
-            <Text mt={Spaces.md} fs={FontSizes.sm} ta="center" ff={FontFamily.PoppinsMedium}>{t('authorization.or-login-with-socials')}</Text>
-
-            <Socials />
+        <Box f={1} ai="center" bgc={Colors.primary_500}>
+          <Box m={[64, 0]}>
+            <Text lh={56} fs={48} fnw="bold" ff={FontFamily.PoppinsBold} color={Colors.basic_100}>meatfreed</Text>
           </Box>
 
-          <Policy />
-        </Box>
+          <Box w={`${width - Spaces['3xl']}px`}>
+            <Input
+              value={values.email}
+              label={t('labels.email')}
+              placeholder={t('placeholders.email')}
+              onBlur={handleBlur('email')}
+              onChangeText={handleChange('email')}
+              isError={!!errors.email && !!touched.email}
+              error={errors.email ? t(errors.email) : ''}
+              keyboardType="email-address"
+              withBottomOffset
+              isWhite
+              isWhiteLabel
+            />
+          </Box>
 
-      </Box>
-    </KeyboardAwareView>
+          <Box w={`${width - Spaces['3xl']}px`}>
+            <Input
+              value={values.password}
+              label={t('labels.password')}
+              placeholder={t('placeholders.password')}
+              onBlur={handleBlur('password')}
+              onChangeText={handleChange('password')}
+              isError={!!errors.password && !!touched.password}
+              error={errors.password ? t(errors.password) : ''}
+              secureTextEntry={!isShowPassword}
+              withBottomOffset
+              isWhite
+              isWhiteLabel
+              onRightPress={() => setIsShowPassword(!isShowPassword)}
+              RightIcon={<Icon name={isShowPassword ? 'eye-off-outline' : 'eye-outline'} size={24} color={Colors.basic_600} />}
+            />
+          </Box>
+
+          <Box mt={16} w={`${width - Spaces['3xl']}px`}>
+            <Button type="secondary" isLoading={isLoading} title={t('buttons.login')} onPress={() => handleSubmit()} />
+
+            <Box mt={20}>
+              <Text mt={Spaces.md} fs={FontSizes.sm} ta="center" ff={FontFamily.PoppinsMedium} color={Colors.basic_100}>{t('authorization.or-login-with-socials')}</Text>
+
+              <Socials />
+            </Box>
+
+            <Policy />
+          </Box>
+
+        </Box>
+      </KeyboardAwareView>
+    </Box>
   );
 };

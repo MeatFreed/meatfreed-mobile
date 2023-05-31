@@ -34,4 +34,5 @@ export const Images = {
   Delete: require('assets/images/delete.svg').default,
   Share: require('assets/images/share.svg').default,
   Copy: require('assets/images/copy.svg').default,
+  SignUpConfirm: require('assets/images/sign-up-confirm.svg').default,
 };

@@ -6,11 +6,12 @@ type OfferScreenType = Routes.VOUCHER_DETAILS | Routes.RAFFLE_DETAILS
 export type RootStackParamList = {
   [Routes.BOTTOM_TAB_BAR_NAVIGATOR]: undefined;
   [Routes.AUTH_NAVIGATOR]: {
-    screen: Routes.WELCOME,
+    screen: Routes,
     params?: {
       code?: string;
     },
   };
+  [Routes.SIGN_UP_CONFIRMATION]: undefined;
   [Routes.MAIN_NAVIGATOR]: undefined;
   [Routes.HOME_NAVIGATOR]: undefined;
   [Routes.OFFERS_NAVIGATOR]: undefined;
