@@ -6,7 +6,7 @@ import {
   Box, Colors, FontFamily, FontSizes, Text,
 } from 'themes';
 import { ScrollView } from 'react-native';
-import { useRoute } from '@react-navigation/native';
+import { useIsFocused, useRoute } from '@react-navigation/native';
 import { PostDetailsProp } from 'navigation';
 import { ActivityIndicator, StatusBar } from 'ui';
 import { useGetPostByUID } from 'hooks';
@@ -39,6 +39,8 @@ const StyledTopGradient = styled(Gradient as AnyType)`
 `;
 
 export const PostDetails: React.FC = () => {
+  const isFocused = useIsFocused();
+
   const { params } = useRoute<PostDetailsProp>();
 
   const { post } = useGetPostByUID(params.contentId);
@@ -69,8 +71,10 @@ export const PostDetails: React.FC = () => {
           {content?.assets?.[0].filename && !isImage(content?.assets?.[0].filename) && (
             <StyledVideo
               controls
-              repeat
+              repeat={isFocused}
               resizeMode="cover"
+              muted={!isFocused}
+              paused={!isFocused}
               source={{ uri: content?.assets?.[0].filename }}
               poster={content?.assets?.[0].filename}
               posterResizeMode="cover"
