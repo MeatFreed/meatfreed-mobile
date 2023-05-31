@@ -4,7 +4,6 @@ import {
   SignIn,
   SignUp,
   Referral,
-  Welcome,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import { Routes } from './Routes';
@@ -13,6 +12,7 @@ import { BottomTabBarNavigator } from './tabs/BottomTabBarNavigator';
 import { RestaurantNavigator } from './RestaurantNavigator';
 import { PostNavigator } from './PostNavigator';
 import { OfferNavigator } from './OfferNavigator';
+import { AuthNavigator } from './AuthNavigation';
 
 export const MainNavigator: React.FC = () => {
   const { t } = useTranslation();
@@ -26,8 +26,8 @@ export const MainNavigator: React.FC = () => {
       />
 
       <Stack.Screen
-        name={Routes.WELCOME}
-        component={Welcome}
+        name={Routes.AUTH_NAVIGATOR}
+        component={AuthNavigator}
         options={{ headerShown: false }}
       />
 

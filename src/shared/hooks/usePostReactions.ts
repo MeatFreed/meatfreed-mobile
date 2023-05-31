@@ -18,7 +18,9 @@ export const usePostReactions = (contentId: string) => {
 
   const onAddReaction = async (id: string, content: string) => {
     if (!userId) {
-      RouteService.navigate(Routes.WELCOME);
+      RouteService.navigate(Routes.AUTH_NAVIGATOR, {
+        screen: Routes.WELCOME,
+      });
 
       return;
     }
@@ -39,7 +41,9 @@ export const usePostReactions = (contentId: string) => {
 
   const onDeleteReaction = async (uid: string) => {
     if (!userId) {
-      RouteService.navigate(Routes.WELCOME);
+      RouteService.navigate(Routes.AUTH_NAVIGATOR, {
+        screen: Routes.WELCOME,
+      });
 
       return;
     }
