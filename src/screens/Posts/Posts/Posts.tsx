@@ -5,7 +5,7 @@ import {
 } from 'themes';
 import { Loader, StatusBar } from 'ui';
 import {
-  FlatList, NativeScrollEvent, NativeSyntheticEvent, ScrollView,
+  FlatList, NativeScrollEvent, NativeSyntheticEvent,
 } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
@@ -49,50 +49,44 @@ export const Posts: React.FC = () => {
     <Box f={1} bgc={Colors.basic_150} pt={safe.top || 10}>
       <StatusBar />
 
-      <ScrollView
+      <FlatList
+        data={results}
+        keyExtractor={({ uuid }: Post) => uuid}
+        onRefresh={onRefresh}
+        onEndReached={onEndReached}
+        refreshing={isRefreshing}
+        initialNumToRender={3}
         onScroll={handleScroll}
-        showsVerticalScrollIndicator={false}
-      >
+        ListHeaderComponent={(
+          <>
+            <FeaturedPosts results={featuredPosts} />
 
-        <FlatList
-          data={results}
-          keyExtractor={({ uuid }: Post) => uuid}
-          scrollEnabled={false}
-          onRefresh={onRefresh}
-          onEndReached={onEndReached}
-          refreshing={isRefreshing}
-          initialNumToRender={3}
-          ListHeaderComponent={(
-            <>
-              <FeaturedPosts results={featuredPosts} />
-
-              <Text
-                fnw="600"
-                ff={FontFamily.PoppinsSemiMedium}
-                m={[0, 16, 4]}
-              >
-                {t('posts.browse-all')}
-              </Text>
-            </>
+            <Text
+              fnw="600"
+              ff={FontFamily.PoppinsSemiMedium}
+              m={[0, 16, 4]}
+            >
+              {t('posts.browse-all')}
+            </Text>
+          </>
           )}
-          ListEmptyComponent={isEmpty ? (
-            <EmptyState />
-          ) : (
-            <Box f={1} ai="center" jc="center">
-              <Loader color={Colors.primary_500} size="large" />
-            </Box>
-          )}
-          renderItem={({ item: post, index }: AnyType) => (
-            <PostCard
-              isMuted={isMuted}
-              isAutoPlay={isFocused && focusedIndex === index}
-              post={post.content}
-              contentId={post.uuid}
-              onChangeVolume={() => setIsMuted(!isMuted)}
-            />
-          )}
-        />
-      </ScrollView>
+        ListEmptyComponent={isEmpty ? (
+          <EmptyState />
+        ) : (
+          <Box f={1} ai="center" jc="center">
+            <Loader color={Colors.primary_500} size="large" />
+          </Box>
+        )}
+        renderItem={({ item: post, index }: AnyType) => (
+          <PostCard
+            isMuted={isMuted}
+            isAutoPlay={isFocused && focusedIndex === index}
+            post={post.content}
+            contentId={post.uuid}
+            onChangeVolume={() => setIsMuted(!isMuted)}
+          />
+        )}
+      />
     </Box>
   );
 };
