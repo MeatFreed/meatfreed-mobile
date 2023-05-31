@@ -51,6 +51,8 @@ export const PostDetails: React.FC = () => {
 
   const { content } = post;
 
+  const isDisplay = content?.assets?.[0].filename && isFocused;
+
   return (
     <>
       <StatusBar />
@@ -68,10 +70,9 @@ export const PostDetails: React.FC = () => {
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{ paddingBottom: 60 }}
         >
-          {content?.assets?.[0].filename && !isImage(content?.assets?.[0].filename) && (
+          {isDisplay && !isImage(content?.assets?.[0].filename) && (
             <StyledVideo
-              controls
-              repeat={isFocused}
+              repeat
               resizeMode="cover"
               muted={!isFocused}
               paused={!isFocused}
@@ -81,7 +82,7 @@ export const PostDetails: React.FC = () => {
             />
           )}
 
-          {content?.assets?.[0].filename && isImage(content?.assets?.[0].filename) && (
+          {isDisplay && isImage(content?.assets?.[0].filename) && (
             <StyledImage resizeMode="cover" source={{ uri: content?.assets?.[0].filename }} />
           )}
 

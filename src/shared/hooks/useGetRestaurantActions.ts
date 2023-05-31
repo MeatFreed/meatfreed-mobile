@@ -27,7 +27,9 @@ export const useGetRestaurantActions = () => {
       return;
     }
 
-    RouteService.reset(Routes.WELCOME);
+    RouteService.navigate(Routes.AUTH_NAVIGATOR, {
+      screen: Routes.WELCOME,
+    });
   };
 
   const onRestaurantWebsite = async (contentId: string) => {

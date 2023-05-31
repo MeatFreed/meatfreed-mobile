@@ -1,6 +1,6 @@
 import React from 'react';
 import { StackNavigationOptions, createStackNavigator } from '@react-navigation/stack';
-import { hasNotch, isIOS } from 'helpers';
+import { AnyType, hasNotch, isIOS } from 'helpers';
 import {
   Box, Colors, FontFamily, Spaces,
 } from 'themes';
@@ -8,9 +8,12 @@ import { BottomTabNavigationOptions } from '@react-navigation/bottom-tabs';
 import { HeaderBackButtonProps } from '@react-navigation/elements';
 import { RouteService } from 'services';
 import { Button } from 'ui';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { RootStackParamList } from './RootStackParamList';
 
 export const Stack = createStackNavigator<RootStackParamList>();
+
+export const NativeStack = createNativeStackNavigator<RootStackParamList>();
 
 export const tabBarOptions: BottomTabNavigationOptions = {
   tabBarHideOnKeyboard: true,
@@ -62,6 +65,32 @@ export const headerOptions: StackNavigationOptions = {
       return (
         <Box ml={Spaces.xs}>
           <Button type="icon" iconColor={Colors.tabBarInactiveTintColor} iconName="arrow-back" onPress={RouteService.goBack} />
+        </Box>
+      );
+    }
+
+    return null;
+  },
+};
+
+export const welcomeOptions: AnyType = {
+  headerTitleAlign: 'center',
+  headerBackTitleVisible: false,
+  headerShadowVisible: false,
+  headerTintColor: Colors.white,
+  headerTransparent: true,
+  headerTitle: '',
+  headerTitleStyle: {
+    fontSize: 20,
+    lineHeight: 24,
+    fontFamily: FontFamily.PoppinsSemiMedium,
+    color: Colors.basic_800,
+  },
+  headerLeft: (props: HeaderBackButtonProps) => {
+    if (props.canGoBack) {
+      return (
+        <Box ml={isIOS ? Spaces.xs : -Spaces.xs}>
+          <Button type="icon" iconColor={Colors.basic_100} iconName="arrow-back" onPress={RouteService.goBack} />
         </Box>
       );
     }

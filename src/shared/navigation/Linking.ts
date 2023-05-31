@@ -15,7 +15,11 @@ export const linking = {
       [Routes.MAIN_NAVIGATOR]: {
         initialRouteName: Routes.BOTTOM_TAB_BAR_NAVIGATOR,
         screens: {
-          [Routes.WELCOME]: 'welcome/:code',
+          [Routes.AUTH_NAVIGATOR]: {
+            screens: {
+              [Routes.WELCOME]: 'welcome/:code',
+            },
+          },
           [Routes.POSTS_NAVIGATOR]: 'post-details/:contentId',
         },
       },
@@ -40,7 +44,10 @@ export const linking = {
       }
 
       if (!userId && formattedLink.code) {
-        RouteService.navigate(Routes.WELCOME, { code: formattedLink.code });
+        RouteService.navigate(Routes.AUTH_NAVIGATOR, {
+          screen: Routes.WELCOME,
+          params: { code: formattedLink.code },
+        });
 
         return `${URL_SCHEMA}://welcome/${formattedLink.code}`;
       }

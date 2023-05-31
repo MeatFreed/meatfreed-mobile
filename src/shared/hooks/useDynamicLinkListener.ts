@@ -20,7 +20,10 @@ export const useDynamicLinkListener = () => {
     }
 
     if (!userId && formattedLink.code) {
-      RouteService.navigate(Routes.WELCOME, { code: formattedLink.code });
+      RouteService.navigate(Routes.AUTH_NAVIGATOR, {
+        screen: Routes.WELCOME,
+        params: { code: formattedLink.code },
+      });
     }
   };
 

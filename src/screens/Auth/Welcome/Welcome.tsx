@@ -59,13 +59,9 @@ export const Welcome: React.FC = () => {
           />
 
           <Box ai="center" jc="space-between" m={[hasNotch ? 60 : 90, 0, 0]} style={{ zIndex: 2 }}>
-            <Images.WelcomeLogo />
-
-            {hasNotch && (
-              <Box mt={32}>
-                <Images.WelcomeInfo width={width} />
-              </Box>
-            )}
+            <Box mt={50}>
+              <Images.WelcomeInfo width={hasNotch ? width : width / 1.5} />
+            </Box>
           </Box>
 
           <StyledBottomGradient
