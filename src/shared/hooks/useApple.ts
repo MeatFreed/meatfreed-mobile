@@ -2,7 +2,7 @@
 import auth from '@react-native-firebase/auth';
 import firestore from '@react-native-firebase/firestore';
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-import { AnyType, EventTypes } from 'helpers';
+import { AnyType, EventTypes, withDelay } from 'helpers';
 import { appleAuth } from '@invertase/react-native-apple-authentication';
 import { useTranslation } from 'react-i18next';
 import { RouteService, ToastService } from 'services';
@@ -15,6 +15,7 @@ import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useReferralCode } from './useReferralCode';
 import { useAnalytics } from './useAnalytics';
+import { useCourier } from './useCourier';
 
 const { SIGN_UP_WITHOUT_REFERRAL_CODE, SIGN_UP_WITH_REFERRAL_CODE } = EventTypes;
 
@@ -28,6 +29,8 @@ export const useApple = () => {
   const { onLogEvent } = useAnalytics();
 
   const { getReferralCode } = useReferralCode();
+
+  const { getPermission } = useCourier();
 
   const onAppleSignIn = async (referralCode = '') => {
     setIsLoading(true);
@@ -117,6 +120,10 @@ export const useApple = () => {
       }
 
       RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
+
+      await withDelay(1000);
+
+      getPermission();
     } catch (error: AnyType) {
       if (error.code !== '1001' && error.code !== '1000') {
         const message = error?.message?.split?.('] ');

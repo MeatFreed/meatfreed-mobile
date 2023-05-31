@@ -9,8 +9,9 @@ import { useTypedDispatch } from 'stores';
 import { setUser } from 'stores/user';
 import { FirebaseUser } from 'api';
 import dayjs from 'dayjs';
-import { AnyType, EventTypes } from 'helpers';
+import { AnyType, EventTypes, withDelay } from 'helpers';
 import { useAnalytics } from './useAnalytics';
+import { useCourier } from './useCourier';
 
 export const useSignIn = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -20,6 +21,8 @@ export const useSignIn = () => {
   const { t } = useTranslation();
 
   const dispatch = useTypedDispatch();
+
+  const { getPermission } = useCourier();
 
   const onSubmit = async (email: string, password: string) => {
     setIsLoading(true);
@@ -42,6 +45,10 @@ export const useSignIn = () => {
       });
 
       RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
+
+      await withDelay(1000);
+
+      getPermission();
     } catch (error: AnyType) {
       const message = error?.message?.split?.('] ');
 

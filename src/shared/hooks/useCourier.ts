@@ -1,14 +1,21 @@
 /* eslint-disable no-console */
 import Courier from '@trycourier/courier-react-native';
-import { AnyType } from 'helpers';
+import { AnyType, isDev, isIOS } from 'helpers';
 import Config from 'react-native-config';
 
 const { COURIER_API_KEY } = Config as AnyType;
 
 export const useCourier = () => {
   const onCourierSignIn = async (userId: string) => {
-    await Courier.apnsToken;
-    await Courier.fcmToken;
+    if (isIOS) {
+      const token = await Courier.apnsToken;
+
+      console.log({ token });
+    } else {
+      await Courier.fcmToken;
+    }
+
+    Courier.setIsDebugging(!!isDev);
 
     Courier.signIn({
       accessToken: COURIER_API_KEY,

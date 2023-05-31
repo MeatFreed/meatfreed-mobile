@@ -14,11 +14,12 @@ import { RouteService, ToastService } from 'services';
 import { FirebaseUser } from 'api';
 import { Routes } from 'navigation';
 import { setUser } from 'stores/user';
-import { AnyType, EventTypes } from 'helpers';
+import { AnyType, EventTypes, withDelay } from 'helpers';
 import dayjs from 'dayjs';
 import { useState } from 'react';
 import { useReferralCode } from './useReferralCode';
 import { useAnalytics } from './useAnalytics';
+import { useCourier } from './useCourier';
 
 const { SIGN_UP_WITHOUT_REFERRAL_CODE, SIGN_UP_WITH_REFERRAL_CODE } = EventTypes;
 
@@ -32,6 +33,8 @@ export const useFacebook = () => {
   const { getReferralCode } = useReferralCode();
 
   const { onLogEvent } = useAnalytics();
+
+  const { getPermission } = useCourier();
 
   const onFacebookSignIn = async (referralCode = '') => {
     setIsLoading(true);
@@ -119,6 +122,10 @@ export const useFacebook = () => {
       }
 
       RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR);
+
+      await withDelay(1000);
+
+      getPermission();
     } catch (error: AnyType) {
       if (error !== 'User cancelled the login process') {
         const message = error?.message?.split?.('] ');

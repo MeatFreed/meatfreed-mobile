@@ -40,7 +40,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants })
       enableContentPanningGesture={!!restaurants?.length}
       index={0}
     >
-      <Text m={[0, 16, 16]} fs={18} fnw="700" ff={FontFamily.PoppinsMedium}>{t('home.close-to-you')}</Text>
+      <Text m={[0, 16, 16]} fs={18} lh={20} fnw="700" ff={FontFamily.PoppinsMedium}>{t('home.close-to-you')}</Text>
 
       <BottomSheetFlatList
         ref={scrollViewRef}
