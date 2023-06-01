@@ -1,4 +1,4 @@
-import { isIOS, withDelay } from 'helpers';
+import { withDelay } from 'helpers';
 import { PermissionsService } from 'services';
 import { useGetPositionActions } from './useGetPositionActions';
 import { useCourier } from './useCourier';
@@ -9,7 +9,7 @@ export const useGetPosition = () => {
   const { getPermission: getNotificationPermission } = useCourier();
 
   const getPermission = async () => {
-    await withDelay(isIOS ? 2500 : 3500);
+    await withDelay(2000);
 
     await PermissionsService.requestGeolocationPermission();
 
