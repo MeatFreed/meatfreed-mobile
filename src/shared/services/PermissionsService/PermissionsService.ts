@@ -1,4 +1,5 @@
-import { Platform } from 'react-native';
+import { isIOS } from 'helpers';
+import { PermissionsAndroid, Platform } from 'react-native';
 
 import {
   check, request, PERMISSIONS, RESULTS,
@@ -11,9 +12,21 @@ const GeolocationConfig = Platform.select({
 });
 
 const checkGeolocationPermission = async () => {
-  const response = await check(GeolocationConfig);
+  if (isIOS) {
+    const response = await check(GeolocationConfig);
 
-  return response === RESULTS.GRANTED;
+    return response === RESULTS.GRANTED;
+  }
+
+  const granted = await PermissionsAndroid.requestMultiple([
+    PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION,
+    PermissionsAndroid.PERMISSIONS.ACCESS_COARSE_LOCATION,
+  ]);
+
+  const isGranted = granted['android.permission.READ_EXTERNAL_STORAGE'] === 'granted'
+    || granted['android.permission.WRITE_EXTERNAL_STORAGE'] === 'granted';
+
+  return isGranted;
 };
 
 const requestGeolocationPermission = async () => {

@@ -7,9 +7,9 @@ import { PostHogProvider } from 'posthog-react-native';
 import Config from 'react-native-config';
 import Courier from '@trycourier/courier-react-native';
 import {
-  useAnalytics, useCourier, useDynamicLinkListener, useGetPosition, useGetReactions, useGoogle,
+  useAnalytics, useCourier, useDynamicLinkListener, useGetReactions, useGoogle,
 } from 'hooks';
-import { AnyType, isDev, withDelay } from 'helpers';
+import { AnyType, isDev } from 'helpers';
 import { useTypedSelector } from 'stores';
 import { userSelectors } from 'stores/user';
 import { Stack } from './NavigationOptions';
@@ -26,7 +26,6 @@ export const RootNavigator: React.FC = () => {
 
   useGetReactions();
 
-  const { getPermission } = useGetPosition();
   const { configure } = useGoogle();
 
   const { onCourierSignIn } = useCourier();
@@ -43,10 +42,6 @@ export const RootNavigator: React.FC = () => {
     configure();
 
     RNBootSplash.hide({ fade: true });
-
-    await withDelay(1000);
-
-    getPermission();
   }, []);
 
   useEffect(() => {
