@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useLayoutEffect } from 'react';
 import {
   Settings,
   SignIn,
@@ -6,6 +6,7 @@ import {
   Referral,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
+import { useGetPosition } from 'hooks';
 import { Routes } from './Routes';
 import { Stack, authOptions, headerOptions } from './NavigationOptions';
 import { BottomTabBarNavigator } from './tabs/BottomTabBarNavigator';
@@ -16,6 +17,12 @@ import { AuthNavigator } from './AuthNavigation';
 
 export const MainNavigator: React.FC = () => {
   const { t } = useTranslation();
+
+  const { getPermission } = useGetPosition();
+
+  useLayoutEffect(() => {
+    getPermission();
+  }, [getPermission]);
 
   return (
     <Stack.Navigator initialRouteName={Routes.BOTTOM_TAB_BAR_NAVIGATOR}>

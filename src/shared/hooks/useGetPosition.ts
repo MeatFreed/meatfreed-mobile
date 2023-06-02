@@ -9,7 +9,7 @@ export const useGetPosition = () => {
   const { getPermission: getNotificationPermission } = useCourier();
 
   const getPermission = async () => {
-    await withDelay(2000);
+    await withDelay(1000);
 
     await PermissionsService.requestGeolocationPermission();
 
