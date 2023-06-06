@@ -30,3 +30,4 @@ export * from './useGetRaffleTimer';
 export * from './useGetBounds';
 export * from './useGetFeaturedOffers';
 export * from './useGetFeaturedPosts';
+export * from './useGetPosition';

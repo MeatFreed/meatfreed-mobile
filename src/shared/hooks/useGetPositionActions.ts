@@ -31,19 +31,6 @@ export const useGetPositionActions = () => {
       },
       undefined,
       {
-        enableHighAccuracy: true,
-        distanceFilter: 10,
-      },
-    );
-  };
-
-  const getCurrentLocation = () => {
-    Geolocation.getCurrentPosition(
-      (position) => {
-        dispatch(setCurrentLocation(position));
-      },
-      undefined,
-      {
         distanceFilter: 10,
       },
     );
@@ -66,7 +53,6 @@ export const useGetPositionActions = () => {
 
   return {
     onShowMyLocation,
-    getCurrentLocation,
     onRegionChangeComplete,
   };
 };

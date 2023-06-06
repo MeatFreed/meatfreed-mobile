@@ -1,4 +1,4 @@
-import React, { useCallback, useLayoutEffect } from 'react';
+import React from 'react';
 import {
   Settings,
   SignIn,
@@ -6,9 +6,6 @@ import {
   Referral,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
-import { isIOS, withDelay } from 'helpers';
-import { PermissionsService } from 'services';
-import { useCourier, useGetPositionActions, useGetUserByUserId } from 'hooks';
 import { Routes } from './Routes';
 import { Stack, authOptions, headerOptions } from './NavigationOptions';
 import { BottomTabBarNavigator } from './tabs/BottomTabBarNavigator';
@@ -19,26 +16,6 @@ import { AuthNavigator } from './AuthNavigation';
 
 export const MainNavigator: React.FC = () => {
   const { t } = useTranslation();
-
-  const { onShowMyLocation } = useGetPositionActions();
-
-  const { getNotificationPermission } = useCourier();
-
-  const bootstrap = useCallback(async () => {
-    await withDelay(isIOS ? 1000 : 2000);
-
-    await PermissionsService.requestGeolocationPermission();
-
-    await getNotificationPermission();
-
-    onShowMyLocation();
-  }, []);
-
-  useGetUserByUserId();
-
-  useLayoutEffect(() => {
-    bootstrap();
-  }, [bootstrap]);
 
   return (
     <Stack.Navigator initialRouteName={Routes.BOTTOM_TAB_BAR_NAVIGATOR}>
