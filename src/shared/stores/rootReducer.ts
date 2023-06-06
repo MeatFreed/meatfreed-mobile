@@ -19,6 +19,7 @@ const userPersistConfig = {
     'referrer',
     'referralsCount',
     'provider',
+    'referralLink',
   ],
   timeout: 0,
 };

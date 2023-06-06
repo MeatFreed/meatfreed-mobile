@@ -10,6 +10,7 @@ const initialState: UserReducer = {
   referralsCount: 0,
   provider: '',
   photoURL: '',
+  referralLink: '',
 };
 
 const user = createSlice({
@@ -17,8 +18,11 @@ const user = createSlice({
   initialState,
   reducers: {
     setUser: (_, { payload }: PayloadAction<UserReducer>) => payload,
-    setPhotoUrl: (state, action: PayloadAction<string>) => {
-      state.photoURL = action.payload;
+    setPhotoUrl: (state, { payload }: PayloadAction<string>) => {
+      state.photoURL = payload;
+    },
+    setReferralLink: (state, { payload }: PayloadAction<string>) => {
+      state.referralLink = payload;
     },
     resetUser: () => initialState,
   },
@@ -29,5 +33,6 @@ export const {
     setPhotoUrl,
     setUser,
     resetUser,
+    setReferralLink,
   },
 } = user;

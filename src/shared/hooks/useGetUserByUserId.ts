@@ -1,46 +1,48 @@
-import { useIsFocused } from '@react-navigation/native';
-import { FirebaseUser } from 'api';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import Config from 'react-native-config';
-import firestore from '@react-native-firebase/firestore';
+import firestore, { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { AnyType, generateShareLink } from 'helpers';
+import { useTypedDispatch, useTypedSelector } from 'stores';
+import { setReferralLink, setUser, userSelectors } from 'stores/user';
+import { useCourier } from './useCourier';
 
 const { FIREBASE_REFERRAL_URL } = Config as AnyType;
 
-export const useGetUserByUserId = (userId?: string) => {
-  const [isLoading, setIsLoading] = useState(false);
+export const useGetUserByUserId = () => {
+  const user = useTypedSelector(userSelectors.user);
 
-  const isFocused = useIsFocused();
+  const dispatch = useTypedDispatch();
 
-  const [user, setUser] = useState<FirebaseUser | null>(null);
-  const [link, setLink] = useState<string | null>(null);
+  const { onSignIn } = useCourier();
 
-  const getCurrentUser = async () => {
-    setIsLoading(true);
+  const onSnapshot = async (
+    snapshot: FirebaseFirestoreTypes.DocumentSnapshot<FirebaseFirestoreTypes.DocumentData>,
+  ) => {
+    const userInfo = { ...user, ...snapshot.data(), uid: user.uid };
 
-    try {
-      const response = await firestore().collection('users').doc(userId).get();
+    if (!userInfo.uid) {
+      dispatch(setUser({ ...userInfo, referralLink: '' }));
 
-      const data = response.data() as FirebaseUser;
+      return;
+    }
 
-      const shortLink = await generateShareLink(FIREBASE_REFERRAL_URL, 'code', data.referrer);
+    onSignIn();
 
-      setUser(data);
-      setLink(shortLink);
-    } finally {
-      setIsLoading(false);
+    dispatch(setUser(userInfo));
+
+    const shortLink = await generateShareLink(FIREBASE_REFERRAL_URL, 'code', userInfo.referrer);
+
+    if (shortLink) {
+      dispatch(setReferralLink(shortLink));
     }
   };
 
   useEffect(() => {
-    if (isFocused && !!userId) {
-      getCurrentUser();
-    }
-  }, [isFocused, userId]);
+    const subscribe = firestore()
+      .collection('users')
+      .doc(user?.uid)
+      .onSnapshot(onSnapshot);
 
-  return {
-    user,
-    isLoading,
-    link,
-  };
+    return () => subscribe();
+  }, [user?.uid]);
 };

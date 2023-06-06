@@ -1,4 +1,4 @@
-import { useAnalytics, useGetUserByUserId } from 'hooks';
+import { useAnalytics } from 'hooks';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { useTypedSelector } from 'stores';
@@ -9,7 +9,7 @@ import Share from 'react-native-share';
 import {
   Box, Colors, FontFamily, Images, Text,
 } from 'themes';
-import { ActivityIndicator, StatusBar } from 'ui';
+import { StatusBar } from 'ui';
 import { ScrollView } from 'react-native';
 import { ToastService } from 'services';
 import { EventTypes } from 'helpers';
@@ -21,13 +21,8 @@ export const Referral: React.FC = () => {
 
   const { onLogEvent } = useAnalytics();
 
-  const userId = useTypedSelector(userSelectors.userId);
-
-  const { user, link, isLoading } = useGetUserByUserId(userId);
-
-  if (isLoading) {
-    return <ActivityIndicator isVisible />;
-  }
+  const user = useTypedSelector(userSelectors.user);
+  const referralLink = useTypedSelector(userSelectors.referralLink);
 
   const onClipboard = () => {
     if (!user) {
@@ -39,7 +34,7 @@ export const Referral: React.FC = () => {
     ToastService.onSuccess({ title: t('referral.clipboard'), position: 'bottom' });
 
     onLogEvent(EventTypes.REFERRAL_CODE_SHARED, {
-      userId,
+      userId: user?.uid,
       referrerCode: user.referrer,
       event: EventTypes.REFERRAL_CODE_SHARED,
       createdAt: dayjs().valueOf(),
@@ -61,8 +56,8 @@ export const Referral: React.FC = () => {
 
       if (response.success) {
         onLogEvent(EventTypes.REFERRAL_LINK_SHARED, {
-          userId,
-          link,
+          userId: user.uid,
+          link: url,
           referrerCode: user.referrer,
           event: EventTypes.REFERRAL_LINK_SHARED,
           createdAt: dayjs().valueOf(),
@@ -83,11 +78,11 @@ export const Referral: React.FC = () => {
         <StatusBar />
 
         <Box wdp bgc={Colors.basic_100} br="8px">
-          {link && (
+          {referralLink && (
             <Box ai="center">
               <Text fnw="500" ff={FontFamily.PoppinsMedium} ta="center" color={Colors.basic_700} mb={20}>{t('referral.qr-code')}</Text>
 
-              <QRCode size={150} value={link} />
+              <QRCode size={150} value={referralLink} />
             </Box>
           )}
         </Box>
@@ -107,7 +102,7 @@ export const Referral: React.FC = () => {
         <Action
           Icon={<Images.Share />}
           title={t('buttons.invite-link')}
-          onPress={() => onShare(link)}
+          onPress={() => onShare(referralLink)}
         />
       </Box>
     </ScrollView>

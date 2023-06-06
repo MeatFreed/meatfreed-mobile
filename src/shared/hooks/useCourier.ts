@@ -1,29 +1,34 @@
 /* eslint-disable no-console */
 import Courier from '@trycourier/courier-react-native';
-import { AnyType, isDev, isIOS } from 'helpers';
+import { useUpdateProfileMutation } from 'api';
+import { AnyType } from 'helpers';
 import Config from 'react-native-config';
+import { useTypedSelector } from 'stores';
+import { userSelectors } from 'stores/user';
 
 const { COURIER_API_KEY } = Config as AnyType;
 
 export const useCourier = () => {
-  const onCourierSignIn = async (userId: string) => {
-    if (isIOS) {
-      const token = await Courier.apnsToken;
+  const user = useTypedSelector(userSelectors.user);
 
-      console.log({ token });
-    } else {
-      await Courier.fcmToken;
-    }
+  const [updateProfile] = useUpdateProfileMutation();
 
-    Courier.setIsDebugging(!!isDev);
-
-    Courier.signIn({
+  const onSignIn = async () => {
+    await Courier.signIn({
       accessToken: COURIER_API_KEY,
-      userId,
+      userId: user.uid,
     });
+
+    updateProfile({
+      userId: user.uid,
+      email: user.email,
+      first_name: user.firstName,
+      last_name: user.lastName,
+      name: `${user.firstName} ${user.lastName}`,
+    }).unwrap();
   };
 
-  const getPermission = async () => {
+  const getNotificationPermission = async () => {
     const status = await Courier.notificationPermissionStatus;
 
     if (status === 'authorized') {
@@ -34,7 +39,7 @@ export const useCourier = () => {
   };
 
   return {
-    onCourierSignIn,
-    getPermission,
+    onSignIn,
+    getNotificationPermission,
   };
 };

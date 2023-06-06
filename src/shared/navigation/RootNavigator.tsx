@@ -7,11 +7,9 @@ import { PostHogProvider } from 'posthog-react-native';
 import Config from 'react-native-config';
 import Courier from '@trycourier/courier-react-native';
 import {
-  useAnalytics, useCourier, useDynamicLinkListener, useGetReactions, useGoogle,
+  useAnalytics, useDynamicLinkListener, useGetReactions, useGoogle,
 } from 'hooks';
 import { AnyType, isDev } from 'helpers';
-import { useTypedSelector } from 'stores';
-import { userSelectors } from 'stores/user';
 import { Stack } from './NavigationOptions';
 import { Routes } from './Routes';
 import { MainNavigator } from './MainNavigator';
@@ -22,13 +20,9 @@ export const RootNavigator: React.FC = () => {
 
   const { onScreenView } = useAnalytics();
 
-  const userId = useTypedSelector(userSelectors.userId);
-
   useGetReactions();
 
   const { configure } = useGoogle();
-
-  const { onCourierSignIn } = useCourier();
 
   const onPushNotificationClicked = (push: AnyType) => {
     console.log({ push });
@@ -56,12 +50,6 @@ export const RootNavigator: React.FC = () => {
       subscribe?.();
     };
   }, [bootstrap]);
-
-  useEffect(() => {
-    if (userId) {
-      onCourierSignIn(userId);
-    }
-  }, [userId]);
 
   return (
     <>

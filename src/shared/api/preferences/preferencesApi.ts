@@ -1,7 +1,10 @@
 import { createApi } from '@reduxjs/toolkit/query/react';
 import { courierQuery } from '../baseQuery';
 import {
-  GetPreferencesResponse, UpdatePreferenceResponse, UpdatePreferenceParams, Preference,
+  GetPreferencesResponse,
+  UpdatePreferenceResponse,
+  UpdatePreferenceParams,
+  Preference, UpdateProfileParams,
 } from './models';
 
 export const preferencesApi = createApi({
@@ -28,7 +31,21 @@ export const preferencesApi = createApi({
       }),
       invalidatesTags: ['preference'],
     }),
+    updateProfile: builder.mutation<void, UpdateProfileParams>({
+      query: ({ userId, ...rest }) => ({
+        url: `/profiles/${userId}`,
+        method: 'PUT',
+        body: {
+          profile: {
+            ...rest,
+            email_verified: true,
+          },
+        },
+      }),
+    }),
   }),
 });
 
-export const { useGetPreferencesQuery, useUpdatePreferenceMutation } = preferencesApi;
+export const {
+  useGetPreferencesQuery, useUpdatePreferenceMutation, useUpdateProfileMutation,
+} = preferencesApi;
