@@ -1,8 +1,6 @@
 import { useGetRestaurants, useGetPositionActions } from 'hooks';
 import React, { useCallback, useRef, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useTypedSelector } from 'stores';
-import { placeSelectors } from 'stores/place';
 import styled from 'styled-components/native';
 import { Box, Colors } from 'themes';
 import {
@@ -28,16 +26,13 @@ export const Restaurants: React.FC = () => {
 
   const isFocused = useIsFocused();
 
-  const hasLocation = useTypedSelector(placeSelectors.hasLocation);
-
-  const { getCurrentLocation, onShowMyLocation } = useGetPositionActions();
+  const { onShowMyLocation } = useGetPositionActions();
 
   const { restaurants } = useGetRestaurants();
 
   const ref = useRef<AnyType>();
 
   const onReset = useCallback(() => {
-    getCurrentLocation();
     ref?.current?.setAddressText?.('');
     setSearchQuery('');
   }, []);
@@ -60,11 +55,9 @@ export const Restaurants: React.FC = () => {
           setSearchQuery={setSearchQuery}
         />
 
-        {hasLocation && (
-          <StyledLayout>
-            <Button type="action" iconName="my-location" onPress={onLocation} />
-          </StyledLayout>
-        )}
+        <StyledLayout>
+          <Button type="action" iconName="my-location" onPress={onLocation} />
+        </StyledLayout>
 
         <Map restaurants={restaurants} />
 
