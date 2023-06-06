@@ -13,4 +13,5 @@ export interface FirebaseUser {
   photoURL?: string;
   name?: string;
   referrals?: string[]
+  referralLink?: string;
 }

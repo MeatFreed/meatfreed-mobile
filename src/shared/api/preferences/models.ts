@@ -20,6 +20,14 @@ export interface UpdatePreferenceParams {
   status: PreferenceStatus;
 }
 
+export interface UpdateProfileParams {
+  userId: string;
+  email: string;
+  first_name: string;
+  last_name: string;
+  name: string;
+}
+
 export interface UpdatePreferenceResponse {
   userId: string;
   topicId: string;
