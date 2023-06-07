@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import { TextInput, TextInputProps } from 'react-native';
 import {
-  Box, Colors, FontFamily, Spaces, FontSizes,
+  Box, Colors, Spaces, FontSizes,
 } from 'themes';
 import {
-  AnyType, isIOS, touchableConfig,
+  AnyType, touchableConfig,
 } from 'helpers';
 import { Label } from '../Label/Label';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
@@ -63,28 +63,12 @@ const constructBorderColor = (
   return isFocused ? Colors.purple : Colors.basic_400;
 };
 
-const constructInputHeight = (isMultiline?: boolean, isSmall?: boolean, isSearch?: boolean) => {
-  if (isMultiline) {
-    return '72px';
-  }
-
-  if (isSearch) {
-    return isIOS ? '34px' : '38px';
-  }
-
-  return isSmall ? '34px' : '48px';
-};
-
-const constructIconOffset = (withLabel?: boolean, isSmall?: boolean, isSearch?: boolean) => {
+const constructIconOffset = (withLabel?: boolean) => {
   if (withLabel) {
     return '12px';
   }
 
-  if (isSearch) {
-    return '9px';
-  }
-
-  return isSmall ? '9px' : '10px';
+  return '0px';
 };
 
 const constructBackgroundColor = (
@@ -101,38 +85,34 @@ const constructColor = (
   accent?: boolean,
 ) => (accent ? Colors.white : Colors.basic_800);
 
-const paddingTop = isIOS ? '1px' : '10px';
-
 const StyledInput = styled.TextInput<StyledInputProps>`
-  height: ${({ isMultiline, isSmall, isSearch }) => constructInputHeight(isMultiline, isSmall, isSearch)};
+  height: 48px;
   border: 1px solid ${
   ({
     isFocused, isError, accent,
   }) => constructBorderColor(isFocused, isError, accent)
 };
-  font-family: ${FontFamily.PoppinsRegular};
+  background-color: ${({ isWhite }) => constructBackgroundColor(isWhite)};
   border-top-left-radius: 10px;
   border-top-right-radius: ${({ isRemoveRightRounded }) => (isRemoveRightRounded ? '0px' : '10px')};
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: ${({ isRemoveRightRounded }) => (isRemoveRightRounded ? '0px' : '10px')};
-  background-color: ${({ isWhite }) => constructBackgroundColor(isWhite)};
-  font-size: ${FontSizes.md}px;
-  padding-top: ${({ isMultiline }) => (isMultiline ? '10px' : paddingTop)};
-  color: ${({ accent }) => constructColor(accent)};
   padding-left: ${({ isLeftIconShown }) => (isLeftIconShown ? '48px' : '16px')};
   padding-right:  ${({ isRightIconShown }) => (isRightIconShown ? '48px' : '16px')};
+  color: ${({ accent }) => constructColor(accent)};
+  font-size: ${FontSizes.md}px;
 `;
 
-const LeftIconBox = styled.View<{withLabel?: boolean, isSmall?: boolean, isSearch?: boolean }>`
+const LeftIconBox = styled.View<{withLabel?: boolean }>`
   position: absolute;
-  top: ${({ withLabel, isSmall, isSearch }) => constructIconOffset(withLabel, isSmall, isSearch)};
+  top: ${({ withLabel }) => constructIconOffset(withLabel)};
   left: 16px;
   z-index: 999;
 `;
 
-const RightIconBox = styled.TouchableOpacity<{withLabel?: boolean, isSmall?: boolean, isSearch?: boolean }>`
+const RightIconBox = styled.TouchableOpacity<{withLabel?: boolean }>`
   position: absolute;
-  top: ${({ withLabel, isSmall, isSearch }) => constructIconOffset(withLabel, isSmall, isSearch)};
+  top: ${({ withLabel }) => constructIconOffset(withLabel)};
   right: 16px;
   z-index: 999;
 `;
@@ -163,7 +143,7 @@ export const Input = React.forwardRef<TextInput | undefined, InputProps>(({
 
       <Box>
         {!!LeftIcon && (
-          <LeftIconBox withLabel={!!label} isSmall={isSmall} isSearch={isSearch}>
+          <LeftIconBox withLabel={!!label}>
             {LeftIcon}
           </LeftIconBox>
         )}
@@ -173,7 +153,6 @@ export const Input = React.forwardRef<TextInput | undefined, InputProps>(({
             withLabel={!!label}
             onPress={onRightPress}
             {...touchableConfig}
-            isSearch={isSearch}
           >
             {RightIcon}
           </RightIconBox>
@@ -200,7 +179,6 @@ export const Input = React.forwardRef<TextInput | undefined, InputProps>(({
           isLeftIconShown={!!LeftIcon}
           isRightIconShown={!!RightIcon}
           isSearch={isSearch}
-          style={{ textAlignVertical: 'center' }}
           autoCapitalize="none"
         />
       </Box>
