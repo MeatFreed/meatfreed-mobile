@@ -3,20 +3,19 @@ import { NavigationContainer } from '@react-navigation/native';
 import React, { useCallback, useEffect } from 'react';
 import RNBootSplash from 'react-native-bootsplash';
 import { ToastMessage } from 'ui';
-import { PermissionsService, RouteService } from 'services';
+import { RouteService } from 'services';
 import { PostHogProvider } from 'posthog-react-native';
 import Config from 'react-native-config';
 import Courier from '@trycourier/courier-react-native';
 import {
   useAnalytics,
-  useCourier,
   useDynamicLinkListener,
   useGetPosition,
-  useGetPositionActions, useGetReactions, useGetUserByUserId, useGoogle,
+  useGetReactions,
+  useGetUserByUserId,
+  useGoogle,
 } from 'hooks';
-import {
-  AnyType, isDev, isIOS, withDelay,
-} from 'helpers';
+import { AnyType, isDev } from 'helpers';
 import { Stack } from './NavigationOptions';
 import { Routes } from './Routes';
 import { MainNavigator } from './MainNavigator';
@@ -29,15 +28,11 @@ export const RootNavigator: React.FC = () => {
 
   useGetReactions();
 
-  useGetPosition();
+  const { getPermissions, onClearWatch } = useGetPosition();
 
   useGetUserByUserId();
 
   const { configure } = useGoogle();
-
-  const { getNotificationPermission } = useCourier();
-
-  const { onShowMyLocation } = useGetPositionActions();
 
   const onPushNotificationClicked = (push: AnyType) => {
     console.log({ push });
@@ -52,13 +47,7 @@ export const RootNavigator: React.FC = () => {
 
     RNBootSplash.hide({ fade: true });
 
-    await withDelay(isIOS ? 1000 : 2000);
-
-    await PermissionsService.requestGeolocationPermission();
-
-    await getNotificationPermission();
-
-    onShowMyLocation();
+    getPermissions();
   }, []);
 
   useEffect(() => {
@@ -71,6 +60,7 @@ export const RootNavigator: React.FC = () => {
 
     return () => {
       subscribe?.();
+      onClearWatch();
     };
   }, [bootstrap]);
 

@@ -1,10 +1,19 @@
-import { useEffect, useRef } from 'react';
+import { useInterval } from '@lumitech/mobile-hooks';
+import { useRef } from 'react';
 import Geolocation from 'react-native-geolocation-service';
 import { useTypedDispatch, useTypedSelector } from 'stores';
 import { placeSelectors, setCurrentLocation } from 'stores/place';
+import { isIOS, withDelay } from 'helpers';
+import { PermissionsService } from 'services';
+import { useGetPositionActions } from './useGetPositionActions';
+import { useCourier } from './useCourier';
 
 export const useGetPosition = () => {
   const dispatch = useTypedDispatch();
+
+  const { onShowMyLocation } = useGetPositionActions();
+
+  const { getNotificationPermission } = useCourier();
 
   const ref = useRef<number>(0);
 
@@ -20,15 +29,34 @@ export const useGetPosition = () => {
         }
       },
       undefined,
-      { distanceFilter: 50 },
+      { enableHighAccuracy: true },
     );
   };
 
-  useEffect(() => {
-    watchLocation();
+  const getPermissions = async () => {
+    try {
+      await withDelay(isIOS ? 1000 : 2000);
 
-    return () => {
-      clearWatch(ref.current);
-    };
-  }, []);
+      await PermissionsService.requestGeolocationPermission();
+
+      await getNotificationPermission();
+
+      watchLocation();
+
+      onShowMyLocation();
+    } catch (error) { /** empty */ }
+  };
+
+  const onClearWatch = () => {
+    clearWatch(ref.current);
+  };
+
+  useInterval(() => {
+    onShowMyLocation();
+  }, hasLocation ? null : 1000);
+
+  return {
+    getPermissions,
+    onClearWatch,
+  };
 };
