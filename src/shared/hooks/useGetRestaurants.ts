@@ -46,7 +46,7 @@ export const useGetRestaurants = () => {
     if (isFocused) {
       getRestaurants();
     }
-  }, [selectLocation, isFocused]);
+  }, [selectLocation, isFocused, currentLocation]);
 
   return {
     isLoading,
