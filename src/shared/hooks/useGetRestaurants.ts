@@ -1,7 +1,6 @@
 import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
 import { Restaurant, adaptRestaurants } from 'api';
-import orderBy from 'lodash.orderby';
 import { useIsFocused } from '@react-navigation/native';
 import { useGetBounds } from './useGetBounds';
 
@@ -13,7 +12,9 @@ export const useGetRestaurants = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [restaurants, setRestaurants] = useState<Restaurant[]>([]);
 
-  const { bounds, currentLocation, selectLocation } = useGetBounds();
+  const {
+    bounds, selectLocation, currentLocation, hasSelectedLocation,
+  } = useGetBounds();
 
   const getRestaurants = async () => {
     setIsLoading(true);
@@ -28,29 +29,35 @@ export const useGetRestaurants = () => {
 
       const collections = await Promise.all(requestArray);
 
-      const result = adaptRestaurants(collections, currentLocation);
+      const flatData = collections.flatMap((collection) => collection.docs);
 
-      setRestaurants([...result]);
+      const data = flatData.map((doc) => {
+        const restaurant = doc.data() as Restaurant;
+
+        return { ...restaurant, uid: doc.id };
+      });
+
+      setRestaurants([...data]);
     } finally {
       setIsLoading(false);
     }
   };
 
   const onRefresh = () => {
-    if (selectLocation) {
+    if (hasSelectedLocation) {
       getRestaurants();
     }
   };
 
   useEffect(() => {
-    if (isFocused) {
+    if (isFocused && hasSelectedLocation) {
       getRestaurants();
     }
-  }, [selectLocation, isFocused, currentLocation]);
+  }, [selectLocation, isFocused, hasSelectedLocation]);
 
   return {
     isLoading,
-    restaurants: orderBy(restaurants, 'distance', 'asc') as Restaurant[],
+    restaurants: adaptRestaurants(restaurants, currentLocation),
     onRefresh,
   };
 };

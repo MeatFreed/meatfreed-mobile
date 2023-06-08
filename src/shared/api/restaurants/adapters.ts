@@ -1,34 +1,25 @@
-import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import { LatLng } from 'react-native-maps';
-import { getDistance } from 'geolib';
+import orderBy from 'lodash.orderby';
+import { distanceBetween } from 'geofire-common';
 import { Restaurant } from './models';
 
 export const adaptRestaurants = (
-  collections: FirebaseFirestoreTypes.QuerySnapshot<FirebaseFirestoreTypes.DocumentData>[],
+  restaurants: Restaurant[],
   location: LatLng | null,
 ) => {
-  const flatData = collections.flatMap((collection) => collection.docs);
+  const data = restaurants.map((restaurant) => ({
+    ...restaurant,
+    distance: distanceBetween(
+      [
+        Number(location?.latitude || 0),
+        Number(location?.longitude || 0),
+      ],
+      [
+        Number(restaurant?.placeDetails.geometry?.location?.lat),
+        Number(restaurant?.placeDetails.geometry?.location?.lng),
+      ],
+    ),
+  }));
 
-  const result = flatData.map((doc) => {
-    const data = doc.data() as Restaurant;
-
-    const distance = getDistance(
-      {
-        latitude: Number(location?.latitude || 0),
-        longitude: Number(location?.longitude || 0),
-      },
-      {
-        latitude: Number(data?.placeDetails.geometry?.location?.lat),
-        longitude: Number(data?.placeDetails.geometry?.location?.lng),
-      },
-    );
-
-    return {
-      ...data,
-      distance,
-      uid: doc.id,
-    };
-  });
-
-  return result as Restaurant[];
+  return orderBy(data, 'distance', 'asc');
 };

@@ -1,18 +1,14 @@
 import { RestaurantOpeningHours } from 'api';
 import dayjs from 'dayjs';
-import { getDistance } from 'geolib';
-import { LatLng } from 'react-native-maps';
 
 const currentDay = dayjs().day() - 1;
 
-export const getDistanceToPlace = (currentLocation: LatLng, placeLocation: LatLng) => {
-  const distance = getDistance(currentLocation, placeLocation);
+export const getDistanceToPlace = (distance: number) => {
+  const isMeter = distance < 1;
 
-  const isKilometer = distance >= 1000;
+  const value = isMeter ? Math.ceil(distance * 1000) : Math.ceil(distance);
 
-  const value = isKilometer ? Math.ceil(distance / 1000) : distance;
-
-  return `${Number.isNaN(value) ? 0 : value}${isKilometer ? 'km' : 'm'}`;
+  return `${Number.isNaN(value) ? 0 : value}${isMeter ? 'm' : 'km'}`;
 };
 
 export const getHours = (openingHours?: RestaurantOpeningHours) => {
