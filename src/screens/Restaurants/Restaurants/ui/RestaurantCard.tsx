@@ -5,8 +5,6 @@ import {
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import FastImage from 'react-native-fast-image';
-import { useTypedSelector } from 'stores';
-import { placeSelectors } from 'stores/place';
 import styled from 'styled-components/native';
 import {
   Box, Colors, FontFamily, Text,
@@ -35,24 +33,13 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 }) => {
   const { t } = useTranslation();
 
-  const { content } = restaurant;
+  const { content, placeDetails } = restaurant;
 
-  const { data: details } = useGetRestaurantByIDQuery(restaurant?.placeDetails?.place_id);
-
-  const currentLocation = useTypedSelector(placeSelectors.currentLocation);
+  const { data: details } = useGetRestaurantByIDQuery(placeDetails?.place_id);
 
   const hours = getHours(details?.opening_hours);
 
-  const distance = getDistanceToPlace(
-    {
-      latitude: Number(currentLocation?.latitude || 0),
-      longitude: Number(currentLocation?.longitude || 0),
-    },
-    {
-      latitude: Number(details?.geometry?.location?.lat),
-      longitude: Number(details?.geometry?.location?.lng),
-    },
-  );
+  const distance = getDistanceToPlace(restaurant?.distance);
 
   return (
     <StyledButton {...touchableConfig} onPress={onPress}>
@@ -87,7 +74,9 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
               <Text fs={13} ff={FontFamily.PoppinsMedium} color={Colors.basic_700}>{hours}</Text>
             )}
 
-            <Text fs={13} color={Colors.basic_600}>{`${hours ? '  •  ' : ''}${distance}`}</Text>
+            {!!restaurant?.distance && (
+              <Text fs={13} color={Colors.basic_600}>{`${hours ? '  •  ' : ''}${distance}`}</Text>
+            )}
           </Box>
         </Box>
       </Box>

@@ -32,6 +32,7 @@ export interface Restaurant {
   uuid: string;
   name: string;
   slug: string;
+  distance: number;
   full_slug: string;
   created_at: string;
   published_at: string;
