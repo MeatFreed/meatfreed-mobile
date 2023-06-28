@@ -1,15 +1,14 @@
 import { Restaurant, useGetRestaurantByIDQuery } from 'api';
-import {
-  AnyType, touchableConfig, getDistanceToPlace, getHours,
-} from 'helpers';
+import { touchableConfig, getDistanceToPlace, getHours } from 'helpers';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import FastImage from 'react-native-fast-image';
 import styled from 'styled-components/native';
 import {
   Box, Colors, FontFamily, Text,
 } from 'themes';
 import { Icon } from 'ui';
+import { CarouselAsset } from './CarourelAsset';
+import { CarouselPhoto } from './CarouselPhoto';
 
 interface RestaurantCardProps {
   restaurant: Restaurant;
@@ -18,13 +17,6 @@ interface RestaurantCardProps {
 
 const StyledButton = styled.TouchableOpacity`
   margin: 0px 16px 10px;
-`;
-
-const StyledImage = styled(FastImage as AnyType)`
-  width: 100%;
-  height: 100%;
-  border-top-left-radius: 10px;
-  border-bottom-left-radius: 10px;
 `;
 
 export const RestaurantCard: React.FC<RestaurantCardProps> = ({
@@ -41,16 +33,19 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 
   const distance = getDistanceToPlace(restaurant?.distance);
 
+  const photos = details?.photos?.map((photo) => photo.photo_reference);
+
+  const assets = content?.assets?.map((asset) => asset.filename);
+
   return (
     <StyledButton {...touchableConfig} onPress={onPress}>
       <Box fd="row" br="10px" ai="center" bw="1px" bc={Colors.basic_400} bgc={Colors.basic_100}>
         <Box w="100px" h="100px">
-          <StyledImage
-            source={{
-              uri: `https://meatfreeds3.s3.eu-west-2.amazonaws.com/restaurant+logos/${content.google_place_id}.png`,
-            }}
-            resizeMode="contain"
-          />
+          {assets?.length ? (
+            <CarouselAsset reference={assets[0]} />
+          ) : (
+            <CarouselPhoto reference={photos?.[0] || ''} />
+          )}
         </Box>
 
         <Box f={1} p={[16, 12]}>
