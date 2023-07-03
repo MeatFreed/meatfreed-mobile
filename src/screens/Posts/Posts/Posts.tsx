@@ -1,4 +1,4 @@
-import { useGetFeaturedPosts, useGetPosts } from 'hooks';
+import { useGetPosts } from 'hooks';
 import React, { useCallback, useState } from 'react';
 import {
   Box, Colors, FontFamily, Text,
@@ -21,21 +21,13 @@ export const Posts: React.FC = () => {
 
   const isFocused = useIsFocused();
 
-  const { results: featuredPosts } = useGetFeaturedPosts();
-
   const [isMuted, setIsMuted] = useState(true);
 
   const [focusedIndex, setFocusedIndex] = useState(0);
 
   const safe = useSafeAreaInsets();
 
-  const {
-    isRefreshing,
-    isEmpty,
-    results,
-    onRefresh,
-    onEndReached,
-  } = useGetPosts();
+  const { results } = useGetPosts();
 
   const handleScroll = useCallback(({ nativeEvent }: NativeSyntheticEvent<NativeScrollEvent>) => {
     const { contentOffset: { y } } = nativeEvent;
@@ -52,14 +44,11 @@ export const Posts: React.FC = () => {
       <FlatList
         data={results}
         keyExtractor={({ uuid }: Post) => uuid}
-        onRefresh={onRefresh}
-        onEndReached={onEndReached}
-        refreshing={isRefreshing}
         initialNumToRender={3}
         onScroll={handleScroll}
         ListHeaderComponent={(
           <>
-            <FeaturedPosts results={featuredPosts} />
+            <FeaturedPosts />
 
             <Text
               fnw="600"
@@ -70,7 +59,7 @@ export const Posts: React.FC = () => {
             </Text>
           </>
           )}
-        ListEmptyComponent={isEmpty ? (
+        ListEmptyComponent={!results.length ? (
           <EmptyState />
         ) : (
           <Box f={1} ai="center" jc="center">

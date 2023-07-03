@@ -2,17 +2,15 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { FlatList } from 'react-native';
 import { Box, FontFamily, Text } from 'themes';
-import { Post } from 'api';
 import { RouteService } from 'services';
 import { Routes } from 'navigation';
+import { useGetFeaturedPosts } from 'hooks';
 import { FeaturedCard } from './FeaturedCard';
 
-interface FeaturedPostsProps {
-  results: Post[];
-}
-
-export const FeaturedPosts: React.FC<FeaturedPostsProps> = ({ results }) => {
+export const FeaturedPosts: React.FC = () => {
   const { t } = useTranslation();
+
+  const { results } = useGetFeaturedPosts();
 
   if (!results.length) {
     return null;

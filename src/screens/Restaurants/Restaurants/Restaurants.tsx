@@ -28,7 +28,7 @@ export const Restaurants: React.FC = () => {
 
   const { onShowMyLocation } = useGetPositionActions();
 
-  const { restaurants } = useGetRestaurants();
+  const { results } = useGetRestaurants();
 
   const ref = useRef<AnyType>();
 
@@ -59,10 +59,10 @@ export const Restaurants: React.FC = () => {
           <Button type="action" iconName="my-location" onPress={onLocation} />
         </StyledLayout>
 
-        <Map restaurants={restaurants} />
+        <Map restaurants={results} />
 
         {isFocused && (
-          <RestaurantPanel restaurants={restaurants} />
+          <RestaurantPanel restaurants={results} />
         )}
       </Box>
     </Box>

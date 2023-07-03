@@ -8,10 +8,6 @@ import { EmptyState, OfferCard } from 'features';
 export const ClaimedOffers: React.FC = () => {
   const {
     results,
-    onRefresh,
-    isRefreshing,
-    isEmpty,
-    onEndReached,
   } = useGetClaimedOffers();
 
   const { onOfferDetails } = useGetOffersActions();
@@ -24,11 +20,8 @@ export const ClaimedOffers: React.FC = () => {
         data={results}
         showsVerticalScrollIndicator={false}
         keyExtractor={({ uuid }) => uuid}
-        onRefresh={onRefresh}
         onEndReachedThreshold={0.1}
         contentContainerStyle={{ paddingTop: 10, paddingBottom: 30, flexGrow: 1 }}
-        refreshing={isRefreshing}
-        onEndReached={onEndReached}
         renderItem={({ item: offer }) => (
           <OfferCard
             offer={offer}
@@ -39,7 +32,7 @@ export const ClaimedOffers: React.FC = () => {
             })}
           />
         )}
-        ListEmptyComponent={isEmpty ? (
+        ListEmptyComponent={!results.length ? (
           <EmptyState />
         ) : (
           <Box f={1} ai="center" jc="center">
