@@ -1,3 +1,5 @@
+import { RestaurantInformation } from 'api';
+
 export interface PostAsset {
   id: number;
   alt: string;
@@ -23,4 +25,5 @@ export interface PostContent {
 export interface Post {
   uuid: string;
   content: PostContent
+  placeDetails: RestaurantInformation
 }

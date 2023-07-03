@@ -1,5 +1,6 @@
 export * from './baseQuery';
 
+export * from './posts/adapters';
 export * from './posts/models';
 
 export * from './offers/models';

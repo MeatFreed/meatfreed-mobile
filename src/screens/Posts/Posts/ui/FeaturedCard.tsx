@@ -8,6 +8,7 @@ import FastImage from 'react-native-fast-image';
 import Gradient from 'react-native-linear-gradient';
 import { Loader } from 'ui';
 import { Dimensions } from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 
 const { width } = Dimensions.get('window');
 
@@ -83,6 +84,8 @@ export const FeaturedCard: React.FC<FeaturedCardProps> = ({
 
   const isVideo = isImage(assets?.[0]?.filename);
 
+  const isFocused = useIsFocused();
+
   return (
     <StyledButton {...touchableConfig} isFirst={isFirst} onPress={onPress}>
       {isLoading && (
@@ -96,6 +99,7 @@ export const FeaturedCard: React.FC<FeaturedCardProps> = ({
           repeat
           resizeMode="cover"
           muted
+          paused={!isFocused}
           source={{ uri: assets?.[0]?.filename }}
           poster={assets?.[0]?.filename || 'https://iili.io/HOckdkg.png'}
           ignoreSilentSwitch="ignore"

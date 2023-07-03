@@ -10,12 +10,7 @@ import { useTranslation } from 'react-i18next';
 
 export const AvailableOffers: React.FC = () => {
   const { t } = useTranslation();
-  const {
-    results,
-    onRefresh,
-    isRefreshing,
-    isEmpty,
-  } = useGetAvailableOffers();
+  const { results } = useGetAvailableOffers();
 
   const { onOfferDetails } = useGetOffersActions();
 
@@ -27,10 +22,7 @@ export const AvailableOffers: React.FC = () => {
         data={results}
         showsVerticalScrollIndicator={false}
         keyExtractor={({ uuid }) => uuid}
-        onRefresh={onRefresh}
-        onEndReachedThreshold={0.1}
         contentContainerStyle={{ paddingTop: 10, paddingBottom: 30, flexGrow: 1 }}
-        refreshing={isRefreshing}
         renderItem={({ item: offer }) => (
           <OfferCard
             offer={offer}
@@ -41,7 +33,7 @@ export const AvailableOffers: React.FC = () => {
             })}
           />
         )}
-        ListEmptyComponent={isEmpty ? (
+        ListEmptyComponent={!results.length ? (
           <EmptyState />
         ) : (
           <Box f={1} ai="center" jc="center">
