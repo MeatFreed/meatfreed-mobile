@@ -1,11 +1,16 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList } from 'react-native';
+import { Dimensions } from 'react-native';
 import { Box, FontFamily, Text } from 'themes';
 import { RouteService } from 'services';
 import { Routes } from 'navigation';
 import { useGetFeaturedPosts } from 'hooks';
+import { FlashList } from '@shopify/flash-list';
 import { FeaturedCard } from './FeaturedCard';
+
+const { width } = Dimensions.get('window');
+
+const ITEM_HEIGHT = width / 2;
 
 export const FeaturedPosts: React.FC = () => {
   const { t } = useTranslation();
@@ -20,15 +25,16 @@ export const FeaturedPosts: React.FC = () => {
     <Box h="270px">
       <Text fnw="600" ff={FontFamily.PoppinsSemiMedium} m={[10, 16, 0]}>{t('posts.featured')}</Text>
 
-      <FlatList
+      <FlashList
         data={results}
         horizontal
-        contentContainerStyle={{ flexGrow: 1, marginBottom: 10 }}
+        contentContainerStyle={{ paddingBottom: 10 }}
         keyExtractor={({ uuid }) => uuid}
+        estimatedItemSize={ITEM_HEIGHT}
         showsHorizontalScrollIndicator={false}
         renderItem={({ item: post, index }) => (
           <FeaturedCard
-            post={post.content}
+            assets={post.assets}
             isFirst={index === 0}
             onPress={() => RouteService.navigate(Routes.POST_NAVIGATOR, {
               screen: Routes.POST_DETAILS,

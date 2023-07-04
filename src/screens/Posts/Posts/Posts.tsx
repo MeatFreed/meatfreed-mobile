@@ -4,14 +4,11 @@ import {
   Box, Colors, FontFamily, Text,
 } from 'themes';
 import { Loader, StatusBar } from 'ui';
-import {
-  FlatList, NativeScrollEvent, NativeSyntheticEvent,
-} from 'react-native';
+import { NativeScrollEvent, NativeSyntheticEvent } from 'react-native';
 import { useIsFocused } from '@react-navigation/native';
 import { useTranslation } from 'react-i18next';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import { Post } from 'api';
-import { AnyType } from 'helpers';
+import { FlashList } from '@shopify/flash-list';
 import { PostCard, EmptyState, FeaturedPosts } from './ui';
 
 const ITEM_HEIGHT = 620;
@@ -41,11 +38,11 @@ export const Posts: React.FC = () => {
     <Box f={1} bgc={Colors.basic_150} pt={safe.top || 10}>
       <StatusBar />
 
-      <FlatList
+      <FlashList
         data={results}
-        keyExtractor={({ uuid }: Post) => uuid}
-        initialNumToRender={3}
+        keyExtractor={({ uuid }) => uuid}
         onScroll={handleScroll}
+        estimatedItemSize={ITEM_HEIGHT}
         ListHeaderComponent={(
           <>
             <FeaturedPosts />
@@ -66,12 +63,12 @@ export const Posts: React.FC = () => {
             <Loader color={Colors.primary_500} size="large" />
           </Box>
         )}
-        renderItem={({ item: post, index }: AnyType) => (
+        showsVerticalScrollIndicator={false}
+        renderItem={({ item: post, index }) => (
           <PostCard
+            {...post}
             isMuted={isMuted}
             isAutoPlay={isFocused && focusedIndex === index}
-            post={post.content}
-            contentId={post.uuid}
             onChangeVolume={() => setIsMuted(!isMuted)}
           />
         )}

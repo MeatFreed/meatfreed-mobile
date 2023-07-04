@@ -1,20 +1,30 @@
-import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
+/* eslint-disable camelcase */
+
 import { isPointWithinRadius } from 'geolib';
 import { AnyType } from 'helpers';
+import orderBy from 'lodash.orderby';
 import { LatLng } from 'react-native-maps';
-import { Post } from './models';
+import { Post, PostCard } from './models';
 
 interface AvailablePostsParams {
-  snapshot: FirebaseFirestoreTypes.QuerySnapshot<FirebaseFirestoreTypes.DocumentData>
+  data: Post[]
   location: LatLng | null;
 }
 
-export const adaptAvailablePosts = ({ snapshot, location }: AvailablePostsParams) => {
-  const adaptPosts = snapshot.docs.map((doc) => ({
-    ...doc.data(), uid: doc.id,
-  })) as unknown as Post[];
+export const adaptPosts = (data: Post[]) => data.map(({ content, published_at, uuid }) => ({
+  description: content.description,
+  assets: content.assets,
+  title: content.title,
+  uuid,
+  published_at,
+}));
 
-  const filteredByLocation = adaptPosts.filter((post) => {
+export const adaptAvailablePosts = ({ data, location }: AvailablePostsParams) => {
+  if (!location) {
+    return [];
+  }
+
+  const filteredByLocation = data.filter((post) => {
     const postLocation = post?.placeDetails?.geometry?.location;
 
     const inRadius = isPointWithinRadius({
@@ -24,5 +34,5 @@ export const adaptAvailablePosts = ({ snapshot, location }: AvailablePostsParams
     return inRadius;
   });
 
-  return filteredByLocation as Post[];
+  return orderBy(adaptPosts(filteredByLocation), 'published_at', 'desc') as PostCard[];
 };

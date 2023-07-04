@@ -7,7 +7,7 @@ import { RouteService, ToastService } from 'services';
 import { Routes } from 'navigation';
 import dayjs from 'dayjs';
 import { OfferStatus, OfferType } from 'api';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useAnalytics } from './useAnalytics';
 
@@ -32,7 +32,7 @@ export const useGetOffersActions = () => {
 
   const { onLogEvent } = useAnalytics();
 
-  const onOfferDetails = (params: OfferDetails) => {
+  const onOfferDetails = useCallback((params: OfferDetails) => {
     if (userId) {
       const isVoucher = params.offerType === OfferType.VOUCHER;
 
@@ -58,7 +58,7 @@ export const useGetOffersActions = () => {
     RouteService.navigate(Routes.AUTH_NAVIGATOR, {
       screen: Routes.WELCOME,
     });
-  };
+  }, [userId]);
 
   const onClaimedOffer = async ({
     businessId, offerId, offerCode, userIds = [],

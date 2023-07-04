@@ -69,7 +69,7 @@ export const FeaturedCard: React.FC<FeaturedCardProps> = ({
 
   return (
     <TouchableOpacity {...touchableConfig} onPress={onPress}>
-      <Box m={[10, 16, 0, isFirst ? 16 : 0]} br="8px" h="130px" w={`${width - 48}px`}>
+      <Box m={[10, 16, 0, isFirst ? 16 : 0]} br="8px" h="100px" w={`${width - 48}px`}>
         {isVideo ? (
           <StyledVideo
             controls={false}

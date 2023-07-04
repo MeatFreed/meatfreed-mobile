@@ -1,4 +1,4 @@
-import { PostContent } from 'api';
+import { PostCard as Card } from 'api';
 import { AnyType, isImage, touchableConfig } from 'helpers';
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
@@ -10,10 +10,8 @@ import { Emoji, ShareContent } from 'features';
 import { Icon, Loader } from 'ui';
 import { Description } from './Description';
 
-interface PostCardProps {
+interface PostCardProps extends Card {
   isAutoPlay: boolean
-  contentId: string;
-  post: PostContent;
   isMuted: boolean;
   onChangeVolume: () => void;
 }
@@ -76,10 +74,9 @@ const StyledWrapper = styled(Box)`
 `;
 
 export const PostCard: React.FC<PostCardProps> = ({
-  post, contentId, isAutoPlay, isMuted, onChangeVolume,
+  assets, description, title, uuid, isAutoPlay, isMuted, onChangeVolume,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const { assets, description, title } = post;
 
   const [isShowFullDescription, setIsShowFullDescription] = useState(false);
 
@@ -154,9 +151,9 @@ export const PostCard: React.FC<PostCardProps> = ({
         <Box z={2} w="auto" m={[0, 12]} h="1px" bgc={Colors.basic_500} />
 
         <Box z={2} ai="center" fd="row" p={[8, 12]}>
-          <Emoji contentId={contentId} />
+          <Emoji contentId={uuid} />
 
-          <ShareContent title={title} contentId={contentId} />
+          <ShareContent title={title} contentId={uuid} />
         </Box>
 
         {!isLoading && (

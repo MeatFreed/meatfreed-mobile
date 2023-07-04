@@ -21,6 +21,6 @@ export const CarouselPhoto: React.FC<CarouselPhotoProps> = ({ reference }) => {
   const source = { uri: `https://maps.googleapis.com/maps/api/place/photo?photo_reference=${reference}&maxwidth=500&key=${GOOGLE_API_KEY}` };
 
   return (
-    <StyledImage source={source} resizeMode={FastImage.resizeMode.contain} />
+    <StyledImage source={source} resizeMode={FastImage.resizeMode.stretch} />
   );
 };

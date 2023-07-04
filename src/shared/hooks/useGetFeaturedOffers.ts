@@ -1,6 +1,5 @@
 import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
-import orderBy from 'lodash.orderby';
 import { Offer, adaptFeaturedOffers } from 'api';
 import { useTypedSelector } from 'stores';
 import { userSelectors } from 'stores/user';
@@ -17,16 +16,16 @@ export const useGetFeaturedOffers = () => {
       .where('content.active', '==', true)
       .where('content.public', '==', true)
       .where('content.featured', '==', true)
-      .onSnapshot((documentSnapshot) => {
-        const offers = adaptFeaturedOffers(userId, documentSnapshot);
+      .onSnapshot((snapshot) => {
+        const offers = snapshot.docs.map((doc) => doc.data()) as Offer[];
 
         setResults([...offers]);
       });
 
     return () => subscribe();
-  }, [userId]);
+  }, []);
 
   return {
-    results: orderBy(results, 'published_at', 'desc') as Offer[],
+    results: results.length ? adaptFeaturedOffers(userId, results) : [],
   };
 };

@@ -1,5 +1,4 @@
 import { LatLng } from 'react-native-maps';
-import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
 import orderBy from 'lodash.orderby';
 import { isPointWithinRadius, getDistance } from 'geolib';
 import { AnyType } from 'helpers';
@@ -27,16 +26,16 @@ export const adaptRestaurants = (
 };
 
 interface AvailableRestaurantsParams {
-  snapshot: FirebaseFirestoreTypes.QuerySnapshot<FirebaseFirestoreTypes.DocumentData>
+  data: Restaurant[]
   location: LatLng | null;
 }
 
-export const adaptAvailableRestaurants = ({ snapshot, location }: AvailableRestaurantsParams) => {
-  const adaptPosts = snapshot.docs.map((doc) => ({
-    ...doc.data(), uid: doc.id,
-  })) as unknown as Restaurant[];
+export const adaptAvailableRestaurants = ({ data, location }: AvailableRestaurantsParams) => {
+  if (!location) {
+    return [];
+  }
 
-  const filteredByLocation = adaptPosts.filter((restaurant) => {
+  const filteredByLocation = data.filter((restaurant) => {
     const restaurantLocation = restaurant?.placeDetails?.geometry?.location;
 
     const inRadius = isPointWithinRadius({

@@ -25,5 +25,14 @@ export interface PostContent {
 export interface Post {
   uuid: string;
   content: PostContent
+  published_at: string;
   placeDetails: RestaurantInformation
+}
+
+export interface PostCard {
+  description: string;
+  assets: PostAsset[];
+  title: string;
+  uuid: string;
+  published_at: string;
 }

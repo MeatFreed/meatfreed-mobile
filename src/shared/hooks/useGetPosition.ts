@@ -39,11 +39,13 @@ export const useGetPosition = () => {
 
       await PermissionsService.requestGeolocationPermission();
 
-      await getNotificationPermission();
-
       watchLocation();
 
       onShowMyLocation();
+
+      if (isIOS) {
+        getNotificationPermission();
+      }
     } catch (error) { /** empty */ }
   };
 

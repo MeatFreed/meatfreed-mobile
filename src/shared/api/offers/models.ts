@@ -1,4 +1,4 @@
-import { RestaurantInformation } from 'api';
+import { RestaurantInformation, RestaurantPhoto } from 'api';
 import { AnyType } from 'helpers';
 
 export interface OfferAsset {
@@ -48,6 +48,18 @@ export interface Offer {
   content: OfferContent;
   placeDetails: RestaurantInformation
   userIds?: string[]
+}
+
+export interface OfferCard {
+  uuid: string;
+  assets: OfferAsset[];
+  title: string;
+  subtitle: string;
+  offer_type: OfferType;
+  end_date: string;
+  photos: RestaurantPhoto[];
+  business: string;
+  published_at: string;
 }
 
 export interface UserOffer {

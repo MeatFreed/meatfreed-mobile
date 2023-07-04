@@ -45,7 +45,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants })
       <BottomSheetFlatList
         ref={scrollViewRef}
         data={restaurants}
-        keyExtractor={(_, index) => index.toString()}
+        keyExtractor={({ uuid }) => uuid}
         renderItem={({ item: restaurant }) => (
           <RestaurantCard
             restaurant={restaurant}

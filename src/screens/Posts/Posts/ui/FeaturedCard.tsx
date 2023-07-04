@@ -1,4 +1,4 @@
-import { PostContent } from 'api';
+import { PostAsset } from 'api';
 import { AnyType, isImage, touchableConfig } from 'helpers';
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
@@ -13,7 +13,7 @@ import { useIsFocused } from '@react-navigation/native';
 const { width } = Dimensions.get('window');
 
 interface FeaturedCardProps {
-  post: PostContent;
+  assets: PostAsset[];
   isFirst: boolean;
   onPress?: () => void;
 }
@@ -77,10 +77,9 @@ const StyledButton = styled.TouchableOpacity<{ isFirst: boolean }>`
 `;
 
 export const FeaturedCard: React.FC<FeaturedCardProps> = ({
-  post, isFirst, onPress,
+  assets, isFirst, onPress,
 }) => {
   const [isLoading, setIsLoading] = useState(true);
-  const { assets } = post;
 
   const isVideo = isImage(assets?.[0]?.filename);
 
