@@ -48,7 +48,7 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
           )}
         </Box>
 
-        <Box f={1} p={[16, 12]}>
+        <Box f={1} p={[0, 12]}>
           <Text fnw="500" ff={FontFamily.PoppinsSemiMedium}>{content?.title}</Text>
 
           <Box m={[4, 0]} fd="row" ai="center">

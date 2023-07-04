@@ -31,12 +31,12 @@ export const CarouselAsset: React.FC<CarouselAssetProps> = ({ reference }) => {
         controls
         source={{ uri: reference }}
         poster={reference}
-        posterResizeMode={FastImage.resizeMode.contain}
+        posterResizeMode={FastImage.resizeMode.stretch}
       />
     );
   }
 
   return (
-    <StyledImage source={{ uri: reference }} resizeMode={FastImage.resizeMode.contain} />
+    <StyledImage source={{ uri: reference }} resizeMode={FastImage.resizeMode.stretch} />
   );
 };

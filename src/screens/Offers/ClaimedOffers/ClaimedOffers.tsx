@@ -2,8 +2,8 @@ import { useGetOffersActions, useGetClaimedOffers } from 'hooks';
 import React from 'react';
 import { Box, Colors } from 'themes';
 import { Loader, StatusBar } from 'ui';
-import { FlatList } from 'react-native';
 import { EmptyState, OfferCard } from 'features';
+import { FlashList } from '@shopify/flash-list';
 
 export const ClaimedOffers: React.FC = () => {
   const {
@@ -16,19 +16,19 @@ export const ClaimedOffers: React.FC = () => {
     <Box f={1} bgc={Colors.basic_150}>
       <StatusBar />
 
-      <FlatList
+      <FlashList
         data={results}
         showsVerticalScrollIndicator={false}
         keyExtractor={({ uuid }) => uuid}
-        onEndReachedThreshold={0.1}
-        contentContainerStyle={{ paddingTop: 10, paddingBottom: 30, flexGrow: 1 }}
+        estimatedItemSize={100}
+        contentContainerStyle={{ paddingTop: 10, paddingBottom: 30 }}
         renderItem={({ item: offer }) => (
           <OfferCard
-            offer={offer}
+            {...offer}
             onPress={() => onOfferDetails({
-              offerId: offer.uuid,
-              businessId: offer.content.business,
-              offerType: offer.content.offer_type,
+              offerId: offer?.uuid,
+              businessId: offer?.business,
+              offerType: offer?.offer_type,
             })}
           />
         )}

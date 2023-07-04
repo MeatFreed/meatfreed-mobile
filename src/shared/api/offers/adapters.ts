@@ -1,21 +1,36 @@
-import { FirebaseFirestoreTypes } from '@react-native-firebase/firestore';
+/* eslint-disable camelcase */
 import { AnyType, isBetweenAvailableTime } from 'helpers';
 import { isPointWithinRadius } from 'geolib';
 import { LatLng } from 'react-native-maps';
-import { Offer } from './models';
+import orderBy from 'lodash.orderby';
+import { Offer, OfferCard } from './models';
 
 interface AvailableOffersParams {
-  userId: string
-  snapshot: FirebaseFirestoreTypes.QuerySnapshot<FirebaseFirestoreTypes.DocumentData>
+  userId: string;
+  data: Offer[];
   location: LatLng | null;
 }
 
-export const adaptAvailableOffers = ({ userId, snapshot, location }: AvailableOffersParams) => {
-  const adaptOffers = snapshot.docs.map((doc) => doc.data()) as Offer[];
+const adaptOffers = (data: Offer[]) => data.map(({
+  content, placeDetails, published_at, uuid,
+}) => ({
+  uuid,
+  assets: content.assets,
+  title: content.title,
+  subtitle: content.subtitle,
+  offer_type: content.offer_type,
+  end_date: content.end_date,
+  photos: placeDetails.photos,
+  business: content.business,
+  published_at,
+}));
 
-  const filteredByUserId = adaptOffers.filter((offer) => !offer?.userIds?.includes(userId));
+export const adaptAvailableOffers = ({ userId, data, location }: AvailableOffersParams) => {
+  if (!location) {
+    return [];
+  }
 
-  const filteredByAvailableDate = filteredByUserId.filter((offer) => {
+  const filteredByAvailableDate = data.filter((offer) => {
     const isBetweenTime = isBetweenAvailableTime(
       offer?.content?.start_date,
       offer?.content?.end_date,
@@ -27,24 +42,33 @@ export const adaptAvailableOffers = ({ userId, snapshot, location }: AvailableOf
       latitude: orderLocation.lat, longitude: orderLocation.lng,
     }, location as AnyType, 30000);
 
-    return isBetweenTime && inRadius;
+    return isBetweenTime && inRadius && !offer?.userIds?.includes(userId);
   });
 
-  return filteredByAvailableDate as Offer[];
+  const offers = adaptOffers(filteredByAvailableDate);
+
+  return orderBy(offers, 'published_at', 'desc') as OfferCard[];
 };
 
 export const adaptFeaturedOffers = (
   userId: string,
-  collection: FirebaseFirestoreTypes.QuerySnapshot<FirebaseFirestoreTypes.DocumentData>,
+  data: Offer[],
 ) => {
-  const adaptOffers = collection.docs.map((doc) => doc.data()) as Offer[];
-
-  const filteredByUserId = adaptOffers.filter((offer) => !offer?.userIds?.includes(userId));
-
-  const filteredByAvailableDate = filteredByUserId.filter((offer) => isBetweenAvailableTime(
+  const filteredByAvailableDate = data.filter((offer) => isBetweenAvailableTime(
     offer?.content?.start_date,
     offer?.content?.end_date,
-  ));
+  ) && !offer?.userIds?.includes(userId));
 
-  return filteredByAvailableDate as Offer[];
+  return orderBy(filteredByAvailableDate, 'published_at', 'desc') as Offer[];
+};
+
+export const adaptClaimedOffers = (
+  userId: string,
+  data: Offer[],
+) => {
+  const filteredByUserId = data.filter((offer) => offer?.userIds?.includes(userId));
+
+  const offers = adaptOffers(filteredByUserId);
+
+  return orderBy(offers, 'published_at', 'desc') as OfferCard[];
 };

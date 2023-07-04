@@ -1,4 +1,4 @@
-import { Post } from 'api';
+import { Post, PostCard, adaptPosts } from 'api';
 import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
 import orderBy from 'lodash.orderby';
@@ -23,6 +23,6 @@ export const useGetFeaturedPosts = () => {
   }, []);
 
   return {
-    results: orderBy(results, 'published_at', 'desc') as Post[],
+    results: orderBy(adaptPosts(results), 'published_at', 'desc') as PostCard[],
   };
 };

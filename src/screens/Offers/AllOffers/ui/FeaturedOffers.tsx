@@ -1,8 +1,8 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { FlatList } from 'react-native';
 import { Box, FontFamily, Text } from 'themes';
 import { useGetFeaturedOffers, useGetOffersActions } from 'hooks';
+import { FlashList } from '@shopify/flash-list';
 import { FeaturedCard } from './FeaturedCard';
 
 export const FeaturedOffers: React.FC = () => {
@@ -17,15 +17,15 @@ export const FeaturedOffers: React.FC = () => {
   }
 
   return (
-    <Box h="200px">
+    <Box h="150px">
       <Text fnw="600" ff={FontFamily.PoppinsSemiMedium} m={[10, 16, 0]}>{t('offers.featured')}</Text>
 
-      <FlatList
+      <FlashList
         data={results}
         horizontal
-        contentContainerStyle={{ flexGrow: 1 }}
         keyExtractor={({ uuid }) => uuid}
         showsHorizontalScrollIndicator={false}
+        estimatedItemSize={100}
         renderItem={({ item: offer, index }) => (
           <FeaturedCard
             offer={offer}
