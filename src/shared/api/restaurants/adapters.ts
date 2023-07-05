@@ -1,6 +1,7 @@
 import { LatLng } from 'react-native-maps';
 import orderBy from 'lodash.orderby';
-import { isPointWithinRadius, getDistance } from 'geolib';
+import { isPointWithinRadius } from 'geolib';
+import { distanceBetween } from 'geofire-common';
 import { AnyType } from 'helpers';
 import { Restaurant } from './models';
 
@@ -10,15 +11,15 @@ export const adaptRestaurants = (
 ) => {
   const data = restaurants.map((restaurant) => ({
     ...restaurant,
-    distance: getDistance(
-      {
-        latitude: Number(location?.latitude || 0),
-        longitude: Number(location?.longitude || 0),
-      },
-      {
-        latitude: Number(restaurant?.placeDetails.geometry?.location?.lat),
-        longitude: Number(restaurant?.placeDetails.geometry?.location?.lng),
-      },
+    distance: distanceBetween(
+      [
+        Number(location?.latitude || 0),
+        Number(location?.longitude || 0),
+      ],
+      [
+        Number(restaurant?.placeDetails.geometry?.location?.lat),
+        Number(restaurant?.placeDetails.geometry?.location?.lng),
+      ],
     ),
   }));
 
