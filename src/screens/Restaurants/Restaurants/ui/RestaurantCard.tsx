@@ -33,9 +33,14 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 
   const distance = getDistanceToPlace(restaurant?.distance);
 
-  const photos = details?.photos?.map((photo) => photo.photo_reference);
+  const detailsPhoto = details?.photos || placeDetails.photos;
+
+  const photos = detailsPhoto?.map((photo) => photo.photo_reference);
 
   const assets = content?.assets?.map((asset) => asset.filename);
+
+  const rating = details?.rating || placeDetails?.rating || 0;
+  const totalRating = details?.user_ratings_total || placeDetails?.user_ratings_total || 0;
 
   return (
     <StyledButton {...touchableConfig} onPress={onPress}>
@@ -60,7 +65,7 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
               color={Colors.tabBarInactiveTintColor}
               ff={FontFamily.PoppinsMedium}
             >
-              {`${details?.rating || 0} ${`(${details?.user_ratings_total || 0} ${t('home.reviews')})`}`}
+              {`${rating} ${`(${totalRating} ${t('home.reviews')})`}`}
             </Text>
           </Box>
 
