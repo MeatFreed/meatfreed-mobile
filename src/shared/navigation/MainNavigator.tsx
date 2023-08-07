@@ -4,6 +4,7 @@ import {
   SignIn,
   SignUp,
   Referral,
+  RestaurantFavorites,
 } from 'screens';
 import { useTranslation } from 'react-i18next';
 import { Routes } from './Routes';
@@ -93,6 +94,17 @@ export const MainNavigator: React.FC = () => {
           headerShown: false,
         }}
       />
+
+      <Stack.Group screenOptions={{ presentation: 'modal' }}>
+        <Stack.Screen
+          name={Routes.RESTAURANT_FAVORITES}
+          component={RestaurantFavorites}
+          options={{
+            ...headerOptions,
+            headerTitle: t('screens.favorites'),
+          }}
+        />
+      </Stack.Group>
     </Stack.Navigator>
   );
 };

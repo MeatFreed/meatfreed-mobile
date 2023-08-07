@@ -1,6 +1,6 @@
 import { RestaurantOpeningHours } from 'api';
 import dayjs from 'dayjs';
-import { getHours, touchableConfig } from 'helpers';
+import { getHours } from 'helpers';
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/native';
@@ -29,7 +29,7 @@ export const OpeningHours: React.FC<ActionProps> = ({ openingHours }) => {
   const hours = getHours(openingHours);
 
   return (
-    <StyledButton {...touchableConfig} onPress={() => setIsShowSchedule(!isShowSchedule)}>
+    <StyledButton onPress={() => setIsShowSchedule(!isShowSchedule)}>
       <Box fd="row" ai="center">
         <Icon name="open-hours" size={20} color={Colors.primary_500} />
 

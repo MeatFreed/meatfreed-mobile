@@ -1,5 +1,5 @@
 import { PostAsset } from 'api';
-import { AnyType, isImage, touchableConfig } from 'helpers';
+import { AnyType, isImage } from 'helpers';
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import Video from 'react-native-video';
@@ -86,7 +86,7 @@ export const FeaturedCard: React.FC<FeaturedCardProps> = ({
   const isFocused = useIsFocused();
 
   return (
-    <StyledButton {...touchableConfig} isFirst={isFirst} onPress={onPress}>
+    <StyledButton isFirst={isFirst} onPress={onPress}>
       {isLoading && (
         <StyledWrapper>
           <Loader size="large" color={Colors.purple} />

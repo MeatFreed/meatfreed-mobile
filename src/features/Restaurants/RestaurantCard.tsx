@@ -1,5 +1,5 @@
 import { Restaurant, useGetRestaurantByIDQuery } from 'api';
-import { touchableConfig, getDistanceToPlace, getHours } from 'helpers';
+import { getDistanceToPlace, getHours } from 'helpers';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import styled from 'styled-components/native';
@@ -7,7 +7,11 @@ import {
   Box, Colors, FontFamily, Text,
 } from 'themes';
 import { Icon } from 'ui';
-import { CarouselAsset } from './CarourelAsset';
+import hexToRgba from 'hex-to-rgba';
+import { useTypedSelector } from 'stores';
+import { userSelectors } from 'stores/user';
+import { useGetRestaurantFavoriteActions } from 'hooks';
+import { CarouselAsset } from './CarouselAsset';
 import { CarouselPhoto } from './CarouselPhoto';
 
 interface RestaurantCardProps {
@@ -19,15 +23,32 @@ const StyledButton = styled.TouchableOpacity`
   margin: 0px 16px 10px;
 `;
 
+const StyledFavorite = styled.TouchableOpacity<{ isActive: boolean }>`
+  position: absolute;
+  z-index: 9999;
+  left: 5px;
+  top: 5px;
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  align-items: center;
+  justify-content: center;
+  background-color: ${({ isActive }) => (isActive ? hexToRgba(Colors.primary_500, 0.9) : hexToRgba(Colors.basic_500, 0.9))};
+`;
+
 export const RestaurantCard: React.FC<RestaurantCardProps> = ({
   restaurant,
   onPress,
 }) => {
   const { t } = useTranslation();
 
+  const userId = useTypedSelector(userSelectors.userId);
+
   const { content, placeDetails } = restaurant;
 
   const { data: details } = useGetRestaurantByIDQuery(placeDetails?.place_id);
+
+  const { isAlreadyFavorite, onRestaurantFavorite } = useGetRestaurantFavoriteActions(restaurant);
 
   const hours = getHours(details?.opening_hours);
 
@@ -43,9 +64,15 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
   const totalRating = details?.user_ratings_total || placeDetails?.user_ratings_total || 0;
 
   return (
-    <StyledButton {...touchableConfig} onPress={onPress}>
+    <StyledButton onPress={onPress}>
       <Box fd="row" br="10px" ai="center" bw="1px" bc={Colors.basic_400} bgc={Colors.basic_100}>
         <Box w="100px" h="100px">
+          {!!userId && (
+            <StyledFavorite isActive={isAlreadyFavorite} onPress={onRestaurantFavorite}>
+              <Icon size={20} color={isAlreadyFavorite ? Colors.basic_550 : Colors.basic_100} name={isAlreadyFavorite ? 'heart' : 'heart-outline'} />
+            </StyledFavorite>
+          )}
+
           {assets?.length ? (
             <CarouselAsset reference={assets[0]} />
           ) : (

@@ -1,4 +1,3 @@
-import { touchableConfig } from 'helpers';
 import React, { FC } from 'react';
 import { Dimensions } from 'react-native';
 import { ToastService } from 'services';
@@ -73,7 +72,7 @@ export const ToastBase: FC<ToastBaseProps> = ({ type, title }) => (
         )}
       </Box>
 
-      <StyledButton {...touchableConfig} onPress={ToastService.onHide}>
+      <StyledButton onPress={ToastService.onHide}>
         <Icon name="close" size={20} color={Colors.basic_800} />
       </StyledButton>
     </Box>

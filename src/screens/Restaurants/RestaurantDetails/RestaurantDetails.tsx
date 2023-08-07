@@ -68,6 +68,7 @@ export const RestaurantDetails: React.FC = () => {
         <Carousel photos={photos} assets={assets} hasAssets={!!assets?.length} />
 
         <Details
+          restaurant={restaurant}
           name={details?.name}
           rating={details?.rating}
           totalRatings={details?.user_ratings_total}

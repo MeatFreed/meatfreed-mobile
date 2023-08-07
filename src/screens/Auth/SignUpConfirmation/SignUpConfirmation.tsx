@@ -4,7 +4,7 @@ import {
   Box, Colors, FontFamily, Images, Spaces, Text,
 } from 'themes';
 import { Icon, StatusBar } from 'ui';
-import { AnyType, touchableConfig } from 'helpers';
+import { AnyType } from 'helpers';
 import Gradient from 'react-native-linear-gradient';
 import { Dimensions, ImageBackground } from 'react-native';
 import styled from 'styled-components/native';
@@ -82,7 +82,6 @@ export const SignUpConfirmation: React.FC = () => {
         <Navigation ai="center" jc="center">
           <StyledButton
             isWhite={false}
-            {...touchableConfig}
             onPress={() => RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR)}
           >
             <Box f={1} ai="center">

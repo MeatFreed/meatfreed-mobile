@@ -1,7 +1,7 @@
 import { useWindowDimensions } from '@lumitech/mobile-hooks';
 import { useFacebook, useGoogle, useApple } from 'hooks';
 import React from 'react';
-import { isIOS, touchableConfig } from 'helpers';
+import { isIOS } from 'helpers';
 import {
   Box, Colors, FontFamily, Images, Spaces, Text,
 } from 'themes';
@@ -46,7 +46,7 @@ export const Socials: React.FC<SocialsProps> = ({ referralCode = '' }) => {
       <ActivityIndicator isVisible={isLoading} />
 
       <Box ai="center" jc="center" w={`${width - Spaces['7xl']}px`}>
-        <StyledButton isWhite {...touchableConfig} onPress={() => onGoogleSignIn(referralCode)}>
+        <StyledButton isWhite onPress={() => onGoogleSignIn(referralCode)}>
           <Images.Google width={Spaces.xl} height={Spaces.xl} />
 
           <Box f={1} ai="center">
@@ -55,7 +55,7 @@ export const Socials: React.FC<SocialsProps> = ({ referralCode = '' }) => {
         </StyledButton>
 
         {isIOS && (
-          <StyledButton isWhite {...touchableConfig} onPress={() => onAppleSignIn(referralCode)}>
+          <StyledButton isWhite onPress={() => onAppleSignIn(referralCode)}>
             <Images.Apple width={Spaces.xl} height={Spaces.xl} />
 
             <Box f={1} ai="center">
@@ -64,7 +64,7 @@ export const Socials: React.FC<SocialsProps> = ({ referralCode = '' }) => {
           </StyledButton>
         )}
 
-        <StyledButton isWhite {...touchableConfig} onPress={() => onFacebookSignIn(referralCode)}>
+        <StyledButton isWhite onPress={() => onFacebookSignIn(referralCode)}>
           <Images.Facebook width={Spaces.xl} height={Spaces.xl} color={Colors.white} />
 
           <Box f={1} ai="center">
@@ -74,7 +74,6 @@ export const Socials: React.FC<SocialsProps> = ({ referralCode = '' }) => {
 
         <StyledButton
           isWhite={false}
-          {...touchableConfig}
           onPress={() => RouteService.navigate(Routes.SIGN_UP, { code: referralCode })}
         >
           <Images.Email width={Spaces.xl} height={Spaces.xl} color={Colors.white} />
@@ -88,7 +87,6 @@ export const Socials: React.FC<SocialsProps> = ({ referralCode = '' }) => {
           <Text color={Colors.basic_100}>{t('welcome.has-account')}</Text>
 
           <TouchableOpacity
-            {...touchableConfig}
             onPress={() => RouteService.navigate(Routes.SIGN_IN)}
           >
             <Text fnw="500" ttd="underline" ttds="solid" ttdc={Colors.basic_100} ff={FontFamily.PoppinsMedium} color={Colors.basic_100}>{t('buttons.login')}</Text>

@@ -11,6 +11,7 @@ import { Dimensions } from 'react-native';
 import { useSignUp } from 'hooks';
 import { useRoute } from '@react-navigation/native';
 import { SignUpProp } from 'navigation';
+import { AnyType } from 'helpers';
 
 const { width } = Dimensions.get('window');
 
@@ -75,7 +76,7 @@ export const SignUp: React.FC = () => {
               onBlur={handleBlur('firstName')}
               onChangeText={handleChange('firstName')}
               isError={!!errors.firstName && !!touched.firstName}
-              error={errors.firstName ? t(errors.firstName) : ''}
+              error={errors.firstName ? t(errors.firstName as AnyType) : ''}
               withBottomOffset
               isWhite
               isWhiteLabel
@@ -90,7 +91,7 @@ export const SignUp: React.FC = () => {
               onBlur={handleBlur('lastName')}
               onChangeText={handleChange('lastName')}
               isError={!!errors.lastName && !!touched.lastName}
-              error={errors.lastName ? t(errors.lastName) : ''}
+              error={errors.lastName ? t(errors.lastName as AnyType) : ''}
               withBottomOffset
               isWhite
               isWhiteLabel
@@ -105,7 +106,7 @@ export const SignUp: React.FC = () => {
               onBlur={handleBlur('email')}
               onChangeText={handleChange('email')}
               isError={!!errors.email && !!touched.email}
-              error={errors.email ? t(errors.email) : ''}
+              error={errors.email ? t(errors.email as AnyType) : ''}
               keyboardType="email-address"
               withBottomOffset
               isWhite
@@ -121,7 +122,7 @@ export const SignUp: React.FC = () => {
               onBlur={handleBlur('password')}
               onChangeText={handleChange('password')}
               isError={!!errors.password && !!touched.password}
-              error={errors.password ? t(errors.password) : ''}
+              error={errors.password ? t(errors.password as AnyType) : ''}
               secureTextEntry={!isShowPassword}
               withBottomOffset
               isWhite
@@ -139,7 +140,7 @@ export const SignUp: React.FC = () => {
               onBlur={handleBlur('confirmPassword')}
               onChangeText={handleChange('confirmPassword')}
               isError={!!errors.confirmPassword && !!touched.confirmPassword}
-              error={errors.confirmPassword ? t(errors.confirmPassword) : ''}
+              error={errors.confirmPassword ? t(errors.confirmPassword as AnyType) : ''}
               secureTextEntry={!isShowConfirmPassword}
               withBottomOffset
               isWhite
@@ -157,7 +158,7 @@ export const SignUp: React.FC = () => {
               onBlur={handleBlur('confirmPassword')}
               onChangeText={handleChange('referralCode')}
               isError={!!errors.referralCode && !!touched.referralCode}
-              error={errors.referralCode ? t(errors.referralCode) : ''}
+              error={errors.referralCode ? t(errors.referralCode as AnyType) : ''}
               withBottomOffset
               isWhite
               isWhiteLabel

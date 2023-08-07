@@ -1,15 +1,23 @@
 import 'react-native-gesture-handler';
 
 import {
-  AppRegistry, LogBox, Text, TextInput,
+  AppRegistry, LogBox, Text, TextInput, TouchableOpacity,
 } from 'react-native';
+import { touchableConfig } from 'helpers';
 import App from './App';
 import { name as appName } from './app.json';
 
 import { LocalizationService } from './src/shared/services';
 
+LocalizationService.initLocalization();
+
 Text.defaultProps = { ...(TextInput.defaultProps || {}), allowFontScaling: false };
 TextInput.defaultProps = { ...(TextInput.defaultProps || {}), allowFontScaling: false };
+
+TouchableOpacity.defaultProps = {
+  ...(TouchableOpacity.defaultProps || {}),
+  ...({ ...touchableConfig }),
+};
 
 LogBox.ignoreAllLogs(true);
 
@@ -23,7 +31,5 @@ LogBox.ignoreLogs([
   'Non-serializable values were found in the navigation state.',
   "EventEmitter.removeListener('change', ...): Method has been deprecated. Please instead use `remove()` on the subscription returned by `EventEmitter.addListener`",
 ]);
-
-LocalizationService.initLocalization();
 
 AppRegistry.registerComponent(appName, () => App);

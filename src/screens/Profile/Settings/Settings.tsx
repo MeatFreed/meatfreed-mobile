@@ -121,7 +121,7 @@ export const Settings: React.FC = () => {
               onBlur={handleBlur('firstName')}
               onChangeText={handleChange('firstName')}
               isError={!!errors.firstName && !!touched.firstName}
-              error={errors.firstName ? t(errors.firstName) : ''}
+              error={errors.firstName ? t(errors.firstName as AnyType) : ''}
               withBottomOffset
               isWhite
             />
@@ -133,7 +133,7 @@ export const Settings: React.FC = () => {
               onBlur={handleBlur('lastName')}
               onChangeText={handleChange('lastName')}
               isError={!!errors.lastName && !!touched.lastName}
-              error={errors.lastName ? t(errors.lastName) : ''}
+              error={errors.lastName ? t(errors.lastName as AnyType) : ''}
               withBottomOffset
               isWhite
             />
@@ -145,7 +145,7 @@ export const Settings: React.FC = () => {
               onBlur={handleBlur('email')}
               onChangeText={handleChange('email')}
               isError={!!errors.email && !!touched.email}
-              error={errors.email ? t(errors.email) : ''}
+              error={errors.email ? t(errors.email as AnyType) : ''}
               withBottomOffset
               isWhite
             />

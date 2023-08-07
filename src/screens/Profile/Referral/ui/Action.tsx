@@ -1,4 +1,4 @@
-import { touchableConfig, AnyType } from 'helpers';
+import { AnyType } from 'helpers';
 import React from 'react';
 import styled from 'styled-components/native';
 import { Colors, FontFamily, Text } from 'themes';
@@ -25,7 +25,6 @@ export const Action: React.FC<ActionProps> = ({
   Icon, title, onPress,
 }) => (
   <StyledButton
-    {...touchableConfig}
     onPress={onPress}
   >
     {Icon || null}

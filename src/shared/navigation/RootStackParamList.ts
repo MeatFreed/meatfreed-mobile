@@ -25,6 +25,7 @@ export type RootStackParamList = {
       contentId: string;
     }
   };
+  [Routes.RESTAURANT_FAVORITES]: undefined;
   [Routes.OFFER_NAVIGATOR]: {
     screen: OfferScreenType,
     params: {
