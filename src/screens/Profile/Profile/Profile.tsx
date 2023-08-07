@@ -8,7 +8,6 @@ import {
 import { Avatar, Button, StatusBar } from 'ui';
 import { useUploadPhoto } from 'hooks';
 import { useTranslation } from 'react-i18next';
-import { touchableConfig } from 'helpers';
 import { RouteService } from 'services';
 import { Routes } from 'navigation';
 import { useNavigation } from '@react-navigation/native';
@@ -73,8 +72,6 @@ export const Profile: React.FC = () => {
           <Box p={Spaces.md} ai="center" jc="center" bgc={Colors.basic_100}>
             <Box>
               <Avatar
-                type="add-photo"
-                size="s"
                 uri={user?.photoURL}
                 isLoading={isLoading}
                 onPress={onUploadPhoto}
@@ -98,7 +95,6 @@ export const Profile: React.FC = () => {
             <Statistics />
 
             <StyledButton
-              {...touchableConfig}
               onPress={() => RouteService.navigate(Routes.REFERRAL)}
             >
               <Images.ShareCode width={20} height={20} />

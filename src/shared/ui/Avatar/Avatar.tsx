@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-useless-fragment */
-import { AnyType, touchableConfig } from 'helpers';
+import { AnyType } from 'helpers';
 import React, { useState } from 'react';
 import FastImage from 'react-native-fast-image';
 import styled from 'styled-components/native';
@@ -11,11 +11,8 @@ import { Icon, Loader } from 'ui';
 type AvatarSize = 'xs' | 's' | 'm' | 'l';
 
 interface AvatarProps {
-  type?: 'default' | 'thumbnail' | 'add-photo' | 'anonymous' | 'mini-profile';
-  displayName?: string;
   uri?: string | null;
   size?: AvatarSize;
-  title?: string;
   onPress?: () => Promise<void>;
   isLoading?: boolean;
 }
@@ -91,7 +88,7 @@ export const Avatar: React.FC<AvatarProps> = ({
 
   return (
     <Box>
-      <StyledButton disabled={uri} {...touchableConfig} br={`${avatarRadiuses[size]}px`} onPress={onPress}>
+      <StyledButton disabled={uri} br={`${avatarRadiuses[size]}px`} onPress={onPress}>
         <Box ai="center" jc="center" bgc={Colors.primary_500} w={`${avatarSizes[size]}px`} bw="2px" bc={Colors.basic_100} h={`${avatarSizes[size]}px`} br={`${avatarRadiuses[size]}px`}>
           {isLoading ? (
             <Loader size="large" color={Colors.basic_100} />
@@ -123,7 +120,7 @@ export const Avatar: React.FC<AvatarProps> = ({
 
       {uri && (
         <StyledView>
-          <StyledEdit {...touchableConfig} w={`${buttonSizes[size]}px`} h={`${buttonSizes[size]}px`} br={`${buttonRadiuses[size]}px`} onPress={onPress}>
+          <StyledEdit w={`${buttonSizes[size]}px`} h={`${buttonSizes[size]}px`} br={`${buttonRadiuses[size]}px`} onPress={onPress}>
             <Images.Pencil width={15} height={15} />
           </StyledEdit>
         </StyledView>

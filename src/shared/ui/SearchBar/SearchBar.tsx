@@ -1,4 +1,4 @@
-import { AnyType, EventTypes, touchableConfig } from 'helpers';
+import { AnyType, EventTypes } from 'helpers';
 import React, { Dispatch, SetStateAction, forwardRef } from 'react';
 import { TextInputProps } from 'react-native';
 import styled from 'styled-components/native';
@@ -10,11 +10,14 @@ import { useTypedDispatch } from 'stores';
 import { setSelectLocation } from 'stores/place';
 import { useAnalytics } from 'hooks';
 import { Icon } from 'ui';
+import { RouteService } from 'services';
+import { Routes } from 'navigation';
 
 interface SearchBarProps extends TextInputProps {
   onReset: () => void;
   searchQuery: string;
   setSearchQuery: Dispatch<SetStateAction<string>>;
+  isShowFavorite?: boolean
 }
 
 const StyledLayout = styled(Box)`
@@ -22,6 +25,15 @@ const StyledLayout = styled(Box)`
   left: 0px;
   right: 0px;
   top: 0px;
+`;
+
+const StyledFavorite = styled.TouchableOpacity`
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  align-items: center;
+  justify-content: center;
+  margin: 10px 10px 0px 0px;
 `;
 
 const StyledButton = styled.TouchableOpacity`
@@ -53,6 +65,7 @@ export const SearchBar = forwardRef<AnyType, SearchBarProps>(({
   onReset,
   searchQuery,
   setSearchQuery,
+  isShowFavorite,
   ...rest
 }, ref) => {
   const { onLogEvent } = useAnalytics();
@@ -77,9 +90,9 @@ export const SearchBar = forwardRef<AnyType, SearchBarProps>(({
   };
 
   return (
-    <StyledLayout z={9999} bgc={Colors.basic_100}>
-      <Box w="auto" bgc={Colors.basic_100} z={9999}>
-        <SearchIcon {...touchableConfig} disabled>
+    <StyledLayout z={9999} bgc={Colors.basic_100} fd="row">
+      <Box bgc={Colors.basic_100} z={9999} w={`${isShowFavorite ? `${LAYOUT_WIDTH}px` : `${width}px`}`}>
+        <SearchIcon disabled>
           <Icon name="search-outline" size={24} color={Colors.basic_700} />
         </SearchIcon>
 
@@ -133,11 +146,18 @@ export const SearchBar = forwardRef<AnyType, SearchBarProps>(({
         />
 
         {!!searchQuery && (
-          <CloseIcon {...touchableConfig} onPress={onReset}>
+          <CloseIcon onPress={onReset}>
             <Icon name="close" size={24} color={Colors.basic_700} />
           </CloseIcon>
         )}
       </Box>
+
+      {isShowFavorite && (
+        <StyledFavorite onPress={() => RouteService.navigate(Routes.RESTAURANT_FAVORITES)}>
+          <Icon size={24} color={Colors.basic_800} name="heart-outline" />
+        </StyledFavorite>
+      )}
+
     </StyledLayout>
   );
 });

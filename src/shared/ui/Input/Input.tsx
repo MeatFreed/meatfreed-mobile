@@ -5,7 +5,7 @@ import {
   Box, Colors, Spaces, FontSizes,
 } from 'themes';
 import {
-  AnyType, touchableConfig,
+  AnyType,
 } from 'helpers';
 import { Label } from '../Label/Label';
 import { ErrorMessage } from '../ErrorMessage/ErrorMessage';
@@ -152,7 +152,7 @@ export const Input = React.forwardRef<TextInput | undefined, InputProps>(({
           <RightIconBox
             withLabel={!!label}
             onPress={onRightPress}
-            {...touchableConfig}
+
           >
             {RightIcon}
           </RightIconBox>

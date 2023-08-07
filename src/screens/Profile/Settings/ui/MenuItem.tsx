@@ -1,4 +1,4 @@
-import { AnyType, touchableConfig } from 'helpers';
+import { AnyType } from 'helpers';
 import styled from 'styled-components/native';
 import React from 'react';
 import {
@@ -25,7 +25,7 @@ const { width } = Dimensions.get('window');
 export const MenuItem: React.FC<MenuItemProps> = ({
   title, onPress, Icon, hasLine = true,
 }) => (
-  <StyledButton {...touchableConfig} onPress={onPress}>
+  <StyledButton onPress={onPress}>
     <Box w={`${width - 32}px`} m={[0, 16]} h="56px" f={1} fd="row" ai="center">
       <Box f={1} mt={-2} fd="row" ai="center">
         {Icon || null}

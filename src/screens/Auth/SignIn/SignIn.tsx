@@ -12,6 +12,7 @@ import {
 import { Dimensions } from 'react-native';
 import { Policy } from 'features';
 import { useSignIn } from 'hooks';
+import { AnyType } from 'helpers';
 import { Socials } from './ui';
 
 const { width } = Dimensions.get('window');
@@ -58,7 +59,7 @@ export const SignIn: React.FC = () => {
               onBlur={handleBlur('email')}
               onChangeText={handleChange('email')}
               isError={!!errors.email && !!touched.email}
-              error={errors.email ? t(errors.email) : ''}
+              error={errors.email ? t(errors.email as AnyType) : ''}
               keyboardType="email-address"
               withBottomOffset
               isWhite
@@ -74,7 +75,7 @@ export const SignIn: React.FC = () => {
               onBlur={handleBlur('password')}
               onChangeText={handleChange('password')}
               isError={!!errors.password && !!touched.password}
-              error={errors.password ? t(errors.password) : ''}
+              error={errors.password ? t(errors.password as AnyType) : ''}
               secureTextEntry={!isShowPassword}
               withBottomOffset
               isWhite

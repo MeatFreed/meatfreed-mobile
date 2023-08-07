@@ -31,3 +31,5 @@ export * from './useGetBounds';
 export * from './useGetFeaturedOffers';
 export * from './useGetFeaturedPosts';
 export * from './useGetPosition';
+export * from './useGetRestaurantFavoriteActions';
+export * from './useGetRestaurantsFavorite';

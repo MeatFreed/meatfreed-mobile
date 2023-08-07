@@ -2,7 +2,7 @@ import React from 'react';
 import {
   Box, Colors, FontFamily, FontSizes, Text,
 } from 'themes';
-import { touchableConfig, truncate } from 'helpers';
+import { truncate } from 'helpers';
 import { TouchableOpacity } from 'react-native';
 
 interface DescriptionProps {
@@ -16,7 +16,6 @@ export const Description: React.FC<DescriptionProps> = ({
 }) => (
   <Box p={[8, 12]} z={2}>
     <TouchableOpacity
-      {...touchableConfig}
       onPress={onPress}
     >
       <Text lh={24} color={Colors.basic_100} fs={FontSizes.md} ff={FontFamily.PoppinsMedium} fnw="500">

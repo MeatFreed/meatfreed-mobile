@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 import { Offer, OfferType } from 'api';
 import dayjs from 'dayjs';
-import { AnyType, isImage, touchableConfig } from 'helpers';
+import { AnyType, isImage } from 'helpers';
 import { useGetOfferByUID } from 'hooks';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
@@ -68,7 +68,7 @@ export const FeaturedCard: React.FC<FeaturedCardProps> = ({
   const days = Math.floor(diff / 24);
 
   return (
-    <TouchableOpacity {...touchableConfig} onPress={onPress}>
+    <TouchableOpacity onPress={onPress}>
       <Box m={[10, 16, 0, isFirst ? 16 : 0]} br="8px" h="100px" w={`${width - 48}px`}>
         {isVideo ? (
           <StyledVideo

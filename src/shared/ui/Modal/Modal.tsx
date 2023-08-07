@@ -1,7 +1,6 @@
 import React, { ReactNode } from 'react';
 import RNModal from 'react-native-modal';
 import styled from 'styled-components/native';
-import { touchableConfig } from 'helpers';
 import { Box, Colors } from 'themes';
 import { Icon } from '../Icon/Icon';
 
@@ -40,7 +39,7 @@ const Modal: React.FC<ModalProps> = ({
   >
     <Box bgc={Colors.white} mb={hasKeyboardSpace ? 100 : 0} p={24} br="22px">
       {!isHideCloseIcon && (
-        <CloseButton {...touchableConfig} onPress={onModalClose}>
+        <CloseButton onPress={onModalClose}>
           <Icon name="close" size={24} color={Colors.basic_800} />
         </CloseButton>
       )}

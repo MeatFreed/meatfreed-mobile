@@ -39,4 +39,5 @@ export interface Restaurant {
   first_published_at: string;
   content: RestaurantContent;
   placeDetails: RestaurantInformation
+  favoriteUserIds: string[];
 }

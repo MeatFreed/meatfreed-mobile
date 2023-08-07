@@ -1,4 +1,3 @@
-import { touchableConfig } from 'helpers';
 import React from 'react';
 import styled from 'styled-components/native';
 import {
@@ -23,7 +22,7 @@ export const Action: React.FC<ActionProps> = ({
   iconName,
   isPrimaryColor = false,
 }) => (
-  <StyledButton {...touchableConfig} onPress={onPress}>
+  <StyledButton onPress={onPress}>
     <Box fd="row" ai="center">
       <Icon name={iconName} size={20} color={Colors.primary_500} />
 

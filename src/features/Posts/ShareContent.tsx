@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components/native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-import { touchableConfig } from 'helpers';
 import { Colors } from 'themes';
 import { useSharePostLink } from 'hooks';
 
@@ -24,7 +23,7 @@ export const ShareContent: React.FC<ShareContentProps> = ({
   const { onShareLink } = useSharePostLink();
 
   return (
-    <StyledButton {...touchableConfig} onPress={() => onShareLink(contentId, title)}>
+    <StyledButton onPress={() => onShareLink(contentId, title)}>
       <FontAwesome size={18} name="send" color={color} />
     </StyledButton>
   );

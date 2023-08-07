@@ -10,6 +10,8 @@ import {
 } from 'ui';
 import { useIsFocused } from '@react-navigation/native';
 import { AnyType, hasNotch } from 'helpers';
+import { useTypedSelector } from 'stores';
+import { userSelectors } from 'stores/user';
 import { RestaurantPanel, Map } from './ui';
 
 const StyledLayout = styled.View`
@@ -29,6 +31,8 @@ export const Restaurants: React.FC = () => {
   const { onShowMyLocation } = useGetPositionActions();
 
   const { results } = useGetRestaurants();
+
+  const userId = useTypedSelector(userSelectors.userId);
 
   const ref = useRef<AnyType>();
 
@@ -53,6 +57,7 @@ export const Restaurants: React.FC = () => {
           onReset={onReset}
           searchQuery={searchQuery}
           setSearchQuery={setSearchQuery}
+          isShowFavorite={!!userId}
         />
 
         <StyledLayout>

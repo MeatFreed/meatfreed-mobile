@@ -1,5 +1,5 @@
 import { PostCard as Card } from 'api';
-import { AnyType, isImage, touchableConfig } from 'helpers';
+import { AnyType, isImage } from 'helpers';
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import Video from 'react-native-video';
@@ -132,7 +132,7 @@ export const PostCard: React.FC<PostCardProps> = ({
           <Images.PostLogo />
 
           {assets?.[0]?.filename && !isVideo && !isLoading && (
-            <StyledVolume {...touchableConfig} onPress={onChangeVolume}>
+            <StyledVolume onPress={onChangeVolume}>
               <Icon name={isMuted ? 'volume-off-outline' : 'volume-up-outline'} color={Colors.basic_100} />
             </StyledVolume>
           )}

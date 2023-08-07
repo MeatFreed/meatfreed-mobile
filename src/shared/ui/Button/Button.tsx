@@ -1,7 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
 import styled from 'styled-components/native';
-import { touchableConfig } from 'helpers';
 import {
   Colors, FontFamily, FontSizes, Spaces, shadow,
 } from 'themes';
@@ -15,12 +14,10 @@ interface ButtonProps {
   title?: string;
   isLoading?: boolean;
   disabled?: boolean;
-  Icon?: React.ReactNode;
   iconName?: string;
   iconColor?: string;
   type?: 'label' | 'default' | 'secondary' | 'icon' | 'action' | 'border' | 'danger' | 'header' | 'secondary';
   reversed?: boolean;
-  shadowed?: boolean;
   accent?: boolean;
 }
 
@@ -120,7 +117,7 @@ export const Button: React.FC<ButtonProps> = ({
 }) => {
   if (type === 'label') {
     return (
-      <TouchableOpacity {...touchableConfig} disabled={disabled} onPress={onPress}>
+      <TouchableOpacity disabled={disabled} onPress={onPress}>
         <LabelButtonText reversed={reversed} accent={accent}>{title}</LabelButtonText>
       </TouchableOpacity>
     );
@@ -128,7 +125,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   if (type === 'action') {
     return (
-      <ActionButton {...touchableConfig} onPress={onPress}>
+      <ActionButton onPress={onPress}>
         {iconName && (
           <IconComponent
             name={iconName}
@@ -144,7 +141,6 @@ export const Button: React.FC<ButtonProps> = ({
     return (
       <BorderStyledButton
         reversed={reversed}
-        {...touchableConfig}
         onPress={onPress}
       >
         <BorderButtonText reversed={reversed}>{title}</BorderButtonText>
@@ -154,7 +150,7 @@ export const Button: React.FC<ButtonProps> = ({
 
   if (type === 'icon') {
     return (
-      <IconButton {...touchableConfig} onPress={onPress}>
+      <IconButton onPress={onPress}>
         {iconName && (
           <IconComponent
             name={iconName}
@@ -170,7 +166,6 @@ export const Button: React.FC<ButtonProps> = ({
   if (type === 'secondary') {
     return (
       <SecondaryButton
-        {...touchableConfig}
         onPress={onPress}
         onLongPress={onLongPress}
         disabled={isLoading || disabled}
@@ -199,7 +194,6 @@ export const Button: React.FC<ButtonProps> = ({
 
   return (
     <StyledButton
-      {...touchableConfig}
       onPress={onPress}
       onLongPress={onLongPress}
       disabled={isLoading || disabled}

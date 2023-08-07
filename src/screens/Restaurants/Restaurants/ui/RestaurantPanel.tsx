@@ -6,8 +6,7 @@ import { FontFamily, Text } from 'themes';
 import { SwipeablePanel } from 'ui';
 import { AnyType, hasNotch } from 'helpers';
 import { useGetRestaurantActions } from 'hooks';
-import { RestaurantCard } from './RestaurantCard';
-import { EmptyState } from './EmptyState';
+import { RestaurantCard, RestaurantEmptyState } from 'features';
 
 interface RestaurantPanelProps {
   restaurants: Restaurant[];
@@ -56,7 +55,7 @@ export const RestaurantPanel: React.FC<RestaurantPanelProps> = ({ restaurants })
         windowSize={8}
         showsVerticalScrollIndicator={false}
         contentContainerStyle={index ? { flexGrow: 1, paddingBottom: 16 } : undefined}
-        ListEmptyComponent={<EmptyState />}
+        ListEmptyComponent={<RestaurantEmptyState />}
       />
     </SwipeablePanel>
   );

@@ -1,6 +1,6 @@
 /* eslint-disable camelcase */
 import { OfferCard as Card, OfferType } from 'api';
-import { AnyType, getBasicDateFormat, touchableConfig } from 'helpers';
+import { AnyType, getBasicDateFormat } from 'helpers';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native';
@@ -33,7 +33,7 @@ export const OfferCard: React.FC<OfferCardProps> = ({
 
   return (
     <Box m={[0, 16, 10]}>
-      <TouchableOpacity {...touchableConfig} onPress={onPress}>
+      <TouchableOpacity onPress={onPress}>
         <Box fd="row" br="10px" ai="center" bw="1px" bc={Colors.basic_400} bgc={Colors.basic_100}>
           <Box w="100px" h="100px">
             {source && (

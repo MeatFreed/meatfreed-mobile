@@ -2,7 +2,7 @@ import { useWindowDimensions } from '@lumitech/mobile-hooks';
 import { useFacebook, useGoogle, useApple } from 'hooks';
 import React from 'react';
 import {
-  hasNotch, isIOS, touchableConfig,
+  hasNotch, isIOS,
 } from 'helpers';
 import {
   Box, Colors, Images, socialShadow, Spaces,
@@ -39,17 +39,17 @@ export const Socials: React.FC<SocialsProps> = ({ referralCode = '' }) => {
       <ActivityIndicator isVisible={isLoading} />
 
       <Box fd="row" ai="center" jc="center" w={`${width - Spaces['7xl']}px`}>
-        <StyledButton {...touchableConfig} onPress={() => onGoogleSignIn(referralCode)}>
+        <StyledButton onPress={() => onGoogleSignIn(referralCode)}>
           <Images.Google width={Spaces.xl} height={Spaces.xl} />
         </StyledButton>
 
         {isIOS && (
-          <StyledButton {...touchableConfig} onPress={() => onAppleSignIn(referralCode)}>
+          <StyledButton onPress={() => onAppleSignIn(referralCode)}>
             <Images.Apple width={Spaces.xl} height={Spaces.xl} />
           </StyledButton>
         )}
 
-        <StyledButton {...touchableConfig} onPress={() => onFacebookSignIn(referralCode)}>
+        <StyledButton onPress={() => onFacebookSignIn(referralCode)}>
           <Images.Facebook width={Spaces['3xl']} height={Spaces['3xl']} color={Colors.white} />
         </StyledButton>
       </Box>

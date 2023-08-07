@@ -1,5 +1,4 @@
 /* eslint-disable camelcase */
-import { touchableConfig } from 'helpers';
 import React, { useMemo } from 'react';
 import styled from 'styled-components/native';
 import {
@@ -44,7 +43,6 @@ export const Emoji: React.FC<EmojiProps> = ({
     <Box f={1} fd="row" ai="center">
       {!data.length && (
         <ReactionButton
-          {...touchableConfig}
           onPress={() => onAddReaction(heart?.uid, heart?.emoji)}
         >
           <Images.Heart color={color} />
@@ -69,7 +67,6 @@ export const Emoji: React.FC<EmojiProps> = ({
             <TouchableOpacity
               style={{ marginBottom: 8 }}
               key={reaction_type_id}
-              {...touchableConfig}
               onPress={onPress}
             >
               <Box shadowed br="50px" p={[5, 12]} mr={8} bgc={userEmoji ? Colors.primary_500 : Colors.basic_150} fd="row" ai="center" jc="center">

@@ -12,7 +12,8 @@
     "all-offers": "Available",
     "claimed-offers": "Redeemed",
     "referral": "Refer and unlock offers",
-    "notifications": "Notifications"
+    "notifications": "Notifications",
+    "favorites": "Favourites"
   },
   "tabs": {
     "search": "Home",
@@ -24,7 +25,8 @@
     "server-unable": "An error occurred. Please try again later",
     "generate-share-link": "Failed to generate share link",
     "invalid-code": "Code is not valid, try again",
-    "reauthenticate": "Please re-authenticate to delete your account"
+    "reauthenticate": "Please re-authenticate to delete your account",
+    "apple-sign-in-failed": "Apple Sign-In failed - no identify token returned"
   },
   "labels": {
     "restaurant": "Find your Restaurant",
@@ -170,7 +172,9 @@
     "closed-now": "Closed now",
     "opened-now": "Open now",
     "opens-at": "Opens at {{hours}}",
-    "current-day": "Today"
+    "current-day": "Today",
+    "favorites": "Restaurant saved to your favourites",
+    "not-found": "No results found"
   }, 
   "notifications": {
     "warning": "Please enable push notifications on your device to receive messages from MeatFreed"

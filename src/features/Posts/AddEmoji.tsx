@@ -1,5 +1,5 @@
 import { ReactionType } from 'api';
-import { isIOS, touchableConfig } from 'helpers';
+import { isIOS } from 'helpers';
 import React, { useState } from 'react';
 import styled from 'styled-components/native';
 import {
@@ -50,7 +50,6 @@ export const AddEmoji: React.FC<AddEmojiProps> = ({
   return (
     <Box>
       <ReactionButton
-        {...touchableConfig}
         isActive={isShowEmoji}
         onPress={() => setIsShowEmoji(!isShowEmoji)}
       >
@@ -62,7 +61,7 @@ export const AddEmoji: React.FC<AddEmojiProps> = ({
       {isShowEmoji && (
         <Layout p={[0, 8, isIOS ? 4 : 0]} br="50px" fd="row" bgc={Colors.basic_150}>
           {items.map((item) => (
-            <Emoji key={item.uid} {...touchableConfig} onPress={() => onAdd(item.uid, item.emoji)}>
+            <Emoji key={item.uid} onPress={() => onAdd(item.uid, item.emoji)}>
               <Text>{item.emoji}</Text>
             </Emoji>
           ))}
