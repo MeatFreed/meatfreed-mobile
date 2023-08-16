@@ -13,7 +13,10 @@
     "claimed-offers": "Redeemed",
     "referral": "Refer and unlock offers",
     "notifications": "Notifications",
-    "favorites": "Favourites"
+    "favorites": "Favourites",
+    "my-wallet": "My Wallet",
+    "deals": "Deals",
+    "raffles": "Raffles"
   },
   "tabs": {
     "search": "Home",
