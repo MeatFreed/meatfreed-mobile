@@ -35,4 +35,5 @@ export const Images = {
   Share: require('assets/images/share.svg').default,
   Copy: require('assets/images/copy.svg').default,
   SignUpConfirm: require('assets/images/sign-up-confirm.svg').default,
+  MyWallet: require('assets/images/my-wallet.svg').default,
 };

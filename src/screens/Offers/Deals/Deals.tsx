@@ -4,11 +4,12 @@ import { Box, Colors } from 'themes';
 import { Loader, StatusBar } from 'ui';
 import { EmptyState, OfferCard } from 'features';
 import { FlashList } from '@shopify/flash-list';
+import { OfferType } from 'api';
 
-export const ClaimedOffers: React.FC = () => {
+export const Deals: React.FC = () => {
   const {
     results,
-  } = useGetClaimedOffers();
+  } = useGetClaimedOffers(OfferType.VOUCHER);
 
   const { onOfferDetails } = useGetOffersActions();
 

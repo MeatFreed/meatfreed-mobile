@@ -1,18 +1,18 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { AllOffers } from 'screens';
 import { Routes } from './Routes';
 import { Stack, headerOptions } from './NavigationOptions';
+import { MaterialTopTabNavigator } from './tabs/MaterialTopTabNavigator';
 
-export const OffersNavigator: React.FC = () => {
+export const MyWalletNavigator: React.FC = () => {
   const { t } = useTranslation();
 
   return (
     <Stack.Navigator screenOptions={headerOptions}>
       <Stack.Screen
-        name={Routes.ALL_OFFERS}
-        component={AllOffers}
-        options={{ headerTitle: t('screens.offers') }}
+        name={Routes.MY_WALLET_TOP_TAB_NAVIGATOR}
+        component={MaterialTopTabNavigator}
+        options={{ headerTitle: t('screens.my-wallet') }}
       />
     </Stack.Navigator>
   );

@@ -11,14 +11,17 @@ export type RootStackParamList = {
       code?: string;
     },
   };
+  [Routes.MY_WALLET_NAVIGATOR]: undefined;
   [Routes.SIGN_UP_CONFIRMATION]: undefined;
   [Routes.MAIN_NAVIGATOR]: undefined;
   [Routes.HOME_NAVIGATOR]: undefined;
   [Routes.OFFERS_NAVIGATOR]: undefined;
   [Routes.POSTS_NAVIGATOR]: undefined;
-  [Routes.OFFER_TOP_TAB_NAVIGATOR]: undefined;
+  [Routes.MY_WALLET_TOP_TAB_NAVIGATOR]: undefined;
   [Routes.ALL_OFFERS]: undefined;
   [Routes.CLAIMED_OFFERS]: undefined;
+  [Routes.RAFFLES]: undefined;
+  [Routes.DEALS]: undefined;
   [Routes.POST_NAVIGATOR]: {
     screen: Routes.POST_DETAILS,
     params: {
