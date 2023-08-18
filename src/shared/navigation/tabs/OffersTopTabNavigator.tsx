@@ -5,7 +5,7 @@ import { Dimensions, StyleSheet } from 'react-native';
 import {
   Colors, FontFamily, FontSizes, Spaces,
 } from 'themes';
-import { Deals, Raffles } from 'screens';
+import { AllOffers, AllRaffles } from 'screens';
 import { Routes } from '../Routes';
 
 const Tab = createMaterialTopTabNavigator();
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const MaterialTopTabNavigator: React.FC = () => {
+export const OffersTopTabNavigator: React.FC = () => {
   const { t } = useTranslation();
 
   return (
@@ -39,8 +39,8 @@ export const MaterialTopTabNavigator: React.FC = () => {
         tabBarIndicatorStyle: styles.tabBarIndicatorStyle,
       }}
     >
-      <Tab.Screen name={Routes.DEALS} component={Deals} options={{ tabBarLabel: t('screens.deals') }} />
-      <Tab.Screen name={Routes.RAFFLES} component={Raffles} options={{ tabBarLabel: t('screens.raffles') }} />
+      <Tab.Screen name={Routes.DEALS} component={AllOffers} options={{ tabBarLabel: t('screens.deals') }} />
+      <Tab.Screen name={Routes.RAFFLES} component={AllRaffles} options={{ tabBarLabel: t('screens.raffles') }} />
     </Tab.Navigator>
   );
 };

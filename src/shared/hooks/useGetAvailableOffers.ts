@@ -1,13 +1,13 @@
 import firestore from '@react-native-firebase/firestore';
 import { useEffect, useState } from 'react';
 import { useTypedSelector } from 'stores';
-import { Offer, adaptAvailableOffers } from 'api';
+import { Offer, OfferType, adaptAvailableOffers } from 'api';
 import { userSelectors } from 'stores/user';
 import { useGetBounds } from './useGetBounds';
 
 const offerCollection = firestore().collection('offers_storyblock');
 
-export const useGetAvailableOffers = () => {
+export const useGetAvailableOffers = (offerType = OfferType.VOUCHER) => {
   const userId = useTypedSelector(userSelectors.userId);
 
   const [results, setResults] = useState<Offer[]>([]);
@@ -19,6 +19,7 @@ export const useGetAvailableOffers = () => {
       .where('content.active', '==', true)
       .where('content.public', '==', true)
       .where('content.featured', '==', false)
+      .where('content.offer_type', '==', offerType)
       .onSnapshot((snapshot) => {
         const offers = snapshot.docs.map((doc) => doc.data()) as Offer[];
 

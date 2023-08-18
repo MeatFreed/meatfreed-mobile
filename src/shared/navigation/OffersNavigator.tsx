@@ -1,7 +1,7 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
-import { AllOffers } from 'screens';
 import { Routes } from './Routes';
+import { OffersTopTabNavigator } from './tabs/OffersTopTabNavigator';
 import { Stack, headerOptions } from './NavigationOptions';
 
 export const OffersNavigator: React.FC = () => {
@@ -10,8 +10,8 @@ export const OffersNavigator: React.FC = () => {
   return (
     <Stack.Navigator screenOptions={headerOptions}>
       <Stack.Screen
-        name={Routes.ALL_OFFERS}
-        component={AllOffers}
+        name={Routes.OFFERS_TOP_TAB_NAVIGATOR}
+        component={OffersTopTabNavigator}
         options={{ headerTitle: t('screens.offers') }}
       />
     </Stack.Navigator>

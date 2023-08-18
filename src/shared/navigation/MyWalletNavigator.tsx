@@ -2,7 +2,7 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Routes } from './Routes';
 import { Stack, headerOptions } from './NavigationOptions';
-import { MaterialTopTabNavigator } from './tabs/MaterialTopTabNavigator';
+import { MyWalletTopTabNavigator } from './tabs/MyWalletTopTabNavigator';
 
 export const MyWalletNavigator: React.FC = () => {
   const { t } = useTranslation();
@@ -11,7 +11,7 @@ export const MyWalletNavigator: React.FC = () => {
     <Stack.Navigator screenOptions={headerOptions}>
       <Stack.Screen
         name={Routes.MY_WALLET_TOP_TAB_NAVIGATOR}
-        component={MaterialTopTabNavigator}
+        component={MyWalletTopTabNavigator}
         options={{ headerTitle: t('screens.my-wallet') }}
       />
     </Stack.Navigator>

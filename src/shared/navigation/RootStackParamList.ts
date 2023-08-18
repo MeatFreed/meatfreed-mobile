@@ -28,6 +28,7 @@ export type RootStackParamList = {
       contentId: string;
     }
   };
+  [Routes.OFFERS_TOP_TAB_NAVIGATOR]: undefined;
   [Routes.RESTAURANT_FAVORITES]: undefined;
   [Routes.OFFER_NAVIGATOR]: {
     screen: OfferScreenType,
