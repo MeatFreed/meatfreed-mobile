@@ -1,7 +1,7 @@
 import { combineReducers } from '@reduxjs/toolkit';
 import { persistReducer } from 'redux-persist';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { googleApi, preferencesApi } from 'api';
+import { brevoApi, googleApi, preferencesApi } from 'api';
 import { placeReducer } from './place';
 import { userReducer } from './user';
 import { reactionsReducer } from './reactions';
@@ -37,6 +37,7 @@ export const rootReducer = combineReducers({
   reactions: reactionsReducer,
   place: persistReducer(placePersistConfig, placeReducer),
   user: persistReducer(userPersistConfig, userReducer),
+  [brevoApi.reducerPath]: brevoApi.reducer,
   [preferencesApi.reducerPath]: preferencesApi.reducer,
   [googleApi.reducerPath]: googleApi.reducer,
 });

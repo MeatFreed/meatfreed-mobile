@@ -19,3 +19,6 @@ export * from './reactions/adapters';
 
 export * from './preferences/models';
 export * from './preferences/preferencesApi';
+
+export * from './brevo/brevoApi';
+export * from './brevo/models';
