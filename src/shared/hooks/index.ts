@@ -33,3 +33,4 @@ export * from './useGetFeaturedPosts';
 export * from './useGetPosition';
 export * from './useGetRestaurantFavoriteActions';
 export * from './useGetRestaurantsFavorite';
+export * from './useBrevoContact';

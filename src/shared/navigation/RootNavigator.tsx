@@ -9,6 +9,7 @@ import Config from 'react-native-config';
 import Courier from '@trycourier/courier-react-native';
 import {
   useAnalytics,
+  useBrevoContact,
   useDynamicLinkListener,
   useGetPosition,
   useGetReactions,
@@ -25,6 +26,8 @@ export const RootNavigator: React.FC = () => {
   useDynamicLinkListener();
 
   const { onScreenView } = useAnalytics();
+
+  useBrevoContact();
 
   useGetReactions();
 
