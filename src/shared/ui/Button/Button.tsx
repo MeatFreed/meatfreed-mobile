@@ -16,19 +16,26 @@ interface ButtonProps {
   disabled?: boolean;
   iconName?: string;
   iconColor?: string;
-  type?: 'label' | 'default' | 'secondary' | 'icon' | 'action' | 'border' | 'danger' | 'header' | 'secondary';
+  type?: 'label' | 'default' | 'secondary' | 'icon' | 'action' | 'border' | 'danger' | 'header' | 'other';
   reversed?: boolean;
   accent?: boolean;
 }
 
 const constructColor = (
+  isLoading?: boolean,
   disabled?: boolean,
-) => (disabled ? Colors.purple : Colors.white);
+) => {
+  if (isLoading) {
+    return Colors.purple;
+  }
+
+  return (disabled ? Colors.purple : Colors.white);
+};
 
 const constructBackgroundColor = (
   isLoading?: boolean,
   disabled?: boolean,
-) => (isLoading || disabled ? Colors.primary_100 : Colors.purple);
+) => (isLoading || disabled ? Colors.basic_550 : Colors.purple);
 
 const constructSecondaryBackgroundColor = (
   isLoading?: boolean,
@@ -57,7 +64,7 @@ const StyledButtonText = styled.Text<{isLoading?: boolean, disabled?: boolean, r
   font-size: ${FontSizes.md}px;
   font-family: ${FontFamily.PoppinsSemiMedium};
   font-weight: 700;
-  color: ${({ disabled }) => constructColor(disabled)};
+  color: ${({ disabled, isLoading }) => constructColor(isLoading, disabled)};
 `;
 
 const SecondaryText = styled(StyledButtonText)<{isLoading?: boolean, disabled?: boolean, reversed?: boolean}>`
@@ -189,6 +196,20 @@ export const Button: React.FC<ButtonProps> = ({
           </>
         )}
       </SecondaryButton>
+    );
+  }
+
+  if (type === 'other') {
+    return (
+      <StyledButton
+        onPress={onPress}
+        onLongPress={onLongPress}
+        isLoading
+      >
+        <StyledButtonText isLoading>
+          {title}
+        </StyledButtonText>
+      </StyledButton>
     );
   }
 

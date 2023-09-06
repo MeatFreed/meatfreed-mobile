@@ -14,6 +14,7 @@ export enum OfferType {
 export enum OfferStatus {
   PENDING = 'PENDING',
   WON = 'WON',
+  LOSE = 'LOSE',
   CLAIMED = 'CLAIMED'
 }
 

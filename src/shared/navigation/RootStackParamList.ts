@@ -4,7 +4,9 @@ import { Routes } from './Routes';
 type OfferScreenType = Routes.VOUCHER_DETAILS | Routes.RAFFLE_DETAILS
 
 export type RootStackParamList = {
-  [Routes.BOTTOM_TAB_BAR_NAVIGATOR]: undefined;
+  [Routes.BOTTOM_TAB_BAR_NAVIGATOR]: {
+    screen?: Routes,
+  };
   [Routes.AUTH_NAVIGATOR]: {
     screen: Routes,
     params?: {
