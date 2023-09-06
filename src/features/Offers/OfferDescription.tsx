@@ -5,15 +5,16 @@ import {
 } from 'themes';
 
 interface OfferDescriptionProps {
+  title?: string;
   description: string;
 }
 
-export const OfferDescription: React.FC<OfferDescriptionProps> = ({ description }) => {
+export const OfferDescription: React.FC<OfferDescriptionProps> = ({ title, description }) => {
   const { t } = useTranslation();
 
   return (
     <Box p={[0, 16]}>
-      <Text fs={16} color={Colors.basic_800} fnw="500" ff={FontFamily.PoppinsMedium}>{t('offers.about-offer')}</Text>
+      <Text fs={16} color={Colors.basic_800} fnw="500" ff={FontFamily.PoppinsMedium}>{title || t('offers.about-offer')}</Text>
 
       <Text mt={10} fs={16} fnw="500" ff={FontFamily.PoppinsMedium} color={Colors.basic_600}>{description}</Text>
     </Box>

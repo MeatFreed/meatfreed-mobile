@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { OfferCard as Card, OfferType } from 'api';
 import { AnyType, getBasicDateFormat } from 'helpers';
+import { useGetOfferByUID } from 'hooks';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native';
@@ -8,7 +9,7 @@ import Config from 'react-native-config';
 import FastImage from 'react-native-fast-image';
 import styled from 'styled-components/native';
 import {
-  Box, Colors, FontFamily, Text,
+  Box, Colors, FontFamily, Images, Text,
 } from 'themes';
 
 interface OfferCardProps extends Card {
@@ -23,13 +24,15 @@ const StyledImage = styled(FastImage as AnyType)`
 `;
 
 export const OfferCard: React.FC<OfferCardProps> = ({
-  assets, offer_type, end_date, title, subtitle, photos, onPress,
+  assets, offer_type, end_date, title, subtitle, photos, onPress, uuid,
 }) => {
   const { t } = useTranslation();
 
   const source = assets?.[0]?.filename || `https://maps.googleapis.com/maps/api/place/photo?photo_reference=${photos?.[0].photo_reference}&maxwidth=500&key=${Config.GOOGLE_API_KEY}`;
 
   const isVoucher = offer_type === OfferType.VOUCHER;
+
+  const { isWonOffer } = useGetOfferByUID(uuid);
 
   return (
     <Box m={[0, 16, 10]}>
@@ -47,9 +50,17 @@ export const OfferCard: React.FC<OfferCardProps> = ({
           <Box f={1} p={[10]} jc="center">
             <Text fs={16} fnw="700" ff={FontFamily.PoppinsSemiMedium} color={Colors.basic_800}>{title}</Text>
 
-            <Text fs={13} fnw="500" ff={FontFamily.PoppinsMedium} color={Colors.basic_600}>
-              {isVoucher ? subtitle : t('offers.draw-closes-in', { date: getBasicDateFormat(end_date) })}
-            </Text>
+            {isWonOffer ? (
+              <Box fd="row">
+                <Text mr={4} fs={13} fnw="500" ff={FontFamily.PoppinsMedium} color={Colors.basic_600}>You’re a winner!</Text>
+
+                <Images.Winner />
+              </Box>
+            ) : (
+              <Text fs={13} fnw="500" ff={FontFamily.PoppinsMedium} color={Colors.basic_600}>
+                {isVoucher ? subtitle : t('offers.draw-closes-in', { date: getBasicDateFormat(end_date) })}
+              </Text>
+            )}
           </Box>
         </Box>
       </TouchableOpacity>

@@ -4,7 +4,7 @@ import {
   OfferDescription, OfferNavigation, RaffleTitle, VoucherCode,
 } from 'features';
 import { useGetOfferByUID, useGetOffersActions, useGetVoucherCode } from 'hooks';
-import { OfferDetailsProp } from 'navigation';
+import { OfferDetailsProp, Routes } from 'navigation';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { ScrollView } from 'react-native';
@@ -12,31 +12,35 @@ import { Box, Colors, HorizontalDivider } from 'themes';
 import {
   ActivityIndicator, Carousel, StatusBar, TopGradient,
 } from 'ui';
-import { Timer } from './ui';
+import { RouteService } from 'services';
+import { getBasicDateFormat } from 'helpers';
+import { EnteredModal, Timer } from './ui';
 
 export const RaffleDetails: React.FC = () => {
   const { t } = useTranslation();
 
   const { params } = useRoute<OfferDetailsProp>();
 
-  const contentId = params?.contentId || '';
+  const contentId = params?.contentId || '2e758af2-471a-4abb-84ef-75b654daf068';
 
   const {
     offer,
     userOffer,
-    isAllowRaffleClaimed,
+    isWonOffer,
     isAllowRaffleEntry,
-    isClaimedOffer,
     photos,
     images,
     hasData,
     isPendingOffer,
     totalEntries,
+    isLoseOffer,
   } = useGetOfferByUID(contentId);
 
   const { offerCode } = useGetVoucherCode(offer?.content?.voucher_code?.[0]);
 
-  const { onClaimedOffer, isLoading, onEnterOffer } = useGetOffersActions();
+  const {
+    isLoading, onEnterOffer, isVisible, setIsVisible,
+  } = useGetOffersActions();
 
   if (!hasData) {
     return <ActivityIndicator isVisible />;
@@ -57,14 +61,16 @@ export const RaffleDetails: React.FC = () => {
 
         <RaffleTitle
           title={offer?.content?.title}
+          subtitle={(isLoseOffer || isWonOffer) ? t('offers.draw-closes-in', { date: getBasicDateFormat(offer?.content.end_date) }) : undefined}
+          isHideEntries={isLoseOffer || isWonOffer}
           totalEntries={totalEntries}
         />
 
-        {!isClaimedOffer && offer?.content?.end_date && (
+        {!isWonOffer && !isLoseOffer && offer?.content?.end_date && (
           <Timer endDate={offer?.content?.end_date} />
         )}
 
-        {isClaimedOffer && !!userOffer?.voucherCode && (
+        {isWonOffer && !!userOffer?.voucherCode && (
           <VoucherCode code={userOffer.voucherCode} />
         )}
 
@@ -72,7 +78,11 @@ export const RaffleDetails: React.FC = () => {
           <HorizontalDivider />
         </Box>
 
-        {!!offer?.content?.description && (
+        {isLoseOffer && (
+          <OfferDescription title={t('raffle-details.title')} description={t('raffle-details.description')} />
+        )}
+
+        {!!offer?.content?.description && !isLoseOffer && (
           <OfferDescription description={offer?.content?.description} />
         )}
       </ScrollView>
@@ -88,21 +98,22 @@ export const RaffleDetails: React.FC = () => {
             offerCode,
             userIds: offer?.userIds,
           })}
-          title={isPendingOffer ? t('buttons.competition-entered') : t('buttons.enter-competition')}
+          title={isPendingOffer ? t('buttons.raffle-entered') : t('buttons.enter-raffle')}
         />
       )}
 
-      {isAllowRaffleClaimed && (
+      <EnteredModal
+        isModalVisible={isVisible}
+        onModalClose={() => setIsVisible(false)}
+        endDate={offer?.content.end_date}
+      />
+
+      {isLoseOffer && (
         <OfferNavigation
-          title={isClaimedOffer ? t('buttons.offer-claimed') : t('buttons.claim-offer')}
-          isLoading={isLoading}
-          isDisabled={isClaimedOffer}
-          onPress={() => onClaimedOffer({
-            offerId: contentId,
-            businessId: offer?.content?.business,
-            offerType: offer?.content?.offer_type,
-            offerCode,
-            userIds: offer?.userIds,
+          withoutIcon
+          title={t('buttons.see-similar-offers')}
+          onPress={() => RouteService.reset(Routes.BOTTOM_TAB_BAR_NAVIGATOR, {
+            screen: Routes.OFFERS_NAVIGATOR,
           })}
         />
       )}

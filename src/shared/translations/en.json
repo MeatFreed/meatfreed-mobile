@@ -89,7 +89,9 @@
     "continue": "Continue",
     "call": "Call",
     "enter-competition": "Enter competition",
+    "enter-raffle": "Enter raffle",
     "competition-entered": "Competition entered",
+    "raffle-entered": "Raffle entered",
     "claim-offer": "Claim offer",
     "offer-claimed": "Offer claimed",
     "google": "Sign up with Google",
@@ -98,7 +100,10 @@
     "email": "Sign up with e-mail",
     "share-referral-code": "Share your referral code",
     "copy-code": "Copy code to clipboard",
-    "invite-link": "Refer using invite link"
+    "invite-link": "Refer using invite link",
+    "see-similar-offers": "See similar offers",
+    "my-wallet": "Go to my wallet",
+    "view-more-raffles": "View more raffles"
   },
   "search": {
     "directions": "Directions",
@@ -181,5 +186,11 @@
   }, 
   "notifications": {
     "warning": "Please enable push notifications on your device to receive messages from MeatFreed"
+  },
+  "raffle-details": {
+    "title": "Unfortunately you wre not selected to win",
+    "description": "There’s always next time...",
+    "modal-title": "Raffle entered!",
+    "modal-description": "We’ve added the raffle to your wallet!\nWe will let you know your results when the draw closes on {{date}}\nGood luck!"
   }
 }

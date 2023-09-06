@@ -27,6 +27,7 @@ export const useGetOffersActions = () => {
   const { t } = useTranslation();
 
   const [isLoading, setIsLoading] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   const userId = useTypedSelector(userSelectors.userId);
 
@@ -93,9 +94,11 @@ export const useGetOffersActions = () => {
   };
 
   const onEnterOffer = async ({
-    businessId, offerId, userIds = [],
+    businessId, offerId, userIds = [], offerType,
   }: OfferDetails) => {
     setIsLoading(true);
+
+    const isRaffle = offerType === OfferType.RAFFLE;
 
     try {
       await firestore().collection('user_offers').add({
@@ -109,6 +112,8 @@ export const useGetOffersActions = () => {
       await firestore().collection('offers_storyblock').doc(offerId).update({
         userIds: [...new Set([...userIds, userId])],
       });
+
+      setIsVisible(isRaffle);
 
       onLogEvent(ENTER_COMPETITION, {
         offerId,
@@ -129,5 +134,7 @@ export const useGetOffersActions = () => {
     onClaimedOffer,
     onEnterOffer,
     isLoading,
+    isVisible,
+    setIsVisible,
   };
 };

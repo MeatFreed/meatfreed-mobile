@@ -7,7 +7,9 @@ import { useTypedSelector } from 'stores';
 import { userSelectors } from 'stores/user';
 import dayjs from 'dayjs';
 
-const { CLAIMED, WON, PENDING } = OfferStatus;
+const {
+  CLAIMED, WON, PENDING, LOSE,
+} = OfferStatus;
 
 export const useGetOfferByUID = (contentId?: string) => {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +31,8 @@ export const useGetOfferByUID = (contentId?: string) => {
   const isClaimedOffer = userOffer?.status === CLAIMED;
 
   const isWonOffer = userOffer?.status === WON;
+
+  const isLoseOffer = userOffer?.status === LOSE;
 
   const isPendingOffer = userOffer?.status === PENDING;
 
@@ -98,5 +102,6 @@ export const useGetOfferByUID = (contentId?: string) => {
     isWonOffer,
     isAllowRaffleEntry,
     isAllowVoucherClaimed,
+    isLoseOffer,
   };
 };
