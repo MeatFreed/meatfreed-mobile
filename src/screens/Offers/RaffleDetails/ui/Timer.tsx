@@ -17,7 +17,7 @@ const ITEM_WIDTH = (width - 48) / 4;
 export const Timer: React.FC<TimerProps> = ({ endDate }) => {
   const { t } = useTranslation();
 
-  const { time } = useGetRaffleTimer(endDate);
+  const { time, days } = useGetRaffleTimer(endDate);
 
   if (!time) {
     return null;
@@ -26,7 +26,7 @@ export const Timer: React.FC<TimerProps> = ({ endDate }) => {
   return (
     <Box fd="row" m={[10, 16, 0]} jc="space-between">
       <Box ai="center" jc="center" h="90px" w={`${ITEM_WIDTH}px`} br="16px" bgc={Colors.primary_100}>
-        <Text lh={36} fs={32} fnw="500" ff={FontFamily.PoppinsMedium} color={Colors.primary_500}>{time.days()}</Text>
+        <Text lh={36} fs={32} fnw="500" ff={FontFamily.PoppinsMedium} color={Colors.primary_500}>{days}</Text>
 
         <Text color={Colors.primary_500} fnw="500" ff={FontFamily.PoppinsMedium} mt={-4}>{t('offers.days')}</Text>
       </Box>

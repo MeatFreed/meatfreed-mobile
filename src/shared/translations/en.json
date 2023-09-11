@@ -188,7 +188,7 @@
     "warning": "Please enable push notifications on your device to receive messages from MeatFreed"
   },
   "raffle-details": {
-    "title": "Unfortunately you wre not selected to win",
+    "title": "You were not selected as a winner this time",
     "description": "There’s always next time...",
     "modal-title": "Raffle entered!",
     "modal-description": "We’ve added the raffle to your wallet!\nWe will let you know your results when the draw closes on {{date}}\nGood luck!"
