@@ -22,3 +22,6 @@ export * from './preferences/preferencesApi';
 
 export * from './brevo/brevoApi';
 export * from './brevo/models';
+
+export * from './notifications/adapters';
+export * from './notifications/models';
