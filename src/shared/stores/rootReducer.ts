@@ -5,6 +5,7 @@ import { brevoApi, googleApi, preferencesApi } from 'api';
 import { placeReducer } from './place';
 import { userReducer } from './user';
 import { reactionsReducer } from './reactions';
+import { notificationsReducer } from './notifications';
 
 const userPersistConfig = {
   key: 'user',
@@ -37,6 +38,7 @@ export const rootReducer = combineReducers({
   reactions: reactionsReducer,
   place: persistReducer(placePersistConfig, placeReducer),
   user: persistReducer(userPersistConfig, userReducer),
+  notifications: notificationsReducer,
   [brevoApi.reducerPath]: brevoApi.reducer,
   [preferencesApi.reducerPath]: preferencesApi.reducer,
   [googleApi.reducerPath]: googleApi.reducer,

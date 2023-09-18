@@ -1,12 +1,14 @@
 /* eslint-disable camelcase */
 import { OfferCard as Card, OfferType } from 'api';
 import { AnyType, getBasicDateFormat } from 'helpers';
-import { useGetOfferByUID } from 'hooks';
+import { useGetNotificationActions, useGetOfferByUID } from 'hooks';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { TouchableOpacity } from 'react-native';
 import Config from 'react-native-config';
 import FastImage from 'react-native-fast-image';
+import { useTypedSelector } from 'stores';
+import { notificationsSelectors } from 'stores/notifications';
 import styled from 'styled-components/native';
 import {
   Box, Colors, FontFamily, Images, Text,
@@ -23,10 +25,18 @@ const StyledImage = styled(FastImage as AnyType)`
   border-bottom-left-radius: 10px;
 `;
 
+const Badge = styled(Box)`
+  position: absolute;
+  right: 15px;
+  top: 15px;
+`;
+
 export const OfferCard: React.FC<OfferCardProps> = ({
   assets, offer_type, end_date, title, subtitle, photos, onPress, uuid,
 }) => {
   const { t } = useTranslation();
+
+  const notifications = useTypedSelector(notificationsSelectors.notifications);
 
   const source = assets?.[0]?.filename || `https://maps.googleapis.com/maps/api/place/photo?photo_reference=${photos?.[0].photo_reference}&maxwidth=500&key=${Config.GOOGLE_API_KEY}`;
 
@@ -34,10 +44,24 @@ export const OfferCard: React.FC<OfferCardProps> = ({
 
   const { isWonOffer } = useGetOfferByUID(uuid);
 
+  const { onReadNotification } = useGetNotificationActions();
+
+  const notification = notifications.find((notification) => notification.orderId === uuid);
+
+  const navigateToOfferDetails = () => {
+    onPress();
+
+    if (notification) {
+      onReadNotification(notification.uuid);
+    }
+  };
+
   return (
     <Box m={[0, 16, 10]}>
-      <TouchableOpacity onPress={onPress}>
-        <Box fd="row" br="10px" ai="center" bw="1px" bc={Colors.basic_400} bgc={Colors.basic_100}>
+      <TouchableOpacity onPress={navigateToOfferDetails}>
+        {notification && <Badge bgc={Colors.primary_500} h="10px" w="10px" br="100px" z={1000} />}
+
+        <Box fd="row" br="10px" ai="center" bw={notification ? '2px' : '1px'} bc={notification ? Colors.primary_500 : Colors.basic_400} bgc={Colors.basic_100}>
           <Box w="100px" h="100px">
             {source && (
               <StyledImage
@@ -48,7 +72,7 @@ export const OfferCard: React.FC<OfferCardProps> = ({
           </Box>
 
           <Box f={1} p={[10]} jc="center">
-            <Text fs={16} fnw="700" ff={FontFamily.PoppinsSemiMedium} color={Colors.basic_800}>{title}</Text>
+            <Text fs={16} mr={20} fnw="700" numberOfLines={2} ff={FontFamily.PoppinsSemiMedium} color={Colors.basic_800}>{title}</Text>
 
             {isWonOffer ? (
               <Box fd="row">

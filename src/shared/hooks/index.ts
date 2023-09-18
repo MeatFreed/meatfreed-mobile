@@ -34,3 +34,5 @@ export * from './useGetPosition';
 export * from './useGetRestaurantFavoriteActions';
 export * from './useGetRestaurantsFavorite';
 export * from './useBrevoContact';
+export * from './useGetNotifications';
+export * from './useGetNotificationActions';

@@ -11,6 +11,7 @@ import {
   useAnalytics,
   useBrevoContact,
   useDynamicLinkListener,
+  useGetNotifications,
   useGetPosition,
   useGetReactions,
   useGetUserByUserId,
@@ -30,6 +31,8 @@ export const RootNavigator: React.FC = () => {
   useBrevoContact();
 
   useGetReactions();
+
+  useGetNotifications();
 
   const { getPermissions, onClearWatch } = useGetPosition();
 
