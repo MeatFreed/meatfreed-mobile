@@ -37,5 +37,6 @@ export const Images = {
   SignUpConfirm: require('assets/images/sign-up-confirm.svg').default,
   MyWallet: require('assets/images/my-wallet.svg').default,
   Winner: require('assets/images/winner.svg').default,
+  Pending: require('assets/images/pending.svg').default,
   Wallet: require('assets/images/wallet.svg').default,
 };
