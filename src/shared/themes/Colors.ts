@@ -36,6 +36,7 @@ export const Colors = {
   /** PRIMARY  */
   primary_50: 'rgba(113, 83, 214, 0.1)',
   primary_100: '#F1ECFF',
+  primary_150: '#e2dbf6',
   primary_200: '#b8a9ea',
   primary_300: '#9b86e2',
   primary_400: '#7f64da',
