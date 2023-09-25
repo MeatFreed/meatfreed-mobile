@@ -12,8 +12,8 @@ Most importantly, there is no pressure. We welcome everybody with open arms, whe
 
 Check the build status of the project on various platforms:
 
--  **Android**: ![Android Build Status](https://build.appcenter.ms/v0.1/apps/876c2ab2-b3ed-4c68-9979-b34d933c6a3a/branches/master/badge)
--  **iOS**: ![iOS Build Status](https://build.appcenter.ms/v0.1/apps/cd0f3b6d-9d37-4f11-9c66-eeee0855d97b/branches/master/badge)
+-  **Android**: ![Android Build Status](https://build.appcenter.ms/v0.1/apps/10040478-5da2-45a6-80ca-af222204f3e2/branches/master/badge)
+-  **iOS**: ![iOS Build Status](https://build.appcenter.ms/v0.1/apps/a2f7a7a7-6646-4dea-9fdf-1a22c8088646/branches/master/badge)
 
 ## Environment Parameters
 
