@@ -8,6 +8,7 @@ import { isIOS } from 'helpers';
 import { useTypedSelector } from 'stores';
 import { notificationsSelectors } from 'stores/notifications';
 import { RouteService } from 'services';
+import { userSelectors } from 'stores/user';
 import { Routes } from './Routes';
 import { OffersTopTabNavigator } from './tabs/OffersTopTabNavigator';
 import { Stack, headerOptions } from './NavigationOptions';
@@ -34,6 +35,8 @@ export const OffersNavigator: React.FC = () => {
 
   const notifications = useTypedSelector(notificationsSelectors.notifications);
 
+  const userId = useTypedSelector(userSelectors.userId);
+
   return (
     <Stack.Navigator screenOptions={headerOptions}>
       <Stack.Screen
@@ -41,22 +44,29 @@ export const OffersNavigator: React.FC = () => {
         component={OffersTopTabNavigator}
         options={{
           headerTitle: t('screens.offers'),
-          headerRight: () => (
-            <Box fd="row" mr={isIOS ? Spaces.xs : -Spaces.xs}>
-              <IconButton onPress={() => RouteService.navigate(Routes.BOTTOM_TAB_BAR_NAVIGATOR, {
-                screen: Routes.MY_WALLET_NAVIGATOR,
-              })}
-              >
-                {!!notifications.length && (
-                  <Badge bw="1px" bc={Colors.basic_100} ai="center" jc="center" bgc={Colors.primary_500}>
-                    <Text fs={10} lh={14} fnw="bold" color={Colors.basic_100}>{notifications.length}</Text>
-                  </Badge>
-                )}
+          headerRight: () => {
+            if (userId) {
+              return (
+                <Box fd="row" mr={isIOS ? Spaces.xs : -Spaces.xs}>
+                  <IconButton
+                    onPress={() => RouteService.navigate(Routes.BOTTOM_TAB_BAR_NAVIGATOR, {
+                      screen: Routes.MY_WALLET_NAVIGATOR,
+                    })}
+                  >
+                    {!!notifications.length && (
+                      <Badge bw="1px" bc={Colors.basic_100} ai="center" jc="center" bgc={Colors.primary_500}>
+                        <Text fs={10} lh={14} fnw="bold" color={Colors.basic_100}>{notifications.length}</Text>
+                      </Badge>
+                    )}
 
-                <Images.Wallet />
-              </IconButton>
-            </Box>
-          ),
+                    <Images.Wallet />
+                  </IconButton>
+                </Box>
+              );
+            }
+
+            return null;
+          },
         }}
       />
     </Stack.Navigator>
