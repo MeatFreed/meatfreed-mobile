@@ -4,7 +4,6 @@ import {
   Box, Colors, Images, Spaces, Text,
 } from 'themes';
 import styled from 'styled-components/native';
-import { isIOS } from 'helpers';
 import { useTypedSelector } from 'stores';
 import { notificationsSelectors } from 'stores/notifications';
 import { RouteService } from 'services';
@@ -47,7 +46,7 @@ export const OffersNavigator: React.FC = () => {
           headerRight: () => {
             if (userId) {
               return (
-                <Box fd="row" mr={isIOS ? Spaces.xs : -Spaces.xs}>
+                <Box fd="row" mr={Spaces.xs}>
                   <IconButton
                     onPress={() => RouteService.navigate(Routes.BOTTOM_TAB_BAR_NAVIGATOR, {
                       screen: Routes.MY_WALLET_NAVIGATOR,
