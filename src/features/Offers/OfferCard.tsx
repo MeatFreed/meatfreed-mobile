@@ -1,6 +1,7 @@
 /* eslint-disable camelcase */
 import { OfferCard as Card, OfferType } from 'api';
 import dayjs from 'dayjs';
+import hexToRgba from 'hex-to-rgba';
 import { AnyType, parseToLocalTime } from 'helpers';
 import { useGetNotificationActions, useGetOfferByUID } from 'hooks';
 import React from 'react';
@@ -19,10 +20,11 @@ interface OfferCardProps extends Card {
 }
 
 const StyledImage = styled(FastImage as AnyType)`
-  width: 100%;
+  width: 98px;
   height: 100%;
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
+  background-color: ${hexToRgba(Colors.primary_500, 0.33)};
 `;
 
 const Badge = styled(Box)`
@@ -64,7 +66,7 @@ export const OfferCard: React.FC<OfferCardProps> = ({
         {notification && <Badge bgc={Colors.primary_500} h="10px" w="10px" br="100px" z={1000} />}
 
         <Box fd="row" br="10px" ai="center" bw={notification ? '2px' : '1px'} bc={notification ? Colors.primary_500 : Colors.basic_400} bgc={Colors.basic_100}>
-          <Box w="100px" h="100px">
+          <Box w="98px" h="100px">
             {source && (
               <StyledImage
                 source={{ uri: source }}
@@ -73,7 +75,7 @@ export const OfferCard: React.FC<OfferCardProps> = ({
             )}
           </Box>
 
-          <Box p={[10]} jc="center">
+          <Box f={1} p={[10]} jc="center">
             <Text fs={16} mr={20} fnw="700" numberOfLines={2} ff={FontFamily.PoppinsSemiMedium} color={Colors.basic_800}>{title}</Text>
 
             <Box w="auto">

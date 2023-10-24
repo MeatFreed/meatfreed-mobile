@@ -3,17 +3,31 @@ import { AnyAction, configureStore } from '@reduxjs/toolkit';
 import { persistStore } from 'redux-persist';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 import { brevoApi, googleApi, preferencesApi } from 'api';
+import { isDev, isIOS } from 'helpers';
 import { rootReducer } from './rootReducer';
 
-const createStore = () => configureStore({
-  reducer: rootReducer,
-  middleware: [
+const createStore = () => {
+  const defaultMiddleware = [
     thunk,
     googleApi.middleware,
     brevoApi.middleware,
     preferencesApi.middleware,
-  ],
-});
+  ];
+
+  if (isDev && isIOS) {
+    const createDebugger = require('redux-flipper').default;
+
+    return configureStore({
+      reducer: rootReducer,
+      middleware: [createDebugger(), ...defaultMiddleware],
+    });
+  }
+
+  return configureStore({
+    reducer: rootReducer,
+    middleware: defaultMiddleware,
+  });
+};
 
 export const store = createStore();
 

@@ -2,7 +2,9 @@ import React from 'react';
 import {
   Box, Colors, FontFamily, Text,
 } from 'themes';
-import { Loader, StatusBar } from 'ui';
+import {
+  Icon, Input, Loader, StatusBar,
+} from 'ui';
 import { FlashList } from '@shopify/flash-list';
 import { EmptyState, OfferCard } from 'features';
 import { useGetAvailableOffers, useGetOffersActions } from 'hooks';
@@ -12,13 +14,25 @@ import { FeaturedOffers } from './ui';
 
 export const AllRaffles: React.FC = () => {
   const { t } = useTranslation();
-  const { results } = useGetAvailableOffers(OfferType.RAFFLE);
+  const { results, searchQuery, setSearchQuery } = useGetAvailableOffers(OfferType.RAFFLE);
 
   const { onOfferDetails } = useGetOffersActions();
 
   return (
     <Box f={1} bgc={Colors.basic_150}>
       <StatusBar />
+
+      <Box p={[16, 16, 0]}>
+        <Input
+          value={searchQuery}
+          onChangeText={(value) => setSearchQuery(value)}
+          placeholder={t('placeholders.search-restaurant')}
+          fullWidth
+          onRightPress={() => setSearchQuery('')}
+          LeftIcon={<Icon name="search-outline" size={24} color={Colors.basic_700} />}
+          RightIcon={searchQuery ? <Icon name="close" size={24} color={Colors.basic_700} /> : null}
+        />
+      </Box>
 
       <FlashList
         data={results}

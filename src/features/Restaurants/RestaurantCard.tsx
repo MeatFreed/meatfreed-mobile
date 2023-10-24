@@ -46,7 +46,9 @@ export const RestaurantCard: React.FC<RestaurantCardProps> = ({
 
   const { content, placeDetails } = restaurant;
 
-  const { data: details } = useGetRestaurantByIDQuery(placeDetails?.place_id);
+  const { data: details } = useGetRestaurantByIDQuery(placeDetails?.place_id, {
+    skip: !placeDetails?.place_id,
+  });
 
   const { isAlreadyFavorite, onRestaurantFavorite } = useGetRestaurantFavoriteActions(restaurant);
 

@@ -11,12 +11,14 @@ target 'MeatFreed' do
 
   flags = get_default_flags()
 
+  flipper_config = ENV['NO_FLIPPER'] == "1" ? FlipperConfiguration.disabled : FlipperConfiguration.enabled
+
   use_react_native!(
     :path => config[:reactNativePath],
     :production => production,
-    :hermes_enabled => false,
+    :hermes_enabled => true,
     :fabric_enabled => false,
-    :flipper_configuration => false,
+    :flipper_configuration => flipper_config,
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 

@@ -18,7 +18,7 @@ export const FeaturedOffers: React.FC = () => {
 
   return (
     <Box h="150px">
-      <Text fnw="600" ff={FontFamily.PoppinsSemiMedium} m={[10, 16, 0]}>{t('offers.featured')}</Text>
+      <Text fnw="600" ff={FontFamily.PoppinsSemiMedium} m={[0, 16]}>{t('offers.featured')}</Text>
 
       <FlashList
         data={results}

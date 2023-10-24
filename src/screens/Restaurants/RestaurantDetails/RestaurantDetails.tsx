@@ -20,7 +20,9 @@ export const RestaurantDetails: React.FC = () => {
 
   const { restaurant } = useGetRestaurantByUID(contentId);
 
-  const { data: details } = useGetRestaurantByIDQuery(restaurant?.placeDetails?.place_id);
+  const { data: details } = useGetRestaurantByIDQuery(restaurant?.placeDetails?.place_id, {
+    skip: !restaurant?.placeDetails?.place_id,
+  });
 
   const { onRestaurantWebsite } = useGetRestaurantActions();
 

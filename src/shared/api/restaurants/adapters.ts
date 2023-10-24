@@ -3,6 +3,7 @@ import orderBy from 'lodash.orderby';
 import { isPointWithinRadius } from 'geolib';
 import { distanceBetween } from 'geofire-common';
 import { AnyType } from 'helpers';
+import { store } from 'stores';
 import { Restaurant } from './models';
 
 export const adaptRestaurants = (
@@ -41,7 +42,7 @@ export const adaptAvailableRestaurants = ({ data, location }: AvailableRestauran
 
     const inRadius = isPointWithinRadius({
       latitude: restaurantLocation.lat, longitude: restaurantLocation.lng,
-    }, location as AnyType, 30000);
+    }, location as AnyType, store.getState().settings.totalMilesConvertedToMeters);
 
     return inRadius;
   });

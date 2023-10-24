@@ -16,6 +16,7 @@ import {
   useGetReactions,
   useGetUserByUserId,
   useGoogle,
+  useGetSettings,
 } from 'hooks';
 import { AnyType, isDev } from 'helpers';
 import { Stack } from './NavigationOptions';
@@ -29,6 +30,8 @@ export const RootNavigator: React.FC = () => {
   const { onScreenView } = useAnalytics();
 
   useBrevoContact();
+
+  useGetSettings();
 
   useGetReactions();
 

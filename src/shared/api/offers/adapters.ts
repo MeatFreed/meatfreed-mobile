@@ -3,6 +3,7 @@ import { AnyType, isBetweenAvailableTime } from 'helpers';
 import { isPointWithinRadius } from 'geolib';
 import { LatLng } from 'react-native-maps';
 import orderBy from 'lodash.orderby';
+import { store } from 'stores';
 import { Offer, OfferCard } from './models';
 
 interface AvailableOffersParams {
@@ -40,7 +41,7 @@ export const adaptAvailableOffers = ({ userId, data, location }: AvailableOffers
 
     const inRadius = isPointWithinRadius({
       latitude: orderLocation.lat, longitude: orderLocation.lng,
-    }, location as AnyType, 30000);
+    }, location as AnyType, store.getState().settings.totalMilesConvertedToMeters);
 
     return isBetweenTime && inRadius && !offer?.userIds?.includes(userId);
   });
