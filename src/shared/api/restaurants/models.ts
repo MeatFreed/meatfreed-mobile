@@ -19,6 +19,7 @@ export interface RestaurantContent {
   content: string;
   schedule: string;
   description: string;
+  public: boolean;
   categories: string[];
   company?: string;
   assets: RestaurantAsset[];

@@ -20,7 +20,9 @@ export const useGetOfferByUID = (contentId?: string) => {
   const [userOffer, setUserOffer] = useState<UserOffer | null>(null);
   const [totalEntries, setTotalEntries] = useState(0);
 
-  const { data: details } = useGetRestaurantByIDQuery(offer?.placeDetails?.place_id);
+  const { data: details } = useGetRestaurantByIDQuery(offer?.placeDetails?.place_id, {
+    skip: !offer?.placeDetails?.place_id,
+  });
 
   const hasData = offer || details;
 

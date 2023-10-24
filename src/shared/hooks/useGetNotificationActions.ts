@@ -8,9 +8,7 @@ export const useGetNotificationActions = () => {
       await notificationCollection.doc(uuid).update({
         isRead: true,
       });
-    } catch (error) {
-      console.log(error);
-    }
+    } catch (error) { /** empty */ }
   };
 
   return {

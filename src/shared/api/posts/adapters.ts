@@ -4,6 +4,7 @@ import { isPointWithinRadius } from 'geolib';
 import { AnyType } from 'helpers';
 import orderBy from 'lodash.orderby';
 import { LatLng } from 'react-native-maps';
+import { store } from 'stores';
 import { Post, PostCard } from './models';
 
 interface AvailablePostsParams {
@@ -29,7 +30,7 @@ export const adaptAvailablePosts = ({ data, location }: AvailablePostsParams) =>
 
     const inRadius = isPointWithinRadius({
       latitude: postLocation.lat, longitude: postLocation.lng,
-    }, location as AnyType, 30000);
+    }, location as AnyType, store.getState().settings.totalMilesConvertedToMeters);
 
     return inRadius;
   });

@@ -68,7 +68,7 @@ const constructIconOffset = (withLabel?: boolean) => {
     return '12px';
   }
 
-  return '0px';
+  return '12px';
 };
 
 const constructBackgroundColor = (
