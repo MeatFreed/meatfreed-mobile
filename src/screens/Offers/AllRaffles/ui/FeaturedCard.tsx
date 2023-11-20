@@ -1,12 +1,11 @@
 /* eslint-disable camelcase */
 import { Offer, OfferType } from 'api';
 import dayjs from 'dayjs';
-import { AnyType, isImage } from 'helpers';
+import { AnyType, getGooglePhoto, isImage } from 'helpers';
 import { useGetOfferByUID } from 'hooks';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { Dimensions, TouchableOpacity } from 'react-native';
-import Config from 'react-native-config';
 import FastImage from 'react-native-fast-image';
 import Video from 'react-native-video';
 import styled from 'styled-components/native';
@@ -55,7 +54,7 @@ export const FeaturedCard: React.FC<FeaturedCardProps> = ({
 
   const { photos } = offer.placeDetails;
 
-  const source = assets?.[0]?.filename || `https://maps.googleapis.com/maps/api/place/photo?photo_reference=${photos?.[0].photo_reference}&maxwidth=500&key=${Config.GOOGLE_API_KEY}`;
+  const source = assets?.[0]?.filename || getGooglePhoto(photos?.[0]?.photo_reference);
 
   const isVideo = !isImage(source);
 
