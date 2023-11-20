@@ -1,7 +1,6 @@
-import { AnyType } from 'helpers';
+import { AnyType, getGooglePhoto } from 'helpers';
 import hexToRgba from 'hex-to-rgba';
 import React from 'react';
-import Config from 'react-native-config';
 import FastImage from 'react-native-fast-image';
 import styled from 'styled-components/native';
 import { Colors } from 'themes';
@@ -9,8 +8,6 @@ import { Colors } from 'themes';
 interface CarouselPhotoProps {
   reference: string;
 }
-
-const { GOOGLE_API_KEY } = Config;
 
 const StyledImage = styled(FastImage as AnyType)`
   width: 100%;
@@ -21,7 +18,7 @@ const StyledImage = styled(FastImage as AnyType)`
 `;
 
 export const CarouselPhoto: React.FC<CarouselPhotoProps> = ({ reference }) => {
-  const source = { uri: `https://maps.googleapis.com/maps/api/place/photo?photo_reference=${reference}&maxwidth=500&key=${GOOGLE_API_KEY}` };
+  const source = { uri: getGooglePhoto(reference) };
 
   return (
     <StyledImage source={source} resizeMode={FastImage.resizeMode.stretch} />

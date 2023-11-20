@@ -2,11 +2,10 @@
 import { OfferCard as Card, OfferType } from 'api';
 import dayjs from 'dayjs';
 import hexToRgba from 'hex-to-rgba';
-import { AnyType, parseToLocalTime } from 'helpers';
+import { AnyType, getGooglePhoto, parseToLocalTime } from 'helpers';
 import { useGetNotificationActions, useGetOfferByUID } from 'hooks';
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import Config from 'react-native-config';
 import FastImage from 'react-native-fast-image';
 import { useTypedSelector } from 'stores';
 import { notificationsSelectors } from 'stores/notifications';
@@ -34,15 +33,15 @@ const Badge = styled(Box)`
 `;
 
 export const OfferCard: React.FC<OfferCardProps> = ({
-  assets, offer_type, end_date, title, subtitle, photos, onPress, uuid,
+  assets, offer_type, end_date, title, subtitle, onPress, uuid,
 }) => {
   const notifications = useTypedSelector(notificationsSelectors.notifications);
 
-  const source = assets?.[0]?.filename || `https://maps.googleapis.com/maps/api/place/photo?photo_reference=${photos?.[0].photo_reference}&maxwidth=500&key=${Config.GOOGLE_API_KEY}`;
+  const { isWonOffer, isPendingOffer, photos } = useGetOfferByUID(uuid);
+
+  const source = assets?.[0]?.filename || getGooglePhoto(photos?.[0] as string);
 
   const isVoucher = offer_type === OfferType.VOUCHER;
-
-  const { isWonOffer, isPendingOffer } = useGetOfferByUID(uuid);
 
   const dayDiff = Math.max(parseToLocalTime(end_date).diff(dayjs(), 'days', true), 0);
 

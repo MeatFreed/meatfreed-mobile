@@ -1,7 +1,10 @@
 import { RestaurantOpeningHours } from 'api';
 import dayjs from 'dayjs';
+import Config from 'react-native-config';
 
 const currentDay = dayjs().day() - 1;
+
+const { GOOGLE_API_URL, GOOGLE_API_KEY } = Config;
 
 export const getDistanceToPlace = (distance: number) => {
   const isMeter = distance < 1;
@@ -40,3 +43,5 @@ export const getHours = (openingHours?: RestaurantOpeningHours) => {
 
   return '';
 };
+
+export const getGooglePhoto = (reference: string) => `${GOOGLE_API_URL}/maps/api/place/photo?maxwidth=500&photo_reference=${reference}&key=${GOOGLE_API_KEY}`;
