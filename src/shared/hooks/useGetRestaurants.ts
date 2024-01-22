@@ -39,7 +39,7 @@ export const useGetRestaurants = () => {
 
       const restaurants = (restaurantHits as AnyType)?.[0]?.hits as Restaurant[];
 
-      const filteredByPublic = restaurants.filter((restaurant) => restaurant.content.public);
+      const filteredByPublic = restaurants.filter((restaurant) => restaurant?.content?.public);
 
       setSearchedResults([...filteredByPublic]);
     } catch (error) { /** empty */ }
