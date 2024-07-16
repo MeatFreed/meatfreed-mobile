@@ -1,4 +1,4 @@
-package app.mobile.meatfreed.com.newarchitecture;
+package mobile.meatfreed.com.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import app.mobile.meatfreed.com.BuildConfig;
-import app.mobile.meatfreed.com.newarchitecture.components.MainComponentsRegistry;
-import app.mobile.meatfreed.com.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import mobile.meatfreed.com.BuildConfig;
+import mobile.meatfreed.com.newarchitecture.components.MainComponentsRegistry;
+import mobile.meatfreed.com.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

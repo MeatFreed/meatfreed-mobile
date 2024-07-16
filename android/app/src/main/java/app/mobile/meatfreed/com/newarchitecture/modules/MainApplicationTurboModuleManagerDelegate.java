@@ -1,4 +1,4 @@
-package app.mobile.meatfreed.com.newarchitecture.modules;
+package mobile.meatfreed.com.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

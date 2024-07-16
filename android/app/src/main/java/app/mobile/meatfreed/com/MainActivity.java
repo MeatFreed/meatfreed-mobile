@@ -1,4 +1,4 @@
-package app.mobile.meatfreed.com;
+package mobile.meatfreed.com;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
