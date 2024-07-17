@@ -1,4 +1,4 @@
-package app.mobile.meatfreed.com;
+package mobile.meatfreed.com;
 
 import android.annotation.SuppressLint;
 import androidx.annotation.NonNull;
