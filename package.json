@@ -139,7 +139,6 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-react-native": "4.1.0",
     "husky": "8.0.3",
-    "jetifier": "^2.0.0",
     "metro-react-native-babel-preset": "0.77.0",
     "prettier": "3.0.3",
     "react-native-svg-transformer": "1.5.0",
