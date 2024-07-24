@@ -61,7 +61,7 @@
     "lodash.sortby": "4.7.0",
     "lodash.throttle": "4.1.1",
     "lodash.uniqby": "4.7.0",
-    "metro-config": "0.70.3",
+    "@react-native/metro-config": "0.74.85",
     "nanoid": "5.0.2",
     "posthog-react-native": "2.8.1",
     "react": "18.2.0",
@@ -139,9 +139,9 @@
     "eslint-plugin-react-hooks": "4.6.0",
     "eslint-plugin-react-native": "4.1.0",
     "husky": "8.0.3",
-    "metro-react-native-babel-preset": "0.70.3",
+    "metro-react-native-babel-preset": "0.77.0",
     "prettier": "3.0.3",
-    "react-native-svg-transformer": "1.1.0",
+    "react-native-svg-transformer": "1.5.0",
     "typescript": "4.8.4"
   },
   "resolutions": {
