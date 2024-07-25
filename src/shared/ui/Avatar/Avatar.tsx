@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-no-useless-fragment */
 import { AnyType } from 'helpers';
 import React, { useState } from 'react';
 import FastImage from 'react-native-fast-image';
@@ -11,10 +10,10 @@ import { Icon, Loader } from 'ui';
 type AvatarSize = 'xs' | 's' | 'm' | 'l';
 
 interface AvatarProps {
-  uri?: string | null;
-  size?: AvatarSize;
-  onPress?: () => Promise<void>;
-  isLoading?: boolean;
+    uri?: string | null;
+    size?: AvatarSize;
+    onPress?: () => Promise<void>;
+    isLoading?: boolean;
 }
 
 const avatarSizes: Record<string, number> = {
@@ -44,55 +43,75 @@ const buttonRadiuses: Record<string, number> = {
 };
 
 const StyledImage = styled(FastImage as AnyType)<{ size: AvatarSize }>`
-  height: ${({ size }) => `${avatarSizes[size] - 3}px`};
-  width: ${({ size }) => `${avatarSizes[size] - 3}px`};
-  border-radius: ${({ size }) => `${avatarRadiuses[size]}px`};
-  background-color: ${Colors.primary_500};
-  ${{ shadow }};
+    height: ${({ size }) => `${avatarSizes[size] - 3}px`};
+    width: ${({ size }) => `${avatarSizes[size] - 3}px`};
+    border-radius: ${({ size }) => `${avatarRadiuses[size]}px`};
+    background-color: ${Colors.primary_500};
+    ${shadow};
 `;
 
 const StyledButton = styled.TouchableOpacity<{ br: string }>`
-  border-radius: ${({ br }) => br};
-  border: 1px solid ${Colors.primary_500};
+    border-radius: ${({ br }) => br};
+    border: 1px solid ${Colors.primary_500};
 `;
 
 const StyledView = styled(Box)`
-  position: absolute;
-  z-index: 9999;
-  bottom: 0px;
-  right: 0px;
+    position: absolute;
+    z-index: 9999;
+    bottom: 0px;
+    right: 0px;
 `;
 
 const StyledEdit = styled.TouchableOpacity<{ w: string, h: string, br: string }>`
-  width: ${({ w }) => w};
-  height: ${({ h }) => h};
-  border-radius: ${({ br }) => br};
-  background-color: ${Colors.primary_500};
-  border: 1px solid ${Colors.basic_100};
-  align-items: center;
-  justify-content: center;
-  ${{ shadow }};
+    width: ${({ w }) => w};
+    height: ${({ h }) => h};
+    border-radius: ${({ br }) => br};
+    background-color: ${Colors.primary_500};
+    border: 1px solid ${Colors.basic_100};
+    align-items: center;
+    justify-content: center;
+    ${shadow};
 `;
 
 const StyledWrapper = styled(Box)`
-  position: absolute;
+    position: absolute;
 `;
 
 export const Avatar: React.FC<AvatarProps> = ({
   size = 's',
   uri,
   onPress,
-  isLoading,
+  isLoading = false, // Ensure isLoading has a default boolean value
 }) => {
   const [isLoadingImage, setIsLoadingImage] = useState(true);
 
+  // Ensure isLoading is boolean
+  if (typeof isLoading !== 'boolean') {
+    console.error('isLoading prop must be a boolean');
+    isLoading = false; // Fallback to a safe default
+  }
+
   return (
     <Box>
-      <StyledButton disabled={uri} br={`${avatarRadiuses[size]}px`} onPress={onPress}>
-        <Box ai="center" jc="center" bgc={Colors.primary_500} w={`${avatarSizes[size]}px`} bw="2px" bc={Colors.basic_100} h={`${avatarSizes[size]}px`} br={`${avatarRadiuses[size]}px`}>
+      <StyledButton
+        disabled={!uri} // disable only if there is no uri
+        br={`${avatarRadiuses[size]}px`}
+        onPress={onPress}
+      >
+        <Box
+          ai="center"
+          jc="center"
+          bgc={Colors.primary_500}
+          w={`${avatarSizes[size]}px`}
+          bw="2px"
+          bc={Colors.basic_100}
+          h={`${avatarSizes[size]}px`}
+          br={`${avatarRadiuses[size]}px`}
+        >
           {isLoading ? (
             <Loader size="large" color={Colors.basic_100} />
           ) : (
+          // eslint-disable-next-line react/jsx-no-useless-fragment
             <>
               {uri ? (
                 <>
@@ -101,7 +120,6 @@ export const Avatar: React.FC<AvatarProps> = ({
                       <Loader size="large" color={Colors.purple} />
                     </StyledWrapper>
                   )}
-
                   <StyledImage
                     size={size}
                     source={{ uri }}
@@ -119,11 +137,16 @@ export const Avatar: React.FC<AvatarProps> = ({
       </StyledButton>
 
       {uri && (
-        <StyledView>
-          <StyledEdit w={`${buttonSizes[size]}px`} h={`${buttonSizes[size]}px`} br={`${buttonRadiuses[size]}px`} onPress={onPress}>
-            <Images.Pencil width={15} height={15} />
-          </StyledEdit>
-        </StyledView>
+      <StyledView>
+        <StyledEdit
+          w={`${buttonSizes[size]}px`}
+          h={`${buttonSizes[size]}px`}
+          br={`${buttonRadiuses[size]}px`}
+          onPress={onPress}
+        >
+          <Images.Pencil width={15} height={15} />
+        </StyledEdit>
+      </StyledView>
       )}
     </Box>
   );
